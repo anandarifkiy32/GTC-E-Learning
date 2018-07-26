@@ -8,7 +8,7 @@ class Homepage extends CI_Controller {
 		$this->load->model('Peserta_model');	
 	}
 
-	public function index()
+	function index()
 	{
 		$status = $this->session->userdata("status");
 		if($status == "login"){
@@ -19,12 +19,12 @@ class Homepage extends CI_Controller {
 
 	}
 
-	public function login(){
+	function login(){
 		$email = $this->input->post('username');
-		$password = md5($this->input->post('password'));
+		$password = $this->input->post('password');
 		$where = array(
 			'email' => $email,
-			'pass' => $password
+			'pass' => md5($password)
 		);
 		$cek = $this->Peserta_model->select_where($where)->num_rows();
 		if($cek > 0){
@@ -33,15 +33,14 @@ class Homepage extends CI_Controller {
 				'status' => "login"
 			);
 			$this->session->set_userdata($data_session);
-			redirect(base_url('dashboard'));
+			redirect(base_url());
 		}else{
 			echo 'gagal';
-			redirect(base_url("login"));
-
+			redirect(base_url("Homepage"));
 		}
 	}
 
-	public function register(){
+	function register(){
 		$email 			= $this->input->post('email');
 		$password 		= md5($this->input->post('password'));
 		$namalengkap	= $this->input->post('namalengkap');

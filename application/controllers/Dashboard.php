@@ -10,7 +10,16 @@ class Dashboard extends CI_Controller {
 
 	public function index()
 	{
-		echo 'sukses';
+		$status = $this->session->userdata("status");
+		if($status == "login"){
+			$content = array(
+				'title' => 'Dashboard',
+				'content' => 'Pages/Dashboard');
+			$this->load->view('Layout/Wrapper',$content);
+		}else{
+			redirect(base_url('Homepage'));
+		}
+		
 	}
 	function logout(){
 		$this->session->sess_destroy();

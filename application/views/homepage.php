@@ -65,26 +65,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<li><a href="" style="outline: none;" data-toggle="modal" data-target="#myModal">Sign in / Sign up</a></li>
 						<div class="modal fade" id="myModal" role="dialog">
 							<div class="modal-dialog">
-
 								<!-- Modal content-->
 								<div class="modal-content">
-
-									<div class="modal-body">
-										
+									<div class="modal-body">									
 										<div class="tab">
 											<button class="tablinks active" onclick="openCity(event, 'Login')">Sign in</button>
-											<button class="tablinks" onclick="openCity(event, 'Register')">Sign up</button>
-											
+											<button class="tablinks" onclick="openCity(event, 'Register')">Sign up</button>		
 										</div>
-
 										<div id="Login" class="tabcontent" style="display: block;">
-											<form action="<?php echo base_url().'homepage/login'?>" method="POST">
+											<form action="<?php echo base_url('homepage/login') ;?>" method="post">
 												<div class="form-group">
 													<label for="text">Username :</label>
 													<input type="text" class="form-control" id="email" name="username" required="">
 												</div>
 												<div class="form-group">
-													<label for="text">Password:</label>
+													<label for="text"><?php echo base_url('homepage/login'); ?></label>
 													<input type="password" class="form-control" id="pwd" name="password" required="">
 												</div>
 												<div class="checkbox">
