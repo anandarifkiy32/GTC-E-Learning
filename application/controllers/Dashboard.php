@@ -12,4 +12,8 @@ class Dashboard extends CI_Controller {
 	{
 		echo 'sukses';
 	}
+	function logout(){
+		$this->session->sess_destroy();
+		redirect(base_url());
+	}
 }
