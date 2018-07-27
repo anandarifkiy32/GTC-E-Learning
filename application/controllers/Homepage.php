@@ -17,6 +17,7 @@ class Homepage extends CI_Controller {
 			$this->load->view('homepage');
 		}
 
+
 	}
 
 	function login(){
@@ -32,10 +33,12 @@ class Homepage extends CI_Controller {
 			$data['session'] = $this->Peserta_model->select_where($where)->result();
 			foreach ($data['session'] as $s) {
 				$nama = $s->nama;
+				$email= $s->email;
 			}
 
 			$data_session = array(
 				'nama' 		=> $nama,
+				'email' 	=> $email,
 				'status' 	=> "login"
 			);
 
@@ -56,14 +59,23 @@ class Homepage extends CI_Controller {
 		$alamat			= $this->input->post('alamat');
 		$telepon		= $this->input->post('telepon');
 
+		$length = 150;
+		$characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+		$charactersLength = strlen($characters);
+		$unique_kode = '';
+		for ($i = 0; $i < $length; $i++) {
+			$unique_kode .= $characters[rand(0, $charactersLength - 1)];
+		}
+
 		$data = array(
-			'email' => $email,
-			'pass'	=> $password,
-			'nama'  => $namalengkap,
-			'gender'=> $gender,
-			'ttl'   => $tgl,
-			'alamat'=> $alamat,
-			'telp'  => $telepon
+			'email' 		=> $email,
+			'pass'			=> $password,
+			'nama'  		=> $namalengkap,
+			'gender'		=> $gender,
+			'ttl'   		=> $tgl,
+			'alamat'		=> $alamat,
+			'telp'  		=> $telepon,
+			'unique_code'	=> $unique_kode
 		);
 
 		$cek = $this->Peserta_model->input($data);
