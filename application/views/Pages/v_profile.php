@@ -29,7 +29,7 @@
             <table class="table table-bordered">
              <tr>
                <td rowspan="7" style="width: 40%">
-                 <center><img src="<?php echo base_url()?>assets/adm/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" height="250px" width="250px"></center>
+                 <center><img src="<?php echo base_url('assets/profile_photos/').$p->img ?>"  class="img-circle" alt="User Image" height="250px" width="250px"></center>
                </td>
                <td style="width:25%">
                  Nama 
