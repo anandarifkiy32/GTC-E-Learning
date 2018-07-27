@@ -27,16 +27,23 @@ class Homepage extends CI_Controller {
 			'pass' => md5($password)
 		);
 		$cek = $this->Peserta_model->select_where($where)->num_rows();
+		
 		if($cek > 0){
+			$data['session'] = $this->Peserta_model->select_where($where)->result();
+			foreach ($data['session'] as $s) {
+				$nama = $s->nama;
+			}
+
 			$data_session = array(
-				'nama'   => $username,
-				'status' => "login"
+				'nama' 		=> $nama,
+				'status' 	=> "login"
 			);
+
 			$this->session->set_userdata($data_session);
-			redirect(base_url());
+			redirect(base_url('dashboard'));
 		}else{
 			echo 'gagal';
-			redirect(base_url("Homepage"));
+			redirect(base_url());
 		}
 	}
 

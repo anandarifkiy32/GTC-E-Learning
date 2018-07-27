@@ -156,11 +156,11 @@ input[type="submit"],input[type="reset"],.w3l_team_grd,.agileits_w3layouts_featu
     background-color: #FFFFFF;
 }
 .navbar-header {
-    width: 30%;
+    width: 20%;
     float: left;
 }
 div#myNavbar {
-    width: 62%;
+    width: 71%;
     float: right;
 }
 
@@ -770,6 +770,7 @@ iframe {
     padding: 14px 16px;
     transition: 0.3s;
     font-size: 17px;
+    width: 50%;
 }
 
 /* Change background color of buttons on hover */

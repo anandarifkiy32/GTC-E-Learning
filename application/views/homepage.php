@@ -59,6 +59,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav link-effect">
 						<li class="active"><a href="index.html">Home</a></li>
+						<li><a href="#about" class="scroll">About</a></li>
 						<li><a href="#services" class="scroll">Services</a></li>
 						<li><a href="#gallery" class="scroll">gallery</a></li>
 						<li><a href="#contact" class="scroll">Contact</a></li>
@@ -75,11 +76,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										<div id="Login" class="tabcontent" style="display: block;">
 											<form action="<?php echo base_url('homepage/login') ;?>" method="post">
 												<div class="form-group">
-													<label for="text">Username :</label>
+													<label for="text">Email :</label>
 													<input type="text" class="form-control" id="email" name="username" required="">
 												</div>
 												<div class="form-group">
-													<label for="text"><?php echo base_url('homepage/login'); ?></label>
+													<label for="text">Password :</label>
 													<input type="password" class="form-control" id="pwd" name="password" required="">
 												</div>
 												<div class="checkbox">

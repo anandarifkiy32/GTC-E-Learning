@@ -7,7 +7,6 @@
 	<section class="content-header">
 		<h1>
 			Dashboard
-			<small>Control panel</small>
 		</h1>
 		<ol class="breadcrumb">
 			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -22,7 +21,7 @@
 			<div class="col-md-12">
 				<div class="box" style="border-top:none;">
 					<div class="box-header with-border" style="background-color: #666570;">
-						<center><h3 class="box-title" style="color:white;">Bordered Table</h3></center>
+						<center><h3 class="box-title" style="color:white;">Your Course</h3></center>
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
@@ -92,7 +91,7 @@
 			<div class="col-md-12">
 				<div class="box" style="border-top:none;">
 					<div class="box-header with-border" style="background-color: #666570;">
-						<center><h3 class="box-title" style="color:white;">Bordered Table</h3></center>
+						<center><h3 class="box-title" style="color:white;">Trending Course</h3></center>
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
@@ -162,7 +161,7 @@
 			<div class="col-md-12">
 				<div class="box" style="border-top:none;">
 					<div class="box-header with-border" style="background-color: #666570;">
-						<center><h3 class="box-title" style="color:white;">Bordered Table</h3></center>
+						<center><h3 class="box-title" style="color:white;">Recommended Course</h3></center>
 					</div>
 					<!-- /.box-header -->
 					<div class="box-body">
