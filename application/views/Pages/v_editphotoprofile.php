@@ -28,11 +28,10 @@
           <!-- /.box-header -->
           <!-- form start -->
           <?php foreach ($profile as $p) { ?>
-            <p>Upload Bukti Pembayaran</p>
             <?php echo form_open_multipart('dashboard/uploadphoto'); ?>
             <input type="hidden" class="form-control" name="kode" required="" value="<?php echo $p->id_peserta; ?>">
-            <input type="file" class="form-control" name="berkas" required="">
-            <input type="submit" class="tn btn-default border-radius custom-button" value="Upload">
+            <input type="file" name="berkas" required="" style="margin-left: 8px;margin-right: 8px">
+            <input type="submit" class="btn btn-primary btn-flat" style="margin:8px;" value="Upload">
             <?php } ?>
           </div>
           <!--/.col (right) -->

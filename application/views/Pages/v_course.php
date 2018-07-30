@@ -34,93 +34,15 @@
                 <div class="submateri">
                   Materi
                 </div>
-              </a>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-              <div class="submateri">
-                Materi
-              </div>
-
-              
+              </a>              
             </div>
-
           </div>
         </div>
       </div>
       <div class="col-md-9">
         <div class="box box-widget widget-user">
           <!-- Add the bg color to the header using any of the bg-* classes -->
-          <div class="widget-user-header bg-black" style="background: url('../assets/adm/dist/img/photo1.png') center center;">
+          <div class="widget-user-header bg-black" style="background: url('/gtclearning/assets/adm/dist/img/photo1.png') center center;">
             <h3 class="widget-user-username">Elizabeth Pierce</h3>
             <h5 class="widget-user-desc">Web Designer</h5>
           </div>

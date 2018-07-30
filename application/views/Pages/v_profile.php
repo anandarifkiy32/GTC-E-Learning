@@ -26,35 +26,38 @@
           <!-- /.box-header -->
           <div class="box-body">
             <?php foreach ($profile as $p) {?> 
-            <table class="table table-bordered">
-             <tr>
-               <td rowspan="7" style="width: 40%">
-                 <center><img src="<?php echo base_url('assets/profile_photos/').$p->img ?>"  class="img-circle" alt="User Image" height="250px" width="250px"></center>
-               </td>
-               <td style="width:25%">
-                 Nama 
-               </td>
-               <td>
-                 <?php echo $p->nama ?>
-               </td>
-             </tr>
-             <tr>
-               <td>
-                 Jenis Kelamin 
-               </td>
-               <td>
-                 <?php echo $p->gender ?>
-               </td>
-             </tr>
-             <tr>
-               <td>
-                 Tempat, Tanggal Lahir 
-               </td>
-               <td>
-                <?php echo $p->tempatlahir.", ".$p->ttl ?>
-               </td>
-             </tr>
-             <tr>
+              <table class="table table-bordered">
+               <tr>
+                 <td rowspan="7" style="width: 40%">
+                   <center><img src="<?php echo base_url('assets/profile_photos/').$p->img ?>"  class="img-circle" alt="User Image" height="250px" width="250px"></center>
+                 </td>
+                 <td style="width:25%">
+                   Nama 
+                 </td>
+                 <td>
+                   <?php echo $p->nama ?>
+                 </td>
+               </tr>
+               <tr>
+                 <td>
+                   Jenis Kelamin 
+                 </td>
+                 <td>
+                   <?php if($p->gender == "L"){echo "Laki-laki";}else{echo "Perempuan";} ?>
+                 </td>
+               </tr>
+               <tr>
+                 <td>
+                   Tempat, Tanggal Lahir 
+                 </td>
+                 <td>
+                  <?php 
+                  $date = date('j F Y', strtotime($p->ttl));
+                  echo $p->tempatlahir.", ".$date;
+                  ?>
+                </td>
+              </tr>
+              <tr>
                <td>
                  Alamat 
                </td>
@@ -88,7 +91,7 @@
              </tr>
              <tr>
               <td rowspan="3">
-                <center><a href="<?php echo base_url('dashboard/editphotoprofile/'.$p->unique_code)?>"><button class="btn btn-primary btn-flat">Edit Photo</button></a></center>
+                <center><a href="<?php echo base_url('dashboard/editphoto/'.$p->unique_code)?>"><button class="btn btn-primary btn-flat">Edit Photo</button></a></center>
               </td>
               <td>
                Alamat Kantor 
@@ -114,11 +117,21 @@
              <?php echo $p->biografi; ?>
            </td>
          </tr>
-       </table>
-       <?php } ?>
-     </div>
-   </div>
- </div>
+         <tr>
+           <td>
+           </td>
+           <td>
+
+           </td>
+           <td align="right">
+            <a href="<?php echo base_url('dashboard/editprofile/'.$p->unique_code)?>"><button class="btn btn-primary btn-flat">Edit Profile</button></a>
+          </td>
+        </tr>
+      </table>
+      <?php } ?>
+    </div>
+  </div>
+</div>
 </div>
 
 </section>

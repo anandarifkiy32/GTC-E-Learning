@@ -14,4 +14,9 @@ class Peserta_model extends CI_Model{
 		$this->db->update('peserta',$data);
 	}
 
+	function update($where,$data){
+		$this->db->where($where);
+		$this->db->update('peserta',$data);
+	}
+
 }

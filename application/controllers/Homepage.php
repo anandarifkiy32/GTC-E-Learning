@@ -16,8 +16,6 @@ class Homepage extends CI_Controller {
 		}else{
 			$this->load->view('homepage');
 		}
-
-
 	}
 
 	function login(){
@@ -32,14 +30,12 @@ class Homepage extends CI_Controller {
 		if($cek > 0){
 			$data['session'] = $this->Peserta_model->select_where($where)->result();
 			foreach ($data['session'] as $s) {
-				$nama = $s->nama;
-				$email= $s->email;
+				$unique_code	= $s->unique_code;
 			}
 
 			$data_session = array(
-				'nama' 		=> $nama,
-				'email' 	=> $email,
-				'status' 	=> "login"
+				'unique_code'	=> $unique_code,
+				'status' 		=> "login"
 			);
 
 			$this->session->set_userdata($data_session);
@@ -75,13 +71,12 @@ class Homepage extends CI_Controller {
 			'ttl'   		=> $tgl,
 			'alamat'		=> $alamat,
 			'telp'  		=> $telepon,
-			'unique_code'	=> $unique_kode
+			'unique_code'	=> $unique_kode,
+			'img'			=> 'default.jpg'
 		);
 
 		$cek = $this->Peserta_model->input($data);
-		if($cek){
-			echo 'dadi';
-		}
+			redirect(base_url());
 
 		// $where = array(
 		// 	'email' => $email

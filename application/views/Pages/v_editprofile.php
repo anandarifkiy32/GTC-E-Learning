@@ -28,11 +28,11 @@
           <!-- /.box-header -->
           <!-- form start -->
           <?php foreach ($profile as $p) { ?>
-            <form role="form" action="<?php echo base_url('dashboard/updateprofile/'.$p->id_peserta)?>">
+            <form role="form" action="<?php echo base_url('dashboard/updateprofile/'.$p->id_peserta)?>" method="post">
               <div class="box-body">
                 <div class="form-group">
                   <label for="nama">Nama</label>
-                  <input type="text" class="form-control" id="nama" name="name" value="<?php echo $p->nama ?>">
+                  <input type="text" class="form-control" id="nama" name="nama" value="<?php echo $p->nama ?>" required="">
                 </div>
                 <div class="form-group">
                   <label>Jenis Kelamin</label>
@@ -43,16 +43,18 @@
                 </div>
                 <div class="form-group">
                   <label for="Tempat Lahir">Tempat Lahir</label>
-                  <input type="text" class="form-control" id="Tempat Lahir" name="tempat_lahir" value="<?php echo $p->tempatlahir ?>">
+                  <input type="text" class="form-control" id="Tempat Lahir" name="tempatlahir" value="<?php echo $p->tempatlahir ?>" required="">
                 </div>
+
                 <div class="form-group">
-                  <label for="Tempat Lahir">Tanggal Lahir</label>
-                  <input type="date" class="form-control" id="Tempat Lahir" name="tempat_lahir" value="<?php echo $p->ttl ?>">
+                  <label for="dtp_input2">Tanggal Lahir :</label>
+                  <input class="form-control form_date date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" size="16" type="text" value="<?php echo $p->ttl ?>" readonly>
+                  <input type="hidden" id="dtp_input2" value="<?php echo $p->ttl ?>" name="ttl"/>
                 </div>
                 
                 <div class="form-group">
                   <label for="Alamat">Alamat</label>
-                  <textarea class="form-control" id="Alamat" name="alamat" rows="4"><?php echo $p->alamat ?></textarea>
+                  <textarea class="form-control" id="Alamat" name="alamat" rows="4" required=""><?php echo $p->alamat ?></textarea>
                 </div>
                 <div class="form-group">
                   <label for="E-mail">E-mail</label>
@@ -60,27 +62,23 @@
                 </div>
                 <div class="form-group">
                   <label for="Nomor Telepon">Nomor Telepon</label>
-                  <input type="text" class="form-control" id="Nomor Telepon" name="telepon" value="<?php echo $p->telp ?>">
+                  <input type="text" class="form-control" id="Nomor Telepon" name="telepon" value="<?php echo $p->telp ?>" required="">
                 </div>
                 <div class="form-group">
                   <label for="Nama Kantor">Nama Kantor</label>
-                  <input type="text" class="form-control" id="Nama Kantor" name="nama_kantor" value="<?php echo $p->kantor ?>">
+                  <input type="text" class="form-control" id="Nama Kantor" name="nama_kantor" value="<?php echo $p->kantor ?>" required="">
                 </div>
                 <div class="form-group">
                   <label for="Alamat Kantor">Alamat Kantor</label>
-                  <textarea class="form-control" id="Alamat Kantor" name="alamat_kantor" rows="4"><?php echo $p->alamat_kantor ?></textarea>
+                  <textarea class="form-control" id="Alamat Kantor" name="alamat_kantor" rows="4" required=""><?php echo $p->alamat_kantor ?></textarea>
                 </div>
                 <div class="form-group">
                   <label for="Nomor Telepon Kantor">Nomor Telepon Kantor</label>
-                  <input type="text" class="form-control" id="Nomor Telepon Kantor" name="telepon_kantor" value="<?php echo $p->telp_kantor ?>">
+                  <input type="text" class="form-control" id="Nomor Telepon Kantor" name="telepon_kantor" value="<?php echo $p->telp_kantor ?>" required="">
                 </div>
                 <div class="form-group">
                   <label for="Biografi">Biografi</label>
-                  <textarea class="form-control" id="Biografi" name="biografi" rows="4"><?php echo $p->biografi ?></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputFile">Foto</label>
-                  <input type="file" id="exampleInputFile" name="foto">
+                  <textarea class="form-control" id="Biografi" name="biografi" rows="4" required=""><?php echo $p->biografi ?></textarea>
                 </div>
                 <div class="box-footer">
                   <button type="submit" class="btn btn-primary">Submit</button>
