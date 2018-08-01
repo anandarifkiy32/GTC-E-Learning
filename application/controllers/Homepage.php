@@ -18,7 +18,7 @@ class Homepage extends CI_Controller {
 		if($this->session->userdata('status') == 'login'){
 			$data = array(
 				'profile'	=> $this->Peserta_model->select_where($where)->result(),
-				'banner'		=> 'Welcome',
+				'banner'	=> 'Welcome',
 				'course'	=> $this->Modul_model->select()->result(),
 				'content'	=> 'client/pages/v_dashboard'
 			);
@@ -26,6 +26,20 @@ class Homepage extends CI_Controller {
 		}else{
 			$data['course'] = $this->Modul_model->select()->result();
 			$this->load->view('client/pages/v_homepage',$data);
+		}
+		
+	}
+
+	function contact(){
+		$where = array(
+			'unique_code' => $this->session->userdata('unique_code')
+		);
+		if($this->session->userdata('status') == 'login'){
+			$data['profile'] = $this->Peserta_model->select_where($where)->result();
+			$this->load->view('client/pages/v_contact',$data);
+		}else{
+			$data['profile'] = null;
+			$this->load->view('client/pages/v_contact',$data);
 		}
 		
 	}

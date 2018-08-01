@@ -55,10 +55,10 @@
           <ul class="main-menu nav navbar-nav navbar-right">
             <li><a href="<?php echo base_url() ?>">Home</a></li>
             <li><a href="#">About</a></li>
-            <li><a href="course.html">Courses</a></li>
+            <li><a href="<?php echo base_url('homepage/coursecatalog/') ?>">Courses</a></li>
 
-            <li><a href="contact.html">Contact</a></li>
-            <li class="dropdown"><a href="<?php if(!$profile){echo base_url();} ?>" <?php if($profile){ ?> class="dropdown-toggle" data-toggle="dropdown" <?php } ?>>              
+            <li><a href="<?php echo base_url('homepage/contact/')?>">Contact</a></li>
+            <li class="dropdown"><a href="<?php if(!$profile){echo base_url();}else{echo "";} ?>" <?php if($profile){ ?> class="dropdown-toggle" data-toggle="dropdown" <?php } ?>>              
               <?php 
               if($profile){
                 foreach ($profile as $p) {
@@ -72,7 +72,6 @@
                 <li><a href="#">Profile</a></li>
                 <li><a href="<?php echo base_url('homepage/logout')?>">Logout</a></li>
               </ul>
-
             </li>
           </ul>
           
