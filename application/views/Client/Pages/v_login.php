@@ -53,7 +53,7 @@
 				<!-- Navigation -->
 				<nav id="nav">
 					<ul class="main-menu nav navbar-nav navbar-right">
-						<li><a href="index.html">Home</a></li>
+						<li><a href="<?php echo base_url() ?>">Home</a></li>
 						<li><a href="#">About</a></li>
 						<li><a href="course.html">Courses</a></li>
 						

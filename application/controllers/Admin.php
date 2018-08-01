@@ -34,16 +34,18 @@ class Admin extends CI_Controller {
 			if($cek > 0){
 				$data['session'] = $this->Trainer_model->select_where($where)->result();
 				foreach ($data['session'] as $s) {
-					$nama = $s->nama;
+					$nama		= $s->nama;
+					$id			= $s->id_trainer;
 				}
 
 				$data_session = array(
+					'trainer'	=> $id,
 					'nama' 		=> $nama,
 					'status' 	=> "login2"
 				);
 
 				$this->session->set_userdata($data_session);
-				redirect(base_url('Trainer'));
+				redirect(base_url('trainer'));
 			}
 		}elseif ($level == "Company") {
 			$cek = $this->Company_model->select_where($where)->num_rows();
@@ -59,7 +61,7 @@ class Admin extends CI_Controller {
 				);
 
 				$this->session->set_userdata($data_session);
-				redirect(base_url('Company'));
+				redirect(base_url('company'));
 			}
 		}else{
 			echo 'gagal';

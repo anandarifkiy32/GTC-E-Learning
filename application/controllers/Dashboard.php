@@ -183,7 +183,7 @@ class Dashboard extends CI_Controller {
 			'telp' 				=> $this->input->post('telepon'),
 			'kantor' 			=> $this->input->post('nama_kantor'),
 			'alamat_kantor' 	=> $this->input->post('alamat_kantor'),
-			'telp_kantor' 	=> $this->input->post('telepon_kantor'),
+			'telp_kantor' 		=> $this->input->post('telepon_kantor'),
 			'biografi' 			=> $this->input->post('biografi')
 		);
 

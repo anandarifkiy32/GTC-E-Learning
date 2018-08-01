@@ -618,7 +618,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 }
 
 .course .course-details {
-	margin-top: 20px;
+	margin-top: 10px;
 	padding-top: 10px;
 	border-top: 1px solid #EBEBEB;
 }

@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-  <title>HTML Education Template</title>
+  <title>GTC EduSite</title>
 
   <!-- Google font -->
   <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
@@ -53,7 +53,7 @@
         <!-- Navigation -->
         <nav id="nav">
           <ul class="main-menu nav navbar-nav navbar-right">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="<?php echo base_url() ?>">Home</a></li>
             <li><a href="#">About</a></li>
             <li><a href="course.html">Courses</a></li>
 
@@ -67,7 +67,8 @@
               }else{
                 echo 'Login';
               }
-              ?></a><ul class="dropdown-menu">
+              ?></a>
+              <ul class="dropdown-menu">
                 <li><a href="#">Profile</a></li>
                 <li><a href="<?php echo base_url('homepage/logout')?>">Logout</a></li>
               </ul>

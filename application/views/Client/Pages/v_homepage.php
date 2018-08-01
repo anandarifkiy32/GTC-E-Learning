@@ -127,11 +127,11 @@
 								<!-- single course -->
 								<div class="col-md-3 col-sm-6 col-xs-6">
 									<div class="course">
-										<a href="<?php echo base_url('homepage/detailcourse/'.$c->id_modul) ?>" class="course-img">
+										<a href="<?php echo base_url('homepage/detailcourse/'.$c->slug) ?>" class="course-img">
 											<img src="<?php echo base_url('assets/modul/'.$c->img)?>" alt="">
 											<i class="course-link-icon fa fa-link"></i>
 										</a>
-										<a class="course-title" href="<?php echo base_url('homepage/detailcourse/'.$c->id_modul) ?>"><?php echo $c->nama ?></a>
+										<a class="course-title" href="<?php echo base_url('homepage/detailcourse/'.$c->slug) ?>"><?php echo $c->nama ?></a>
 										<div class="course-details">
 											<span class="course-category">Business</span>
 											<span class="course-price course-free">Free</span>
@@ -143,7 +143,7 @@
 						</div>
 						<div class="row">
 							<div class="center-btn">
-								<a class="main-button icon-button" href="course.html">More Courses</a>
+								<a class="main-button icon-button" href="<?php echo base_url('homepage/coursecatalog') ?>">More Courses</a>
 							</div>
 						</div>
 					</div>

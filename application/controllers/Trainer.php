@@ -5,7 +5,7 @@ class Trainer extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
-		$this->load->model('Trainer_model');
+		$this->load->model(array('Trainer_model','Modul_model'));
 
 		$status = $this->session->userdata("status");
 		if($status !== "login2"){
@@ -15,8 +15,13 @@ class Trainer extends CI_Controller {
 
 	public function index()
 	{
+		$where = array(
+				'id_trainer' => $this->session->userdata('trainer')
+			);
+		
 		$content = array(
 			'title' => 'Dashboard',
+			'course'=> $this->Modul_model->select_where($where)->result(),
 			'content' => 'Admin/Trainer/Pages/v_dashboard');
 		$this->load->view('Admin/Trainer/Layout/Wrapper',$content);
 

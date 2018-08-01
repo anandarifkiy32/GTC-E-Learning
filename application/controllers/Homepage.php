@@ -7,6 +7,7 @@ class Homepage extends CI_Controller {
 		parent::__construct();
 		$this->load->model(array('Peserta_model','Modul_model'));	
 		$this->load->helper(array('form','url','file'));
+		$this->load->library('pagination');
 	}
 
 	function index()
@@ -71,14 +72,11 @@ class Homepage extends CI_Controller {
 			foreach ($data['session'] as $s) {
 				$unique_code	= $s->unique_code;
 			}
-
 			$data_session = array(
 				'unique_code'	=> $unique_code,
 				'status' 		=> "login"
 			);
-
 			$this->session->set_userdata($data_session);
-			
 		}
 		redirect(base_url('homepage/startcourse/'.$id_modul));
 	}
@@ -124,7 +122,7 @@ class Homepage extends CI_Controller {
 		redirect(base_url());
 	}
 
-	function detailcourse($id_modul){
+	function detailcourse($slug){
 
 		$where = array(
 			'unique_code' => $this->session->userdata('unique_code')
@@ -132,15 +130,21 @@ class Homepage extends CI_Controller {
 		$profile = $this->Peserta_model->select_where($where)->result();
 
 		$where = array(
-			'id_modul'	=> $id_modul);
+			'slug'    => $slug);
+
 
 		$banner = $this->Modul_model->select_where($where)->row('nama');
 		$modul = $this->Modul_model->select_where($where)->result();
+		$category = $this->Modul_model->select_where($where)->row('category');
+
+		$relatedcourse= $this->Modul_model->relatedcourse($category)->result();
+
 		$data = array(
-			'profile'	=> $profile,
-			'banner'	=> $banner,
-			'modul'		=> $modul,
-			'content'	=> 'client/pages/v_detailcourse'
+			'profile'    => $profile,
+			'banner'    => $banner,
+			'modul'        => $modul,
+			'related'   => $relatedcourse,
+			'content'    => 'client/pages/v_detailcourse'
 		);
 		$this->load->view('client/layout/wrapper',$data);
 	}
@@ -149,15 +153,15 @@ class Homepage extends CI_Controller {
 		$this->load->view('client/pages/v_register');
 	}
 
-	function startcourse($id_modul){
+	function startcourse($slug){
 		if($this->session->userdata('status') == 'login'){
 			$where = array(
 				'unique_code'	=> $this->session->userdata('unique_code'));
 			$profile = $this->Peserta_model->select_where($where)->result();
 			$where = array(
-				'id_modul'	=> $id_modul);
+				'slug'	=> $slug);
 			$banner = $this->Modul_model->select_where($where)->row('nama');
-			$course = $this->Modul_model->selectcourse($id_modul)->result();
+			$course = $this->Modul_model->selectcourse($slug)->result();
 			$data = array(
 				'content'	=> 'client/pages/v_course',
 				'course'	=> $course,
@@ -169,4 +173,80 @@ class Homepage extends CI_Controller {
 			$this->load->view('client/pages/v_login');
 		}
 	}
+
+	function tes(){
+		echo url_title('Title of Modul', 'dash', true);
+	}
+
+	function coursecatalog(){
+		$limit_per_page = 4;
+		if($this->uri->segment(3) == 0){
+			$start_index = 0;
+		}else{
+			$start_index = $this->uri->segment(3) * 4 - 4;
+		}
+		$total_records = $this->Modul_model->countrow();
+		if ($total_records > 0) 
+		{
+            // get current page records
+			$results = $this->Modul_model->get_current_page_records($limit_per_page, $start_index)->result();
+
+			$config['base_url'] = base_url() . 'homepage/coursecatalog';
+			$config['total_rows'] = $total_records;
+			$config['per_page'] = $limit_per_page;
+			$config["uri_segment"] = 3;
+			$config['num_links'] = 2;
+			$config['use_page_numbers'] = TRUE;
+			$config['reuse_query_string'] = TRUE;
+
+			$config['full_tag_open'] = '<nav><ul class="pagination" style="margin-top:0px">';
+
+			$config['full_tag_close'] = '</ul></nav>';
+
+			$config['first_link'] = 'First';
+			$config['first_tag_open'] = '<li>';
+			$config['first_tag_close'] = '</li>';
+
+			$config['last_link'] = 'Last';
+			$config['last_tag_open'] = '<li>';
+			$config['last_tag_close'] = '</li>';
+
+			$config['next_link'] = 'Next';
+			$config['next_tag_open'] = '<li>';
+			$config['next_tag_close'] = '</li>';
+
+			$config['prev_link'] = 'Prev';
+			$config['prev_tag_open'] = '<li>';
+			$config['prev_tag_close'] = '</li>';
+
+			$config['cur_tag_open'] = '<li class="active"><a style="border-color:#ff791f;background-color:#ff791f;">';
+			$config['cur_tag_close'] = '</a></li>';
+
+			$config['num_tag_open'] = '<li>';
+			$config['num_tag_close'] = '</li>';
+
+			$this->pagination->initialize($config);
+            // build paging links
+			$links = $this->pagination->create_links();
+		}
+
+
+		$where = array(
+			'unique_code' => $this->session->userdata('unique_code')
+		);
+		$profile = $this->Peserta_model->select_where($where)->result();
+		$category = $this->Modul_model->selectcategory()->result();
+		$recentpost= $this->Modul_model->recentpost($category)->result();
+		$data = array(
+			'profile'	=> $profile,
+			'banner'	=> 'Course Catalog',
+			'results'	=> $results,
+			'links'		=> $links,
+			'category'	=> $category,
+			'recentpost'=> $recentpost,
+			'content'	=> 'client/pages/v_coursecatalog'
+		);
+		$this->load->view('client/layout/wrapper',$data);
+	}
 }
+

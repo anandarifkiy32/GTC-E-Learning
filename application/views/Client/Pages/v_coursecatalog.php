@@ -1,42 +1,94 @@
+<div id="blog" class="section">
 
-<!-- Left side column. contains the logo and sidebar -->
+	<!-- container -->
+	<div class="container">
 
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-	<!-- Content Header (Page header) -->
-	<section class="content-header">
-		<h1>
-			Dashboard
-			<small>Course Catalog</small>
-		</h1>
-		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active">Course Catalog</li>
-		</ol>
-	</section>
 
-	<!-- Main content -->
-	<section class="content">
-		<!-- Small boxes (Stat box) -->
+		<!-- row -->
 		<div class="row">
-			<?php foreach ($modul as $m) { ?>
-			<div class="col-md-3">
-				<div class="box box-widget widget-user">
-					<!-- Add the bg color to the header using any of the bg-* classes -->
-					<div class="widget-user-header bg-black" style="background: url('../assets/modul/<?php echo $m->img; ?>') center center;background-repeat: no-repeat;background-size: 100% 100%;">
-						<h3 class="widget-user-username"><?php echo $m->nama ?></h3>
-					</div>
 
-					<div class="box-footer">
-						<a href="<?php echo base_url('dashboard/detailcourse/'.$m->id_modul)?>"><button class="btn"style="width: 100%;background-color: #1973B4;color: white;border-radius: 0px">Detail</button></a>
+			<!-- main blog -->
+			<div id="main" class="col-md-9">
+
+				<!-- row -->
+				<div class="row">
+					<?php foreach ($results as $data) { ?>
+						<!-- single blog -->
+						<div class="col-md-6">
+							<div class="single-blog">
+								<div class="blog-img">
+									<a href="<?php echo base_url('homepage/detailcourse/'.$data->slug) ?>">
+										<img src="<?php echo base_url().'assets/modul/'.$data->img ?>" alt="">
+									</a>
+								</div>
+								<h4><a href="<?php echo base_url('homepage/detailcourse/'.$data->slug) ?>"><?php echo $data->namamodul ?></a></h4>
+								<div class="blog-meta">
+									<span class="blog-meta-author">By: <a href="#"><?php echo $data->namatrainer ?></a></span>
+								</div>
+							</div>
+						</div>
+						<!-- /single blog -->
+						<?php } ?>
+						<!-- single blog -->
+						<!-- /single blog -->
+
 					</div>
+					<!-- /row -->
+
+					<!-- row -->
+					<div class="row">
+
+						<!-- pagination -->
+						<br>
+						<center>
+							<?php if (isset($links)) {
+								echo $links;
+							} ?>
+						</center>
+						<!-- pagination -->
+
+					</div>
+					<!-- /row -->
 				</div>
-				<!-- /.widget-user -->
-			</div>
-			<?php } ?>
-		</div>
+				<!-- /main blog -->
 
-	</section>
-	<!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
+				<!-- aside blog -->
+				<div id="aside" class="col-md-3">
+
+					<!-- category widget -->
+					<div class="widget category-widget">
+						<h3>Categories</h3>
+						<?php foreach ($category as $ct) { ?>
+						<a class="category" href="#"><?php echo $ct->category; ?> <span><?php echo $ct->jumlah; ?></span></a>
+						<?php } ?>
+					</div>
+					<!-- /category widget -->
+
+					<!-- posts widget -->
+					<div class="widget posts-widget">
+						<h3>Recents Posts</h3>
+
+						<?php foreach ($recentpost as $rp) { ?>
+						<div class="single-post">
+							<a class="single-post-img" href="<?php echo base_url('homepage/detailcourse/'.$rp->slug) ?>">
+								<img src="<?php echo base_url('assets/modul/'.$rp->img)?>" alt="">
+							</a>
+							<a href="<?php echo base_url('homepage/detailcourse/'.$rp->slug) ?>"><?php echo $rp->namamodul; ?></a>
+							<p><small>By : <?php echo $rp->namatrainer; ?></small></p>
+						</div>
+						<?php } ?>
+
+					</div>
+					<!-- /posts widget -->
+
+
+				</div>
+				<!-- /aside blog -->
+
+			</div>
+			<!-- row -->
+
+		</div>
+		<!-- container -->
+
+	</div>
