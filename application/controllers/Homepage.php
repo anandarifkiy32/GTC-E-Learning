@@ -7,7 +7,7 @@ class Homepage extends CI_Controller {
 		parent::__construct();
 		$this->load->model(array('Peserta_model','Modul_model'));	
 		$this->load->helper(array('form','url','file'));
-		$this->load->library('pagination');
+		$this->load->library(array('pagination'));
 	}
 
 	function index()
@@ -262,5 +262,46 @@ class Homepage extends CI_Controller {
 		);
 		$this->load->view('client/layout/wrapper',$data);
 	}
+
+	 public function send() {
+
+            
+            // Storing submitted values
+            $sender_email = $this->input->post('user_email');
+            $user_password = $this->input->post('user_password');
+            $receiver_email = $this->input->post('to_email');
+            $username = $this->input->post('name');
+            $subject = $this->input->post('subject');
+            $message = $this->input->post('message');
+            
+            // Configure email library
+            $config['protocol'] = 'smtp';
+            $config['smtp_host'] = 'ssl://smtp.googlemail.com';
+            $config['smtp_port'] = 465;
+            $config['smtp_user'] = 'ananda.rifkiy33@gmail.com';
+            $config['smtp_pass'] = 'helloworld:)';
+
+            // Load email library and passing configured values to email library 
+            $this->load->library('email', $config);
+            $this->email->set_newline("\r\n");
+            
+            // Sender email address
+            $this->email->from('ananda.rifkiy33@gmail.com', 'Ananda Rifkiy Hasan');
+            // Receiver email address
+            $this->email->to('ananda.rifkiy32@gmail.com');
+            // Subject of email
+            $this->email->subject(':)');
+            // Message in email
+            $this->email->message('bismillah');
+
+            if ($this->email->send()) {
+                echo '1';
+            } else {
+                echo '0';
+            }
+    
+        
+    }
+
 }
 

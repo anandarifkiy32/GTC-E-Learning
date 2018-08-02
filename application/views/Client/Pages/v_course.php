@@ -11,7 +11,7 @@
         foreach ($course as $c) { ?>
 
           <div id="tab<?php echo $num; ?>" class="tab-pane fade in blog-post <?php if($num == 0){echo 'active';} ?>">
-            <div style="position:relative;height:0;padding-bottom:56.26%"><iframe src="<?php echo $c->konten ?>" style="position:absolute;width:100%;height:100%;left:0" width="640" height="360" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+            <div style="position:relative;height:0;padding-bottom:56.26%"><iframe src="<?php echo $c->konten ?>?autoplay=0&showinfo=0&rel=0" style="position:absolute;width:100%;height:100%;left:0" width="640" height="360" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
             <br><br>
             <p><?php echo $c->description; ?></p>
 
@@ -26,7 +26,7 @@
           <!-- category widget -->
           <div class="widget category-widget">
             <h3>Your Total Score</h3>
-            <i class="fa fa-user"></i>&nbsp;&nbsp;Koentomo
+            <i class="fa fa-user"></i>&nbsp;&nbsp;<?php foreach ($profile as $p) {echo $p->nama; } ?>
 
             <h1 style="color:green;">500</h1>
           </div>

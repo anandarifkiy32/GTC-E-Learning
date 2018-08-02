@@ -75,5 +75,10 @@ class Modul_model extends CI_Model
 		return $this->db->get('modul');
 	}
 
+	function update($where,$data){
+		$this->db->where($where);
+		$this->db->update('modul',$data);
+	}
+
 
 }
