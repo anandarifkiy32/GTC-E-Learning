@@ -24,15 +24,26 @@ class Modul_model extends CI_Model
 		return $this->db->get();
 	}
 
-	function countrow(){
+	function countrow($where){
+		if($where == 'all'){
+			$where = '';
+		}else{
+			$this->db->where('category',$where);
+		}
+		
 		return $this->db->get('modul')->num_rows();
 	}
 
-	function get_current_page_records($limit, $start) 
+	function get_current_page_records($where,$limit, $start) 
 	{
 		$this->db->limit($limit, $start);
 		$this->db->select('trainer.nama as namatrainer, modul.nama as namamodul, modul.img as img, modul.slug as slug');
 		$this->db->order_by('id_modul', 'DESC');
+		if($where == 'all'){
+			$where = '';
+		}else{
+			$this->db->where('modul.category',$where);	
+		}
 		$this->db->where('modul.id_trainer = trainer.id_trainer');
 		$this->db->from('trainer, modul');
 		return $this->db->get();
@@ -52,6 +63,8 @@ class Modul_model extends CI_Model
 		$this->db->order_by('id_modul', 'DESC');
 		$this->db->limit(4);
 		$this->db->from('trainer, modul');
+		$this->db->where('trainer.id_trainer = modul.id_trainer');
+
 		return $this->db->get('');
 	}
 

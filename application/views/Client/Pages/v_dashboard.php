@@ -28,7 +28,7 @@
 			</div>
 			<div class="row">
 				<div class="center-btn">
-					<a class="main-button icon-button" href="<?php echo base_url('homepage/coursecatalog/') ?>">More Courses</a>
+					<a class="main-button icon-button" href="<?php echo base_url('homepage/coursecatalog/all/') ?>">More Courses</a>
 				</div>
 			</div>
 		</div>

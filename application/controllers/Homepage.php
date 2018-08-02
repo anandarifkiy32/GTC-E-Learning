@@ -27,7 +27,6 @@ class Homepage extends CI_Controller {
 			$data['course'] = $this->Modul_model->select()->result();
 			$this->load->view('client/pages/v_homepage',$data);
 		}
-		
 	}
 
 	function contact(){
@@ -193,22 +192,23 @@ class Homepage extends CI_Controller {
 	}
 
 	function coursecatalog(){
+		$category = $this->uri->segment(3);
 		$limit_per_page = 4;
-		if($this->uri->segment(3) == 0){
+		if($this->uri->segment(4) == 0){
 			$start_index = 0;
 		}else{
-			$start_index = $this->uri->segment(3) * 4 - 4;
+			$start_index = $this->uri->segment(4) * 4 - 4;
 		}
-		$total_records = $this->Modul_model->countrow();
+		$total_records = $this->Modul_model->countrow($category);
 		if ($total_records > 0) 
 		{
             // get current page records
-			$results = $this->Modul_model->get_current_page_records($limit_per_page, $start_index)->result();
+			$results = $this->Modul_model->get_current_page_records($category,$limit_per_page, $start_index)->result();
 
-			$config['base_url'] = base_url() . 'homepage/coursecatalog';
+			$config['base_url'] = base_url() . 'homepage/coursecatalog/'.$category;
 			$config['total_rows'] = $total_records;
 			$config['per_page'] = $limit_per_page;
-			$config["uri_segment"] = 3;
+			$config["uri_segment"] = 4;
 			$config['num_links'] = 2;
 			$config['use_page_numbers'] = TRUE;
 			$config['reuse_query_string'] = TRUE;

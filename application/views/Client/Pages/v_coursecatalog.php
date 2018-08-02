@@ -58,8 +58,9 @@
 					<!-- category widget -->
 					<div class="widget category-widget">
 						<h3>Categories</h3>
+						<a class="category" href="<?php echo base_url('homepage/coursecatalog/').'all/' ?>">All</a>
 						<?php foreach ($category as $ct) { ?>
-						<a class="category" href="#"><?php echo $ct->category; ?> <span><?php echo $ct->jumlah; ?></span></a>
+						<a class="category" href="<?php echo base_url('homepage/coursecatalog/').$ct->category.'/' ?>"><?php echo $ct->category; ?> <span><?php echo $ct->jumlah; ?></span></a>
 						<?php } ?>
 					</div>
 					<!-- /category widget -->
