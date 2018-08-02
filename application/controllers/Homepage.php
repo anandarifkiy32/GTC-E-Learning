@@ -48,7 +48,8 @@ class Homepage extends CI_Controller {
 		$password = $this->input->post('pass');
 		$where = array(
 			'email' => $email,
-			'pass' => md5($password)
+			'pass' => md5($password),
+			'status'	=> '1'
 		);
 		$cek = $this->Peserta_model->select_where($where)->num_rows();
 		
@@ -75,8 +76,9 @@ class Homepage extends CI_Controller {
 		$email 		= $this->input->post('email');
 		$password 	= $this->input->post('pass');
 		$where = array(
-			'email' => $email,
-			'pass' => md5($password)
+			'email' 	=> $email,
+			'pass' 		=> md5($password),
+			'status'	=> '1'
 		);
 		$cek = $this->Peserta_model->select_where($where)->num_rows();
 		
@@ -91,7 +93,13 @@ class Homepage extends CI_Controller {
 			);
 			$this->session->set_userdata($data_session);
 		}
-		redirect(base_url('homepage/startcourse/'.$id_modul));
+
+		if(strlen($id_modul) == 150){
+			redirect(base_url('homepage'));
+		}else{
+			redirect(base_url('homepage/startcourse/'.$id_modul));
+		}
+		
 	}
 
 
@@ -118,21 +126,61 @@ class Homepage extends CI_Controller {
 			$unique_kode .= $characters[rand(0, $charactersLength - 1)];
 		}
 
-		$data = array(
-			'email' 		=> $email,
-			'pass'			=> $password,
-			'nama'  		=> $namalengkap,
-			'gender'		=> $gender,
-			'tempatlahir'	=> $tempatlahir,
-			'ttl'   		=> $tgl,
-			'alamat'		=> $alamat,
-			'telp'  		=> $telepon,
-			'unique_code'	=> $unique_kode,
-			'img'			=> 'default.jpg'
-		);
+		$config['protocol'] = 'smtp';
+		$config['smtp_host'] = 'ssl://smtp.googlemail.com';
+		$config['smtp_port'] = 465;
+		$config['mailtype'] = 'html';
+		$config['smtp_user'] = 'ananda.rifkiy33@gmail.com';
+		$config['smtp_pass'] = 'helloworld:)';
 
-		$cek = $this->Peserta_model->input($data);
-		redirect(base_url());
+            // Load email library and passing configured values to email library 
+		$this->load->library('email', $config);
+		$this->email->set_newline("\r\n");
+
+            // Sender email address
+		$this->email->from('ananda.rifkiy33@gmail.com', 'Ananda Rifkiy Hasan');
+            // Receiver email address
+		$this->email->to($email);
+            // Subject of email
+		$this->email->subject('Verification GTC EduSite');
+            // Message in email
+		$message = '<a href="localhost/gtclearning/homepage/verification/'.$unique_kode.'"> Click Here</a>';
+		$this->email->message($message);
+
+		if ($this->email->send()) {
+			$data = array(
+				'email' 		=> $email,
+				'pass'			=> $password,
+				'nama'  		=> $namalengkap,
+				'gender'		=> $gender,
+				'tempatlahir'	=> $tempatlahir,
+				'ttl'   		=> $tgl,
+				'alamat'		=> $alamat,
+				'telp'  		=> $telepon,
+				'unique_code'	=> $unique_kode,
+				'status'		=> '0',
+				'img'			=> 'default.jpg'
+			);
+			$this->Peserta_model->input($data);
+			redirect(base_url('homepage/success'));
+		} else {
+			$data['alert'] ='Gagal';
+		}
+		
+	}
+
+	function success(){
+		$this->load->view('client/pages/v_verifikasi');
+	}
+
+	function verification($code){
+		$where  = array(
+			'unique_code'	=> $code);
+		$data 	= array(
+			'status' 		=> '1');
+		$this->Peserta_model->update($where,$data);
+		$data['pesan'] = 'true';
+		$this->load->view('client/pages/v_login',$data);
 	}
 
 	function detailcourse($slug){
@@ -263,45 +311,37 @@ class Homepage extends CI_Controller {
 		$this->load->view('client/layout/wrapper',$data);
 	}
 
-	 public function send() {
-
-            
+	public function send() {
             // Storing submitted values
-            $sender_email = $this->input->post('user_email');
-            $user_password = $this->input->post('user_password');
-            $receiver_email = $this->input->post('to_email');
-            $username = $this->input->post('name');
-            $subject = $this->input->post('subject');
-            $message = $this->input->post('message');
-            
             // Configure email library
-            $config['protocol'] = 'smtp';
-            $config['smtp_host'] = 'ssl://smtp.googlemail.com';
-            $config['smtp_port'] = 465;
-            $config['smtp_user'] = 'ananda.rifkiy33@gmail.com';
-            $config['smtp_pass'] = 'helloworld:)';
+		$config['protocol'] = 'smtp';
+		$config['smtp_host'] = 'ssl://smtp.googlemail.com';
+		$config['smtp_port'] = 465;
+		$config['mailtype'] = 'html';
+		$config['smtp_user'] = 'ananda.rifkiy33@gmail.com';
+		$config['smtp_pass'] = 'helloworld:)';
 
             // Load email library and passing configured values to email library 
-            $this->load->library('email', $config);
-            $this->email->set_newline("\r\n");
-            
-            // Sender email address
-            $this->email->from('ananda.rifkiy33@gmail.com', 'Ananda Rifkiy Hasan');
-            // Receiver email address
-            $this->email->to('ananda.rifkiy32@gmail.com');
-            // Subject of email
-            $this->email->subject(':)');
-            // Message in email
-            $this->email->message('bismillah');
+		$this->load->library('email', $config);
+		$this->email->set_newline("\r\n");
 
-            if ($this->email->send()) {
-                echo '1';
-            } else {
-                echo '0';
-            }
-    
-        
-    }
+            // Sender email address
+		$this->email->from('ananda.rifkiy33@gmail.com', 'Ananda Rifkiy Hasan');
+            // Receiver email address
+		$this->email->to('ananda.rifkiy32@gmail.com');
+            // Subject of email
+		$this->email->subject(':)');
+            // Message in email
+		$this->email->message('<b>Bwakwkwkwkw</b>');
+
+		if ($this->email->send()) {
+			echo '1';
+		} else {
+			echo '0';
+		}
+
+
+	}
 
 }
 

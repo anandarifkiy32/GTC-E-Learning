@@ -79,9 +79,9 @@
 					<div class="col-md-10 col-md-offset-1 text-center">
 						<ul class="hero-area-tree">
 							<li><a href="index.html">Home</a></li>
-							<li><a href="register.html">Login</a></li>
+							<li><a href="register.html">Registrasi</a></li>
 						</ul>
-						<h1 class="white-text">Login</h1>
+						<h1 class="white-text">Berhasil</h1>
 					</div>
 				</div>
 			</div>
@@ -102,28 +102,12 @@
 					<div id="main" class="col-md-12">
 						<!-- blog post -->
 						<div class="blog-post">
-							<?php if(isset($pesan)){ ?>
 							<div class="alert alert-success alert-dismissible">
 								<h4><i class="icon fa fa-check"></i> Berhasil !</h4>
-								Email anda telah terverifikasi
+								Kami telah mengirimkan tautan verifikasi ke email anda !
 							</div>
-							<?php } ?>
-							<form method="post" action="<?php echo base_url('homepage/login2') ;?>">
-								<div class="form-group">
-									<label> E-mail</label>
-									<input class="form-control" type="email" name="email" required="">
-									<input class="form-control" type="hidden" name="id_modul" required="" value="<?php echo $this->uri->segment(3);?>">
-								</div>
-								<div class="form-group">
-									<label> Password</label>
-									<input class="form-control" type="password" name="pass">
-								</div>
-
-								<button class="main-button icon-button">Submit</button>
-							</form>
 						</div>
 						<!-- /blog post -->
-
 					</div>
 				</div>
 			</div>
