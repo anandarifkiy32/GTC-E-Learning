@@ -19,4 +19,9 @@ class Peserta_model extends CI_Model{
 		$this->db->update('peserta',$data);
 	}
 
+	function delete($where){
+		$this->db->where($where);
+		$this->db->delete('peserta');
+	}
+
 }

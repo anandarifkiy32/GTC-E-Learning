@@ -7,38 +7,39 @@ class Trainer extends CI_Controller {
 		parent::__construct();
 		$this->load->model(array('Trainer_model','Modul_model','Materi_model','Category_model'));
 		$this->load->helper(array('form', 'url'));
-		$status = $this->session->userdata("status");
-		if($status !== "login2"){
-			redirect(base_url('Admin'));
-		}
 	}
 
-	public function index()
-	{
-		$where = array(
-			'id_trainer' => $this->session->userdata('trainer')
-		);
+	public function index(){
+		$status = $this->session->userdata('status');
+		if($status !== 'login2'){
+			$this->load->view('login');
+		}else{
+			$where = array(
+				'id_trainer' => $this->session->userdata('trainer')
+			);
+
+			$content = array(
+				'title' => 'Dashboard',
+				'course'=> $this->Modul_model->select_where($where)->result(),
+				'content' => 'Trainer/Pages/v_dashboard');
+			$this->load->view('Trainer/Layout/Wrapper',$content);
+		}
 		
-		$content = array(
-			'title' => 'Dashboard',
-			'course'=> $this->Modul_model->select_where($where)->result(),
-			'content' => 'Admin/Trainer/Pages/v_dashboard');
-		$this->load->view('Admin/Trainer/Layout/Wrapper',$content);
 
 	}
 
 	function coursecatalog(){
 		$content = array(
 			'title' 	=> 'Course Catalog',
-			'content'	=> 'Admin/Trainer/Pages/v_coursecatalog');
-		$this->load->view('Admin/Trainer/Layout/Wrapper',$content);
+			'content'	=> 'Trainer/Pages/v_coursecatalog');
+		$this->load->view('Trainer/Layout/Wrapper',$content);
 	}
 
 	function profile(){
 		$content = array(
 			'title' 	=> 'Profile',
-			'content'	=> 'Admin/Trainer/Pages/v_profile');
-		$this->load->view('Admin/Trainer/Layout/Wrapper',$content);
+			'content'	=> 'Trainer/Pages/v_profile');
+		$this->load->view('Trainer/Layout/Wrapper',$content);
 	}
 
 	function logout(){
@@ -62,8 +63,8 @@ class Trainer extends CI_Controller {
 			'submateri'		=> $sub_materi,
 			'jumlah_materi'	=> $jumlah_materi,
 			'category'		=> $category,
-			'content' 		=> 'admin/trainer/pages/v_detailcourse');
-		$this->load->view('admin/trainer/layout/wrapper',$data);
+			'content' 		=> 'trainer/pages/v_detailcourse');
+		$this->load->view('trainer/layout/wrapper',$data);
 	}
 
 	function detailmateri($slug){
@@ -74,8 +75,8 @@ class Trainer extends CI_Controller {
 		$data=array(
 			'title' 		=> 'Profile',
 			'materi'		=> $materi,
-			'content' 		=> 'admin/trainer/pages/v_detailmateri');
-		$this->load->view('admin/trainer/layout/wrapper',$data);
+			'content' 		=> 'trainer/pages/v_detailmateri');
+		$this->load->view('trainer/layout/wrapper',$data);
 	}
 
 	function updatemateri(){
@@ -136,7 +137,7 @@ class Trainer extends CI_Controller {
 	function hapusmateri($slug){
 		$where = array(
 			'slug' => $slug
-			);
+		);
 
 		$this->Materi_model->delete($where);
 

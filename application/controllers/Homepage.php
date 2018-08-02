@@ -339,9 +339,58 @@ class Homepage extends CI_Controller {
 		} else {
 			echo '0';
 		}
-
-
 	}
 
+	function showprofile(){
+		$where = array(
+			'unique_code' => $this->session->userdata('unique_code')
+		);
+		$profile = $this->Peserta_model->select_where($where)->result();
+		$category = $this->Modul_model->selectcategory()->result();
+
+		$data = array(
+			'profile'   => $profile,
+			'banner'    => 'Profile',
+			'content'   => 'client/pages/v_profile'
+		);
+
+		$this->load->view('client/layout/wrapper',$data);
+	}
+
+	function editprofile($unique_code){
+		$where = array(
+			'unique_code' => $this->session->userdata('unique_code')
+		);
+		$profile = $this->Peserta_model->select_where($where)->result();
+		$data = array(
+			'profile'   => $profile,
+			'banner'    => 'Edit Profile',
+			'content'     => 'Client/Pages/v_editprofile'
+		);
+		$this->load->view('client/layout/wrapper',$data);
+	}
+
+	 function updateprofile($unique_code){
+        $id = $unique_code;
+
+        $data    = array(
+            'nama'              => $this->input->post('namalengkap'),
+            'gender'            => $this->input->post('gender'),
+            'tempatlahir'       => $this->input->post('tempatlahir'),
+            'ttl'               => $this->input->post('tgl'),
+            'alamat'            => $this->input->post('alamat'),
+            'telp'              => $this->input->post('telepon'),
+            'kantor'            => $this->input->post('kantor'),
+            'alamat_kantor'     => $this->input->post('alamat_kantor'),
+            'telp_kantor'       => $this->input->post('telepon_kantor'),
+            'biografi'          => $this->input->post('biografi')
+        );
+
+        $where     = array('unique_code' => $id);
+
+        $this->Peserta_model->update($where,$data);
+        redirect(base_url('homepage/showprofile'));
+
+    }
 }
 

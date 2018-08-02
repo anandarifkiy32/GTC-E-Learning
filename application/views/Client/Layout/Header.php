@@ -69,7 +69,7 @@
               }
               ?></a>
               <ul class="dropdown-menu">
-                <li><a href="#">Profile</a></li>
+                <li><a href="<?php echo base_url('homepage/showprofile') ?>">Profile</a></li>
                 <li><a href="<?php echo base_url('homepage/logout')?>">Logout</a></li>
               </ul>
             </li>

@@ -1,140 +1,86 @@
-
-<!-- Left side column. contains the logo and sidebar -->
-
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <h1>
-      Dashboard
-      <small>Profile</small>
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Profile</li>
-    </ol>
-  </section>
-
-  <!-- Main content -->
-  <section class="content">
-    <div class="row">
-      <div class="col-md-8">
-        <div class="box" style="border-top:none;">
-          <div class="box-header with-border" style="background-color: #666570;">
-            <center><h3 class="box-title" style="color:white;">Your Profile</h3></center>
-          </div>
-          <!-- /.box-header -->
-          <div class="box-body">
-            <?php foreach ($profile as $p) {?> 
-              <table class="table table-bordered">
-               <tr>
-                 <td rowspan="7" style="width: 40%">
-                   <center><img src="<?php echo base_url('assets/profile_photos/').$p->img ?>"  class="img-circle" alt="User Image" height="250px" width="250px"></center>
-                 </td>
-                 <td style="width:25%">
-                   Nama 
-                 </td>
-                 <td>
-                   <?php echo $p->nama ?>
-                 </td>
-               </tr>
-               <tr>
-                 <td>
-                   Jenis Kelamin 
-                 </td>
-                 <td>
-                   <?php if($p->gender == "L"){echo "Laki-laki";}else{echo "Perempuan";} ?>
-                 </td>
-               </tr>
-               <tr>
-                 <td>
-                   Tempat, Tanggal Lahir 
-                 </td>
-                 <td>
-                  <?php 
-                  $date = date('j F Y', strtotime($p->ttl));
-                  echo $p->tempatlahir.", ".$date;
-                  ?>
-                </td>
-              </tr>
-              <tr>
-               <td>
-                 Alamat 
-               </td>
-               <td>
-                 <?php echo $p->alamat ?>
-               </td>
-             </tr>
-             <tr>
-               <td>
-                 Email 
-               </td>
-               <td>
-                 <?php echo $p->email ?>
-               </td>
-             </tr>
-             <tr>
-               <td>
-                 Nomor Telepon 
-               </td>
-               <td>
-                 <?php echo $p->telp ?>
-               </td>
-             </tr>
-             <tr>
-               <td>
-                 Nama Kantor 
-               </td>
-               <td>
-                 <?php echo $p->kantor ?>
-               </td>
-             </tr>
-             <tr>
-              <td rowspan="3">
-                <center><a href="<?php echo base_url('dashboard/editphoto/'.$p->unique_code)?>"><button class="btn btn-primary btn-flat">Edit Photo</button></a></center>
-              </td>
-              <td>
-               Alamat Kantor 
-             </td>
-             <td>
-               <?php echo $p->alamat_kantor; ?>
-             </td>
-           </tr>
-           <tr>
-
-            <td>
-             Nomor Telepon Kantor
-           </td>
-           <td>
-             <?php echo $p->telp_kantor; ?>
-           </td>
-         </tr>
-         <tr>
-           <td>
-             Biografi 
-           </td>
-           <td>
-             <?php echo $p->biografi; ?>
-           </td>
-         </tr>
-         <tr>
-           <td>
-           </td>
-           <td>
-
-           </td>
-           <td align="right">
-            <a href="<?php echo base_url('dashboard/editprofile/'.$p->unique_code)?>"><button class="btn btn-primary btn-flat">Edit Profile</button></a>
-          </td>
-        </tr>
-      </table>
-      <?php } ?>
-    </div>
-  </div>
+<div id="courses" class="section">
+	<div class="container">
+		<div id="courses-wrapper">
+			<?php foreach ($profile as $p) { ?>
+				<div class="row">
+					<div class="panel panel-default" style="border-radius: 0px;">
+						<div class="panel-body">
+							<div class="row">
+								<a href="<?php echo base_url('homepage/editphoto/'.$p->unique_code) ?>"><button type="button" class="btn btn-primary" style="float: right; margin-right: 15px;"><i class="fa fa-pencil-square-o"></i> <span>Ubah Foto Profil</span></button></a>
+							</div>
+							<div class="row">
+								<center><a href="<?php echo base_url('assets/gtc_client/img/'.$p->img)?>"><img src="<?php echo base_url('assets/gtc_client/img/'.$p->img)?>" class="img-circle" width="100" height="100" style="margin-top: 10px;"></a>
+								</center>
+							</div>
+							<div class="row">
+								<div class="section-header text-center">
+									<h2 style="padding-top: 10px;"><?php echo $p->nama; ?></h2>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="panel panel-default" style="border-radius: 0px;">
+						<div class="panel-body">
+							<p style="float: left;">Profil Singkat</p>
+							<a href="<?php echo base_url('homepage/editprofile/'.$p->unique_code) ?>"><button type="button" class="btn btn-primary" style="float: right;"><i class="fa fa-pencil-square-o"></i> <span>Ubah Profil</span></button></a>
+							<div class="col-md-12">
+								<div class="col-md-6">
+									<br>
+									<div class="table table-responsive" style="border: 0px;">
+										<table class="table" rules="none">
+											<tr>
+												<th>Tempat Lahir</th>
+												<td><?php echo $p->tempatlahir; ?></td>
+											</tr>
+											<tr>
+												<th>Tanggal Lahir</th>
+												<td><?php echo $p->ttl; ?></td>
+											</tr>
+											<tr>
+												<th>Alamat</th>
+												<td><?php echo $p->alamat; ?></td>
+											</tr>
+											<tr>
+												<th>Telephon / Hp</th>
+												<td><?php echo $p->telp; ?></td>
+											</tr>
+											<tr>
+												<th>E-mail</th>
+												<td><?php echo $p->email; ?></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<br>
+									<div class="table table-responsive">
+										<table class="table" rules="none">
+											<tr>
+												<th>Kantor</th>
+												<td><?php echo $p->kantor; ?></td>
+											</tr>
+											<tr>
+												<th>Alamat Kantor</th>
+												<td><?php echo $p->alamat_kantor; ?></td>
+											</tr>
+											<tr>
+												<th>Telp Kantor</th>
+												<td><?php echo $p->telp_kantor; ?></td>
+											</tr>
+											<tr rowspan="2">
+												<th>Biografi</th>
+												<td><?php echo $p->biografi; ?></td>
+											</tr>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<?php } ?>
+		</div>
+	</div>
 </div>
-</div>
-
-</section>
-<!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
