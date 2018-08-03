@@ -42,7 +42,7 @@
               </div>
               <div class="form-group">
                 <label> Telepon/ HP</label>
-                <input class="form-control" type="number" name="telepon" value="<?php echo $p->telp ?>">
+                <input class="form-control" type="text" name="telepon" value="<?php echo $p->telp ?>">
               </div>
               <div class="form-group">
                 <label> Kantor</label>
@@ -54,7 +54,7 @@
               </div>
               <div class="form-group">
                 <label> Telepon Kantor</label>
-                <input class="form-control" type="number" name="telepon_kantor" value="<?php echo $p->telp_kantor ?>">
+                <input class="form-control" type="text" name="telepon_kantor" value="<?php echo $p->telp_kantor ?>">
               </div>
               <div class="form-group">
                 <label> Biografi</label>

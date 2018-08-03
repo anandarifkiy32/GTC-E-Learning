@@ -28,6 +28,23 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <style type="text/css">
+      .table{
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+      }
+      .table > thead > tr > th,
+      .table > tbody > tr > th,
+      .table > tfoot > tr > th,
+      .table > thead > tr > td,
+      .table > tbody > tr > td,
+      .table > tfoot > tr > td{
+        line-height: 1.5;
+        vertical-align: top;
+        border-color: white;
+      }
+    </style>
   </head>
   <body>
 

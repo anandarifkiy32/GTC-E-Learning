@@ -32,4 +32,20 @@ class Training_model extends CI_Model
 		return $this->db->get();
 	}
 
+	function select_course($where){
+		$this->db->select('modul.nama as namamodul');
+		$this->db->from('training, peserta, modul');
+		$this->db->where('peserta.id_peserta',$where);
+		$this->db->where('training.id_modul = modul.id_modul AND training.id_peserta = peserta.id_peserta');
+		return $this->db->get();
+	}
+
+	function select_peserta($where){
+		$this->db->select('COUNT(training.id_peserta) as jumlahpeserta');
+		$this->db->from('training, peserta, modul');
+		$this->db->where('training.id_modul',$where);
+		$this->db->where('training.id_modul = modul.id_modul');
+		return $this->db->get();
+	}
+
 }

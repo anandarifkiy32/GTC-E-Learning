@@ -17,7 +17,7 @@
 
             <br><br>
             <div class="blog-post">
-              <a class="main-button icon-button" href="<?php echo $c->id_materi ?>" style="width: 300px">Start Quiz</a>      
+              <a class="main-button icon-button" href="<?php echo base_url('homepage/startquiz/'.$c->slug ) ?>" style="width: 300px">Start Quiz</a>      
             </div>
           </div>
           <?php $num++; } ?>

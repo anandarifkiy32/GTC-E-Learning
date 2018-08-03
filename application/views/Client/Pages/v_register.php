@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-		<title>HTML Education Template</title>
+		<title>GTC EduSite</title>
 		<link href="<?php echo base_url()?>assets/web/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 		<!-- Google font -->
 		<link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
@@ -37,7 +37,7 @@
 				<div class="navbar-header">
 					<!-- Logo -->
 					<div class="navbar-brand">
-						<a class="logo" href="index.html">
+						<a class="logo" href="<?php echo base_url() ?>">
 							<img src="<?php echo base_url()?>assets/gtc_client/img/logo.png" alt="logo">
 						</a>
 					</div>
@@ -57,9 +57,9 @@
 						<li><a href="<?php echo base_url('homepage/coursecatalog/') ?>">Courses</a></li>
 
 						<li><a href="<?php echo base_url('homepage/contact/')?>">Contact</a></li>
-						<li class="dropdown"><a href="<?php if(!$profile){echo base_url();} ?>" <?php if($profile){ ?>class="dropdown-toggle" data-toggle="dropdown" <?php } ?> >              
+						<li class="dropdown"><a href="<?php if(isset($profile)){echo base_url();} ?>" <?php if(isset($profile)){ ?>class="dropdown-toggle" data-toggle="dropdown" <?php } ?> >              
 							<?php 
-							if($profile){
+							if(isset($profile)){
 								foreach ($profile as $p) {
 									echo $p->nama ;
 								}
@@ -92,8 +92,8 @@
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1 text-center">
 						<ul class="hero-area-tree">
-							<li><a href="index.html">Home</a></li>
-							<li><a href="register.html">Register</a></li>
+							<li><a href="<?php echo base_url() ?>">Home</a></li>
+							<li><a href="">Register</a></li>
 						</ul>
 						<h1 class="white-text">Register Now</h1>
 					</div>

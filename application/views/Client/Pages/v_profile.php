@@ -60,7 +60,7 @@
 								<div class="table table-responsive">
 									<table class="table" rules="none">
 										<tr>
-											<th>Kantor</th>
+											<th width="125px">Kantor</th>
 											<td><?php echo $p->kantor; ?></td>
 										</tr>
 										<tr>

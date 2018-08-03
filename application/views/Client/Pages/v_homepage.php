@@ -79,7 +79,7 @@
 						<div class="col-md-8">
 							<h1 class="white-text">Global Top Career Edusite Online Training Courses</h1>
 							<p class="lead white-text">Reach Your Dream With Us</p>
-							<a class="main-button icon-button" href="<?php echo base_url('homepage/register') ?>">REGISTER NOW</a>
+							<a class="main-button icon-button" href="<?php echo base_url('homepage/showregister') ?>">REGISTER NOW</a>
 						</div>
 						<?php if($this->session->userdata('status') != 'login'){ ?>
 

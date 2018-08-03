@@ -8,4 +8,9 @@ class Trainer_model extends CI_Model{
 	function input($data){
 		$this->db->insert('trainer',$data);
 	} 
+
+	function select(){
+		$this->db->order_by('nama','DESC');
+		return $this->db->get('trainer');
+	}
 }

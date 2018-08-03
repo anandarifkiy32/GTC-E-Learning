@@ -18,7 +18,6 @@
 							<a class="course-title" href="<?php echo base_url('homepage/detailcourse/'.$c->slug) ?>"><?php echo $c->nama ?></a>
 							<div class="course-details">
 								<span class="course-category"><?php echo $c->category ?></span>
-								<span class="course-price course-free">Free</span>
 							</div>
 						</div>
 					</div>

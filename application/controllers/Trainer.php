@@ -168,4 +168,14 @@ class Trainer extends CI_Controller {
 
 		redirect(base_url('trainer/detailcourse/'.$this->uri->segment(4)));
 	}
+
+	function hapusmodul($slug){
+		$where = array(
+			'slug' => $slug
+		);
+
+		$this->Modul_model->delete($where);
+
+		redirect(base_url('trainer'));
+	}
 }

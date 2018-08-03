@@ -25,4 +25,12 @@ class Materi_model extends CI_Model
 		$this->db->where($where);
 		$this->db->delete('materi');
 	}
+
+	function select_modul($where){
+		$this->db->select('modul.nama as namamodul');
+		$this->db->from('materi, modul');
+		$this->db->where('materi.id_materi',$where);
+		$this->db->where('materi.id_modul = modul.id_modul');
+		return $this->db->get();
+	}
 }

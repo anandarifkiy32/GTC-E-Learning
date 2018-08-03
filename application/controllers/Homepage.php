@@ -5,7 +5,7 @@ class Homepage extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
-		$this->load->model(array('Peserta_model','Modul_model','Training_model'));	
+		$this->load->model(array('Peserta_model','Modul_model','Training_model','Materi_model','Quiz_model'));	
 		$this->load->helper(array('form','url','file'));
 		$this->load->library(array('pagination'));
 	}
@@ -174,7 +174,18 @@ class Homepage extends CI_Controller {
             // Subject of email
 		$this->email->subject('Verification GTC EduSite');
             // Message in email
-		$message = '<a href="localhost/gtclearning/homepage/verification/'.$unique_kode.'"> Click Here</a>';
+		$message = '<html>
+		<link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
+		<body style="font-family:"Montserrat", sans-serif;">
+		<center>
+		<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
+		<h3>GTC EduSite</h3>
+		<p>Terimakasih sudah mendaftar. Tinggal satu tahap lagi untuk mengakses akun anda.</p>
+		<a href=http://localhost/gtclearning/homepage/verification/'.$unique_kode.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Verifikasi Email</button></a>
+		</div>
+		</center>
+		</body>
+		</html>';
 		$this->email->message($message);
 
 		if ($this->email->send()) {
@@ -222,6 +233,7 @@ class Homepage extends CI_Controller {
 		foreach ($profile as $p) {
 			$id_peserta = $p->id_peserta;
 		}
+		
 
 		$where = array('slug' => $slug);
 
@@ -236,19 +248,23 @@ class Homepage extends CI_Controller {
 		$category = $this->Modul_model->select_where($where)->row('category');
 
 		$relatedcourse= $this->Modul_model->relatedcourse($category)->result();
-		$where = array(
-			'id_modul' 		=> $id_modul,
-			'id_peserta'	=> $id_peserta);
 
-		$cekjoin = $this->Training_model->select_where($where)->num_rows();
+		if($this->session->userdata('status') == 'login'){
+			$where = array(
+				'id_modul' 		=> $id_modul,
+				'id_peserta'	=> $id_peserta);
 
+			$cekjoin = $this->Training_model->select_where($where)->num_rows();
+		}else{
+			$cekjoin = 0;
+		}
 		$data = array(
-			'profile'    => $profile,
-			'banner'    => $banner,
-			'modul'        => $modul,
-			'cekjoin'	=> $cekjoin,
-			'related'   => $relatedcourse,
-			'content'    => 'client/pages/v_detailcourse'
+			'profile'    	=> $profile,
+			'banner'    	=> $banner,
+			'modul'       	=> $modul,
+			'cekjoin'		=> $cekjoin,
+			'related'   	=> $relatedcourse,
+			'content'    	=> 'client/pages/v_detailcourse'
 		);
 		$this->load->view('client/layout/wrapper',$data);
 	}
@@ -505,6 +521,43 @@ class Homepage extends CI_Controller {
 			redirect('homepage/startcourse/'.$course);
 		}else{
 			$this->load->view('client/pages/v_login');
+		}
+	}
+
+	function startquiz($slug){
+		if($this->session->userdata('status') == 'login'){
+			$where = array(
+				'unique_code' => $this->session->userdata('unique_code')
+			);
+			$profile = $this->Peserta_model->select_where($where)->result();
+			$where = array(
+				'slug' => $slug);
+			$id_materi = $this->Materi_model->select_where($where)->row('id_materi');
+			$namamodul = $this->Materi_model->select_modul($id_materi)->row('namamodul');
+			$where = array(
+				'id_materi' => $id_materi);
+			$soal = $this->Quiz_model->select_where($where)->row('id_test');
+			$quiz= $this->Quiz_model->soal($soal)->result();
+			$cek = $this->Quiz_model->soal($soal)->row('totalsoal');
+			if ($cek > 0) {
+				$data = array(
+					'profile' => $profile,
+					'banner' => "Start Quiz",
+					'namamodul' => $namamodul,
+					'quiz' => $quiz,
+					'content' => 'client/pages/v_konfirmasiquiz'
+				);
+				$this->load->view('client/layout/wrapper',$data);
+			}
+			else{
+				$data = array(
+					'profile' => $profile,
+					'banner' => "Start Quiz",
+					'quiz' => $quiz,
+					'content' => 'client/pages/v_xquiz'
+				);
+				$this->load->view('client/layout/wrapper',$data);
+			}
 		}
 	}
 }

@@ -17,7 +17,7 @@ class Modul_model extends CI_Model
 	}
 
 	function selectcourse($where){
-		$this->db->select('mdl.nama as namamodul, mtr.judul as materi, mtr.description as description, mtr.konten as konten, mtr.id_materi as id_materi');
+		$this->db->select('mdl.nama as namamodul, mtr.judul as materi, mtr.description as description, mtr.konten as konten, mtr.id_materi as id_materi, mtr.slug as slug');
 		$this->db->from('modul as mdl, materi as mtr');
 		$this->db->where('mdl.slug',$where);
 		$this->db->where('mdl.id_modul = mtr.id_modul');
@@ -32,6 +32,11 @@ class Modul_model extends CI_Model
 		}
 		
 		return $this->db->get('modul')->num_rows();
+	}
+
+	function delete($where){
+		$this->db->where($where);
+		$this->db->delete('modul');
 	}
 
 	function get_current_page_records($where,$limit, $start) 
@@ -80,5 +85,16 @@ class Modul_model extends CI_Model
 		$this->db->update('modul',$data);
 	}
 
+	function selectall(){
+		$this->db->select('trainer.nama as namatrainer, modul.nama as namamodul, modul.category as category, modul.slug');
+		$this->db->from('trainer, modul');
+		$this->db->where('modul.id_trainer = trainer.id_trainer');
+		$this->db->order_by('id_modul','DESC');
+		return $this->db->get();
+	}
+
+	function input($data){
+		$this->db->insert('modul',$data);
+	}
 
 }

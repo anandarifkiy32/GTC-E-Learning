@@ -28,12 +28,15 @@
                     <img class="img-circle" src="<?php echo base_url().'assets/modul/'.$m->img ?>" alt="User Avatar" style="height: 60px;width: 60px;object-fit: cover;"></center>
                   </div>
                 </div>
-                <div class="col-md-8" style="padding-left: 0px">
+                <div class="col-md-7" style="padding-left: 0px">
                   <h3 class="widget-user-username" style="margin-left: 0px;"><?php echo $m->nama ?></h3>
                   <h5 class="widget-user-desc" style="margin-left: 0px;"><?php echo $m->category ?></h5>
                 </div>
-                <div class="col-md-2">
-                  <button class="btn btn-success" style="position: absolute;right: 10px;top: 0px;" data-toggle="modal" data-target="#modal-default1">Edit</button>
+                <div class="col-md-3">
+                  <div style="position: absolute;right: 10px">
+                    <button class="btn btn-success btn-flat" data-toggle="modal" data-target="#modal-default1">Edit</button>
+                    <a href="<?php echo base_url().'trainer/hapusmodul/'.$this->uri->segment(3) ?>"><button class="btn btn-danger btn-flat"><span class="fa fa-trash"></span></button></a>
+                  </div>
                 </div>  
               </div>
             </div>
