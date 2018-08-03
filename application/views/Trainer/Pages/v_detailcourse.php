@@ -50,7 +50,7 @@
                 </tr>
                 <tr>
                   <td style="font-size: 16px">Jumlah Peserta</td>
-                  <td>56</td>
+                  <td><?php echo $jumlah_peserta ?></td>
                 </tr>
               </table>
             </div>

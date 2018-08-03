@@ -22,7 +22,7 @@
                     <a href="<?php echo base_url('trainer/detailcourse/'.$c->slug) ?>">
                         <div class="box box-widget widget-user">
                             <!-- Add the bg color to the header using any of the bg-* classes -->
-                            <div class="widget-user-header bg-black" style="background: url('./assets/modul/<?php echo $c->img ?>'); fill: cover">
+                            <div class="widget-user-header bg-black" style="background: url('./assets/modul/<?php echo $c->img ?>'); background-size: cover">
                               <h3 class="widget-user-username">
                                 <?php echo $c->nama ?>
                               </h3>

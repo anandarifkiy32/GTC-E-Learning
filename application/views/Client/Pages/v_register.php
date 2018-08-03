@@ -53,13 +53,27 @@
 				<!-- Navigation -->
 				<nav id="nav">
 					<ul class="main-menu nav navbar-nav navbar-right">
-						<li><a href="index.html">Home</a></li>
-						<li><a href="#">About</a></li>
-						<li><a href="course.html">Courses</a></li>
-						
-						<li><a href="contact.html">Contact</a></li>
-						<li><a href="contact.html">LOGIN</a></li>
+						<li><a href="<?php echo base_url() ?>">Home</a></li>
+						<li><a href="<?php echo base_url('homepage/coursecatalog/') ?>">Courses</a></li>
+
+						<li><a href="<?php echo base_url('homepage/contact/')?>">Contact</a></li>
+						<li class="dropdown"><a href="<?php if(!$profile){echo base_url();} ?>" <?php if($profile){ ?>class="dropdown-toggle" data-toggle="dropdown" <?php } ?> >              
+							<?php 
+							if($profile){
+								foreach ($profile as $p) {
+									echo $p->nama ;
+								}
+							}else{
+								echo 'Login';
+							}
+							?></a>
+							<ul class="dropdown-menu">
+								<li><a href="#" style="color: #262626;background-color: transparent;">Profile</a></li>
+								<li><a href="<?php echo base_url('homepage/logout')?>" style="color: #262626">Logout</a></li>
+							</ul>
+						</li>
 					</ul>
+
 				</nav>
 				<!-- /Navigation -->
 
@@ -169,68 +183,54 @@
 		<!-- Footer -->
 		<footer id="footer" class="section">
 
-			<!-- container -->
-			<div class="container">
+    <!-- container -->
+    <div class="container">
 
-				<!-- row -->
-				<div class="row">
+        <!-- row -->
+        <div class="row">
 
-					<!-- footer logo -->
-					<div class="col-md-6">
-						<div class="footer-logo">
-							<a class="logo" href="index.html">
-								<img src="<?php echo base_url()?>assets/gtc_client/img/logo.png" alt="logo">
-							</a>
-						</div>
-					</div>
-					<!-- footer logo -->
+            <!-- footer logo -->
+            <div class="col-md-6">
+                <div class="footer-logo">
+                    <a class="logo" href="index.html">
+                        <img src="<?php echo base_url()?>assets/gtc_client/img/logo.png" alt="logo">
+                    </a>
+                </div>
+            </div>
+            <!-- footer logo -->
 
-					<!-- footer nav -->
-					<div class="col-md-6">
-						<ul class="footer-nav">
-							<li><a href="index.html">Home</a></li>
-							<li><a href="#">About</a></li>
-							<li><a href="#">Courses</a></li>
-							<li><a href="blog.html">Blog</a></li>
-							<li><a href="contact.html">Contact</a></li>
-						</ul>
-					</div>
-					<!-- /footer nav -->
+            <!-- footer nav -->
+            <div class="col-md-6">
+                <ul class="footer-nav">
+                    <li><a href="<?php echo base_url('')?>">Home</a></li>
+                    <li><a href="<?php echo base_url('homepage/coursecatalog')?>">Courses</a></li>
+                    <li><a href="<?php echo base_url('homepage/contact')?>">Contact</a></li>
+                    <li><a href="<?php echo base_url('')?>">Login</a></li>
+                </ul>
+            </div>
+            <!-- /footer nav -->
 
-				</div>
-				<!-- /row -->
+        </div>
+        <!-- /row -->
 
-				<!-- row -->
-				<div id="bottom-footer" class="row">
+        <!-- row -->
+        <div id="bottom-footer" class="row">
 
-					<!-- social -->
-					<div class="col-md-4 col-md-push-8">
-						<ul class="footer-social">
-							<li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a></li>
-							<li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
-							<li><a href="#" class="youtube"><i class="fa fa-youtube"></i></a></li>
-							<li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
-						</ul>
-					</div>
-					<!-- /social -->
+            <!-- copyright -->
+            <div class="col-md-12 text-center">
+                <div class="footer-copyright">
+                    <span>&copy; Copyright 2018. All Rights Reserved. | GTC E-Learning</span>
+                </div>
+            </div>
+            <!-- /copyright -->
 
-					<!-- copyright -->
-					<div class="col-md-8 col-md-pull-4">
-						<div class="footer-copyright">
-							<span>© Copyright 2018. All Rights Reserved. | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com">Colorlib</a></span>
-						</div>
-					</div>
-					<!-- /copyright -->
+        </div>
+        <!-- row -->
 
-				</div>
-				<!-- row -->
+    </div>
+    <!-- /container -->
 
-			</div>
-			<!-- /container -->
-
-		</footer>
+</footer>
 		<!-- /Footer -->
 
 		<!-- preloader -->

@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-	<title>HTML Education Template</title>
+	<title>GTC EduSite</title>
 
 	<!-- Google font -->
 	<link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
@@ -37,7 +37,7 @@
 				<div class="navbar-header">
 					<!-- Logo -->
 					<div class="navbar-brand">
-						<a class="logo" href="index.html">
+						<a class="logo" href="<?php echo base_url() ?>">
 							<img src="./assets/gtc_client/img/logo-alt.png" alt="logo">
 						</a>
 					</div>
@@ -53,12 +53,11 @@
 				<!-- Navigation -->
 				<nav id="nav">
 					<ul class="main-menu nav navbar-nav navbar-right">
-						<li><a href="index.html">Home</a></li>
-						<li><a href="#">About</a></li>
-						<li><a href="course.html">Courses</a></li>
+						<li><a href="<?php echo base_url()?>">Home</a></li>
+						<li><a href="<?php echo base_url('homepage/coursecatalog/') ?>">Courses</a></li>
 						
-						<li><a href="contact.html">Contact</a></li>
-						<li><a href="contact.html">Login</a></li>
+						<li><a href="<?php echo base_url('homepage/contact') ?>">Contact</a></li>
+						<li><a href="">Login</a></li>
 					</ul>
 				</nav>
 				<!-- /Navigation -->
@@ -71,7 +70,7 @@
 		<div id="home" class="hero-area">
 
 			<!-- Backgound Image -->
-			<div class="bg-image bg-parallax overlay" style="background-image:url(./assets/gtc_client/img/home-background.jpg)"></div>
+			<div class="bg-image bg-parallax overlay" style="background-image:url(<?php echo base_url(); ?>assets/gtc_client/img/home-background.jpg)"></div>
 			<!-- /Backgound Image -->
 
 			<div class="home-wrapper">
@@ -79,8 +78,8 @@
 					<div class="row">
 						<div class="col-md-8">
 							<h1 class="white-text">Global Top Career Edusite Online Training Courses</h1>
-							<p class="lead white-text">Libris vivendo eloquentiam ex ius, nec id splendide abhorreant, eu pro alii error homero.</p>
-							<a class="main-button icon-button" href="#">Get Started!</a>
+							<p class="lead white-text">Reach Your Dream With Us</p>
+							<a class="main-button icon-button" href="<?php echo base_url('homepage/register') ?>">REGISTER NOW</a>
 						</div>
 						<?php if($this->session->userdata('status') != 'login'){ ?>
 
@@ -118,7 +117,6 @@
 					<div class="row">
 						<div class="section-header text-center">
 							<h2>Explore Courses</h2>
-							<p class="lead">Libris vivendo eloquentiam ex ius, nec id splendide abhorreant.</p>
 						</div>
 					</div>
 					<div id="courses-wrapper">
@@ -134,7 +132,6 @@
 										<a class="course-title" href="<?php echo base_url('homepage/detailcourse/'.$c->slug) ?>"><?php echo $c->nama ?></a>
 										<div class="course-details">
 											<span class="course-category">Business</span>
-											<span class="course-price course-free">Free</span>
 										</div>
 									</div>
 								</div>
@@ -150,119 +147,11 @@
 				</div>
 				<!-- /Courses -->
 
-				<!-- Courses -->
-				<div id="courses" class="section">
-
-					<!-- container -->
-					<div class="container">
-
-						<!-- row -->
-						<div class="row">
-							<div class="section-header text-center">
-								<h2>Event</h2>
-								<p class="lead">Libris vivendo eloquentiam ex ius, nec id splendide abhorreant.</p>
-							</div>
-						</div>
-						<!-- /row -->
-
-						<!-- courses -->
-						<div id="courses-wrapper">
-
-							<!-- row -->
-							<div class="row">
-
-								<!-- single course -->
-								<div class="col-md-3 col-sm-6 col-xs-6">
-									<div class="course">
-										<a href="course-overview.html" class="course-img">
-											<img src="<?php echo base_url()?>assets/gtc_client/img/course01.jpg" alt="">
-											<i class="course-link-icon fa fa-link"></i>
-										</a>
-										<a class="course-title" href="course-overview.html">Beginner to Pro in Excel: Financial Modeling and Valuation</a>
-										<div class="course-details">
-											<span class="course-category">Business</span>
-											<span class="course-price course-free">Free</span>
-										</div>
-									</div>
-								</div>
-								<!-- /single course -->
-
-								<!-- single course -->
-								<div class="col-md-3 col-sm-6 col-xs-6">
-									<div class="course">
-										<a href="course-overview.html" class="course-img">
-											<img src="<?php echo base_url()?>assets/gtc_client/img/course02.jpg" alt="">
-											<i class="course-link-icon fa fa-link"></i>
-										</a>
-										<a class="course-title" href="course-overview.html">Introduction to CSS </a>
-										<div class="course-details">
-											<span class="course-category">Web Design</span>
-											<span class="course-price course-premium">Premium</span>
-										</div>
-									</div>
-								</div>
-								<!-- /single course -->
-
-								<!-- single course -->
-								<div class="col-md-3 col-sm-6 col-xs-6">
-									<div class="course">
-										<a href="course-overview.html" class="course-img">
-											<img src="<?php echo base_url()?>assets/gtc_client/img/course03.jpg" alt="">
-											<i class="course-link-icon fa fa-link"></i>
-										</a>
-										<a class="course-title" href="course-overview.html">The Ultimate Drawing Course | From Beginner To Advanced</a>
-										<div class="course-details">
-											<span class="course-category">Drawing</span>
-											<span class="course-price course-premium">Premium</span>
-										</div>
-									</div>
-								</div>
-								<!-- /single course -->
-
-								<div class="col-md-3 col-sm-6 col-xs-6">
-									<div class="course">
-										<a href="course-overview.html" class="course-img">
-											<img src="<?php echo base_url()?>assets/gtc_client/img/course04.jpg" alt="">
-											<i class="course-link-icon fa fa-link"></i>
-										</a>
-										<a class="course-title" href="course-overview.html">The Complete Web Development Course</a>
-										<div class="course-details">
-											<span class="course-category">Web Development</span>
-											<span class="course-price course-free">Free</span>
-										</div>
-									</div>
-								</div>
-
-
-								<!-- /single course -->
-
-							</div>
-							<!-- /row -->
-
-
-
-						</div>
-						<!-- /courses -->
-
-						<div class="row">
-							<div class="center-btn">
-								<a class="main-button icon-button" href="course.html">More Event</a>
-							</div>
-						</div>
-
-					</div>
-					<!-- container -->
-
-				</div>
-				<!-- /Courses -->
-
-
-
 				<!-- Contact CTA -->
 				<div id="contact-cta" class="section">
 
 					<!-- Backgound Image -->
-					<div class="bg-image bg-parallax overlay" style="background-image:url(./assets/gtc_client/img/cta2-background.jpg)"></div>
+					<div class="bg-image bg-parallax overlay" style="background-image:url(<?php echo base_url(); ?>assets/gtc_client/img/cta2-background.jpg)"></div>
 					<!-- Backgound Image -->
 
 					<!-- container -->
@@ -273,95 +162,82 @@
 
 							<div class="col-md-8 col-md-offset-2 text-center">
 								<h2 class="white-text">Contact Us</h2>
-								<p class="lead white-text">Libris vivendo eloquentiam ex ius, nec id splendide abhorreant.</p>
-								<a class="main-button icon-button" href="#">Contact Us Now</a>
 							</div>
-
+							<div class="col-md-4 white-text"><i class="fa fa-map-marker"></i> <span>Permata Indo Niaga - Head Office</span></div>
+							<div class="col-md-4 white-text"><i class="fa fa-phone-square"></i> <span> +62 727 93636</span></div>
+							<div class="col-md-4 white-text"><i class="fa fa-envelope"></i> <span>globaltopcareer@gmail.com</span></div>
 						</div>
-						<!-- /row -->
-
 					</div>
-					<!-- /container -->
+					<!-- /row -->
 
 				</div>
-				<!-- /Contact CTA -->
+				<!-- /container -->
 
-				<!-- Footer -->
-				<footer id="footer" class="section">
+			</div>
+			<!-- /Contact CTA -->
 
-					<!-- container -->
-					<div class="container">
+			<!-- Footer -->
+			<footer id="footer" class="section">
 
-						<!-- row -->
-						<div class="row">
+    <!-- container -->
+    <div class="container">
 
-							<!-- footer logo -->
-							<div class="col-md-6">
-								<div class="footer-logo">
-									<a class="logo" href="index.html">
-										<img src="<?php echo base_url()?>assets/gtc_client/img/logo.png" alt="logo">
-									</a>
-								</div>
-							</div>
-							<!-- footer logo -->
+        <!-- row -->
+        <div class="row">
 
-							<!-- footer nav -->
-							<div class="col-md-6">
-								<ul class="footer-nav">
-									<li><a href="index.html">Home</a></li>
-									<li><a href="#">About</a></li>
-									<li><a href="#">Courses</a></li>
-									<li><a href="blog.html">Blog</a></li>
-									<li><a href="contact.html">Contact</a></li>
-								</ul>
-							</div>
-							<!-- /footer nav -->
+            <!-- footer logo -->
+            <div class="col-md-6">
+                <div class="footer-logo">
+                    <a class="logo" href="index.html">
+                        <img src="<?php echo base_url()?>assets/gtc_client/img/logo.png" alt="logo">
+                    </a>
+                </div>
+            </div>
+            <!-- footer logo -->
 
-						</div>
-						<!-- /row -->
+            <!-- footer nav -->
+            <div class="col-md-6">
+                <ul class="footer-nav">
+                    <li><a href="<?php echo base_url('')?>">Home</a></li>
+                    <li><a href="<?php echo base_url('homepage/coursecatalog')?>">Courses</a></li>
+                    <li><a href="<?php echo base_url('homepage/contact')?>">Contact</a></li>
+                    <li><a href="<?php echo base_url('')?>">Login</a></li>
+                </ul>
+            </div>
+            <!-- /footer nav -->
 
-						<!-- row -->
-						<div id="bottom-footer" class="row">
+        </div>
+        <!-- /row -->
 
-							<!-- social -->
-							<div class="col-md-4 col-md-push-8">
-								<ul class="footer-social">
-									<li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
-									<li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
-									<li><a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a></li>
-									<li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
-									<li><a href="#" class="youtube"><i class="fa fa-youtube"></i></a></li>
-									<li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
-								</ul>
-							</div>
-							<!-- /social -->
+        <!-- row -->
+        <div id="bottom-footer" class="row">
 
-							<!-- copyright -->
-							<div class="col-md-8 col-md-pull-4">
-								<div class="footer-copyright">
-									<span>© Copyright 2018. All Rights Reserved. | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com">Colorlib</a></span>
-								</div>
-							</div>
-							<!-- /copyright -->
+            <!-- copyright -->
+            <div class="col-md-12 text-center">
+                <div class="footer-copyright">
+                    <span>&copy; Copyright 2018. | Global Top Career EduSite</span>
+                </div>
+            </div>
+            <!-- /copyright -->
 
-						</div>
-						<!-- row -->
+        </div>
+        <!-- row -->
 
-					</div>
-					<!-- /container -->
+    </div>
+    <!-- /container -->
 
-				</footer>
-				<!-- /Footer -->
+</footer>
+			<!-- /Footer -->
 
-				<!-- preloader -->
-				<div id='preloader'><div class='preloader'></div></div>
-				<!-- /preloader -->
+			<!-- preloader -->
+			<div id='preloader'><div class='preloader'></div></div>
+			<!-- /preloader -->
 
 
-				<!-- jQuery Plugins -->
-				<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/jquery.min.js"></script>
-				<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/bootstrap.min.js"></script>
-				<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/main.js"></script>
+			<!-- jQuery Plugins -->
+			<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/jquery.min.js"></script>
+			<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/bootstrap.min.js"></script>
+			<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/main.js"></script>
 
-			</body>
-			</html>
+		</body>
+		</html>

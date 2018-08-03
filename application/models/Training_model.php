@@ -19,4 +19,17 @@ class Training_model extends CI_Model
 	function cekregister($where){
 		return $this->db->get_where('training',$where);
 	}
+
+	function select_where($where){
+		return $this->db->get_where('training', $where);
+	}
+
+	function mycourses($id_peserta){
+		$this->db->select('*');
+		$this->db->from('training,modul');
+		$this->db->where('training.id_peserta',$id_peserta);
+		$this->db->where('training.id_modul = modul.id_modul');
+		return $this->db->get();
+	}
+
 }

@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="section-header text-center">
-				<h2>Explore Courses</h2>
+		
 			</div>
 		</div>
 		<div id="courses-wrapper">
@@ -18,17 +18,16 @@
 							<a class="course-title" href="<?php echo base_url('homepage/detailcourse/'.$c->slug) ?>"><?php echo $c->nama ?></a>
 							<div class="course-details">
 								<span class="course-category"><?php echo $c->category ?></span>
-								<span class="course-price course-free">Free</span>
 							</div>
 						</div>
 					</div>
 					<?php } ?>
 				</div>
 			</div>
-			<div class="row">
+<!-- 			<div class="row">
 				<div class="center-btn">
 					<a class="main-button icon-button" href="<?php echo base_url('homepage/coursecatalog/all/') ?>">More Courses</a>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>

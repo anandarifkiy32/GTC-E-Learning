@@ -9,7 +9,7 @@
 			<!-- footer logo -->
 			<div class="col-md-6">
 				<div class="footer-logo">
-					<a class="logo" href="index.html">
+					<a class="logo" href="<?php echo base_url('') ?>">
 						<img src="<?php echo base_url()?>assets/gtc_client/img/logo.png" alt="logo">
 					</a>
 				</div>
@@ -19,11 +19,24 @@
 			<!-- footer nav -->
 			<div class="col-md-6">
 				<ul class="footer-nav">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="#">About</a></li>
-					<li><a href="#">Courses</a></li>
-					<li><a href="blog.html">Blog</a></li>
-					<li><a href="contact.html">Contact</a></li>
+					<li><a href="<?php echo base_url('') ?>">Home</a></li>
+					<li><a href="<?php echo base_url('homepage/coursecatalog') ?>">Courses</a></li>
+					<li><a href="<?php echo base_url('homepage/contact') ?>">Contact</a></li>
+					<li class="dropdown"><a href="<?php if(!$profile){echo base_url();}else{echo "";} ?>" <?php if($profile){ ?> class="dropdown-toggle" data-toggle="dropdown" <?php } ?>>              
+						<?php 
+						if($profile){
+							foreach ($profile as $p) {
+								echo $p->nama ;
+							}
+						}else{
+							echo 'Login';
+						}
+						?></a>
+						<ul class="dropdown-menu">
+							<li><a href="<?php echo base_url('homepage/showprofile') ?>">Profile</a></li>
+							<li><a href="<?php echo base_url('homepage/logout')?>">Logout</a></li>
+						</ul>
+					</li>
 				</ul>
 			</div>
 			<!-- /footer nav -->
@@ -34,24 +47,14 @@
 		<!-- row -->
 		<div id="bottom-footer" class="row">
 
-			<!-- social -->
-			<div class="col-md-4 col-md-push-8">
-				<ul class="footer-social">
-					<li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
-					<li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
-					<li><a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a></li>
-					<li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
-					<li><a href="#" class="youtube"><i class="fa fa-youtube"></i></a></li>
-					<li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
-				</ul>
-			</div>
-			<!-- /social -->
 
 			<!-- copyright -->
-			<div class="col-md-8 col-md-pull-4">
-				<div class="footer-copyright">
-					<span>&copy; Copyright 2018. All Rights Reserved. | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com">Colorlib</a></span>
-				</div>
+			<div class="col-md-12">
+				<center>
+					<div class="footer-copyright">
+						<span>&copy; Copyright 2018. | <a href="<?php echo base_url('') ?>"> Global Top Career EduSite </a></span>
+					</div>
+				</center>
 			</div>
 			<!-- /copyright -->
 
@@ -68,9 +71,64 @@
 <div id='preloader'><div class='preloader'></div></div>
 <!-- /preloader -->
 <!-- jQuery Plugins -->
+
 <script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/jquery.min.js"></script>
+<sc<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/main.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/locales/bootstrap-datetimepicker.id.js" charset="UTF-8"></script>
+<script type="text/javascript">
+	$('.form_datetime').datetimepicker({
+        //language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1
+    });
+	$('.form_date').datetimepicker({
+		language:  'id',
+		weekStart: 1,
+		todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+	});
+	$('.form_time').datetimepicker({
+		language:  'fr',
+		weekStart: 1,
+		todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 1,
+		minView: 0,
+		maxView: 1,
+		forceParse: 0
+	});
 
-</body>
-</html>
+	var checker = document.getElementById('checkme');
+	var sendbtn = document.getElementById('sendNewSms');
+	var link    = document.getElementById('link');
+ 	// when unchecked or checked, run the function
+ 	checker.onchange = function(){
+ 		if(this.checked){
+ 			<?php if(isset($modul)){
+ 				foreach ($modul as $m) { ?>	
+ 					link.href		 = '<?php echo base_url('homepage/joincourse/'.$m->slug); ?>';
+ 					<?php } } ?>
+ 					sendbtn.disabled = false;
+ 				} else {
+ 					link.href		 = '';
+ 					sendbtn.disabled = true;
+ 				}
+
+ 			}
+ 		</script>
+
+ 	</body>
+ 	</html>

@@ -55,11 +55,10 @@
 				<nav id="nav">
 					<ul class="main-menu nav navbar-nav navbar-right">
 						<li><a href="<?php echo base_url() ?>">Home</a></li>
-						<li><a href="#">About</a></li>
 						<li><a href="<?php echo base_url('homepage/coursecatalog/') ?>">Courses</a></li>
 
 						<li><a href="<?php echo base_url('homepage/contact/')?>">Contact</a></li>
-						<li class="dropdown"><a href="<?php if(!$profile){echo base_url();} ?>" class="dropdown-toggle" data-toggle="dropdown">              
+						<li class="dropdown"><a href="<?php if(!$profile){echo base_url();} ?>" <?php if($profile){ ?>class="dropdown-toggle" data-toggle="dropdown" <?php } ?> >              
 							<?php 
 							if($profile){
 								foreach ($profile as $p) {
@@ -170,10 +169,23 @@
 					<div class="col-md-6">
 						<ul class="footer-nav">
 							<li><a href="<?php echo base_url('')?>">Home</a></li>
-							<li><a href="<?php echo base_url('homepage/course')?>">Courses</a></li>
-							<li><a href="<?php echo base_url('homepage/showevent')?>">Event</a></li>
+							<li><a href="<?php echo base_url('homepage/coursecatalog')?>">Courses</a></li>
 							<li><a href="<?php echo base_url('homepage/contact')?>">Contact</a></li>
-							<li><a href="<?php echo base_url('')?>">Login</a></li>
+							<li class="dropdown"><a href="<?php if(!$profile){echo base_url();} ?>" <?php if($profile){ ?>class="dropdown-toggle" data-toggle="dropdown" <?php } ?> >              
+							<?php 
+							if($profile){
+								foreach ($profile as $p) {
+									echo $p->nama ;
+								}
+							}else{
+								echo 'Login';
+							}
+							?></a>
+							<ul class="dropdown-menu">
+								<li><a href="#" style="color: #262626;background-color: transparent;">Profile</a></li>
+								<li><a href="<?php echo base_url('homepage/logout')?>" style="color: #262626">Logout</a></li>
+							</ul>
+						</li>
 						</ul>
 					</div>
 					<!-- /footer nav -->

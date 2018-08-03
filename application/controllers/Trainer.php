@@ -5,14 +5,13 @@ class Trainer extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
-		$this->load->model(array('Trainer_model','Modul_model','Materi_model','Category_model'));
+		$this->load->model(array('Trainer_model','Modul_model','Materi_model','Category_model','Training_model'));
 		$this->load->helper(array('form', 'url'));
 	}
 
 	public function index(){
-		$status = $this->session->userdata('status');
-		if($status !== 'login2'){
-			$this->load->view('login');
+		if(! $this->session->userdata('status') == 'logintrainer'){
+			$this->load->view('trainer/pages/v_login');
 		}else{
 			$where = array(
 				'id_trainer' => $this->session->userdata('trainer')
@@ -24,8 +23,32 @@ class Trainer extends CI_Controller {
 				'content' => 'Trainer/Pages/v_dashboard');
 			$this->load->view('Trainer/Layout/Wrapper',$content);
 		}
-		
+	}
 
+	function login(){
+		$email = $this->input->post('email');
+		$password = $this->input->post('pass');
+		$where = array(
+			'email' => $email,
+			'pass' => md5($password)
+		);
+		$cek = $this->Trainer_model->select_where($where)->num_rows();
+
+		if($cek > 0){
+			$data['session'] = $this->Trainer_model->select_where($where)->result();
+			foreach ($data['session'] as $s) {
+				$nama    = $s->nama;
+				$id_trainer = $s->id_trainer;
+			}
+
+			$data_session = array(
+				'nama'    => $nama,
+				'trainer' => $id_trainer,
+				'status'  => 'logintrainer'
+			);
+			$this->session->set_userdata($data_session);
+			redirect(base_url('trainer'));
+		}
 	}
 
 	function coursecatalog(){
@@ -37,14 +60,14 @@ class Trainer extends CI_Controller {
 
 	function profile(){
 		$content = array(
-			'title' 	=> 'Profile',
+			'title' 	=> 'Dashboard',
 			'content'	=> 'Trainer/Pages/v_profile');
 		$this->load->view('Trainer/Layout/Wrapper',$content);
 	}
 
 	function logout(){
 		$this->session->sess_destroy();
-		redirect(base_url('Admin'));
+		redirect(base_url('trainer'));
 	}
 
 	function detailcourse($slug){
@@ -56,12 +79,14 @@ class Trainer extends CI_Controller {
 			'id_modul'	=> $id_modul);
 		$sub_materi = $this->Materi_model->select_where($where)->result();
 		$jumlah_materi = $this->Materi_model->select_where($where)->num_rows();
+		$jumlah_peserta= $this->Training_model->select_where($where)->num_rows();
 		$category = $this->Category_model->select()->result();
 		$data=array(
-			'title' 		=> 'Profile',
+			'title' 		=> 'Dashboard',
 			'modul'			=> $modul,
 			'submateri'		=> $sub_materi,
 			'jumlah_materi'	=> $jumlah_materi,
+			'jumlah_peserta'=> $jumlah_peserta,
 			'category'		=> $category,
 			'content' 		=> 'trainer/pages/v_detailcourse');
 		$this->load->view('trainer/layout/wrapper',$data);
@@ -73,7 +98,7 @@ class Trainer extends CI_Controller {
 		$materi = $this->Materi_model->select_where($where)->result();
 
 		$data=array(
-			'title' 		=> 'Profile',
+			'title' 		=> 'Dashboard',
 			'materi'		=> $materi,
 			'content' 		=> 'trainer/pages/v_detailmateri');
 		$this->load->view('trainer/layout/wrapper',$data);

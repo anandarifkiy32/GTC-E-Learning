@@ -5,7 +5,7 @@ class Homepage extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
-		$this->load->model(array('Peserta_model','Modul_model'));	
+		$this->load->model(array('Peserta_model','Modul_model','Training_model'));	
 		$this->load->helper(array('form','url','file'));
 		$this->load->library(array('pagination'));
 	}
@@ -29,6 +29,33 @@ class Homepage extends CI_Controller {
 		}
 	}
 
+	function mycourses()
+	{
+		$where = array(
+			'unique_code' => $this->session->userdata('unique_code')
+		);
+
+		$profile = $this->Peserta_model->select_where($where)->result();
+		foreach ($profile as $p) { 
+			$id_peserta = $p->id_peserta;
+		}
+
+		$mycourses = $this->Training_model->mycourses($id_peserta)->result();
+
+		if($this->session->userdata('status') == 'login'){
+			$data = array(
+				'profile'	=> $profile,
+				'banner'	=> 'My Courses',
+				'course'	=> $mycourses,
+				'content'	=> 'client/pages/v_mycourses'
+			);
+			$this->load->view('client/layout/wrapper',$data);
+		}else{
+			$data['course'] = $this->Modul_model->select()->result();
+			$this->load->view('client/pages/v_homepage',$data);
+		}
+	}
+
 	function contact(){
 		$where = array(
 			'unique_code' => $this->session->userdata('unique_code')
@@ -37,7 +64,7 @@ class Homepage extends CI_Controller {
 			$data['profile'] = $this->Peserta_model->select_where($where)->result();
 			$this->load->view('client/pages/v_contact',$data);
 		}else{
-			$data['profile'] = null;
+			$data['profile'] = FALSE;
 			$this->load->view('client/pages/v_contact',$data);
 		}
 		
@@ -73,6 +100,7 @@ class Homepage extends CI_Controller {
 
 	function login2(){
 		$id_modul	= $this->input->post('id_modul');
+		$function	= $this->input->post('function');
 		$email 		= $this->input->post('email');
 		$password 	= $this->input->post('pass');
 		$where = array(
@@ -96,10 +124,11 @@ class Homepage extends CI_Controller {
 
 		if(strlen($id_modul) == 150){
 			redirect(base_url('homepage'));
-		}else{
+		}elseif($function == 'startcourse'){
 			redirect(base_url('homepage/startcourse/'.$id_modul));
+		}elseif($function == 'joincourse'){
+			redirect(base_url('homepage/joincourse/'.$id_modul));
 		}
-		
 	}
 
 
@@ -122,6 +151,7 @@ class Homepage extends CI_Controller {
 		$characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 		$charactersLength = strlen($characters);
 		$unique_kode = '';
+
 		for ($i = 0; $i < $length; $i++) {
 			$unique_kode .= $characters[rand(0, $charactersLength - 1)];
 		}
@@ -159,7 +189,7 @@ class Homepage extends CI_Controller {
 				'telp'  		=> $telepon,
 				'unique_code'	=> $unique_kode,
 				'status'		=> '0',
-				'img'			=> 'default.jpg'
+				'img'			=> ''
 			);
 			$this->Peserta_model->input($data);
 			redirect(base_url('homepage/success'));
@@ -189,21 +219,34 @@ class Homepage extends CI_Controller {
 			'unique_code' => $this->session->userdata('unique_code')
 		);
 		$profile = $this->Peserta_model->select_where($where)->result();
+		foreach ($profile as $p) {
+			$id_peserta = $p->id_peserta;
+		}
 
-		$where = array(
-			'slug'    => $slug);
+		$where = array('slug' => $slug);
 
+		$modul = $this->Modul_model->select_where($where)->result();
+
+		foreach ($modul as $m) {
+			$id_modul = $m->id_modul;
+		}
 
 		$banner = $this->Modul_model->select_where($where)->row('nama');
-		$modul = $this->Modul_model->select_where($where)->result();
+		
 		$category = $this->Modul_model->select_where($where)->row('category');
 
 		$relatedcourse= $this->Modul_model->relatedcourse($category)->result();
+		$where = array(
+			'id_modul' 		=> $id_modul,
+			'id_peserta'	=> $id_peserta);
+
+		$cekjoin = $this->Training_model->select_where($where)->num_rows();
 
 		$data = array(
 			'profile'    => $profile,
 			'banner'    => $banner,
 			'modul'        => $modul,
+			'cekjoin'	=> $cekjoin,
 			'related'   => $relatedcourse,
 			'content'    => 'client/pages/v_detailcourse'
 		);
@@ -235,12 +278,13 @@ class Homepage extends CI_Controller {
 		}
 	}
 
-	function tes(){
-		echo url_title('Title of Modul', 'dash', true);
-	}
-
 	function coursecatalog(){
-		$category = $this->uri->segment(3);
+		if($this->uri->segment(3) == ''){
+			$category = 'all';
+		}else{
+			$category = $this->uri->segment(3);
+		}
+		
 		$limit_per_page = 4;
 		if($this->uri->segment(4) == 0){
 			$start_index = 0;
@@ -311,36 +355,6 @@ class Homepage extends CI_Controller {
 		$this->load->view('client/layout/wrapper',$data);
 	}
 
-	public function send() {
-            // Storing submitted values
-            // Configure email library
-		$config['protocol'] = 'smtp';
-		$config['smtp_host'] = 'ssl://smtp.googlemail.com';
-		$config['smtp_port'] = 465;
-		$config['mailtype'] = 'html';
-		$config['smtp_user'] = 'ananda.rifkiy33@gmail.com';
-		$config['smtp_pass'] = 'helloworld:)';
-
-            // Load email library and passing configured values to email library 
-		$this->load->library('email', $config);
-		$this->email->set_newline("\r\n");
-
-            // Sender email address
-		$this->email->from('ananda.rifkiy33@gmail.com', 'Ananda Rifkiy Hasan');
-            // Receiver email address
-		$this->email->to('ananda.rifkiy32@gmail.com');
-            // Subject of email
-		$this->email->subject(':)');
-            // Message in email
-		$this->email->message('<b>Bwakwkwkwkw</b>');
-
-		if ($this->email->send()) {
-			echo '1';
-		} else {
-			echo '0';
-		}
-	}
-
 	function showprofile(){
 		$where = array(
 			'unique_code' => $this->session->userdata('unique_code')
@@ -370,27 +384,128 @@ class Homepage extends CI_Controller {
 		$this->load->view('client/layout/wrapper',$data);
 	}
 
-	 function updateprofile($unique_code){
-        $id = $unique_code;
+	function updateprofile($unique_code){
+		$id = $unique_code;
 
-        $data    = array(
-            'nama'              => $this->input->post('namalengkap'),
-            'gender'            => $this->input->post('gender'),
-            'tempatlahir'       => $this->input->post('tempatlahir'),
-            'ttl'               => $this->input->post('tgl'),
-            'alamat'            => $this->input->post('alamat'),
-            'telp'              => $this->input->post('telepon'),
-            'kantor'            => $this->input->post('kantor'),
-            'alamat_kantor'     => $this->input->post('alamat_kantor'),
-            'telp_kantor'       => $this->input->post('telepon_kantor'),
-            'biografi'          => $this->input->post('biografi')
-        );
+		$data    = array(
+			'nama'              => $this->input->post('namalengkap'),
+			'gender'            => $this->input->post('gender'),
+			'tempatlahir'       => $this->input->post('tempatlahir'),
+			'ttl'               => $this->input->post('tgl'),
+			'alamat'            => $this->input->post('alamat'),
+			'telp'              => $this->input->post('telepon'),
+			'kantor'            => $this->input->post('kantor'),
+			'alamat_kantor'     => $this->input->post('alamat_kantor'),
+			'telp_kantor'       => $this->input->post('telepon_kantor'),
+			'biografi'          => $this->input->post('biografi')
+		);
 
-        $where     = array('unique_code' => $id);
+		$where     = array('unique_code' => $id);
 
-        $this->Peserta_model->update($where,$data);
-        redirect(base_url('homepage/showprofile'));
+		$this->Peserta_model->update($where,$data);
+		redirect(base_url('homepage/showprofile'));
+	}
 
-    }
+	function editphoto(){
+		$status = '';
+		if ($this->uri->segment(3) == 'failed'){
+			$status = $this->uri->segment(3);
+		}
+		$where = array(
+			'unique_code' => $this->session->userdata('unique_code')
+		);
+		$content = array(
+			'title' => 'Profile',
+			'banner' => 'Edit Foto',
+			'status'	=> $status,
+			'content' => 'Client/Pages/v_editphotoprofile',
+			'profile' => $this->Peserta_model->select_where($where)->result());
+		$this->load->view('Client/Layout/Wrapper',$content);
+	}
+
+	function uploadphoto(){ 
+		$nama = $this->input->post('code'); 
+		$where = array( 'id_peserta' => $nama );
+		$cekfoto = $this->Peserta_model->select_where($where)->result(); 
+		foreach ($cekfoto as $c) {
+			$hasil = $c->img;
+		}
+		if($hasil == ""){
+			$config['upload_path']	= './assets/profile_photos/';
+			$config['allowed_types'] = 'jpg|jpeg|png';
+			$config['max_size'] = '2048';
+			$config['max_width'] = '4048';
+			$config['max_height'] = '4048';
+			$config['file_name'] = $nama;
+			$this->load->library('upload',$config);
+			if(! $this->upload->do_upload('berkas')){
+
+				echo "error";
+			}else{
+				$gbr = $this->upload->data();
+				$format = str_replace('image', '',$gbr['file_type']);
+				$where = array('id_peserta' => $nama);
+				$data = array(
+					'img' => $gbr['file_name']);
+				$this->Peserta_model->insert_img($where,$data);
+				redirect(base_url('homepage/showprofile'));
+			}
+		}else{
+			unlink('./assets/profile_photos/'.$hasil);
+			$config['upload_path']	= './assets/profile_photos/';
+			$config['allowed_types'] = 'jpg|jpeg|png';
+			$config['max_size'] = '2048';
+			$config['max_width'] = '4048';
+			$config['max_height'] = '4048';
+			$config['file_name'] = $nama;
+			$this->load->library('upload',$config);
+			if(! $this->upload->do_upload('berkas')){
+				$where = array('id_peserta' => $nama);
+				$data = array(
+					'img' => '');
+				$this->Peserta_model->insert_img($where,$data);
+				redirect(base_url('homepage/editphoto/failed'));
+			}else{
+				$gbr = $this->upload->data();
+				$format = str_replace('image', '',$gbr['file_type']);
+				$where = array('id_peserta' => $nama);
+				$data = array(
+					'img' => $gbr['file_name']);
+				$this->Peserta_model->insert_img($where,$data);
+				redirect(base_url('homepage/showprofile'));
+			}
+		}	
+	}
+
+	function joincourse($course){
+		if($this->session->userdata('status') == 'login'){
+			$peserta = $this->session->userdata('unique_code');
+			$where = array(
+				'unique_code' => $peserta);
+			$data = $this->Peserta_model->select_where($where)->result();
+			foreach ($data as $peserta) {
+				$id_peserta = $peserta->id_peserta;
+			}
+
+			$where = array(
+				'slug' => $course);
+			$data = $this->Modul_model->select_where($where)->result();
+			if($this->Modul_model->select_where($where)->num_rows() == 0){
+				redirect('homepage/coursecatalog/');
+			}
+			foreach ($data as $modul) {
+				$id_modul = $modul->id_modul;
+			}
+
+			$data = array(
+				'id_modul' 	=> 	$id_modul,
+				'id_peserta'=>	$id_peserta);
+
+			$this->Training_model->input($data);
+			redirect('homepage/startcourse/'.$course);
+		}else{
+			$this->load->view('client/pages/v_login');
+		}
+	}
 }
 

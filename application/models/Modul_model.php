@@ -50,7 +50,7 @@ class Modul_model extends CI_Model
 	}
 
 	function relatedcourse($where){
-		$this->db->select('mdl.nama as namamodul, mdl.img as image, tnr.nama as namatrainer');
+		$this->db->select('mdl.nama as namamodul, mdl.img as image, tnr.nama as namatrainer,mdl.slug as slug');
 		$this->db->from('modul as mdl, trainer as tnr');
 		$this->db->limit(4);
 		$this->db->where('mdl.category',$where);

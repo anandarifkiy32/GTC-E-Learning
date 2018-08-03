@@ -9,13 +9,14 @@
   <title>GTC EduSite</title>
 
   <!-- Google font -->
+  <link href="<?php echo base_url()?>assets/web/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
   <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
-
+  <link href="<?php echo base_url()?>assets/web/css/font-awesome.css" rel="stylesheet"> 
   <!-- Bootstrap -->
   <link type="text/css" rel="stylesheet" href="<?php echo base_url()?>assets/gtc_client/css/bootstrap.min.css"/>
-
   <!-- Font Awesome Icon -->
   <link rel="stylesheet" href="<?php echo base_url()?>assets/gtc_client/css/font-awesome.min.css">
+  <link href="<?php echo base_url()?>assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 
   <!-- Custom stlylesheet -->
   <link type="text/css" rel="stylesheet" href="<?php echo base_url()?>assets/gtc_client/css/style.css"/>
@@ -37,7 +38,7 @@
         <div class="navbar-header">
           <!-- Logo -->
           <div class="navbar-brand">
-            <a class="logo" href="index.html">
+            <a class="logo" href="<?php echo base_url() ?>">
               <img src="<?php echo base_url()?>assets/gtc_client/img/logo.png" alt="logo">
             </a>
           </div>
@@ -54,7 +55,6 @@
         <nav id="nav">
           <ul class="main-menu nav navbar-nav navbar-right">
             <li><a href="<?php echo base_url() ?>">Home</a></li>
-            <li><a href="#">About</a></li>
             <li><a href="<?php echo base_url('homepage/coursecatalog/') ?>">Courses</a></li>
 
             <li><a href="<?php echo base_url('homepage/contact/')?>">Contact</a></li>
@@ -69,6 +69,7 @@
               }
               ?></a>
               <ul class="dropdown-menu">
+                <li><a href="<?php echo base_url('homepage/mycourses') ?>">My Courses</a></li>
                 <li><a href="<?php echo base_url('homepage/showprofile') ?>">Profile</a></li>
                 <li><a href="<?php echo base_url('homepage/logout')?>">Logout</a></li>
               </ul>
