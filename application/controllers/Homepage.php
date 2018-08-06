@@ -4,10 +4,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Homepage extends CI_Controller {
 
 	function __construct(){
+		date_default_timezone_set('ASIA/JAKARTA');
 		parent::__construct();
-		$this->load->model(array('Peserta_model','Modul_model','Training_model','Materi_model','Quiz_model'));	
+		$this->load->model(array('Peserta_model','Modul_model','Training_model','Materi_model','Quiz_model','Jawaban_model','Result_model'));	
 		$this->load->helper(array('form','url','file'));
 		$this->load->library(array('pagination'));
+
+		if($this->uri->segment(2) != 'startquiz'){
+			if($this->uri->segment(2) != 'submit'){
+				if($this->session->userdata('quizend') != NULL){
+				redirect(base_url('homepage/startquiz/'.$this->session->userdata('quizslug')));
+			}
+			}
+			
+		}
+
 	}
 
 	function index()
@@ -496,6 +507,19 @@ class Homepage extends CI_Controller {
 	function joincourse($course){
 		if($this->session->userdata('status') == 'login'){
 			$peserta = $this->session->userdata('unique_code');
+			$where = array('unique_code' => $peserta);
+			$id_peserta = $this->Peserta_model->select_where($where)->row('id_peserta');
+			$where = array('slug' => $course);
+			$id_modul = $this->Modul_model->select_where($where)->row('id_modul');
+			$where = array(
+				'id_modul'	=> $id_modul,
+				'id_peserta'=> $id_peserta
+			);
+			$cekjoin = $this->Training_model->select_where($where)->num_rows();
+			if($cekjoin = 1){
+				redirect(base_url('homepage/startcourse/'.$course));
+			}
+			
 			$where = array(
 				'unique_code' => $peserta);
 			$data = $this->Peserta_model->select_where($where)->result();
@@ -524,7 +548,7 @@ class Homepage extends CI_Controller {
 		}
 	}
 
-	function startquiz($slug){
+	function quizoverview($slug){
 		if($this->session->userdata('status') == 'login'){
 			$where = array(
 				'unique_code' => $this->session->userdata('unique_code')
@@ -532,33 +556,125 @@ class Homepage extends CI_Controller {
 			$profile = $this->Peserta_model->select_where($where)->result();
 			$where = array(
 				'slug' => $slug);
-			$id_materi = $this->Materi_model->select_where($where)->row('id_materi');
+			$id_materi = $this->Materi_model->select_where($where)->row('id_materi'); 
 			$namamodul = $this->Materi_model->select_modul($id_materi)->row('namamodul');
 			$where = array(
 				'id_materi' => $id_materi);
 			$soal = $this->Quiz_model->select_where($where)->row('id_test');
-			$quiz= $this->Quiz_model->soal($soal)->result();
-			$cek = $this->Quiz_model->soal($soal)->row('totalsoal');
-			if ($cek > 0) {
-				$data = array(
-					'profile' => $profile,
-					'banner' => "Start Quiz",
-					'namamodul' => $namamodul,
-					'quiz' => $quiz,
-					'content' => 'client/pages/v_konfirmasiquiz'
-				);
-				$this->load->view('client/layout/wrapper',$data);
-			}
-			else{
-				$data = array(
-					'profile' => $profile,
-					'banner' => "Start Quiz",
-					'quiz' => $quiz,
-					'content' => 'client/pages/v_xquiz'
-				);
-				$this->load->view('client/layout/wrapper',$data);
-			}
+			$quiz= $this->Quiz_model->cekquiz($id_materi);
+
+			$data = array(
+				'profile' => $profile,
+				'banner' => "Start Quiz",
+				'namamodul' => $namamodul,
+				'quiz' => $quiz,
+				'content' => 'client/pages/v_konfirmasiquiz'
+			);
+			$this->load->view('client/layout/wrapper',$data);
+			
+
 		}
+	}
+
+	function startquiz($slug){
+
+		$where = array(
+			'unique_code' => $this->session->userdata('unique_code')
+		);
+		$profile = $this->Peserta_model->select_where($where)->result();
+		$id_peserta = $this->Peserta_model->select_where($where)->row('id_peserta');
+		$soal = $this->Quiz_model->getsoal($slug)->result();
+		$where = array('slug' => $slug);
+		$id_materi = $this->Materi_model->select_where($where)->row('id_materi');
+		$where = array('id_materi' => $id_materi);
+
+		$id_test = $this->Quiz_model->select_where($where)->row('id_test'); //id_test
+
+		$where = array(
+			'id_test' 		=> $id_test,
+			'id_peserta'	=> $id_peserta
+		);
+		if($this->Result_model->select_where($where)->num_rows() > 0){
+			redirect(base_url());
+		}
+		$where = array('id_test' => $id_test);
+		$waktu = $this->Quiz_model->select_where($where)->row('waktu');
+
+		//start session
+		if($this->session->userdata('quizend') == ''){
+		$newdata = array(
+			'quizslug'  => $slug,
+			'quizend' => date('M j, Y H:i:s',strtotime('+'.$waktu.' minutes'))
+		);
+		$this->session->set_userdata($newdata);
+		}
+
+
+		$data = array(
+			'profile' => $profile,
+			'banner' => "Start Quiz",
+			'soal' => $soal,
+			'content' => 'client/pages/v_startquiz'
+		);
+		$this->load->view('client/layout/wrapper',$data);
+	}
+
+	function submit(){
+		$this->session->unset_userdata(array('quizslug','quizend'));
+		$where = array(
+			'unique_code' => $this->session->userdata('unique_code')
+		);
+		$profile = $this->Peserta_model->select_where($where)->result();
+		$id_peserta = $this->Peserta_model->select_where($where)->row('id_peserta'); //id_peserta
+		$slug = $this->input->post('slug');
+		$where = array('slug' => $slug);
+		$id_materi = $this->Materi_model->select_where($where)->row('id_materi');
+		$where = array('id_materi' => $id_materi);
+
+		$id_test = $this->Quiz_model->select_where($where)->row('id_test'); //id_test
+
+		$data = array(
+			'id_test' 		=> $id_test,
+			'id_peserta'	=> $id_peserta
+		);
+		$this->Result_model->input($data);
+		$where = array(
+			'id_test' 	=> $id_test,
+			'id_peserta'=> $id_peserta
+		);
+		$id_result = $this->Result_model->select_where($where)->row('id_result');
+
+		$soal = $this->Quiz_model->getsoal($slug)->result(); 
+		foreach ($soal as $s) {
+			$data = array(
+				'id_result' => $id_result,
+				'id_soal' 	=> $s->id_soal,
+				'jawaban'   => $this->input->post('jawaban'.$s->id_soal)
+			);
+			$this->Jawaban_model->input($data);
+		}
+		redirect(base_url('homepage/quizresult'));
+	}
+
+	function quizresult(){
+		$where = array(
+			'unique_code' => $this->session->userdata('unique_code')
+		);
+		$profile = $this->Peserta_model->select_where($where)->result();
+		$data = array(
+			'profile' => $profile,
+			'banner' => 'Result',
+			'content' => 'client/pages/v_xquiz'
+		);
+		$this->load->view('client/layout/wrapper',$data);
+	}
+
+	function time(){
+		
+		
+
+		$this->session->set_userdata($newdata);
+		echo $this->session->userdata('quizend');
 	}
 }
 

@@ -12,9 +12,10 @@
 				<!-- blog post -->
 				<div class="blog-post">
 
-					<form>
-						<center><h4>Maaf quiz belum tersedia</h4></center>
-					</form>
+					<div class="alert alert-success alert-dismissible">
+						<h4><i class="icon fa fa-check"></i> Quiz berhasil dikirim !</h4>
+						Menunggu direview oleh trainer.
+					</div>
 
 
 				</div>

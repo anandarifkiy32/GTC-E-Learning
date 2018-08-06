@@ -88,91 +88,133 @@
             </div>
           </div>
         </div>
-
-
-        <div class="modal fade" id="modal-default1">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">Edit Modul</h4>
-                </div>
-                <form action="<?php echo base_url('trainer/updatemodul') ?>" method="post">
-                  <?php foreach ($modul as $m) { ?>
-                    <div class="modal-body">
-                      <div class="box-body">
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Nama Modul</label>
-                          <input type="hidden" name="id" value="<?php echo $m->id_modul ?>">
-                          <input type="text" class="form-control" id="exampleInputEmail1" name="nama" value="<?php echo $m->nama ?>">
-                        </div>
-                        <div class="form-group">
-                          <label for="exampleInputPassword1">Deskripsi</label>
-                          <textarea class="form-control" id="exampleInputPassword1" rows="5" name="description"><?php echo $m->deskripsi ?></textarea>
-                        </div>
-                        <div class="form-group">
-                          <label>Kategori</label>
-                          <select class="form-control" name="category">
-                            <?php foreach ($category as $ctg) { ?>
-                              <option value="<?php echo $ctg->category ?>" <?php if($ctg->category == $m->category){echo "selected";} ?>><?php echo $ctg->category ?></option>
-                              <?php } ?>
-                            </select>
-                          </div>
-                        </div>
-                        <!-- /.box-body -->
-                      </div>
-                      <?php } ?>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                      </div>
-                    </form>
-                  </div>
-                  <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box" style="border-top:none">
+              <div class="box-header">
+                <h3 class="box-title">Data Peserta</h3>
               </div>
-              <div class="modal fade" id="modal-default2">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Tambah Materi</h4>
-                      </div>
-                      <form role="form" action="<?php echo base_url().'trainer/tambahmateri/'.$this->uri->segment(3) ?>" method="post">
-                        <div class="modal-body">
-                          <div class="box-body">
-                            <div class="form-group">
-                              <label for="exampleInputEmail1">Judul</label>
-                              <?php foreach ($modul as $m) { ?>
-                                <input type="hidden" name="id" value="<?php echo $m->id_modul ?>">
+              <!-- /.box-header -->
+              <div class="box-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Nama</th>
+                      <th colspan="2" width="20%">Progress</th>
+                      <th>Status</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php $num = 1 ;foreach ($data_peserta as $dp) { ?>
+
+                      <tr>
+                        <td><?php echo $num ?></td>
+                        <td><?php echo $dp->nama ?></td>
+                        <td width="15%">
+                          <div class="progress progress-xs progress-striped active">
+                            <div class="progress-bar progress-bar-success" style="width: 90%"></div>
+                          </div>
+                        </td>
+                        <td width="30px"><span class="badge bg-green">90%</span></td>
+                        <td></td>
+                        <td align="right"><a href=""><button class="btn btn-success">Detail</button></a></td>
+                      </tr>
+                      <?php $num++; } ?>
+                    </tbody>
+
+                  </table>
+                </div>
+                <!-- /.box-body -->
+              </div>
+            </div>
+          </div>
+
+
+          <div class="modal fade" id="modal-default1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Edit Modul</h4>
+                  </div>
+                  <form action="<?php echo base_url('trainer/updatemodul') ?>" method="post">
+                    <?php foreach ($modul as $m) { ?>
+                      <div class="modal-body">
+                        <div class="box-body">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Nama Modul</label>
+                            <input type="hidden" name="id" value="<?php echo $m->id_modul ?>">
+                            <input type="text" class="form-control" id="exampleInputEmail1" name="nama" value="<?php echo $m->nama ?>">
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputPassword1">Deskripsi</label>
+                            <textarea class="form-control" id="exampleInputPassword1" rows="5" name="description"><?php echo $m->deskripsi ?></textarea>
+                          </div>
+                          <div class="form-group">
+                            <label>Kategori</label>
+                            <select class="form-control" name="category">
+                              <?php foreach ($category as $ctg) { ?>
+                                <option value="<?php echo $ctg->category ?>" <?php if($ctg->category == $m->category){echo "selected";} ?>><?php echo $ctg->category ?></option>
                                 <?php } ?>
-                                <input type="text" class="form-control" id="exampleInputEmail1"  name="judul">
-                              </div>
-                              <div class="form-group">
-                                <label for="exampleInputDescription1">Deskripsi</label>
-                                <textarea class="form-control" name="description" rows="5"></textarea>
-                              </div>
-                              <div class="form-group">
-                                <label for="exampleInputEmail1">Konten</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" name="konten">
-                              </div>
+                              </select>
                             </div>
-                            <!-- /.box-body -->
                           </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                          </div>
-                        </form>            
-                      </div>
-                      <!-- /.modal-content -->
+                          <!-- /.box-body -->
+                        </div>
+                        <?php } ?>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                      </form>
                     </div>
-                    <!-- /.modal-dialog -->
+                    <!-- /.modal-content -->
                   </div>
-                </section>
-                <!-- /.content -->
-              </div>
+                  <!-- /.modal-dialog -->
+                </div>
+                <div class="modal fade" id="modal-default2">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title">Tambah Materi</h4>
+                        </div>
+                        <form role="form" action="<?php echo base_url().'trainer/tambahmateri/'.$this->uri->segment(3) ?>" method="post">
+                          <div class="modal-body">
+                            <div class="box-body">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Judul</label>
+                                <?php foreach ($modul as $m) { ?>
+                                  <input type="hidden" name="id" value="<?php echo $m->id_modul ?>">
+                                  <?php } ?>
+                                  <input type="text" class="form-control" id="exampleInputEmail1"  name="judul">
+                                </div>
+                                <div class="form-group">
+                                  <label for="exampleInputDescription1">Deskripsi</label>
+                                  <textarea class="form-control" name="description" rows="5"></textarea>
+                                </div>
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1">Konten</label>
+                                  <input type="text" class="form-control" id="exampleInputEmail1" name="konten">
+                                </div>
+                              </div>
+                              <!-- /.box-body -->
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                          </form>            
+                        </div>
+                        <!-- /.modal-content -->
+                      </div>
+                      <!-- /.modal-dialog -->
+                    </div>
+                  </section>
+                  <!-- /.content -->
+                </div>
 <!-- /.content-wrapper -->

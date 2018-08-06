@@ -1,5 +1,5 @@
     <div class="hero-area section">
-
+      
       <!-- Backgound Image -->
       <div class="bg-image bg-parallax overlay" style="background-image:url(<?php echo base_url() ?>assets/gtc_client/img/page-background.jpg)"></div>
       <!-- /Backgound Image -->

@@ -5,7 +5,7 @@ class Admin extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
-		$this->load->model(array('Admin_model','Modul_model','Peserta_model','Training_model','Trainer_model','Company_model'));
+		$this->load->model(array('Admin_model','Modul_model','Peserta_model','Training_model','Trainer_model','Company_model','Quiz_model'));
 	}
 
 	function index()

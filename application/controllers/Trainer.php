@@ -5,14 +5,12 @@ class Trainer extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
-		$this->load->model(array('Trainer_model','Modul_model','Materi_model','Category_model','Training_model'));
+		$this->load->model(array('Trainer_model','Modul_model','Materi_model','Category_model','Training_model','Quiz_model','Result_model'));
 		$this->load->helper(array('form', 'url'));
 	}
 
 	public function index(){
-		if(! $this->session->userdata('status') == 'logintrainer'){
-			$this->load->view('trainer/pages/v_login');
-		}else{
+		if($this->session->userdata('status') == 'logintrainer'){
 			$where = array(
 				'id_trainer' => $this->session->userdata('trainer')
 			);
@@ -22,6 +20,8 @@ class Trainer extends CI_Controller {
 				'course'=> $this->Modul_model->select_where($where)->result(),
 				'content' => 'Trainer/Pages/v_dashboard');
 			$this->load->view('Trainer/Layout/Wrapper',$content);
+		}else{
+			$this->load->view('trainer/pages/v_login');
 		}
 	}
 
@@ -77,9 +77,10 @@ class Trainer extends CI_Controller {
 		$modul = $this->Modul_model->select_where($where)->result();
 		$where = array(
 			'id_modul'	=> $id_modul);
-		$sub_materi = $this->Materi_model->select_where($where)->result();
-		$jumlah_materi = $this->Materi_model->select_where($where)->num_rows();
-		$jumlah_peserta= $this->Training_model->select_where($where)->num_rows();
+		$sub_materi 	= $this->Materi_model->select_where($where)->result();
+		$jumlah_materi 	= $this->Materi_model->select_where($where)->num_rows();
+		$jumlah_peserta	= $this->Training_model->select_where($where)->num_rows();
+		$data_peserta	= $this->Training_model->select_peserta($id_modul)->result();
 		$category = $this->Category_model->select()->result();
 		$data=array(
 			'title' 		=> 'Dashboard',
@@ -87,6 +88,7 @@ class Trainer extends CI_Controller {
 			'submateri'		=> $sub_materi,
 			'jumlah_materi'	=> $jumlah_materi,
 			'jumlah_peserta'=> $jumlah_peserta,
+			'data_peserta'	=> $data_peserta,
 			'category'		=> $category,
 			'content' 		=> 'trainer/pages/v_detailcourse');
 		$this->load->view('trainer/layout/wrapper',$data);

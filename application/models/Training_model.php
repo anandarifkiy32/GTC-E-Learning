@@ -41,10 +41,9 @@ class Training_model extends CI_Model
 	}
 
 	function select_peserta($where){
-		$this->db->select('COUNT(training.id_peserta) as jumlahpeserta');
-		$this->db->from('training, peserta, modul');
+		$this->db->select('*');
+		$this->db->from('training, peserta');
 		$this->db->where('training.id_modul',$where);
-		$this->db->where('training.id_modul = modul.id_modul');
 		return $this->db->get();
 	}
 

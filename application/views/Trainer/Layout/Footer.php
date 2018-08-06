@@ -74,10 +74,9 @@
 
 <script>
   $(function () {
-    $('#example1').DataTable({
+    $('#example2').DataTable({
       "lengthMenu": [[5], [5]],
       'lengthChange':false,
-      'searching'   : false,
       'ordering'    : false
     })
   })

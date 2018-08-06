@@ -9,7 +9,7 @@
 			<!-- footer logo -->
 			<div class="col-md-6">
 				<div class="footer-logo">
-					<a class="logo" href="<?php echo base_url('') ?>">
+					<a class="logo" href="<?php echo base_url() ?>">
 						<img src="<?php echo base_url()?>assets/gtc_client/img/logo.png" alt="logo">
 					</a>
 				</div>
@@ -129,6 +129,35 @@
 
  			}
  		</script>
+ 		<script>
+		// Set the date we're counting down to
+		var countDownDate = new Date('<?php echo $this->session->userdata('quizend') ?>').getTime();
 
- 	</body>
- 	</html>
+		// Update the count down every 1 second
+		var x = setInterval(function() {
+
+    	// Get todays date and time
+    	var now = new Date().getTime();
+    
+    	// Find the distance between now and the count down date
+    	var distance = countDownDate - now;
+    
+    	// Time calculations for days, hours, minutes and seconds
+
+    	var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    	// Output the result in an element with id="demo"
+    	document.getElementById("demo").innerHTML ="Sisa waktu : " +  hours + "j "
+    	+ minutes + "m " + seconds + "d ";
+    	
+    	// If the count down is over, write some text 
+    	if (distance < 0) {
+    	clearInterval(x);
+    	document.getElementById('myquiz').submit();
+    }
+}, 1000);
+</script>
+</body>
+</html>

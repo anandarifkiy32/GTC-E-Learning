@@ -20,224 +20,225 @@
 	<!-- Custom stlylesheet -->
 	<link type="text/css" rel="stylesheet" href="<?php echo base_url()?>assets/gtc_client/css/style.css"/>
 
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
+	<style type="text/css">
+	@media only screen and (max-width: 500px) {
+		.top{
+			margin-top: 80px;
+		}
+	}
+	</style>
+</head>
+<body>
 
-	</head>
-	<body>
+	<!-- Header -->
+	<header id="header" class="transparent-nav">
+		<div class="container">
 
-		<!-- Header -->
-		<header id="header" class="transparent-nav">
-			<div class="container">
-
-				<div class="navbar-header">
-					<!-- Logo -->
-					<div class="navbar-brand">
-						<a class="logo" href="<?php echo base_url() ?>">
-							<img src="./assets/gtc_client/img/logo-alt.png" alt="logo">
-						</a>
-					</div>
-					<!-- /Logo -->
-
-					<!-- Mobile toggle -->
-					<button class="navbar-toggle">
-						<span></span>
-					</button>
-					<!-- /Mobile toggle -->
+			<div class="navbar-header">
+				<!-- Logo -->
+				<div class="navbar-brand">
+					<a class="logo" href="<?php echo base_url() ?>">
+						<img src="./assets/gtc_client/img/logo-alt.png" alt="logo">
+					</a>
 				</div>
+				<!-- /Logo -->
 
-				<!-- Navigation -->
-				<nav id="nav">
-					<ul class="main-menu nav navbar-nav navbar-right">
-						<li><a href="<?php echo base_url()?>">Home</a></li>
-						<li><a href="<?php echo base_url('homepage/coursecatalog/') ?>">Courses</a></li>
-						
-						<li><a href="<?php echo base_url('homepage/contact') ?>">Contact</a></li>
-						<li><a href="">Login</a></li>
-					</ul>
-				</nav>
-				<!-- /Navigation -->
-
+				<!-- Mobile toggle -->
+				<button class="navbar-toggle">
+					<span></span>
+				</button>
+				<!-- /Mobile toggle -->
 			</div>
-		</header>
-		<!-- /Header -->
 
-		<!-- Home -->
-		<div id="home" class="hero-area">
+			<!-- Navigation -->
+			<nav id="nav">
+				<ul class="main-menu nav navbar-nav navbar-right">
+					<li><a href="<?php echo base_url()?>">Home</a></li>
+					<li><a href="<?php echo base_url('homepage/coursecatalog/') ?>">Courses</a></li>
 
-			<!-- Backgound Image -->
-			<div class="bg-image bg-parallax overlay" style="background-image:url(<?php echo base_url(); ?>assets/gtc_client/img/home-background.jpg)"></div>
-			<!-- /Backgound Image -->
+					<li><a href="<?php echo base_url('homepage/contact') ?>">Contact</a></li>
+					<li><a href="">Login</a></li>
+				</ul>
+			</nav>
+			<!-- /Navigation -->
 
-			<div class="home-wrapper">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-8">
-							<h1 class="white-text">Global Top Career Edusite Online Training Courses</h1>
-							<p class="lead white-text">Reach Your Dream With Us</p>
-							<a class="main-button icon-button" href="<?php echo base_url('homepage/showregister') ?>">REGISTER NOW</a>
+		</div>
+	</header>
+	<!-- /Header -->
+
+	<!-- Home -->
+	<div id="home" class="hero-area">
+
+		<!-- Backgound Image -->
+		<div class="bg-image bg-parallax overlay" style="background-image:url(<?php echo base_url(); ?>assets/gtc_client/img/home-background.jpg)"></div>
+		<!-- /Backgound Image -->
+
+		<div class="home-wrapper">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 top">
+						<h1 class="white-text">Global Top Career Edusite Online Training Courses</h1>
+						<p class="lead white-text">Reach Your Dream With Us</p>
+						<a class="main-button icon-button" href="<?php echo base_url('homepage/showregister') ?>">REGISTER NOW</a>
+					</div>
+					<br>
+					<?php if($this->session->userdata('status') != 'login'){ ?>
+
+						<div class="col-md-4 bottom">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<form action="<?php echo base_url('homepage/login')?>" method="post">
+										<div class="form-group">
+											<label for="email">Email address:</label>
+											<input type="email" class="form-control" name="email" id="email">
+										</div>
+										<div class="form-group">
+											<label for="pwd">Password:</label>
+											<input type="password" class="form-control" name="pass" id="pwd">
+										</div>
+										<div class="checkbox">
+											<label><input type="checkbox"> Remember me</label>
+										</div>
+										<button type="submit" class="btn btn-success">Sign in</button>
+									</form>
+								</div>
+								<div class="panel-footer">Don't have an account? <a href="<?php echo base_url('homepage/showregister')?>">Register</a></div>
+							</div>
 						</div>
-						<?php if($this->session->userdata('status') != 'login'){ ?>
+						<?php } ?>
+					</div>
+				</div>
+			</div>
 
-							<div class="col-md-4">
-								<div class="panel panel-default">
-									<div class="panel-body">
-										<form action="<?php echo base_url('homepage/login')?>" method="post">
-											<div class="form-group">
-												<label for="email">Email address:</label>
-												<input type="email" class="form-control" name="email" id="email">
-											</div>
-											<div class="form-group">
-												<label for="pwd">Password:</label>
-												<input type="password" class="form-control" name="pass" id="pwd">
-											</div>
-											<div class="checkbox">
-												<label><input type="checkbox"> Remember me</label>
-											</div>
-											<button type="submit" class="btn btn-success">Sign in</button>
-										</form>
+		</div>
+		<!-- /Home -->
+
+		<div id="courses" class="section">
+			<div class="container">
+				<div class="row">
+					<div class="section-header text-center">
+						<h2>Explore Courses</h2>
+					</div>
+				</div>
+				<div id="courses-wrapper">
+					<div class="row">
+						<?php foreach ($course as $c) { ?>
+							<!-- single course -->
+							<div class="col-md-3 col-sm-6 col-xs-6">
+								<div class="course">
+									<a href="<?php echo base_url('homepage/detailcourse/'.$c->slug) ?>" class="course-img">
+										<img src="<?php echo base_url('assets/modul/'.$c->img)?>" alt="">
+										<i class="course-link-icon fa fa-link"></i>
+									</a>
+									<a class="course-title" href="<?php echo base_url('homepage/detailcourse/'.$c->slug) ?>"><?php echo $c->nama ?></a>
+									<div class="course-details">
+										<span class="course-category">Business</span>
 									</div>
-									<div class="panel-footer">Don't have an account? <a href="<?php echo base_url('homepage/showregister')?>">Register</a></div>
 								</div>
 							</div>
 							<?php } ?>
 						</div>
 					</div>
-				</div>
-
-			</div>
-			<!-- /Home -->
-
-			<div id="courses" class="section">
-				<div class="container">
 					<div class="row">
-						<div class="section-header text-center">
-							<h2>Explore Courses</h2>
-						</div>
-					</div>
-					<div id="courses-wrapper">
-						<div class="row">
-							<?php foreach ($course as $c) { ?>
-								<!-- single course -->
-								<div class="col-md-3 col-sm-6 col-xs-6">
-									<div class="course">
-										<a href="<?php echo base_url('homepage/detailcourse/'.$c->slug) ?>" class="course-img">
-											<img src="<?php echo base_url('assets/modul/'.$c->img)?>" alt="">
-											<i class="course-link-icon fa fa-link"></i>
-										</a>
-										<a class="course-title" href="<?php echo base_url('homepage/detailcourse/'.$c->slug) ?>"><?php echo $c->nama ?></a>
-										<div class="course-details">
-											<span class="course-category">Business</span>
-										</div>
-									</div>
-								</div>
-								<?php } ?>
-							</div>
-						</div>
-						<div class="row">
-							<div class="center-btn">
-								<a class="main-button icon-button" href="<?php echo base_url('homepage/coursecatalog') ?>">More Courses</a>
-							</div>
+						<div class="center-btn">
+							<a class="main-button icon-button" href="<?php echo base_url('homepage/coursecatalog') ?>">More Courses</a>
 						</div>
 					</div>
 				</div>
-				<!-- /Courses -->
+			</div>
+			<!-- /Courses -->
 
-				<!-- Contact CTA -->
-				<div id="contact-cta" class="section">
+			<!-- Contact CTA -->
+			<div id="contact-cta" class="section">
 
-					<!-- Backgound Image -->
-					<div class="bg-image bg-parallax overlay" style="background-image:url(<?php echo base_url(); ?>assets/gtc_client/img/cta2-background.jpg)"></div>
-					<!-- Backgound Image -->
+				<!-- Backgound Image -->
+				<div class="bg-image bg-parallax overlay" style="background-image:url(<?php echo base_url(); ?>assets/gtc_client/img/cta2-background.jpg)"></div>
+				<!-- Backgound Image -->
 
-					<!-- container -->
-					<div class="container">
+				<!-- container -->
+				<div class="container">
 
-						<!-- row -->
-						<div class="row">
+					<!-- row -->
+					<div class="row">
 
-							<div class="col-md-8 col-md-offset-2 text-center">
-								<h2 class="white-text">Contact Us</h2>
-							</div>
-							<div class="col-md-4 white-text"><i class="fa fa-map-marker"></i> <span>Permata Indo Niaga - Head Office</span></div>
-							<div class="col-md-4 white-text"><i class="fa fa-phone-square"></i> <span> +62 727 93636</span></div>
-							<div class="col-md-4 white-text"><i class="fa fa-envelope"></i> <span>globaltopcareer@gmail.com</span></div>
+						<div class="col-md-8 col-md-offset-2 text-center">
+							<h2 class="white-text">Contact Us</h2>
 						</div>
+						<div class="col-md-4 white-text"><i class="fa fa-map-marker"></i> <span>Permata Indo Niaga - Head Office</span></div>
+						<div class="col-md-4 white-text"><i class="fa fa-phone-square"></i> <span> +62 727 93636</span></div>
+						<div class="col-md-4 white-text"><i class="fa fa-envelope"></i> <span>globaltopcareer@gmail.com</span></div>
 					</div>
-					<!-- /row -->
-
 				</div>
-				<!-- /container -->
+				<!-- /row -->
 
 			</div>
-			<!-- /Contact CTA -->
+			<!-- /container -->
 
-			<!-- Footer -->
-			<footer id="footer" class="section">
+		</div>
+		<!-- /Contact CTA -->
 
-    <!-- container -->
-    <div class="container">
+		<!-- Footer -->
+		<footer id="footer" class="section">
 
-        <!-- row -->
-        <div class="row">
+			<!-- container -->
+			<div class="container">
 
-            <!-- footer logo -->
-            <div class="col-md-6">
-                <div class="footer-logo">
-                    <a class="logo" href="index.html">
-                        <img src="<?php echo base_url()?>assets/gtc_client/img/logo.png" alt="logo">
-                    </a>
-                </div>
-            </div>
-            <!-- footer logo -->
+				<!-- row -->
+				<div class="row">
 
-            <!-- footer nav -->
-            <div class="col-md-6">
-                <ul class="footer-nav">
-                    <li><a href="<?php echo base_url('')?>">Home</a></li>
-                    <li><a href="<?php echo base_url('homepage/coursecatalog')?>">Courses</a></li>
-                    <li><a href="<?php echo base_url('homepage/contact')?>">Contact</a></li>
-                    <li><a href="<?php echo base_url('')?>">Login</a></li>
-                </ul>
-            </div>
-            <!-- /footer nav -->
+					<!-- footer logo -->
+					<div class="col-md-6">
+						<div class="footer-logo">
+							<a class="logo" href="index.html">
+								<img src="<?php echo base_url()?>assets/gtc_client/img/logo.png" alt="logo">
+							</a>
+						</div>
+					</div>
+					<!-- footer logo -->
 
-        </div>
-        <!-- /row -->
+					<!-- footer nav -->
+					<div class="col-md-6">
+						<ul class="footer-nav">
+							<li><a href="<?php echo base_url('')?>">Home</a></li>
+							<li><a href="<?php echo base_url('homepage/coursecatalog')?>">Courses</a></li>
+							<li><a href="<?php echo base_url('homepage/contact')?>">Contact</a></li>
+							<li><a href="<?php echo base_url('')?>">Login</a></li>
+						</ul>
+					</div>
+					<!-- /footer nav -->
 
-        <!-- row -->
-        <div id="bottom-footer" class="row">
+				</div>
+				<!-- /row -->
 
-            <!-- copyright -->
-            <div class="col-md-12 text-center">
-                <div class="footer-copyright">
-                    <span>&copy; Copyright 2018. | Global Top Career EduSite</span>
-                </div>
-            </div>
-            <!-- /copyright -->
+				<!-- row -->
+				<div id="bottom-footer" class="row">
 
-        </div>
-        <!-- row -->
+					<!-- copyright -->
+					<div class="col-md-12 text-center">
+						<div class="footer-copyright">
+							<span>&copy; Copyright 2018. | Global Top Career EduSite</span>
+						</div>
+					</div>
+					<!-- /copyright -->
 
-    </div>
-    <!-- /container -->
+				</div>
+				<!-- row -->
 
-</footer>
-			<!-- /Footer -->
+			</div>
+			<!-- /container -->
 
-			<!-- preloader -->
-			<div id='preloader'><div class='preloader'></div></div>
-			<!-- /preloader -->
+		</footer>
+		<!-- /Footer -->
+
+		<!-- preloader -->
+		<div id='preloader'><div class='preloader'></div></div>
+		<!-- /preloader -->
 
 
-			<!-- jQuery Plugins -->
-			<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/jquery.min.js"></script>
-			<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/bootstrap.min.js"></script>
-			<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/main.js"></script>
+		<!-- jQuery Plugins -->
+		<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/jquery.min.js"></script>
+		<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/main.js"></script>
 
-		</body>
-		</html>
+	</body>
+	</html>

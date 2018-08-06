@@ -12,4 +12,21 @@ class Quiz_model extends CI_Model{
 		$this->db->where('test.id_test = soal.id_test AND trainer.id_trainer = test.id_trainer AND test.id_materi = materi.id_materi');
 		return $this->db->get();
 	}
+
+	function cekquiz($id_materi){
+		$this->db->select('DISTINCT(modul.nama),materi.judul, test.waktu, count(soal.id_soal) as jml_soal, materi.slug as slug');
+		$this->db->from('test,materi,modul,soal');
+		$this->db->where('test.id_materi',$id_materi);
+		$this->db->where('test.id_materi = materi.id_materi and modul.id_modul = materi.id_modul and soal.id_test = test.id_test');
+		return $this->db->get();
+	}
+
+	function getsoal($slug){
+		$this->db->select('soal.id_soal, soal.pertanyaan');
+		$this->db->from('test,materi,soal');
+		$this->db->where('materi.slug',$slug);
+		$this->db->where('test.id_materi = materi.id_materi');
+		return $this->db->get();
+	}
+
 }

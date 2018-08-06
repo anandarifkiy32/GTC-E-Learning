@@ -17,7 +17,7 @@
 
             <br><br>
             <div class="blog-post">
-              <a class="main-button icon-button" href="<?php echo base_url('homepage/startquiz/'.$c->slug ) ?>" style="width: 300px">Start Quiz</a>      
+              <a class="main-button icon-button" href="<?php echo base_url('homepage/quizoverview/'.$c->slug ) ?>" style="width: 300px">Start Quiz</a>      
             </div>
           </div>
           <?php $num++; } ?>
@@ -44,11 +44,11 @@
 
             <!-- /category widget -->
             <!-- category widget -->
-            <div class="widget category-widget">
+          <!--   <div class="widget category-widget">
               <h3>Need Guide ?</h3>
               <a class="main-button icon-button" href="#" style="width: 300px">Let's Start</a>
             </div>
-            <!-- /category widget -->
+ -->            <!-- /category widget -->
           </div>
           <!-- /aside blog -->
         </div>
