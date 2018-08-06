@@ -101,7 +101,6 @@
                     <tr>
                       <th>#</th>
                       <th>Nama</th>
-                      <th colspan="2" width="20%">Progress</th>
                       <th>Status</th>
                       <th></th>
                     </tr>
@@ -112,12 +111,6 @@
                       <tr>
                         <td><?php echo $num ?></td>
                         <td><?php echo $dp->nama ?></td>
-                        <td width="15%">
-                          <div class="progress progress-xs progress-striped active">
-                            <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                          </div>
-                        </td>
-                        <td width="30px"><span class="badge bg-green">90%</span></td>
                         <td></td>
                         <td align="right"><a href=""><button class="btn btn-success">Detail</button></a></td>
                       </tr>
