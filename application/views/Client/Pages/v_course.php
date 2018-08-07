@@ -25,10 +25,22 @@
         <div id="aside" class="col-md-3">
           <!-- category widget -->
           <div class="widget category-widget">
-            <h3>Your Total Score</h3>
+            <h3>Your Score</h3>
             <i class="fa fa-user"></i>&nbsp;&nbsp;<?php foreach ($profile as $p) {echo $p->nama; } ?>
 
-            <h1 style="color:green;">500</h1>
+            <h1 style="color:green;">
+             <?php
+              $skor = 0; 
+              $pembagi = 0;
+              foreach ($nilai as $n) {
+                $skor = $skor + $n->nilai;
+                $pembagi++;
+              } 
+              $nilai = $skor/$pembagi;
+              echo $skor;
+              ?>
+              
+            </h1>
           </div>
           <!-- /category widget -->
           <!-- category widget -->
@@ -36,23 +48,34 @@
             <h3>Modul</h3>
             <ul class="nav">
               <?php $num=0; foreach ($course as $c) { ?>
-                <li class="<?php if($num == 0){echo 'active';} ?>"><a class="category" data-toggle="tab" href="#tab<?php echo $num; ?>"><?php echo $c->materi ?><span>score:&nbsp;&nbsp;80</span></a></li>
-                <?php $num++; } ?>
-              </ul>
+                <li class="<?php if($num == 0){echo 'active';} ?>">
+                  <a class="category" data-toggle="tab" href="#tab<?php echo $num; ?>"><?php echo $c->materi ?>
+                  <span>Skor : 
+                    <?php foreach($nilai2 as $n) {
+                      if($c->id_materi == $n->id_materi){
+                        echo $n->nilai;
+                      }else{
+                        echo 'Tidak ada';
+                      }
+                    } ?>
 
-            </div>
+                  </span></a></li>
+                  <?php $num++; } ?>
+                </ul>
 
-            <!-- /category widget -->
-            <!-- category widget -->
+              </div>
+
+              <!-- /category widget -->
+              <!-- category widget -->
           <!--   <div class="widget category-widget">
               <h3>Need Guide ?</h3>
               <a class="main-button icon-button" href="#" style="width: 300px">Let's Start</a>
             </div>
- -->            <!-- /category widget -->
-          </div>
-          <!-- /aside blog -->
+          -->            <!-- /category widget -->
         </div>
-        <!-- row -->
+        <!-- /aside blog -->
       </div>
-      <!-- container -->
+      <!-- row -->
     </div>
+    <!-- container -->
+  </div>

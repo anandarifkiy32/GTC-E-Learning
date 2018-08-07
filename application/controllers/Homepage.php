@@ -286,14 +286,32 @@ class Homepage extends CI_Controller {
 			$where = array(
 				'unique_code'	=> $this->session->userdata('unique_code'));
 			$profile = $this->Peserta_model->select_where($where)->result();
+			$id_peserta = $this->Peserta_model->select_where($where)->row('id_peserta');
 			$where = array(
 				'slug'	=> $slug);
+
 			$banner = $this->Modul_model->select_where($where)->row('nama');
 			$course = $this->Modul_model->selectcourse($slug)->result();
+			$where = 'test.id_test = result.id_test';
+			$kondisi = 1;
+			foreach ($course as $c) {
+				if($kondisi == 1){
+					$x = 'and';
+				}else{
+					$x = 'or';
+				}
+				$where .= ' '.$x.' result.id_peserta = '.$id_peserta.' and  test.id_materi = '.$c->id_materi;
+				$kondisi++;
+			}
+	
+			$nilai = $this->Result_model->join_test($where)->result();
+	
 			$data = array(
 				'content'	=> 'client/pages/v_course',
 				'course'	=> $course,
 				'banner'	=> $banner,
+				'nilai'		=> $nilai,
+				'nilai2'	=> $nilai,
 				'profile'	=> $profile
 			);
 			$this->load->view('client/layout/wrapper',$data);
@@ -698,7 +716,7 @@ class Homepage extends CI_Controller {
 			'id_peserta'	=> $id_peserta,
 			'code'			=> $unique_kode
 		);
-		
+
 		$this->Result_model->input($data);
 		$where = array(
 			'id_test' 	=> $id_test,

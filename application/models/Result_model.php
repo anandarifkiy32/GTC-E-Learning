@@ -31,4 +31,11 @@ class Result_model extends CI_Model{
 		$this->db->update('result',$data);
 	} 
 
+	function join_test($where){
+		$this->db->select('*');
+		$this->db->from('result,test');
+		$this->db->where($where);
+		return $this->db->get();
+	}
+
 }
