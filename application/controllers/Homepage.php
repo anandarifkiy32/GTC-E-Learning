@@ -13,12 +13,10 @@ class Homepage extends CI_Controller {
 		if($this->uri->segment(2) != 'startquiz'){
 			if($this->uri->segment(2) != 'submit'){
 				if($this->session->userdata('quizend') != NULL){
-				redirect(base_url('homepage/startquiz/'.$this->session->userdata('quizslug')));
+					redirect(base_url('homepage/startquiz/'.$this->session->userdata('quizslug')));
+				}
 			}
-			}
-			
 		}
-
 	}
 
 	function index()
@@ -96,7 +94,6 @@ class Homepage extends CI_Controller {
 			foreach ($data['session'] as $s) {
 				$unique_code	= $s->unique_code;
 			}
-
 			$data_session = array(
 				'unique_code'	=> $unique_code,
 				'status' 		=> "login"
@@ -515,11 +512,11 @@ class Homepage extends CI_Controller {
 				'id_modul'	=> $id_modul,
 				'id_peserta'=> $id_peserta
 			);
-			$cekjoin = $this->Training_model->select_where($where)->num_rows();
-			if($cekjoin = 1){
+			$cekjoin = $this->Training_model->select_where($where)->result();
+			if($cekjoin == 1){
 				redirect(base_url('homepage/startcourse/'.$course));
 			}
-			
+
 			$where = array(
 				'unique_code' => $peserta);
 			$data = $this->Peserta_model->select_where($where)->result();
@@ -536,13 +533,67 @@ class Homepage extends CI_Controller {
 			foreach ($data as $modul) {
 				$id_modul = $modul->id_modul;
 			}
+			//generate codejoin
+			$length = 30;
+			$characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+			$charactersLength = strlen($characters);
+			$unique_kode = '';
+			for ($i = 0; $i < $length; $i++) {
+				$unique_kode .= $characters[rand(0, $charactersLength - 1)];
+			}
 
 			$data = array(
 				'id_modul' 	=> 	$id_modul,
-				'id_peserta'=>	$id_peserta);
-
+				'id_peserta'=>	$id_peserta,
+				'code'		=> 	$unique_kode);
 			$this->Training_model->input($data);
-			redirect('homepage/startcourse/'.$course);
+//data email
+
+			$where = array('id_modul' => $id_modul);
+			$namamodul 	= $this->Modul_model->select_where($where)->row('nama'); //nama modul yang di join oleh peserta
+			$where = array('id_peserta' => $id_peserta);
+			$namapeserta= $this->Peserta_model->select_where($where)->row('nama'); //nama peserta yang join
+			$where = array(
+				'modul.id_trainer = trainer.id_trainer and modul.slug =' => $course
+			);
+			$email = $this->Modul_model->join_trainer($where)->row('email'); //email trainer
+			echo $email.$namapeserta.$namamodul;
+
+			$config['protocol'] = 'smtp';
+			$config['smtp_host'] = 'ssl://smtp.googlemail.com';
+			$config['smtp_port'] = 465;
+			$config['mailtype'] = 'html';
+			$config['smtp_user'] = 'ananda.rifkiy33@gmail.com';
+			$config['smtp_pass'] = 'helloworld:)';
+
+            // Load email library and passing configured values to email library 
+			$this->load->library('email', $config);
+			$this->email->set_newline("\r\n");
+
+            // Sender email address
+			$this->email->from('ananda.rifkiy33@gmail.com', 'Ananda Rifkiy Hasan');
+            // Receiver email address
+			$this->email->to($email);
+            // Subject of email
+			$this->email->subject('Join Course');
+            // Message in email
+			$message = '<html>
+			<link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
+			<body style="font-family:"Montserrat", sans-serif;">
+			<center>
+			<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
+			<h3>GTC EduSite</h3>
+			<p><b>'.$namapeserta.'</b>. telah bergabung di course <b>'.$namamodul.'</b></p>
+			<a href=http://localhost/gtclearning/trainer/detailpeserta/'.$unique_kode.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">View</button></a>
+			</div>
+			</center>
+			</body>
+			</html>';
+			$this->email->message($message);
+
+			if ($this->email->send()) {
+				redirect('homepage/startcourse/'.$course);
+			}	
 		}else{
 			$this->load->view('client/pages/v_login');
 		}
@@ -602,11 +653,11 @@ class Homepage extends CI_Controller {
 
 		//start session
 		if($this->session->userdata('quizend') == ''){
-		$newdata = array(
-			'quizslug'  => $slug,
-			'quizend' => date('M j, Y H:i:s',strtotime('+'.$waktu.' minutes'))
-		);
-		$this->session->set_userdata($newdata);
+			$newdata = array(
+				'quizslug'  => $slug,
+				'quizend' => date('M j, Y H:i:s',strtotime('+'.$waktu.' minutes'))
+			);
+			$this->session->set_userdata($newdata);
 		}
 
 
@@ -633,10 +684,21 @@ class Homepage extends CI_Controller {
 
 		$id_test = $this->Quiz_model->select_where($where)->row('id_test'); //id_test
 
+		$length = 15;
+		$characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+		$charactersLength = strlen($characters);
+		$unique_kode = '';
+
+		for ($i = 0; $i < $length; $i++) {
+			$unique_kode .= $characters[rand(0, $charactersLength - 1)]; //code
+		}
+
 		$data = array(
 			'id_test' 		=> $id_test,
-			'id_peserta'	=> $id_peserta
+			'id_peserta'	=> $id_peserta,
+			'code'			=> $unique_kode
 		);
+		
 		$this->Result_model->input($data);
 		$where = array(
 			'id_test' 	=> $id_test,

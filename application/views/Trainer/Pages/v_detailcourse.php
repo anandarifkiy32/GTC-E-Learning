@@ -112,7 +112,7 @@
                         <td><?php echo $num ?></td>
                         <td><?php echo $dp->nama ?></td>
                         <td></td>
-                        <td align="right"><a href=""><button class="btn btn-success">Detail</button></a></td>
+                        <td align="right"><a href="<?php echo base_url('trainer/detailpeserta/'.$dp->code)?>"><button class="btn btn-success">Detail</button></a></td>
                       </tr>
                       <?php $num++; } ?>
                     </tbody>

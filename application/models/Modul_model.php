@@ -97,4 +97,11 @@ class Modul_model extends CI_Model
 		$this->db->insert('modul',$data);
 	}
 
+	function join_trainer($where){
+		$this->db->select('*');
+		$this->db->where($where);
+		$this->db->from('modul, trainer');
+		return $this->db->get();
+	}
+
 }

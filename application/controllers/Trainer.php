@@ -5,7 +5,7 @@ class Trainer extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
-		$this->load->model(array('Trainer_model','Modul_model','Materi_model','Category_model','Training_model','Quiz_model','Result_model'));
+		$this->load->model(array('Trainer_model','Modul_model','Materi_model','Category_model','Training_model','Quiz_model','Result_model','Jawaban_model','Soal_model'));
 		$this->load->helper(array('form', 'url'));
 	}
 
@@ -179,5 +179,63 @@ class Trainer extends CI_Controller {
 		$this->Modul_model->delete($where);
 
 		redirect(base_url('trainer'));
+	}
+
+	function detailpeserta($code){
+		$where= array(
+			'training.id_modul = modul.id_modul and training.code = ' => $code);
+		$id_trainer = $this->Training_model->join_modul($where)->row('id_trainer');	
+		$detailpeserta = $this->Training_model->detail_peserta($code)->result();
+		$id_peserta = $this->Training_model->detail_peserta($code)->row('id_peserta');
+		$id_modul = $this->Training_model->detail_peserta($code)->row('id_modul');
+		$where = array(
+			'materi.id_modul' 	=> $id_modul,
+			'result.id_peserta'	=> $id_peserta);
+		$quiz = $this->Result_model->select_quiz($where)->result();
+		$content = array(
+			'title' 		=> 'Dashboard',
+			'detailpeserta'	=> $detailpeserta,
+			'id_trainer'	=> $id_trainer,
+			'quiz'			=> $quiz,
+			'content' 		=> 'Trainer/Pages/v_detailpeserta');
+		$this->load->view('Trainer/Layout/Wrapper',$content);
+	}
+
+	function review(){
+		$where = array('code' => $this->uri->segment(4));
+		$id_result = $this->Result_model->select_where($where)->row('id_result');
+		$where = 'result.id_result = '.$id_result.' and result.id_result = jawaban.id_result and jawaban.id_soal = soal.id_soal';
+		$jawaban = $this->Result_model->join_jawaban_soal($where)->result();
+		$data = array(
+			'title' 	=> 'Review',
+			'jawaban'	=> $jawaban,
+			'content'	=> 'trainer/pages/v_review'
+			);
+
+		$this->load->view('trainer/layout/wrapper',$data);
+	}
+
+	function submitreview(){
+		$where = array('code' => $this->uri->segment(4));
+		$id_result = $this->Result_model->select_where($where)->row('id_result');
+		$where = array('id_result' => $id_result);
+		$jawaban = $this->Jawaban_model->select_where($where)->result();
+
+		$skor = 0;
+		$pembagi = 0;
+		foreach ($jawaban as $j) {
+			$data = array('nilai' => $this->input->post($j->id_jawaban));
+			$where = array('id_jawaban' => $j->id_jawaban);
+			$this->Jawaban_model->update($where,$data);
+			$skor = $skor + $this->input->post($j->id_jawaban);
+			$pembagi++;
+		}
+		$nilai = $skor / $pembagi;
+		$data = array('nilai' => $nilai);
+		$where = array('code' => $this->uri->segment(4));
+		$this->Result_model->update($where,$data);
+		
+		redirect(base_url('trainer/detailpeserta/'.$this->uri->segment(3)));
+
 	}
 }
