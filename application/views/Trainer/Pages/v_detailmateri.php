@@ -5,11 +5,13 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Dashboard
+      Detail Materi
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
       <li class="active">Dashboard</li>
+      <li class="active">Modul</li>
+      <li class="active">Detail Materi</li>
     </ol>
   </section>
 
@@ -21,8 +23,14 @@
         <?php foreach ($materi as $m) { ?>
           <div class="box" style="border-top:none;">
             <div class="box-header" style="color">
-              <h3 class="box-title" style="font-size: 24px;margin-top: 10px;margin-left: 14px"><?php echo $m->judul ?></h3>
-              <button class="btn btn-success btn-flat" style="position: absolute;right: 25px;top: 20px" data-toggle="modal" data-target="#modal-default">EDIT</button>
+              <h3 class="box-title" style="font-size: 24px;float: left;"><?php echo $m->judul ?></h3>
+              <?php if ($cekquiz < 1) { ?>
+                <a href="<?php echo base_url('trainer/tambahquiz/'.$m->slug) ?>"><button class="btn btn-primary btn-flat" style="float: right; margin-left: 10px;">Add Quiz</button></a>
+              <?php } else{ ?>
+                
+              <?php }
+              ?>
+              <button class="btn btn-success btn-flat" style="float: right;" data-toggle="modal" data-target="#modal-default">Edit Materi</button>
             </div>
             <!-- /.box-header -->
             <div class="box-body" style="padding:25px;padding-top: 15px">
@@ -52,7 +60,7 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
+                    <span aria-hidden="true">×</span></button>
                     <h4 class="modal-title">Edit Materi</h4>
                   </div>
                   <form role="form" action="<?php echo base_url().'trainer/updatemateri' ?>" method="post">
@@ -87,9 +95,57 @@
               </div>
               <!-- /.modal-dialog -->
             </div>
-            <?php } ?>
-          </div>
-        </section>
+          <?php } ?>
+        </div>
         <!-- /.content -->
       </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box" style="border-top:none">
+            <div class="box-header">
+              <h3 class="box-title">Daftar Pertanyaan (Quiz)&nbsp</h3>
+              <?php if ($cekquiz < 1) { ?>
+                
+              <?php } else{ ?>
+                <a href="<?php echo base_url('trainer/hapusquiz/'.$m->slug) ?>"><button class="btn btn-danger btn-flat" style="float: right; margin-left: 3px;">Delete Quiz</button></a>
+                <a href="<?php echo base_url('trainer/editquiz/'.$m->slug) ?>"><button class="btn btn-primary btn-flat" style="float: right; margin-left: 3px;">Edit Detail Quiz</button></a>
+                <a href="<?php echo base_url('trainer/tambahsoal2/'.$m->slug) ?>"><button class="btn btn-default btn-flat" style="float: right; margin-left: 3px;">Tambah Soal</button></a>
+              <?php }
+              ?>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              
+              <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Pertanyaan</th>
+                    <th>Tipe Jawaban</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php $num = 1 ;foreach ($quiz as $q) { ?>
+
+                    <tr>
+                      <td><?php echo $num ?></td>
+                      <td><?php echo $q->soal ?></td>
+                      <td><?php echo $q->tipe; ?></td>
+                      <td>
+                          <a href="<?php echo base_url('trainer/editsoal/'.$this->uri->segment(3).'/'.$q->id_soal) ?>"><button type="button" class="btn btn-primary btn-xs btn-flat">Edit</button></a>
+                          <a href="<?php echo base_url('trainer/hapussoal/'.$this->uri->segment(3).'/'.$q->id_soal) ?>"><button type="button" class="btn btn-danger btn-xs btn-flat">Hapus</button></a>
+                      </td>
+                    </tr>
+                    <?php $num++; } ?>
+                  </tbody>
+
+                </table>
+              </div>
+              <!-- /.box-body -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 <!-- /.content-wrapper -->

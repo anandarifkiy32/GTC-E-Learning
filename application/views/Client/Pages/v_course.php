@@ -30,43 +30,54 @@
 
             <h1 style="color:green;">
              <?php
-              $skor = 0; 
-              $pembagi = 0;
+             $skor = 0; 
+             $pembagi = 0;
+             if($nilai){
               foreach ($nilai as $n) {
                 $skor = $skor + $n->nilai;
                 $pembagi++;
               } 
               $nilai = $skor/$pembagi;
-              echo $skor;
-              ?>
-              
-            </h1>
-          </div>
-          <!-- /category widget -->
-          <!-- category widget -->
-          <div class="widget category-widget tab">
-            <h3>Modul</h3>
-            <ul class="nav">
-              <?php $num=0; foreach ($course as $c) { ?>
-                <li class="<?php if($num == 0){echo 'active';} ?>">
-                  <a class="category" data-toggle="tab" href="#tab<?php echo $num; ?>"><?php echo $c->materi ?>
-                  <span>Skor : 
-                    <?php foreach($nilai2 as $n) {
+              echo $nilai;
+            }else{
+              echo '0';
+            }
+            ?>
+
+          </h1>
+        </div>
+        <!-- /category widget -->
+        <!-- category widget -->
+        <div class="widget category-widget tab">
+          <h3>Modul</h3>
+          <ul class="nav">
+            <?php $num=0; foreach ($course as $c) { ?>
+              <li class="<?php if($num == 0){echo 'active';} ?>">
+                <a class="category" data-toggle="tab" href="#tab<?php echo $num; ?>"><?php echo $c->materi ?>
+                <span>Skor : 
+                  <?php 
+                  if($nilai2){
+                    foreach($nilai2 as $n) {
                       if($c->id_materi == $n->id_materi){
-                        echo $n->nilai;
-                      }else{
-                        echo 'Tidak ada';
+                        if($n->nilai == ''){
+                          echo 'Belum di review';
+                        }else{
+                          echo $n->nilai;
+                        }
                       }
-                    } ?>
+                    }
+                  }else{
+                    echo 'Tidak ada';
+                  } ?>
 
-                  </span></a></li>
-                  <?php $num++; } ?>
-                </ul>
+                </span></a></li>
+                <?php $num++; } ?>
+              </ul>
 
-              </div>
+            </div>
 
-              <!-- /category widget -->
-              <!-- category widget -->
+            <!-- /category widget -->
+            <!-- category widget -->
           <!--   <div class="widget category-widget">
               <h3>Need Guide ?</h3>
               <a class="main-button icon-button" href="#" style="width: 300px">Let's Start</a>

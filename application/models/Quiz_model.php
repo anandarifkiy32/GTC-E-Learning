@@ -26,7 +26,18 @@ class Quiz_model extends CI_Model{
 		$this->db->from('test,materi,soal');
 		$this->db->where('materi.slug',$slug);
 		$this->db->where('test.id_materi = materi.id_materi');
+		$this->db->where('test.id_test = soal.id_test');
 		return $this->db->get();
 	}
+
+	function pertanyaan($where){
+		$this->db->select('soal.pertanyaan as soal, soal.tipe as tipe, soal.id_soal as id_soal');
+		$this->db->from('soal, test');
+		$this->db->where('test.id_test',$where);
+		$this->db->where('test.id_test = soal.id_test');
+		return $this->db->get();
+	}
+
+
 
 }

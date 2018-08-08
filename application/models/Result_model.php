@@ -38,4 +38,9 @@ class Result_model extends CI_Model{
 		return $this->db->get();
 	}
 
+	function delete($where){
+		$this->db->where($where);
+		$this->db->delete('result');
+	}
+
 }

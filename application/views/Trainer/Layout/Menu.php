@@ -22,8 +22,8 @@
 </a>
 </li>
 <li class="<?php if($title == 'Course Catalog'){echo 'active';}?>">
-<a href="<?php echo base_url('trainer/coursecatalog');?>">
-<i class="fa fa-book"></i> <span>Course Catalog</span>
+<a href="<?php echo base_url('trainer/coursecategory');?>">
+<i class="fa fa-book"></i> <span>Course Category</span>
 </a>
 </li>
 <li class="<?php if($title == 'Profile'){echo 'active';}?>">

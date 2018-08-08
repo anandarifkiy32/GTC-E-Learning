@@ -13,4 +13,9 @@ class Jawaban_model extends CI_Model{
 		$this->db->where($where);
 		$this->db->update('jawaban',$data);
 	} 
+
+	function delete($where){
+		$this->db->where($where);
+		$this->db->delete('jawaban');
+	}
 }

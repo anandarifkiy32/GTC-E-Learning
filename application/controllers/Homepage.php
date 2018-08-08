@@ -292,20 +292,28 @@ class Homepage extends CI_Controller {
 
 			$banner = $this->Modul_model->select_where($where)->row('nama');
 			$course = $this->Modul_model->selectcourse($slug)->result();
-			$where = 'test.id_test = result.id_test';
+			$where = '';
 			$kondisi = 1;
-			foreach ($course as $c) {
-				if($kondisi == 1){
-					$x = 'and';
-				}else{
-					$x = 'or';
+			if($this->Modul_model->selectcourse($slug)->num_rows() > 0){
+				foreach ($course as $c) {
+					if($kondisi == 1){
+						$x = '';
+					}else{
+						$x = 'or';
+					}
+					$where .= $x.' test.id_test = result.id_test and result.id_peserta = '.$id_peserta.' and  test.id_materi = '.$c->id_materi.' ';
+					$kondisi++;
 				}
-				$where .= ' '.$x.' result.id_peserta = '.$id_peserta.' and  test.id_materi = '.$c->id_materi;
-				$kondisi++;
+				if($this->Result_model->join_test($where)->num_rows() == 0){
+					$nilai = FALSE;
+				}else{
+					$nilai = $this->Result_model->join_test($where)->result();	
+				}
+				
+			}else{
+				$nilai = FALSE;
 			}
-	
-			$nilai = $this->Result_model->join_test($where)->result();
-	
+
 			$data = array(
 				'content'	=> 'client/pages/v_course',
 				'course'	=> $course,

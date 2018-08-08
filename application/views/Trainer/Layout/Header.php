@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>GTC E-Learning</title>
+<title>GTC EduSite</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <!-- Bootstrap 3.3.7 -->
@@ -50,7 +50,7 @@ folder instead of downloading all of them to reduce the load. -->
 <!-- mini logo for sidebar mini 50x50 pixels -->
 <span class="logo-mini"><b>G</b>TC</span>
 <!-- logo for regular state and mobile devices -->
-<span class="logo-lg"><b>GTC</b> E-Learning</span>
+<span class="logo-lg"><b>GTC</b> EduSite</span>
 </a>
 <!-- Header Navbar: style can be found in header.less -->
 <nav class="navbar navbar-static-top" style="background-color: #43445A;">
