@@ -8,7 +8,7 @@
       Dashboard
     </h1>
     <ol class="breadcrumb">
-     <button class="btn btn-success btn-flat" data-toggle="modal" data-target="#modal-default1">Tambah Course</button>
+     <button class="btn btn-success btn-flat" data-toggle="modal" data-target="#modal-default1">Tambah Training</button>
    </ol>
  </section>
 
@@ -17,7 +17,7 @@
   <!-- Small boxes (Stat box) -->
   <div class="row">
     <?php foreach ($course as $c) { ?>
-      <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="col-md-3 col-sm-6 col-xs-6 course">
         <a href="<?php echo base_url('trainer/detailcourse/'.$c->slug) ?>">
           <div class="box box-widget widget-user">
             <!-- Add the bg color to the header using any of the bg-* classes -->
@@ -38,13 +38,13 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">Tambah Course</h4>
+              <h4 class="modal-title">Tambah Training</h4>
             </div>
             <form method="post" enctype="multipart/form-data" action="<?php echo base_url('trainer/tambahcourse') ?>">
               <div class="modal-body">
                 <div class="box-body">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Nama Modul</label>
+                    <label for="exampleInputEmail1">Nama Training</label>
                     <input type="text" class="form-control" id="exampleInputEmail1" name="nama" value="">
                   </div>
                   <div class="form-group">
@@ -60,14 +60,14 @@
                       </select>
                     </div>
                     <div class="form-group">
-                      <label> Image</label>
+                      <label>Gambar</label>
                       <input class="form-control" type="file" name="berkas" value="" required>
                     </div>
                   </div>
                   <!-- /.box-body -->
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
                   <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
               </form>

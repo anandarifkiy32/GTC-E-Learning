@@ -33,7 +33,7 @@
                   <h5 class="widget-user-desc" style="margin-left: 0px;"><?php echo $m->category ?></h5>
                 </div>
                 <div class="col-md-3">
-                  <div style="position: absolute;right: 10px">
+                  <div style="float: right">
                     <button class="btn btn-success btn-flat" data-toggle="modal" data-target="#modal-default1">Edit</button>
                     <a href="<?php echo base_url().'trainer/hapusmodul/'.$this->uri->segment(3) ?>"><button class="btn btn-danger btn-flat"><span class="fa fa-trash"></span></button></a>
                   </div>
@@ -62,7 +62,7 @@
         <div class="col-md-5">
           <div class="box" style="border-top:none;">
             <div class="box-header" style="color">
-              <h3 class="box-title">Materi</h3>
+              <h3 class="box-title">Modul</h3>
               <button class="btn btn-success btn-flat" style="position: absolute;right: 10px;" data-toggle="modal" data-target="#modal-default2">+</button>
             </div>
             <!-- /.box-header -->
@@ -174,7 +174,7 @@
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span></button>
-                          <h4 class="modal-title">Tambah Materi</h4>
+                          <h4 class="modal-title">Tambah Madul</h4>
                         </div>
                         <form role="form" action="<?php echo base_url().'trainer/tambahmateri/'.$this->uri->segment(3) ?>" method="post">
                           <div class="modal-body">
@@ -187,12 +187,27 @@
                                   <input type="text" class="form-control" id="exampleInputEmail1"  name="judul">
                                 </div>
                                 <div class="form-group">
-                                  <label for="exampleInputDescription1">Deskripsi</label>
+                                  <label for="exampleInputDescription1">Indikator</label>
                                   <textarea class="form-control" name="description" rows="5"></textarea>
                                 </div>
                                 <div class="form-group">
-                                  <label for="exampleInputEmail1">Konten</label>
+                                  <label for="exampleInputDescription1">Tujuan Pembelajaran</label>
+                                  <textarea class="form-control" name="description" rows="5"></textarea>
+                                </div>
+                                <div class="form-group">
+                                  <label for="exampleInputDescription1">Evaluasi</label>
+                                  <textarea class="form-control" name="description" rows="5"></textarea>
+                                </div>
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1">Konten Modul</label>
                                   <input type="text" class="form-control" id="exampleInputEmail1" name="konten">
+                                </div>
+                                <div class="form-group">
+                                  <label for="exampleInputDescription1">Tipe Konten</label>
+                                  <select class="form-control" name="tipe">
+                                    <option value="video">Video</option>
+                                    <option value="pdf">PDF</option>
+                                  </select>
                                 </div>
                               </div>
                               <!-- /.box-body -->

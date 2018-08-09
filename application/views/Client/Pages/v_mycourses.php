@@ -11,11 +11,11 @@
 					<!-- single course -->
 					<div class="col-md-3 col-sm-6 col-xs-6">
 						<div class="course">
-							<a href="<?php echo base_url('homepage/detailcourse/'.$c->slug) ?>" class="course-img">
+							<a href="<?php echo base_url('homepage/startcourse/'.$c->slug) ?>" class="course-img">
 								<img src="<?php echo base_url('assets/modul/'.$c->img)?>" alt="">
 								<i class="course-link-icon fa fa-link"></i>
 							</a>
-							<a class="course-title" href="<?php echo base_url('homepage/detailcourse/'.$c->slug) ?>"><?php echo $c->nama ?></a>
+							<a class="course-title" href="<?php echo base_url('homepage/startcourse/'.$c->slug) ?>"><?php echo $c->nama ?></a>
 							<div class="course-details">
 								<span class="course-category"><?php echo $c->category ?></span>
 							</div>

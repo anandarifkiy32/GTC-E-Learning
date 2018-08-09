@@ -14,7 +14,7 @@
 				<div class="row">
 					<?php foreach ($results as $data) { ?>
 						<!-- single blog -->
-						<div class="col-md-6">
+						<div class="col-md-6 col-sm-6">
 							<div class="single-blog">
 								<div class="blog-img">
 									<a href="<?php echo base_url('homepage/detailcourse/'.$data->slug) ?>">

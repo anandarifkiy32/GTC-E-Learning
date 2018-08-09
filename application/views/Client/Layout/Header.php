@@ -29,71 +29,133 @@
     <![endif]-->
 
     <style type="text/css">
-      .table{
+    .table{
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: 20px;
+    }
+    .table > thead > tr > th,
+    .table > tbody > tr > th,
+    .table > tfoot > tr > th,
+    .table > thead > tr > td,
+    .table > tbody > tr > td,
+    .table > tfoot > tr > td{
+      line-height: 1.5;
+      vertical-align: top;
+      border-color: white;
+    }
+
+    #myImg {
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #myImg:hover {opacity: 0.7;}
+
+    /* The Modal (background) */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 100px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    }
+
+    /* Modal Content (Image) */
+    .modal-content {
+      margin: auto;
+      display: block;
+      width: 80%;
+      max-width: 700px;
+    }
+
+    /* Caption of Modal Image (Image Text) - Same Width as the Image */
+    #caption {
+      margin: auto;
+      display: block;
+      width: 80%;
+      max-width: 700px;
+      text-align: center;
+      color: #ccc;
+      padding: 10px 0;
+      height: 150px;
+    }
+
+    /* Add Animation - Zoom in the Modal */
+    .modal-content, #caption { 
+      animation-name: zoom;
+      animation-duration: 0.6s;
+    }
+
+    @keyframes zoom {
+      from {transform:scale(0)} 
+      to {transform:scale(1)}
+    }
+
+    /* 100% Image Width on Smaller Screens */
+    @media only screen and (max-width: 700px){
+      .modal-content {
         width: 100%;
-        max-width: 100%;
-        margin-bottom: 20px;
       }
-      .table > thead > tr > th,
-      .table > tbody > tr > th,
-      .table > tfoot > tr > th,
-      .table > thead > tr > td,
-      .table > tbody > tr > td,
-      .table > tfoot > tr > td{
-        line-height: 1.5;
-        vertical-align: top;
-        border-color: white;
-      }
-    </style>
-  </head>
-  <body>
+    }
+  </style>
+</head>
+<body>
 
-    <!-- Header -->
-    <header id="header">
-      <div class="container">
+  <!-- Header -->
+  <header id="header">
+    <div class="container">
 
-        <div class="navbar-header">
-          <!-- Logo -->
-          <div class="navbar-brand">
-            <a class="logo" href="<?php echo base_url() ?>">
-              <img src="<?php echo base_url()?>assets/gtc_client/img/logo.png" alt="logo">
-            </a>
-          </div>
-          <!-- /Logo -->
-
-          <!-- Mobile toggle -->
-          <button class="navbar-toggle">
-            <span></span>
-          </button>
-          <!-- /Mobile toggle -->
+      <div class="navbar-header">
+        <!-- Logo -->
+        <div class="navbar-brand">
+          <a class="logo" href="<?php echo base_url() ?>">
+            <img src="<?php echo base_url()?>assets/gtc_client/img/logo.png" alt="logo">
+          </a>
         </div>
+        <!-- /Logo -->
 
-        <!-- Navigation -->
-        <nav id="nav">
-          <ul class="main-menu nav navbar-nav navbar-right">
-            <li><a href="<?php echo base_url() ?>">Home</a></li>
-            <li><a href="<?php echo base_url('homepage/coursecatalog/') ?>">Courses</a></li>
-
-            <li><a href="<?php echo base_url('homepage/contact/')?>">Contact</a></li>
-            <li class="dropdown"><a href="<?php if(!$profile){echo base_url();}else{echo "";} ?>" <?php if($profile){ ?> class="dropdown-toggle" data-toggle="dropdown" <?php } ?>>              
-              <?php 
-              if($profile){
-                foreach ($profile as $p) {
-                  echo $p->nama ;
-                }
-              }else{
-                echo 'Login';
-              }
-              ?></a>
-              <ul class="dropdown-menu">
-                <li><a href="<?php echo base_url('homepage/mycourses') ?>">My Courses</a></li>
-                <li><a href="<?php echo base_url('homepage/showprofile') ?>">Profile</a></li>
-                <li><a href="<?php echo base_url('homepage/logout')?>">Logout</a></li>
-              </ul>
-            </li>
-          </ul>
-          
-        </nav>
-
+        <!-- Mobile toggle -->
+        <button class="navbar-toggle">
+          <span></span>
+        </button>
+        <!-- /Mobile toggle -->
       </div>
-    </header>
+
+      <!-- Navigation -->
+      <nav id="nav">
+        <ul class="main-menu nav navbar-nav navbar-right">
+          <li><a href="<?php echo base_url() ?>">Home</a></li>
+          <li><a href="<?php echo base_url('homepage/coursecatalog/') ?>">Courses</a></li>
+
+          <li><a href="<?php echo base_url('homepage/contact/')?>">Contact</a></li>
+          <li class="dropdown"><a href="<?php if(!$profile){echo base_url();}else{echo "";} ?>" <?php if($profile){ ?> class="dropdown-toggle" data-toggle="dropdown" <?php } ?>>              
+            <?php 
+            if($profile){
+              foreach ($profile as $p) {
+                echo $p->nama ;
+              }
+            }else{
+              echo 'Login';
+            }
+            ?></a>
+            <ul class="dropdown-menu">
+              <li><a href="<?php echo base_url('homepage/mycourses') ?>">My Courses</a></li>
+              <li><a href="<?php echo base_url('homepage/showprofile') ?>">Profile</a></li>
+              <li><a href="<?php echo base_url('homepage/logout')?>">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+
+      </nav>
+
+    </div>
+  </header>

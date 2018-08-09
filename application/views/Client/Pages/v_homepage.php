@@ -87,6 +87,9 @@
 						<div class="col-md-4 bottom">
 							<div class="panel panel-default">
 								<div class="panel-body">
+									<?php if($this->session->flashdata('message')){ ?>
+										<div class="pesan-salah"><?php echo $this->session->flashdata('message') ?></div>
+									<?php } ?>
 									<form action="<?php echo base_url('homepage/login')?>" method="post">
 										<div class="form-group">
 											<label for="email">Email address:</label>

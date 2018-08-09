@@ -13,4 +13,8 @@ class Trainer_model extends CI_Model{
 		$this->db->order_by('nama','DESC');
 		return $this->db->get('trainer');
 	}
+	function update($where,$data){
+		$this->db->where($where);
+		$this->db->update('trainer',$data);
+	}
 }

@@ -11,8 +11,18 @@
 							<div class="row">
 								<center><img src="<?php if ($p->img == ''){echo base_url('assets/profile_photos/default.jpg' );}else{
 									echo base_url('assets/profile_photos/'.$p->img);
-								} ?>" class="img-circle" width="100" height="100" style="margin-top: 10px;">
+								} ?>" class="img-circle" id="myImg" width="100" height="100" style="margin-top: 10px;" alt="<?php echo $p->nama ?>">
 							</center>
+						</div>
+						<div id="myModal" class="modal">
+
+							<!-- The Close Button -->
+
+							<!-- Modal Content (The Image) -->
+							<img class="modal-content" id="img01">
+
+							<!-- Modal Caption (Image Text) -->
+							<div id="caption"></div>
 						</div>
 						<div class="row">
 							<div class="section-header text-center">
@@ -26,7 +36,7 @@
 				<div class="panel panel-default" style="border-radius: 0px;">
 					<div class="panel-body">
 						<p style="float: left;">Profil Singkat</p>
-						<a href="<?php echo base_url('homepage/editprofile/'.$p->unique_code) ?>"><button type="button" class="btn btn-primary" style="float: right;"><i class="fa fa-pencil-square-o"></i> <span>Ubah Profil</span></button></a>
+						<a href="<?php echo base_url('homepage/editprofile/') ?>"><button type="button" class="btn btn-primary" style="float: right;"><i class="fa fa-pencil-square-o"></i> <span>Ubah Profil</span></button></a>
 						<div class="col-md-12">
 							<div class="col-md-6">
 								<br>

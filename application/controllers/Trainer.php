@@ -18,6 +18,7 @@ class Trainer extends CI_Controller {
 			$content = array(
 				'title' => 'Dashboard',
 				'course'=> $this->Modul_model->select_where($where)->result(),
+				'profile' => $this->Trainer_model->select_where($where)->result(),
 				'category'	=> $category = $this->Category_model->select()->result(),
 				'content' => 'Trainer/Pages/v_dashboard');
 			$this->load->view('Trainer/Layout/Wrapper',$content);
@@ -40,11 +41,13 @@ class Trainer extends CI_Controller {
 			foreach ($data['session'] as $s) {
 				$nama    = $s->nama;
 				$id_trainer = $s->id_trainer;
+				$unique_code = $s->unique_code;
 			}
 
 			$data_session = array(
 				'nama'    => $nama,
 				'trainer' => $id_trainer,
+				'code'		=> $unique_code,
 				'status'  => 'logintrainer'
 			);
 			$this->session->set_userdata($data_session);
@@ -53,8 +56,11 @@ class Trainer extends CI_Controller {
 	}
 
 	function coursecatalog(){
+		$where = array(
+			'id_trainer' => $this->session->userdata('trainer'));
 		$content = array(
 			'title' 	=> 'Course Catalog',
+			'profile'	=> $this->Trainer_model->select_where($where)->result(),
 			'content'	=> 'Trainer/Pages/v_coursecatalog');
 		$this->load->view('Trainer/Layout/Wrapper',$content);
 	}
@@ -86,8 +92,12 @@ class Trainer extends CI_Controller {
 		$jumlah_peserta	= $this->Training_model->select_where($where)->num_rows();
 		$data_peserta	= $this->Training_model->select_peserta($id_modul)->result();
 		$category = $this->Category_model->select()->result();
+
+		$where = array(
+			'id_trainer' => $this->session->userdata('trainer'));
 		$data=array(
 			'title' 		=> 'Dashboard',
+			'profile' 		=> $this->Trainer_model->select_where($where)->result(),
 			'modul'			=> $modul,
 			'submateri'		=> $sub_materi,
 			'jumlah_materi'	=> $jumlah_materi,
@@ -202,8 +212,12 @@ class Trainer extends CI_Controller {
 			'materi.id_modul' 	=> $id_modul,
 			'result.id_peserta'	=> $id_peserta);
 		$quiz = $this->Result_model->select_quiz($where)->result();
+
+		$where = array(
+			'id_trainer'	=> $this->session->userdata('trainer'));
 		$content = array(
 			'title' 		=> 'Dashboard',
+			'profile'		=> $this->Trainer_model->select_where($where)->result(),
 			'detailpeserta'	=> $detailpeserta,
 			'id_trainer'	=> $id_trainer,
 			'quiz'			=> $quiz,
@@ -216,8 +230,12 @@ class Trainer extends CI_Controller {
 		$id_result = $this->Result_model->select_where($where)->row('id_result');
 		$where = 'result.id_result = '.$id_result.' and result.id_result = jawaban.id_result and jawaban.id_soal = soal.id_soal';
 		$jawaban = $this->Result_model->join_jawaban_soal($where)->result();
+		$where = array(
+			'id_trainer' => $this->session->userdata('trainer'));
+
 		$data = array(
 			'title' 	=> 'Review',
+			'profile'	=> $this->Trainer_model->select_where($where)->result(),
 			'jawaban'	=> $jawaban,
 			'content'	=> 'trainer/pages/v_review'
 		);
@@ -606,5 +624,99 @@ class Trainer extends CI_Controller {
 		$this->Category_model->delete($where);
 
 		redirect(base_url('trainer/coursecategory'));
+	}
+
+	function editprofile(){
+		$where = array(
+			'unique_code' => $this->session->userdata('code')
+		);
+
+		$content = array(
+			'title' 	=> 'Profile',
+			'content' 	=> 'trainer/pages/v_editprofile',
+			'profile' 	=> $this->Trainer_model->select_where($where)->result());
+		$this->load->view('trainer/Layout/Wrapper',$content);
+	}
+
+	function updateprofile($id_peserta){
+		$id = $id_peserta;
+
+		$data	= array(
+			'nama' 				=> $this->input->post('nama'),
+			'gender' 			=> $this->input->post('gender'),
+			'tempatlahir' 		=> $this->input->post('tempatlahir'),
+			'ttl' 				=> $this->input->post('ttl'),
+			'alamat' 			=> $this->input->post('alamat'),
+			'email' 			=> $this->input->post('email'),
+			'telp' 				=> $this->input->post('telepon')
+		);
+
+		$where 	= array('unique_code' => $id);
+		
+		$this->Trainer_model->update($where,$data);
+		redirect(base_url('trainer/profile'));
+
+	}
+
+	function editphoto(){
+		$where = array(
+			'unique_code' => $this->session->userdata('code')
+		);
+		$content = array(
+			'title' => 'Profile',
+			'content' => 'trainer/Pages/v_editphotoprofile',
+			'profile' => $this->Trainer_model->select_where($where)->result());
+		$this->load->view('trainer/Layout/Wrapper',$content);
+	}
+
+	function uploadphoto(){ 
+		$nama = $this->input->post('kode'); 
+		$where = array( 'id_trainer' => $nama );
+		$cekfoto = $this->Trainer_model->select_where($where)->result(); 
+		foreach ($cekfoto as $c) {
+			$hasil = $c->img;
+		}
+		if($hasil == ""){
+			$config['upload_path']	= './assets/profile_photos/trainer/';
+			$config['allowed_types'] = 'jpg|jpeg|png';
+			$config['max_size'] = '2048';
+			$config['max_width'] = '4048';
+			$config['max_height'] = '4048';
+			$config['file_name'] = $nama;
+			$this->load->library('upload',$config);
+			if(! $this->upload->do_upload('berkas')){
+
+				echo "error";
+			}else{
+				$gbr = $this->upload->data();
+				$format = str_replace('image', '',$gbr['file_type']);
+				$where = array('id_trainer' => $nama);
+				$data = array(
+					'img' => $gbr['file_name']);
+				$this->Trainer_model->update($where,$data);
+				redirect(base_url('trainer/profile'));
+			}
+		}else{
+			unlink('./assets/profile_photos/trainer/'.$hasil);
+			$config['upload_path']	= './assets/profile_photos/trainer/';
+			$config['allowed_types'] = 'jpg|jpeg|png';
+			$config['max_size'] = '2048';
+			$config['max_width'] = '4048';
+			$config['max_height'] = '4048';
+			$config['file_name'] = $nama;
+			$this->load->library('upload',$config);
+			if(! $this->upload->do_upload('berkas')){
+
+				echo "error";
+			}else{
+				$gbr = $this->upload->data();
+				$format = str_replace('image', '',$gbr['file_type']);
+				$where = array('id_trainer' => $nama);
+				$data = array(
+					'img' => $gbr['file_name']);
+				$this->Trainer_model->update($where,$data);
+				redirect(base_url('trainer/profile'));
+			}
+		}	
 	}
 }

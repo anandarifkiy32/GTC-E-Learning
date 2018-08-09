@@ -102,6 +102,7 @@ class Homepage extends CI_Controller {
 			$this->session->set_userdata($data_session);
 			redirect(base_url());
 		}else{
+			 $this->session->set_flashdata('message','Email atau Password salah !'); 
 			redirect(base_url());
 		}
 	}
@@ -322,6 +323,7 @@ class Homepage extends CI_Controller {
 				'nilai2'	=> $nilai,
 				'profile'	=> $profile
 			);
+			$this->session->set_userdata('course',$slug);
 			$this->load->view('client/layout/wrapper',$data);
 		}else{
 			$this->load->view('client/pages/v_login');
@@ -421,7 +423,7 @@ class Homepage extends CI_Controller {
 		$this->load->view('client/layout/wrapper',$data);
 	}
 
-	function editprofile($unique_code){
+	function editprofile(){
 		$where = array(
 			'unique_code' => $this->session->userdata('unique_code')
 		);
@@ -434,8 +436,8 @@ class Homepage extends CI_Controller {
 		$this->load->view('client/layout/wrapper',$data);
 	}
 
-	function updateprofile($unique_code){
-		$id = $unique_code;
+	function updateprofile(){
+		$id = $this->session->userdata('unique_code');
 
 		$data    = array(
 			'nama'              => $this->input->post('namalengkap'),
@@ -672,7 +674,7 @@ class Homepage extends CI_Controller {
 			'id_peserta'	=> $id_peserta
 		);
 		if($this->Result_model->select_where($where)->num_rows() > 0){
-			redirect(base_url());
+			redirect(base_url('homepage/startcourse/'.$this->session->userdata('course')));
 		}
 		$where = array('id_test' => $id_test);
 		$waktu = $this->Quiz_model->select_where($where)->row('waktu');
@@ -741,20 +743,8 @@ class Homepage extends CI_Controller {
 			);
 			$this->Jawaban_model->input($data);
 		}
-		redirect(base_url('homepage/quizresult'));
-	}
-
-	function quizresult(){
-		$where = array(
-			'unique_code' => $this->session->userdata('unique_code')
-		);
-		$profile = $this->Peserta_model->select_where($where)->result();
-		$data = array(
-			'profile' => $profile,
-			'banner' => 'Result',
-			'content' => 'client/pages/v_xquiz'
-		);
-		$this->load->view('client/layout/wrapper',$data);
+		$this->session->set_flashdata('quiz','berhasil');
+		redirect(base_url('homepage/startcourse/'.$this->session->userdata('course')));
 	}
 
 	function time(){

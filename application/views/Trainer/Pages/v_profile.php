@@ -82,9 +82,9 @@
                </td>
              </tr>
          <tr>
-          <td><center><a href="<?php echo base_url('dashboard/editphoto/'.$p->id_trainer)?>"><button class="btn btn-primary btn-flat">Edit Photo</button></a></center><td>
+          <td><center><a href="<?php echo base_url('trainer/editphoto/')?>"><button class="btn btn-primary btn-flat">Edit Photo</button></a></center><td>
            <td align="right">
-            <a href="<?php echo base_url('dashboard/editprofile/'.$p->id_trainer)?>"><button class="btn btn-primary btn-flat">Edit Profile</button></a>
+            <a href="<?php echo base_url('trainer/editprofile/')?>"><button class="btn btn-primary btn-flat">Edit Profile</button></a>
           </td>
         </tr>
       </table>

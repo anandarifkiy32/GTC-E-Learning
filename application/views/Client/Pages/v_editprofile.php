@@ -12,7 +12,7 @@
         <!-- blog post -->
         <div class="blog-post">
           <?php foreach ($profile as $p) { ?>
-            <form method="post" action="<?php echo base_url('homepage/updateprofile/'.$this->uri->segment(3)) ;?>">
+            <form method="post" action="<?php echo base_url('homepage/updateprofile/') ;?>">
               <div class="form-group">
                 <label> Nama Lengkap</label>
                 <input class="form-control" type="text" name="namalengkap" value="<?php echo $p->nama ?>">

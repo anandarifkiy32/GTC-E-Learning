@@ -138,26 +138,47 @@
 
     	// Get todays date and time
     	var now = new Date().getTime();
-    
+
     	// Find the distance between now and the count down date
     	var distance = countDownDate - now;
-    
+
     	// Time calculations for days, hours, minutes and seconds
 
     	var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
+
     	// Output the result in an element with id="demo"
     	document.getElementById("demo").innerHTML ="Sisa waktu : " +  hours + "j "
     	+ minutes + "m " + seconds + "d ";
     	
     	// If the count down is over, write some text 
     	if (distance < 0) {
-    	clearInterval(x);
-    	document.getElementById('myquiz').submit();
-    }
-}, 1000);
+    		clearInterval(x);
+    		document.getElementById('myquiz').submit();
+    	}
+    }, 1000);
+</script>
+<script type="text/javascript">
+	// Get the modal
+	var modal = document.getElementById('myModal');
+
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var img = document.getElementById('myImg');
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+img.onclick = function(){
+	modal.style.display = "block";
+	modalImg.src = this.src;
+	captionText.innerHTML = this.alt;
+}
+
+// Get the <span> element that closes the modal
+
+// When the user clicks on <span> (x), close the modal
+modal.onclick = function() { 
+	modal.style.display = "none";
+}
 </script>
 </body>
 </html>

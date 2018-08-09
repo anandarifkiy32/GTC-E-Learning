@@ -22,13 +22,21 @@ folder instead of downloading all of them to reduce the load. -->
 <!-- jvectormap -->
 <link rel="stylesheet" href="<?php echo base_url()?>assets/adm/bower_components/jvectormap/jquery-jvectormap.css">
 <!-- Date Picker -->
-<link rel="stylesheet" href="<?php echo base_url()?>assets/adm/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+<link href="<?php echo base_url()?>assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 <!-- Daterange picker -->
 <link rel="stylesheet" href="<?php echo base_url()?>assets/adm/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 <!-- bootstrap wysihtml5 - text editor -->
 <link rel="stylesheet" href="<?php echo base_url()?>assets/adm/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 <!-- DataTables -->
 <link rel="stylesheet" href="<?php echo base_url()?>assets/adm/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+<style type="text/css">
+  @media only screen and (max-width: 380px) {
+    .course{
+      width: 100%;
+    }
+  }
+  </style>
 
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -58,21 +66,21 @@ folder instead of downloading all of them to reduce the load. -->
 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
 <span class="sr-only">Toggle navigation</span>
 </a>
-
+<?php foreach ($profile as $p) { ?>
   <div class="navbar-custom-menu">
     <ul class="nav navbar-nav">
       <li class="dropdown user user-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          <img src="<?php echo base_url()?>assets/adm/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-          <span class="hidden-xs"><?php echo $this->session->userdata("nama");?></span>
+          <img src="<?php echo base_url()?>assets/profile_photos/trainer/<?php echo $p->img ?>" class="user-image" alt="User Image">
+          <span class="hidden-xs"><?php echo $p->nama;?></span>
         </a>
         <ul class="dropdown-menu">
           <!-- User image -->
           <li class="user-header">
-            <img src="<?php echo base_url()?>assets/adm/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+            <img src="<?php echo base_url()?>assets/profile_photos/trainer/<?php echo $p->img ?>" class="img-circle" alt="User Image">
 
             <p>
-              <?php echo $this->session->userdata("nama");?>
+              <?php echo $p->nama ?>
             </p>
           </li>
           <!-- Menu Body -->
@@ -90,5 +98,6 @@ folder instead of downloading all of them to reduce the load. -->
       <!-- Control Sidebar Toggle Button -->
     </ul>
   </div>
+  <?php } ?>
 </nav>
 </header>
