@@ -79,7 +79,27 @@
       'lengthChange':false,
       'ordering'    : false
     })
+    $('#example1').DataTable({
+      "lengthMenu": [[5], [5]],
+      'lengthChange':false,
+      'ordering'    : false,
+      'searching'	: false
+    })
   })
+</script>
+<script>
+function pilihFile() {
+    var x = document.getElementById("mySelect").selectedIndex;
+    var inputlink = document.getElementById("inputlink");
+    var inputfile = document.getElementById("inputfile");
+    if(x == '0'){
+    	inputlink.style.display = 'block';
+    	inputfile.style.display = 'none';
+    }else{
+    	inputlink.style.display = 'none';
+    	inputfile.style.display = 'block';
+    }
+}
 </script>
 </body>
 </html>

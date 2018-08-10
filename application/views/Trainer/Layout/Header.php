@@ -36,6 +36,10 @@ folder instead of downloading all of them to reduce the load. -->
       width: 100%;
     }
   }
+
+  #inputfile{
+    display: none;
+  }
   </style>
 
 

@@ -198,17 +198,21 @@
                                   <label for="exampleInputDescription1">Evaluasi</label>
                                   <textarea class="form-control" name="description" rows="5"></textarea>
                                 </div>
-                                <div class="form-group">
-                                  <label for="exampleInputEmail1">Konten Modul</label>
-                                  <input type="text" class="form-control" id="exampleInputEmail1" name="konten">
-                                </div>
-                                <div class="form-group">
+                               <!--  <div class="form-group">
                                   <label for="exampleInputDescription1">Tipe Konten</label>
-                                  <select class="form-control" name="tipe">
+                                  <select class="form-control" name="tipe" id="mySelect" onchange="pilihFile()">
                                     <option value="video">Video</option>
                                     <option value="pdf">PDF</option>
                                   </select>
                                 </div>
+                                <div class="form-group" id="inputlink">
+                                  <label for="exampleInputEmail1">Konten Modul (Link)</label>
+                                  <input type="text" class="form-control" id="exampleInputEmail1" name="konten" placeholder="Contoh : https://www.youtube.com/embed/Aq1DuuSYHhw">
+                                </div>
+                                <div class="form-group" id="inputfile">
+                                  <label for="exampleInputEmail1">Konten Modul (File)</label>
+                                  <input type="file" class="form-control" id="exampleInputEmail1" name="konten">
+                                </div> -->
                               </div>
                               <!-- /.box-body -->
                             </div>

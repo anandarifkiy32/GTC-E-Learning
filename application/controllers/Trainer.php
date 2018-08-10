@@ -121,7 +121,7 @@ class Trainer extends CI_Controller {
 				'id_materi'		=> $id_materi);
 			$id_test = $this->Quiz_model->select_where($where)->row('id_test');
 			
-			$quiz= $this->Quiz_model->pertanyaan($id_test)->result();
+			$quiz= $this->Test_model->select_where($where)->result();
 			$cekquiz = $this->Quiz_model->pertanyaan($id_test)->num_rows();
 			$data=array(
 				'title' 		=> 'Dashboard',
@@ -134,71 +134,6 @@ class Trainer extends CI_Controller {
 		}else{
 			$this->load->view('trainer/pages/v_login');
 		}
-	}
-
-	function updatemateri(){
-
-		$slug = url_title($this->input->post('judul'), 'dash', true);
-		$data = array(
-			'judul' => $this->input->post('judul'),
-			'description'	=> $this->input->post('description'),
-			'konten'		=> $this->input->post('konten'),
-			'slug'			=> $slug
-		);
-
-		$where = array(
-			'id_materi'		=> $this->input->post('id')
-		);
-		
-
-		$this->Materi_model->update($where,$data);
-
-		redirect(base_url('trainer/detailmateri/'.$slug));
-	}
-
-	function updatemodul(){
-		$slug = url_title($this->input->post('nama'), 'dash', true);
-		$data = array(
-			'nama' => $this->input->post('nama'),
-			'deskripsi'	=> $this->input->post('description'),
-			'category'		=> $this->input->post('category'),
-			'slug'			=> $slug
-		);
-
-		$where = array(
-			'id_modul'		=> $this->input->post('id')
-		);
-		
-
-		$this->Modul_model->update($where,$data);
-
-		redirect(base_url('trainer/detailcourse/'.$slug));
-	}
-
-
-	function tambahmateri(){
-		$slug = url_title($this->input->post('judul'), 'dash', true);
-		$data = array(
-			'judul' 		=> $this->input->post('judul'),
-			'id_modul'		=> $this->input->post('id'),
-			'description'	=> $this->input->post('description'),
-			'konten'		=> $this->input->post('konten'),
-			'slug'			=> $slug
-		);
-
-		$this->Materi_model->input($data);
-
-		redirect(base_url('trainer/detailcourse/'.$this->uri->segment(3)));
-	}
-
-	function hapusmateri($slug){
-		$where = array(
-			'slug' => $slug
-		);
-
-		$this->Materi_model->delete($where);
-
-		redirect(base_url('trainer/detailcourse/'.$this->uri->segment(4)));
 	}
 
 	function detailpeserta($code){
@@ -358,9 +293,11 @@ class Trainer extends CI_Controller {
 			$content = array(
 				'title'			=> 'Dashboard',
 				'profile'		=> $this->Trainer_model->select_where($where)->result(),
+				'kategori'		=> $this->input->post('kategori'),
 				'id_materi' 	=> $id_materi,
 				'id_trainer'	=> $this->input->post('id_trainer'),
 				'waktu'			=> $this->input->post('waktu'),
+				'tipesoal'		=> $this->input->post('tipesoal'),
 				'jumlah_soal'	=> $this->input->post('jumlah_soal'),
 				'slug'			=> $slug,
 				'content'		=> 'trainer/pages/v_tambahsoal'
@@ -379,19 +316,36 @@ class Trainer extends CI_Controller {
 			$datatest = array(
 				'id_materi'		=> $this->input->post('id_materi'),
 				'id_trainer'	=> $this->input->post('id_trainer'),
-				'waktu' 		=> $this->input->post('waktu'));
+				'waktu' 		=> $this->input->post('waktu'),
+				'kategori'		=> $this->input->post('kategori'),
+				'tipesoal'		=> $this->input->post('tipesoal'));
 			$this->Test_model->input($datatest);
 			$where = array(
 				'id_materi'		=> $this->input->post('id_materi'),
 				'id_trainer'	=> $this->input->post('id_trainer'),
+				'kategori'		=> $this->input->post('kategori'),
+				'tipesoal'		=> $this->input->post('tipesoal'), 
 				'waktu' 		=> $this->input->post('waktu'));
 			$id_test = $this->Test_model->select_where($where)->row('id_test');
-			for ($no=1; $no <= $jumlah_soal; $no++){
-				$soal = array(
-					'id_test'	=> $id_test,
-					'pertanyaan' => $this->input->post('pertanyaan'.$no),
-					'tipe'	 => $this->input->post('tipe'.$no));
-				$this->Soal_model->input($soal);
+			if($this->input->post('tipesoal') == 'essay'){
+				for ($no=1; $no <= $jumlah_soal; $no++){
+					$soal = array(
+						'id_test'	=> $id_test,
+						'pertanyaan' => $this->input->post('pertanyaan'.$no)
+					);
+					$this->Soal_model->input($soal);
+				}
+			}else{
+				for ($no=1; $no <= $jumlah_soal; $no++){
+					$soal = array(
+						'id_test'		=> $id_test,
+						'pertanyaan' 	=> $this->input->post('pertanyaan'.$no),
+						'a' 			=> $this->input->post('A'.$no),
+						'b' 	=> $this->input->post('B'.$no),
+						'c' 	=> $this->input->post('C'.$no),
+						'benar'	 => $this->input->post('jawaban'.$no));
+					$this->Soal_model->input($soal);
+				}
 			}
 			redirect(base_url('trainer/detailmateri/'.$slug));
 
@@ -718,5 +672,179 @@ class Trainer extends CI_Controller {
 				redirect(base_url('trainer/profile'));
 			}
 		}	
+	}
+
+	function updatemateri(){
+
+		$slug = url_title($this->input->post('judul'), 'dash', true);
+		$data = array(
+			'judul' => $this->input->post('judul'),
+			'indikator'	=> $this->input->post('indikator'),
+			'tujuan'	=> $this->input->post('tujuan'),
+			'evaluasi'	=> $this->input->post('evaluasi'),
+			'slug'		=> $slug
+		);
+
+		$where = array(
+			'id_materi'		=> $this->input->post('id')
+		);
+		
+
+		$this->Materi_model->update($where,$data);
+
+		redirect(base_url('trainer/detailmateri/'.$slug));
+	}
+
+	function tambahpdf(){
+
+		$slug = url_title($this->input->post('judul'), 'dash', true);
+		$config['upload_path']	= './assets/modul_pdf/';
+		$config['allowed_types'] = 'pdf';
+		$config['max_size'] = '0';
+		$config['file_name'] = $slug;
+		$this->load->library('upload',$config);
+		if(! $this->upload->do_upload('pdf')){
+			echo "error";
+		}else{
+			$pdf = $this->upload->data();
+			// $format = str_replace('image', '',$pdf['file_type']);
+			$data = array(
+				'pdf' => $pdf['file_name']);
+			$where = array(
+				'id_materi'	=> $this->input->post('id'));
+			$this->Materi_model->update($where,$data);
+			redirect(base_url('trainer/detailmateri/'.$slug));
+		}
+	}
+
+	function updatepdf(){
+
+		$slug = url_title($this->input->post('judul'), 'dash', true);
+		$where = array(
+			'slug'	=> $slug);
+		$namapdf = $this->Materi_model->select_where($where)->row('pdf');
+		unlink('./assets/modul_pdf/'.$namapdf);
+		$config['upload_path']	= './assets/modul_pdf/';
+		$config['allowed_types'] = 'pdf';
+		$config['file_name'] = $slug;
+		$this->load->library('upload',$config);
+		if(!$this->upload->do_upload('pdf')){
+			echo $this->upload->display_errors();
+		}else{
+			$pdf = $this->upload->data();
+			redirect(base_url('trainer/detailmateri/'.$slug));
+		}
+		
+		
+	}
+
+	
+
+	function hapuspdf(){
+
+		$slug = $this->uri->segment(3);
+		$where = array(
+			'slug'	=> $slug);
+		$pdf = $this->Materi_model->select_where($where)->row('pdf');
+		$data = array(
+			'pdf' => ''
+		);
+
+		$where = array(
+			'slug'		=> $slug
+		);
+		
+
+		unlink('./assets/modul_pdf/'.$pdf);
+		$this->Materi_model->update($where,$data);
+
+		redirect(base_url('trainer/detailmateri/'.$slug));
+	}
+
+	function tambahkonten(){
+
+		$slug = url_title($this->input->post('judul'), 'dash', true);
+		$data = array(
+			'konten' => $this->input->post('konten')
+		);
+
+		$where = array(
+			'id_materi'		=> $this->input->post('id')
+		);
+		
+
+		$this->Materi_model->update($where,$data);
+
+		redirect(base_url('trainer/detailmateri/'.$slug));
+	}
+
+	function hapuskonten(){
+
+		$slug = $this->uri->segment(3);
+		$data = array(
+			'konten' => ''
+		);
+
+		$where = array(
+			'slug'		=> $slug
+		);
+		
+
+		$this->Materi_model->update($where,$data);
+
+		redirect(base_url('trainer/detailmateri/'.$slug));
+	}
+
+	function updatemodul(){
+		$slug = url_title($this->input->post('nama'), 'dash', true);
+		$data = array(
+			'nama' => $this->input->post('nama'),
+			'deskripsi'	=> $this->input->post('description'),
+			'category'		=> $this->input->post('category'),
+			'slug'			=> $slug
+		);
+
+		$where = array(
+			'id_modul'	=> $this->input->post('id')
+		);
+		
+
+		$this->Modul_model->update($where,$data);
+
+		redirect(base_url('trainer/detailcourse/'.$slug));
+	}
+
+
+	function tambahmateri(){
+		$slug = url_title($this->input->post('judul'), 'dash', true);
+		$data = array(
+			'judul' 		=> $this->input->post('judul'),
+			'id_modul'		=> $this->input->post('id'),
+			'indikator'		=> $this->input->post('indikator'),
+			'tujuan'		=> $this->input->post('tujuan'),
+			'evaluasi'		=> $this->input->post('evaluasi'),
+			'slug'			=> $slug
+		);
+
+		$this->Materi_model->input($data);
+
+		redirect(base_url('trainer/detailcourse/'.$this->uri->segment(3)));
+	}
+
+	function hapusmateri($slug){
+		$where = array(
+			'slug' => $slug
+		);
+
+		$this->Materi_model->delete($where);
+
+		redirect(base_url('trainer/detailcourse/'.$this->uri->segment(4)));
+	}
+
+	function detailquiz($slug,$id_test){
+		$where = 'test.id_test = '.$id_test.' and test.id_test = soal.id_test';
+		$jumlah_soal = $this->Test_model->join_soal($where)->num_rows();
+		$detail_quiz = $this->Test_model->join_soal($where)->first_row();
+		$soal 		 = $this->Test_model->join_soal($where)->result();
 	}
 }

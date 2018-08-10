@@ -346,7 +346,7 @@
                                       <td><?php echo $q->waktu ?></td>
                                       <td><?php if($q->kategori == 'post'){ echo 'Post-Test';}elseif($q->kategori == 'pre'){echo 'Pre-Test';}else{echo 'Praktik';}  ?></td>
                                       <td>
-                                        <a href="<?php echo base_url('trainer/detailquiz/'.$this->uri->segment(3).'/'.$q->id_test) ?>"><button type="button" class="btn btn-primary btn-xs btn-flat">Edit</button></a>
+                                        <a href="<?php echo base_url('trainer/editsoal/'.$this->uri->segment(3).'/'.$q->id_test) ?>"><button type="button" class="btn btn-primary btn-xs btn-flat">Edit</button></a>
                                         <a href="<?php echo base_url('trainer/hapussoal/'.$this->uri->segment(3).'/'.$q->id_test) ?>"><button type="button" class="btn btn-danger btn-xs btn-flat">Hapus</button></a>
                                       </td>
                                     </tr>

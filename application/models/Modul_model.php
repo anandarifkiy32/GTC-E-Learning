@@ -17,7 +17,7 @@ class Modul_model extends CI_Model
 	}
 
 	function selectcourse($where){
-		$this->db->select('mdl.nama as namamodul, mtr.judul as materi, mtr.description as description, mtr.konten as konten, mtr.id_materi as id_materi, mtr.slug as slug');
+		$this->db->select('mdl.nama as namamodul, mtr.judul as materi, mtr.indikator as description, mtr.konten as konten, mtr.id_materi as id_materi, mtr.slug as slug');
 		$this->db->from('modul as mdl, materi as mtr');
 		$this->db->where('mdl.slug',$where);
 		$this->db->where('mdl.id_modul = mtr.id_modul');

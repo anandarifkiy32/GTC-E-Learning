@@ -26,4 +26,11 @@ function delete($where){
     $this->db->where($where);
     $this->db->delete('test');
 }
+
+function join_soal($where){
+    $this->db->select('*');
+    $this->db->from('test, soal');
+    $this->db->where($where);
+    return $this->db->get();
+}
 }

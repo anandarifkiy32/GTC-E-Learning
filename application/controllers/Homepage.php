@@ -6,7 +6,7 @@ class Homepage extends CI_Controller {
 	function __construct(){
 		date_default_timezone_set('ASIA/JAKARTA');
 		parent::__construct();
-		$this->load->model(array('Peserta_model','Modul_model','Training_model','Materi_model','Quiz_model','Jawaban_model','Result_model'));	
+		$this->load->model(array('Peserta_model','Modul_model','Training_model','Materi_model','Quiz_model','Jawaban_model','Result_model','Test_model','Soal_model'));	
 		$this->load->helper(array('form','url','file'));
 		$this->load->library(array('pagination'));
 
@@ -662,12 +662,14 @@ class Homepage extends CI_Controller {
 		);
 		$profile = $this->Peserta_model->select_where($where)->result();
 		$id_peserta = $this->Peserta_model->select_where($where)->row('id_peserta');
-		$soal = $this->Quiz_model->getsoal($slug)->result();
 		$where = array('slug' => $slug);
 		$id_materi = $this->Materi_model->select_where($where)->row('id_materi');
-		$where = array('id_materi' => $id_materi);
-
-		$id_test = $this->Quiz_model->select_where($where)->row('id_test'); //id_test
+		$where = array('id_materi' => $id_materi, 'kategori' => 'post');
+		$id_test = $this->Test_model->select_where($where)->row('id_test'); //id_test
+		$where = array(
+			'id_test' => $id_test);
+		$tipesoal = $this->Test_model->select_where($where)->row('tipesoal');
+		$soal = $this->Soal_model->select_where($where)->result();
 
 		$where = array(
 			'id_test' 		=> $id_test,
@@ -693,6 +695,8 @@ class Homepage extends CI_Controller {
 			'profile' => $profile,
 			'banner' => "Start Quiz",
 			'soal' => $soal,
+			'tipesoal'	=> $tipesoal,
+			'id_test'	=> $id_test,
 			'content' => 'client/pages/v_startquiz'
 		);
 		$this->load->view('client/layout/wrapper',$data);
@@ -710,7 +714,7 @@ class Homepage extends CI_Controller {
 		$id_materi = $this->Materi_model->select_where($where)->row('id_materi');
 		$where = array('id_materi' => $id_materi);
 
-		$id_test = $this->Quiz_model->select_where($where)->row('id_test'); //id_test
+		$id_test = $this->input->post('id_test'); //id_test
 
 		$length = 15;
 		$characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -733,13 +737,18 @@ class Homepage extends CI_Controller {
 			'id_peserta'=> $id_peserta
 		);
 		$id_result = $this->Result_model->select_where($where)->row('id_result');
-
-		$soal = $this->Quiz_model->getsoal($slug)->result(); 
+		$where = array('id_test' => $id_test);
+		$soal = $this->Soal_model->select_where($where)->result(); 
 		foreach ($soal as $s) {
+			$nilai = 0;
+			if($s->benar == $this->input->post('jawaban'.$s->id_soal)){
+				$nilai = 1;
+			}
 			$data = array(
 				'id_result' => $id_result,
 				'id_soal' 	=> $s->id_soal,
-				'jawaban'   => $this->input->post('jawaban'.$s->id_soal)
+				'jawaban'   => $this->input->post('jawaban'.$s->id_soal),
+				'nilai'		=> $nilai
 			);
 			$this->Jawaban_model->input($data);
 		}

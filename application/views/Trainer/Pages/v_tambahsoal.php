@@ -27,28 +27,52 @@
           </div>
           <div class="panel-body">
             <form action="<?php echo base_url('trainer/tambahtest/'.$this->uri->segment(3)) ?>" method="post">
-              <?php for ($no=1; $no <= $jumlah_soal; $no++){ ?>
-                <div class="form-group">
-                  <label>Soal No. <?php echo $no;  ?></label>
-                  <input type="text" class="form-control" name="pertanyaan<?php echo $no ?>" placeholder="Tulis Soal Di Sini" required="">
-                  <select class="form-control" name="tipe<?php echo $no ?>">
-                    <option>Pilih Tipe Jawaban</option>
-                    <option value="text">Text</option>
-                    <option value="file">File(Audio/Video/Image)</option>
-                  </select>
+              <?php if($tipesoal == 'essay'){
+                for ($no=1; $no <= $jumlah_soal; $no++){ ?>
+                  <div class="form-group">
+                    <label>Soal No. <?php echo $no;  ?></label>
+                    <input type="text" class="form-control" name="pertanyaan<?php echo $no ?>" placeholder="Tulis Soal Di Sini" required="">
+                  </div>
+                  <?php } }else{ for ($no=1; $no <= $jumlah_soal; $no++){  ?>
+                    <div class="form-group">
+                      <label>Soal No. <?php echo $no ?></label>
+                      <input type="text" class="form-control" name="pertanyaan<?php echo $no ?>" placeholder="Tulis Soal Di Sini" required="">
+                      <div class="input-group" style="margin: 5px 0px 5px 10px">
+                        <span class="input-group-addon" style="background-color: grey;color: white;font-weight: bold">A</span>
+                        <input type="text" class="form-control" name="A<?php echo $no ?>" placeholder="Tulis Jawaban Disini" required="">
+                      </div>
+                      <div class="input-group" style="margin: 5px 0px 5px 10px">
+                        <span class="input-group-addon" style="background-color: grey;color: white;font-weight: bold">B</span>
+                        <input type="text" class="form-control" name="B<?php echo $no ?>" placeholder="Tulis Jawaban Disini" required="">
+                      </div>
+                      <div class="input-group" style="margin: 5px 0px 5px 10px">
+                        <span class="input-group-addon" style="background-color: grey;color: white;font-weight: bold">C</span>
+                        <input type="text" class="form-control" name="C<?php echo $no ?>" placeholder="Tulis Jawaban Disini" required="">
+                      </div>
+                      <div class="form-group" style="margin: 5px 0px 5px 10px">
+                        <select class="form-control" name="jawaban<?php echo $no ?>" required="">
+                          <option value="">Pilih Jawaban Benar</option>
+                          <option value="A">A</option>
+                          <option value="B">B</option>
+                          <option value="C">C</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <?php } } ?>
+                    <input type="hidden" name="id_materi" value="<?php echo $id_materi ?>">
+                    <input type="hidden" name="id_trainer" value="<?php echo $id_trainer ?>">
+                    <input type="hidden" name="waktu" value="<?php echo $waktu ?>">
+                    <input type="hidden" name="jumlah_soal" value="<?php echo $jumlah_soal ?>">
+                    <input type="hidden" name="tipesoal" value="<?php echo $tipesoal ?>">
+                    <input type="hidden" name="kategori" value="<?php echo $kategori ?>">
+                    <button type="submit" class="btn btn-primary" style="float: right;">Submit</button>
+                  </form>
                 </div>
-              <?php }?>
-              <input type="hidden" name="id_materi" value="<?php echo $id_materi ?>">
-              <input type="hidden" name="id_trainer" value="<?php echo $id_trainer ?>">
-              <input type="hidden" name="waktu" value="<?php echo $waktu ?>">
-              <input type="hidden" name="jumlah_soal" value="<?php echo $jumlah_soal ?>">
-              <button type="submit" class="btn btn-primary" style="float: right;">Submit</button>
-              </form>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
+        <!-- /.content -->
       </div>
-    </section>
-    <!-- /.content -->
-  </div>
 <!-- /.content-wrapper -->
