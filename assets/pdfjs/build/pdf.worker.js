@@ -123,8 +123,8 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 
-var pdfjsVersion = '2.0.719';
-var pdfjsBuild = '35214245';
+var pdfjsVersion = '2.0.760';
+var pdfjsBuild = '1268aea2';
 var pdfjsCoreWorker = __w_pdfjs_require__(1);
 exports.WorkerMessageHandler = pdfjsCoreWorker.WorkerMessageHandler;
 
@@ -339,7 +339,7 @@ var WorkerMessageHandler = {
     var cancelXHRs = null;
     var WorkerTasks = [];
     var apiVersion = docParams.apiVersion;
-    var workerVersion = '2.0.719';
+    var workerVersion = '2.0.760';
     if (apiVersion !== workerVersion) {
       throw new Error('The API version "' + apiVersion + '" does not match ' + ('the Worker version "' + workerVersion + '".'));
     }
@@ -603,9 +603,12 @@ var WorkerMessageHandler = {
     handler.on('GetStats', function wphSetupGetStats(data) {
       return pdfManager.pdfDocument.xref.stats;
     });
-    handler.on('GetAnnotations', function wphSetupGetAnnotations(data) {
-      return pdfManager.getPage(data.pageIndex).then(function (page) {
-        return pdfManager.ensure(page, 'getAnnotationsData', [data.intent]);
+    handler.on('GetAnnotations', function (_ref7) {
+      var pageIndex = _ref7.pageIndex,
+          intent = _ref7.intent;
+
+      return pdfManager.getPage(pageIndex).then(function (page) {
+        return page.getAnnotationsData(intent);
       });
     });
     handler.on('RenderPageRequest', function wphSetupRenderPage(data) {
@@ -8864,8 +8867,7 @@ var Page = function PageClosure() {
           return opList;
         });
       });
-      var annotationsPromise = this.pdfManager.ensure(this, 'annotations');
-      return Promise.all([pageListPromise, annotationsPromise]).then(function (_ref5) {
+      return Promise.all([pageListPromise, this._parsedAnnotations]).then(function (_ref5) {
         var _ref6 = _slicedToArray(_ref5, 2),
             pageOpList = _ref6[0],
             annotations = _ref6[1];
@@ -8930,28 +8932,40 @@ var Page = function PageClosure() {
         });
       });
     },
-
-    getAnnotationsData: function Page_getAnnotationsData(intent) {
-      var annotations = this.annotations;
-      var annotationsData = [];
-      for (var i = 0, n = annotations.length; i < n; ++i) {
-        if (!intent || isAnnotationRenderable(annotations[i], intent)) {
-          annotationsData.push(annotations[i].data);
+    getAnnotationsData: function getAnnotationsData(intent) {
+      return this._parsedAnnotations.then(function (annotations) {
+        var annotationsData = [];
+        for (var i = 0, ii = annotations.length; i < ii; i++) {
+          if (!intent || isAnnotationRenderable(annotations[i], intent)) {
+            annotationsData.push(annotations[i].data);
+          }
         }
-      }
-      return annotationsData;
+        return annotationsData;
+      });
     },
+
     get annotations() {
-      var annotations = [];
-      var annotationRefs = this._getInheritableProperty('Annots') || [];
-      for (var i = 0, n = annotationRefs.length; i < n; ++i) {
-        var annotationRef = annotationRefs[i];
-        var annotation = _annotation.AnnotationFactory.create(this.xref, annotationRef, this.pdfManager, this.idFactory);
-        if (annotation) {
-          annotations.push(annotation);
+      return (0, _util.shadow)(this, 'annotations', this._getInheritableProperty('Annots') || []);
+    },
+    get _parsedAnnotations() {
+      var _this4 = this;
+
+      var parsedAnnotations = this.pdfManager.ensure(this, 'annotations').then(function () {
+        var annotationRefs = _this4.annotations;
+        var annotationPromises = [];
+        for (var i = 0, ii = annotationRefs.length; i < ii; i++) {
+          annotationPromises.push(_annotation.AnnotationFactory.create(_this4.xref, annotationRefs[i], _this4.pdfManager, _this4.idFactory));
         }
-      }
-      return (0, _util.shadow)(this, 'annotations', annotations);
+        return Promise.all(annotationPromises).then(function (annotations) {
+          return annotations.filter(function isDefined(annotation) {
+            return !!annotation;
+          });
+        }, function (reason) {
+          (0, _util.warn)('_parsedAnnotations: "' + reason + '".');
+          return [];
+        });
+      });
+      return (0, _util.shadow)(this, '_parsedAnnotations', parsedAnnotations);
     }
   };
   return Page;
@@ -9197,7 +9211,7 @@ var PDFDocument = function PDFDocumentClosure() {
       });
     },
     getPage: function getPage(pageIndex) {
-      var _this4 = this;
+      var _this5 = this;
 
       if (this._pagePromises[pageIndex] !== undefined) {
         return this._pagePromises[pageIndex];
@@ -9212,14 +9226,14 @@ var PDFDocument = function PDFDocumentClosure() {
             ref = _ref11[1];
 
         return new Page({
-          pdfManager: _this4.pdfManager,
-          xref: _this4.xref,
+          pdfManager: _this5.pdfManager,
+          xref: _this5.xref,
           pageIndex: pageIndex,
           pageDict: pageDict,
           ref: ref,
           fontCache: catalog.fontCache,
           builtInCMapCache: catalog.builtInCMapCache,
-          pdfFunctionFactory: _this4.pdfFunctionFactory
+          pdfFunctionFactory: _this5.pdfFunctionFactory
         });
       });
     },
@@ -9267,6 +9281,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function fetchDestination(dest) {
+  return (0, _primitives.isDict)(dest) ? dest.get('D') : dest;
+}
 var Catalog = function CatalogClosure() {
   function Catalog(pdfManager, xref) {
     this.pdfManager = pdfManager;
@@ -9406,63 +9423,38 @@ var Catalog = function CatalogClosure() {
       return (0, _util.shadow)(this, 'numPages', obj);
     },
     get destinations() {
-      function fetchDestination(dest) {
-        return (0, _primitives.isDict)(dest) ? dest.get('D') : dest;
-      }
-      var xref = this.xref;
-      var dests = {},
-          nameTreeRef,
-          nameDictionaryRef;
-      var obj = this.catDict.get('Names');
-      if (obj && obj.has('Dests')) {
-        nameTreeRef = obj.getRaw('Dests');
-      } else if (this.catDict.has('Dests')) {
-        nameDictionaryRef = this.catDict.get('Dests');
-      }
-      if (nameDictionaryRef) {
-        obj = nameDictionaryRef;
-        obj.forEach(function catalogForEach(key, value) {
-          if (!value) {
-            return;
-          }
-          dests[key] = fetchDestination(value);
-        });
-      }
-      if (nameTreeRef) {
-        var nameTree = new NameTree(nameTreeRef, xref);
-        var names = nameTree.getAll();
+      var obj = this._readDests(),
+          dests = Object.create(null);
+      if (obj instanceof NameTree) {
+        var names = obj.getAll();
         for (var name in names) {
           dests[name] = fetchDestination(names[name]);
         }
+      } else if (obj instanceof _primitives.Dict) {
+        obj.forEach(function (key, value) {
+          if (value) {
+            dests[key] = fetchDestination(value);
+          }
+        });
       }
       return (0, _util.shadow)(this, 'destinations', dests);
     },
-    getDestination: function Catalog_getDestination(destinationId) {
-      function fetchDestination(dest) {
-        return (0, _primitives.isDict)(dest) ? dest.get('D') : dest;
+    getDestination: function getDestination(destinationId) {
+      var obj = this._readDests();
+      if (obj instanceof NameTree || obj instanceof _primitives.Dict) {
+        return fetchDestination(obj.get(destinationId) || null);
       }
-      var xref = this.xref;
-      var dest = null,
-          nameTreeRef,
-          nameDictionaryRef;
+      return null;
+    },
+    _readDests: function _readDests() {
       var obj = this.catDict.get('Names');
       if (obj && obj.has('Dests')) {
-        nameTreeRef = obj.getRaw('Dests');
+        return new NameTree(obj.getRaw('Dests'), this.xref);
       } else if (this.catDict.has('Dests')) {
-        nameDictionaryRef = this.catDict.get('Dests');
+        return this.catDict.get('Dests');
       }
-      if (nameDictionaryRef) {
-        var value = nameDictionaryRef.get(destinationId);
-        if (value) {
-          dest = fetchDestination(value);
-        }
-      }
-      if (nameTreeRef) {
-        var nameTree = new NameTree(nameTreeRef, xref);
-        dest = fetchDestination(nameTree.get(destinationId));
-      }
-      return dest;
     },
+
     get pageLabels() {
       var obj = null;
       try {
@@ -21135,11 +21127,6 @@ var CalRGBCS = function CalRGBCSClosure() {
       (0, _util.info)('Invalid Gamma [' + this.GR + ', ' + this.GG + ', ' + this.GB + '] for ' + this.name + ', falling back to default');
       this.GR = this.GG = this.GB = 1;
     }
-    if (this.MXA < 0 || this.MYA < 0 || this.MZA < 0 || this.MXB < 0 || this.MYB < 0 || this.MZB < 0 || this.MXC < 0 || this.MYC < 0 || this.MZC < 0) {
-      (0, _util.info)('Invalid Matrix for ' + this.name + ' [' + this.MXA + ', ' + this.MYA + ', ' + this.MZA + this.MXB + ', ' + this.MYB + ', ' + this.MZB + this.MXC + ', ' + this.MYC + ', ' + this.MZC + '], falling back to default');
-      this.MXA = this.MYB = this.MZC = 1;
-      this.MXB = this.MYA = this.MZA = this.MXC = this.MYC = this.MZB = 0;
-    }
   }
   function matrixProduct(a, b, result) {
     result[0] = a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
@@ -21423,6 +21410,11 @@ var AnnotationFactory = function () {
   _createClass(AnnotationFactory, null, [{
     key: 'create',
     value: function create(xref, ref, pdfManager, idFactory) {
+      return pdfManager.ensure(this, '_create', [xref, ref, pdfManager, idFactory]);
+    }
+  }, {
+    key: '_create',
+    value: function _create(xref, ref, pdfManager, idFactory) {
       var dict = xref.fetchIfRef(ref);
       if (!(0, _primitives.isDict)(dict)) {
         return;
@@ -21964,7 +21956,7 @@ var ButtonWidgetAnnotation = function (_WidgetAnnotation2) {
     _this4.data.radioButton = _this4.hasFieldFlag(_util.AnnotationFieldFlag.RADIO) && !_this4.hasFieldFlag(_util.AnnotationFieldFlag.PUSHBUTTON);
     _this4.data.pushButton = _this4.hasFieldFlag(_util.AnnotationFieldFlag.PUSHBUTTON);
     if (_this4.data.checkBox) {
-      _this4._processCheckBox();
+      _this4._processCheckBox(params);
     } else if (_this4.data.radioButton) {
       _this4._processRadioButton(params);
     } else if (_this4.data.pushButton) {
@@ -21977,11 +21969,24 @@ var ButtonWidgetAnnotation = function (_WidgetAnnotation2) {
 
   _createClass(ButtonWidgetAnnotation, [{
     key: '_processCheckBox',
-    value: function _processCheckBox() {
-      if (!(0, _primitives.isName)(this.data.fieldValue)) {
+    value: function _processCheckBox(params) {
+      if ((0, _primitives.isName)(this.data.fieldValue)) {
+        this.data.fieldValue = this.data.fieldValue.name;
+      }
+      var customAppearance = params.dict.get('AP');
+      if (!(0, _primitives.isDict)(customAppearance)) {
         return;
       }
-      this.data.fieldValue = this.data.fieldValue.name;
+      var exportValueOptionsDict = customAppearance.get('D');
+      if (!(0, _primitives.isDict)(exportValueOptionsDict)) {
+        return;
+      }
+      var exportValues = exportValueOptionsDict.getKeys();
+      var hasCorrectOptionCount = exportValues.length === 2;
+      if (!hasCorrectOptionCount) {
+        return;
+      }
+      this.data.exportValue = exportValues[0] === 'Off' ? exportValues[1] : exportValues[0];
     }
   }, {
     key: '_processRadioButton',
@@ -24425,8 +24430,8 @@ var PartialEvaluator = function PartialEvaluatorClosure() {
         var cidSystemInfo = dict.get('CIDSystemInfo');
         if ((0, _primitives.isDict)(cidSystemInfo)) {
           properties.cidSystemInfo = {
-            registry: cidSystemInfo.get('Registry'),
-            ordering: cidSystemInfo.get('Ordering'),
+            registry: (0, _util.stringToPDFString)(cidSystemInfo.get('Registry')),
+            ordering: (0, _util.stringToPDFString)(cidSystemInfo.get('Ordering')),
             supplement: cidSystemInfo.get('Supplement')
           };
         }
@@ -26451,6 +26456,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getFontType = exports.ProblematicCharRanges = exports.IdentityToUnicodeMap = exports.ToUnicodeMap = exports.FontFlags = exports.Font = exports.ErrorFont = exports.PRIVATE_USE_OFFSET_END = exports.PRIVATE_USE_OFFSET_START = exports.SEAC_ANALYSIS_ENABLED = undefined;
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _util = __w_pdfjs_require__(2);
 
 var _cff_parser = __w_pdfjs_require__(142);
@@ -26464,6 +26471,8 @@ var _standard_fonts = __w_pdfjs_require__(146);
 var _unicode = __w_pdfjs_require__(147);
 
 var _font_renderer = __w_pdfjs_require__(148);
+
+var _cmap = __w_pdfjs_require__(140);
 
 var _stream = __w_pdfjs_require__(125);
 
@@ -26806,31 +26815,16 @@ var Font = function FontClosure() {
       this.fallbackToSystemFont();
       return;
     }
-    if (subtype === 'Type1C') {
-      if (type !== 'Type1' && type !== 'MMType1') {
-        if (isTrueTypeFile(file)) {
-          subtype = 'TrueType';
-        } else {
-          type = 'Type1';
-        }
-      } else if (isOpenTypeFile(file)) {
-        subtype = 'OpenType';
-      }
-    }
-    if (subtype === 'CIDFontType0C' && type !== 'CIDFontType0') {
-      type = 'CIDFontType0';
-    }
-    if (type === 'CIDFontType0') {
-      if (isType1File(file)) {
-        subtype = 'CIDFontType0';
-      } else if (isOpenTypeFile(file)) {
-        subtype = 'OpenType';
-      } else {
-        subtype = 'CIDFontType0C';
-      }
-    }
-    if (subtype === 'OpenType' && type !== 'OpenType') {
-      type = 'OpenType';
+
+    var _getFontFileType = getFontFileType(file, properties);
+
+    var _getFontFileType2 = _slicedToArray(_getFontFileType, 2);
+
+    type = _getFontFileType2[0];
+    subtype = _getFontFileType2[1];
+
+    if (type !== this.type || subtype !== this.subtype) {
+      (0, _util.info)('Inconsistent font file Type/SubType, expected: ' + (this.type + '/' + this.subtype + ' but found: ' + type + '/' + subtype + '.'));
     }
     try {
       var data;
@@ -26858,9 +26852,6 @@ var Font = function FontClosure() {
           throw new _util.FormatError('Font ' + type + ' is not supported');
       }
     } catch (e) {
-      if (!(e instanceof _util.FormatError)) {
-        throw e;
-      }
       (0, _util.warn)(e);
       this.fallbackToSystemFont();
       return;
@@ -26904,7 +26895,7 @@ var Font = function FontClosure() {
   }
   function isTrueTypeFile(file) {
     var header = file.peekBytes(4);
-    return (0, _util.readUint32)(header, 0) === 0x00010000;
+    return (0, _util.readUint32)(header, 0) === 0x00010000 || (0, _util.bytesToString)(header) === 'true';
   }
   function isTrueTypeCollectionFile(file) {
     var header = file.peekBytes(4);
@@ -26923,6 +26914,53 @@ var Font = function FontClosure() {
       return true;
     }
     return false;
+  }
+  function isCFFFile(file) {
+    var header = file.peekBytes(4);
+    if (header[0] >= 1 && header[3] >= 1 && header[3] <= 4) {
+      return true;
+    }
+    return false;
+  }
+  function getFontFileType(file, _ref) {
+    var type = _ref.type,
+        subtype = _ref.subtype,
+        composite = _ref.composite;
+
+    var fileType = void 0,
+        fileSubtype = void 0;
+    if (isTrueTypeFile(file) || isTrueTypeCollectionFile(file)) {
+      if (composite) {
+        fileType = 'CIDFontType2';
+      } else {
+        fileType = 'TrueType';
+      }
+    } else if (isOpenTypeFile(file)) {
+      if (composite) {
+        fileType = 'CIDFontType2';
+      } else {
+        fileType = 'OpenType';
+      }
+    } else if (isType1File(file)) {
+      if (composite) {
+        fileType = 'CIDFontType0';
+      } else {
+        fileType = type === 'MMType1' ? 'MMType1' : 'Type1';
+      }
+    } else if (isCFFFile(file)) {
+      if (composite) {
+        fileType = 'CIDFontType0';
+        fileSubtype = 'CIDFontType0C';
+      } else {
+        fileType = type === 'MMType1' ? 'MMType1' : 'Type1';
+        fileSubtype = 'Type1C';
+      }
+    } else {
+      (0, _util.warn)('getFontFileType: Unable to detect correct font file Type/Subtype.');
+      fileType = type;
+      fileSubtype = subtype;
+    }
+    return [fileType, fileSubtype];
   }
   function buildToFontChar(encoding, glyphsUnicodeMap, differences) {
     var toFontChar = [],
@@ -28168,7 +28206,8 @@ var Font = function FontClosure() {
           cffFile = void 0;
       var isTrueType = !tables['CFF '];
       if (!isTrueType) {
-        if (header.version === 'OTTO' && !(properties.composite && properties.cidToGidMap) || !tables['head'] || !tables['hhea'] || !tables['maxp'] || !tables['post']) {
+        var isComposite = properties.composite && ((properties.cidToGidMap || []).length > 0 || !(properties.cMap instanceof _cmap.IdentityCMap));
+        if (header.version === 'OTTO' && !isComposite || !tables['head'] || !tables['hhea'] || !tables['maxp'] || !tables['post']) {
           cffFile = new _stream.Stream(tables['CFF '].data);
           cff = new CFFFont(cffFile, properties);
           adjustWidths(properties);
@@ -44651,24 +44690,36 @@ var PDFImage = function PDFImageClosure() {
 
     this.image = image;
     var dict = image.dict;
-    if (dict.has('Filter')) {
-      var filter = dict.get('Filter').name;
-      if (filter === 'JPXDecode') {
-        var jpxImage = new _jpx.JpxImage();
-        jpxImage.parseImageProperties(image.stream);
-        image.stream.reset();
-        image.bitsPerComponent = jpxImage.bitsPerComponent;
-        image.numComps = jpxImage.componentsCount;
-      } else if (filter === 'JBIG2Decode') {
-        image.bitsPerComponent = 1;
-        image.numComps = 1;
+    var filter = dict.get('Filter');
+    if ((0, _primitives.isName)(filter)) {
+      switch (filter.name) {
+        case 'JPXDecode':
+          var jpxImage = new _jpx.JpxImage();
+          jpxImage.parseImageProperties(image.stream);
+          image.stream.reset();
+          image.width = jpxImage.width;
+          image.height = jpxImage.height;
+          image.bitsPerComponent = jpxImage.bitsPerComponent;
+          image.numComps = jpxImage.componentsCount;
+          break;
+        case 'JBIG2Decode':
+          image.bitsPerComponent = 1;
+          image.numComps = 1;
+          break;
       }
     }
-    this.width = dict.get('Width', 'W');
-    this.height = dict.get('Height', 'H');
-    if (this.width < 1 || this.height < 1) {
-      throw new _util.FormatError('Invalid image width: ' + this.width + ' or ' + ('height: ' + this.height));
+    var width = dict.get('Width', 'W');
+    var height = dict.get('Height', 'H');
+    if (Number.isInteger(image.width) && image.width > 0 && Number.isInteger(image.height) && image.height > 0 && (image.width !== width || image.height !== height)) {
+      (0, _util.warn)('PDFImage - using the Width/Height of the image data, ' + 'rather than the image dictionary.');
+      width = image.width;
+      height = image.height;
     }
+    if (width < 1 || height < 1) {
+      throw new _util.FormatError('Invalid image width: ' + width + ' or ' + ('height: ' + height));
+    }
+    this.width = width;
+    this.height = height;
     this.interpolate = dict.get('Interpolate', 'I') || false;
     this.imageMask = dict.get('ImageMask', 'IM') || false;
     this.matte = dict.get('Matte') || false;
@@ -44699,7 +44750,7 @@ var PDFImage = function PDFImageClosure() {
             colorSpace = _primitives.Name.get('DeviceCMYK');
             break;
           default:
-            throw new Error('JPX images with ' + this.numComps + ' ' + 'color components not supported.');
+            throw new Error('JPX images with ' + image.numComps + ' ' + 'color components not supported.');
         }
       }
       var resources = isInline ? res : null;

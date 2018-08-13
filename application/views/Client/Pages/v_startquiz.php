@@ -37,7 +37,7 @@
 										</label>
 									</div>
 									<?php $no++; }} ?>
-									<input type="text" name="id_test" value="<?php echo $id_test ?>">
+									<input type="hidden" name="id_test" value="<?php echo $id_test ?>">
 									<button class="main-button icon-button">Submit</button>
 								</form>
 

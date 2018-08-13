@@ -71,7 +71,8 @@
 <div id='preloader'><div class='preloader'></div></div>
 <!-- /preloader -->
 <!-- jQuery Plugins -->
-
+<script src="<?php echo base_url()?>assets/pdfjs/build/pdf.js"></script>
+<script src="<?php echo base_url()?>assets/pdfjs/build/pdf.worker.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/jquery.min.js"></script>
 <sc<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/bootstrap.min.js"></script>
@@ -178,6 +179,21 @@ img.onclick = function(){
 // When the user clicks on <span> (x), close the modal
 modal.onclick = function() { 
 	modal.style.display = "none";
+}
+</script>
+<script>
+function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
 }
 </script>
 </body>

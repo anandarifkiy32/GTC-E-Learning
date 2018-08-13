@@ -102,7 +102,7 @@ class Homepage extends CI_Controller {
 			$this->session->set_userdata($data_session);
 			redirect(base_url());
 		}else{
-			 $this->session->set_flashdata('message','Email atau Password salah !'); 
+			$this->session->set_flashdata('message','Email atau Password salah !'); 
 			redirect(base_url());
 		}
 	}
@@ -321,7 +321,8 @@ class Homepage extends CI_Controller {
 				'banner'	=> $banner,
 				'nilai'		=> $nilai,
 				'nilai2'	=> $nilai,
-				'profile'	=> $profile
+				'profile'	=> $profile,
+				'id_peserta'=> $id_peserta
 			);
 			$this->session->set_userdata('course',$slug);
 			$this->load->view('client/layout/wrapper',$data);
@@ -627,7 +628,46 @@ class Homepage extends CI_Controller {
 		}
 	}
 
-	function quizoverview($slug){
+	function quiz($slug){
+		$where = array(
+			'unique_code' => $this->session->userdata('unique_code')
+		);
+		$profile = $this->Peserta_model->select_where($where)->result();
+		$id_peserta = $this->Peserta_model->select_where($where)->row('id_peserta');
+		$where = array('slug' => $slug);
+		$id_materi = $this->Materi_model->select_where($where)->row('id_materi');
+		$where = array('id_materi' => $id_materi);
+		$test = $this->Test_model->select_where($where)->result();
+		$jumlahtes = $this->Test_model->select_where($where)->num_rows();
+
+
+		$where = '';
+		$kondisi = 1;
+		foreach ($test as $t) {
+			if($kondisi == 1){
+				$x = '';
+			}else{
+				$x = ' or';
+			}
+			$where .= $x.' id_test = '.$t->id_test.' and id_peserta = '.$id_peserta;
+			$kondisi++;
+		}
+
+		$result = $this->Result_model->select_where($where)->result();
+		echo json_encode($result);
+		$data = array(
+			'profile' => $profile,
+			'banner' => "Quiz",
+			'test' => $test,
+			'result'	=> $result,
+			'id_peserta' => $id_peserta,
+			'jmltes'	=> $jumlahtes,
+			'content' => 'client/pages/v_quiz'
+		);
+		$this->load->view('client/layout/wrapper',$data);
+	}
+
+	function quizoverview($kategori,$slug){
 		if($this->session->userdata('status') == 'login'){
 			$where = array(
 				'unique_code' => $this->session->userdata('unique_code')
@@ -638,9 +678,10 @@ class Homepage extends CI_Controller {
 			$id_materi = $this->Materi_model->select_where($where)->row('id_materi'); 
 			$namamodul = $this->Materi_model->select_modul($id_materi)->row('namamodul');
 			$where = array(
-				'id_materi' => $id_materi);
+				'id_materi' => $id_materi,
+				'kategori'	=> $kategori);
 			$soal = $this->Quiz_model->select_where($where)->row('id_test');
-			$quiz= $this->Quiz_model->cekquiz($id_materi);
+			$quiz= $this->Quiz_model->cekquiz($id_materi,$kategori);
 
 			$data = array(
 				'profile' => $profile,
@@ -649,13 +690,11 @@ class Homepage extends CI_Controller {
 				'quiz' => $quiz,
 				'content' => 'client/pages/v_konfirmasiquiz'
 			);
-			$this->load->view('client/layout/wrapper',$data);
-			
-
+			$this->load->view('client/layout/wrapper',$data);		
 		}
 	}
 
-	function startquiz($slug){
+	function startquiz($kategori,$slug){
 
 		$where = array(
 			'unique_code' => $this->session->userdata('unique_code')
@@ -664,7 +703,7 @@ class Homepage extends CI_Controller {
 		$id_peserta = $this->Peserta_model->select_where($where)->row('id_peserta');
 		$where = array('slug' => $slug);
 		$id_materi = $this->Materi_model->select_where($where)->row('id_materi');
-		$where = array('id_materi' => $id_materi, 'kategori' => 'post');
+		$where = array('id_materi' => $id_materi, 'kategori' => $this->uri->segment(3));
 		$id_test = $this->Test_model->select_where($where)->row('id_test'); //id_test
 		$where = array(
 			'id_test' => $id_test);
@@ -739,10 +778,13 @@ class Homepage extends CI_Controller {
 		$id_result = $this->Result_model->select_where($where)->row('id_result');
 		$where = array('id_test' => $id_test);
 		$soal = $this->Soal_model->select_where($where)->result(); 
+		$count = 0;
+		$jmlnilai = 0;
 		foreach ($soal as $s) {
 			$nilai = 0;
 			if($s->benar == $this->input->post('jawaban'.$s->id_soal)){
 				$nilai = 1;
+				$jmlnilai = $jmlnilai + 1;
 			}
 			$data = array(
 				'id_result' => $id_result,
@@ -751,17 +793,41 @@ class Homepage extends CI_Controller {
 				'nilai'		=> $nilai
 			);
 			$this->Jawaban_model->input($data);
+			$count++;
 		}
+		$nilaiakhir = $jmlnilai / $count * 100;
+		$data = array('nilai' => $nilaiakhir,'status' => 'Sudah dikerjakan');
+		$where = array(
+			'id_test' 	=> $id_test,
+			'id_peserta'=> $id_peserta
+
+		);
+		$this->Result_model->update($where,$data);
 		$this->session->set_flashdata('quiz','berhasil');
 		redirect(base_url('homepage/startcourse/'.$this->session->userdata('course')));
 	}
 
-	function time(){
-		
-		
-
-		$this->session->set_userdata($newdata);
-		echo $this->session->userdata('quizend');
+	function review($code){
+		$where = array(
+			'unique_code' => $this->session->userdata('unique_code')
+		);
+		$profile = $this->Peserta_model->select_where($where)->result();
+		$where = array('code' => $code);
+		$result = $this->Result_model->select_where($where)->result();
+		$id_result = $this->Result_model->select_where($where)->row('id_result');
+		$id_test = $this->Result_model->select_where($where)->row('id_test');
+		$where = array('id_test' => $id_test);
+		$tipesoal = $this->Test_model->select_where($where)->row('tipesoal');
+		$where = array('id_result' => $id_result);
+		$jawaban = $this->Jawaban_model->join_soal($where)->result();
+		$data = array(
+			'profile' => $profile,
+			'banner' => "Start Quiz",
+			'tipesoal'	=> $tipesoal,
+			'jawaban'	=> $jawaban,
+			'content' => 'client/pages/v_reviewquiz'
+		);
+		$this->load->view('client/layout/wrapper',$data);
 	}
 }
 

@@ -123,8 +123,8 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 
-var pdfjsVersion = '2.0.719';
-var pdfjsBuild = '35214245';
+var pdfjsVersion = '2.0.760';
+var pdfjsBuild = '1268aea2';
 var pdfjsSharedUtil = __w_pdfjs_require__(1);
 var pdfjsDisplayAPI = __w_pdfjs_require__(118);
 var pdfjsDisplayTextLayer = __w_pdfjs_require__(130);
@@ -7598,7 +7598,7 @@ function _fetchDocument(worker, source, pdfDataRangeTransport, docId) {
   }
   return worker.messageHandler.sendWithPromise('GetDocRequest', {
     docId: docId,
-    apiVersion: '2.0.719',
+    apiVersion: '2.0.760',
     source: {
       data: source.data,
       url: source.url,
@@ -8784,6 +8784,9 @@ var WorkerTransport = function WorkerTransportClosure() {
       return this.messageHandler.sendWithPromise('GetDestinations', null);
     },
     getDestination: function WorkerTransport_getDestination(id) {
+      if (typeof id !== 'string') {
+        return Promise.reject(new Error('Invalid destination request.'));
+      }
       return this.messageHandler.sendWithPromise('GetDestination', { id: id });
     },
     getPageLabels: function WorkerTransport_getPageLabels() {
@@ -9045,8 +9048,8 @@ var InternalRenderTask = function InternalRenderTaskClosure() {
 }();
 var version, build;
 {
-  exports.version = version = '2.0.719';
-  exports.build = build = '35214245';
+  exports.version = version = '2.0.760';
+  exports.build = build = '1268aea2';
 }
 exports.getDocument = getDocument;
 exports.LoopbackPort = LoopbackPort;
@@ -16554,6 +16557,12 @@ var PDFNodeStreamFullReader = function (_BaseFullReader) {
     var _this5 = _possibleConstructorReturn(this, (PDFNodeStreamFullReader.__proto__ || Object.getPrototypeOf(PDFNodeStreamFullReader)).call(this, stream));
 
     var handleResponse = function handleResponse(response) {
+      if (response.statusCode === 404) {
+        var error = new _util.MissingPDFException('Missing PDF "' + _this5._url + '".');
+        _this5._storedError = error;
+        _this5._headersCapability.reject(error);
+        return;
+      }
       _this5._headersCapability.resolve();
       _this5._setReadableStream(response);
       var getResponseHeader = function getResponseHeader(name) {
@@ -16607,15 +16616,19 @@ var PDFNodeStreamRangeReader = function (_BaseRangeReader) {
       _this6._httpHeaders[property] = value;
     }
     _this6._httpHeaders['Range'] = 'bytes=' + start + '-' + (end - 1);
+    var handleResponse = function handleResponse(response) {
+      if (response.statusCode === 404) {
+        var error = new _util.MissingPDFException('Missing PDF "' + _this6._url + '".');
+        _this6._storedError = error;
+        return;
+      }
+      _this6._setReadableStream(response);
+    };
     _this6._request = null;
     if (_this6._url.protocol === 'http:') {
-      _this6._request = http.request(createRequestOptions(_this6._url, _this6._httpHeaders), function (response) {
-        _this6._setReadableStream(response);
-      });
+      _this6._request = http.request(createRequestOptions(_this6._url, _this6._httpHeaders), handleResponse);
     } else {
-      _this6._request = https.request(createRequestOptions(_this6._url, _this6._httpHeaders), function (response) {
-        _this6._setReadableStream(response);
-      });
+      _this6._request = https.request(createRequestOptions(_this6._url, _this6._httpHeaders), handleResponse);
     }
     _this6._request.on('error', function (reason) {
       _this6._storedError = reason;
@@ -16641,6 +16654,9 @@ var PDFNodeStreamFsFullReader = function (_BaseFullReader2) {
     }
     fs.lstat(path, function (error, stat) {
       if (error) {
+        if (error.code === 'ENOENT') {
+          error = new _util.MissingPDFException('Missing PDF "' + path + '".');
+        }
         _this7._storedError = error;
         _this7._headersCapability.reject(error);
         return;
