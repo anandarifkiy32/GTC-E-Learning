@@ -27,11 +27,12 @@
           </div>
           <div class="panel-body">
             <form action="<?php echo base_url('trainer/tambahtest/'.$this->uri->segment(3)) ?>" method="post">
-              <?php if($tipesoal == 'essay'){
+              <?php if($tipesoal == 'essay' || $tipesoal == 'file'){
                 for ($no=1; $no <= $jumlah_soal; $no++){ ?>
                   <div class="form-group">
                     <label>Soal No. <?php echo $no;  ?></label>
                     <input type="text" class="form-control" name="pertanyaan<?php echo $no ?>" placeholder="Tulis Soal Di Sini" required="">
+                    <!-- <input type="text" class="form-control" placeholder="Jawaban" name="benar<?php echo $no ?>" > -->
                   </div>
                   <?php } }else{ for ($no=1; $no <= $jumlah_soal; $no++){  ?>
                     <div class="form-group">

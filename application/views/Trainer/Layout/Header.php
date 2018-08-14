@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>GTC EduSite</title>
+<title>GTC EduSite | Trainer </title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <!-- Bootstrap 3.3.7 -->
@@ -22,25 +22,13 @@ folder instead of downloading all of them to reduce the load. -->
 <!-- jvectormap -->
 <link rel="stylesheet" href="<?php echo base_url()?>assets/adm/bower_components/jvectormap/jquery-jvectormap.css">
 <!-- Date Picker -->
-<link href="<?php echo base_url()?>assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" href="<?php echo base_url()?>assets/adm/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
 <!-- Daterange picker -->
 <link rel="stylesheet" href="<?php echo base_url()?>assets/adm/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 <!-- bootstrap wysihtml5 - text editor -->
 <link rel="stylesheet" href="<?php echo base_url()?>assets/adm/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 <!-- DataTables -->
 <link rel="stylesheet" href="<?php echo base_url()?>assets/adm/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-
-<style type="text/css">
-  @media only screen and (max-width: 380px) {
-    .course{
-      width: 100%;
-    }
-  }
-
-  #inputfile{
-    display: none;
-  }
-  </style>
 
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -62,7 +50,7 @@ folder instead of downloading all of them to reduce the load. -->
 <!-- mini logo for sidebar mini 50x50 pixels -->
 <span class="logo-mini"><b>G</b>TC</span>
 <!-- logo for regular state and mobile devices -->
-<span class="logo-lg"><b>GTC</b> EduSite</span>
+<span class="logo-lg"><b>GTC</b> E-Learning</span>
 </a>
 <!-- Header Navbar: style can be found in header.less -->
 <nav class="navbar navbar-static-top" style="background-color: #43445A;">
@@ -70,38 +58,37 @@ folder instead of downloading all of them to reduce the load. -->
 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
 <span class="sr-only">Toggle navigation</span>
 </a>
-<?php foreach ($profile as $p) { ?>
-  <div class="navbar-custom-menu">
-    <ul class="nav navbar-nav">
-      <li class="dropdown user user-menu">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          <img src="<?php echo base_url()?>assets/profile_photos/trainer/<?php echo $p->img ?>" class="user-image" alt="User Image">
-          <span class="hidden-xs"><?php echo $p->nama;?></span>
-        </a>
-        <ul class="dropdown-menu">
-          <!-- User image -->
-          <li class="user-header">
-            <img src="<?php echo base_url()?>assets/profile_photos/trainer/<?php echo $p->img ?>" class="img-circle" alt="User Image">
 
-            <p>
-              <?php echo $p->nama ?>
-            </p>
-          </li>
-          <!-- Menu Body -->
-          <!-- Menu Footer-->
-          <li class="user-footer">
-            <div class="pull-left">
-              <a href="<?php echo base_url('Trainer/profile');?>" class="btn btn-default btn-flat">Profile</a>
-            </div>
-            <div class="pull-right">
-              <a href="<?php echo base_url('Trainer/logout');?>" class="btn btn-default btn-flat">Sign out</a>
-            </div>
-          </li>
-        </ul>
+<div class="navbar-custom-menu">
+<ul class="nav navbar-nav">
+<li class="dropdown user user-menu">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+<img src="<?php echo base_url()?>assets/adm/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+<span class="hidden-xs"><?php echo $this->session->userdata("nama");?></span>
+</a>
+<ul class="dropdown-menu">
+<!-- User image -->
+<li class="user-header">
+<img src="<?php echo base_url()?>assets/adm/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+        <p>
+          <?php echo $this->session->userdata("nama");?>
+        </p>
       </li>
-      <!-- Control Sidebar Toggle Button -->
+      <!-- Menu Body -->
+      <!-- Menu Footer-->
+      <li class="user-footer">
+        <div class="pull-left">
+          <a href="<?php echo base_url('Trainer/profile');?>" class="btn btn-default btn-flat">Profile</a>
+        </div>
+        <div class="pull-right">
+          <a href="<?php echo base_url('Trainer/logout');?>" class="btn btn-default btn-flat">Sign out</a>
+        </div>
+      </li>
     </ul>
-  </div>
-  <?php } ?>
+  </li>
+  <!-- Control Sidebar Toggle Button -->
+</ul>
+</div>
 </nav>
 </header>

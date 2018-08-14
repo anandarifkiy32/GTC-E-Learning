@@ -39,7 +39,7 @@
 										<td>
 											<?php 
 											if($result->num_rows() == 1){
-												if($result->row('nilai') == 0){
+												if($result->row('nilai') == NULL){
 													echo 'Sedang di review';
 												}else{
 													echo $result->row('nilai');	
@@ -50,15 +50,13 @@
 											?>
 										</td>
 
-										<td><a href=
+										<td>
 											<?php 
-											if($result->num_rows() == 1){
-												echo base_url('homepage/review/'.$result->row('code'));
-											}else{
-												echo base_url('homepage/quizoverview/'.$t->kategori.'/'.$this->uri->segment(3));
-											}
+											if($result->num_rows() != 1){ ?>
+											<a href=<?php echo base_url('homepage/quizoverview/'.$t->kategori.'/'.$t->code);
 											?>>
 											<button class="btn btn-success btn-flat"><span class="fa fa-toggle-right"></span></button></a></td>
+											<?php } ?>
 										</tr>
 										<?php $no++; } ?>
 									</tbody>

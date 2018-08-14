@@ -5,11 +5,12 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Dashboard
+      Detail Course
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
       <li class="active">Dashboard</li>
+      <li class="active">Detail Course</li>
     </ol>
   </section>
 
@@ -33,7 +34,7 @@
                   <h5 class="widget-user-desc" style="margin-left: 0px;"><?php echo $m->category ?></h5>
                 </div>
                 <div class="col-md-3">
-                  <div style="float: right">
+                  <div style="float: right;">
                     <button class="btn btn-success btn-flat" data-toggle="modal" data-target="#modal-default1">Edit</button>
                     <a href="<?php echo base_url().'trainer/hapusmodul/'.$this->uri->segment(3) ?>"><button class="btn btn-danger btn-flat"><span class="fa fa-trash"></span></button></a>
                   </div>
@@ -48,7 +49,7 @@
                 </tr>
                 <?php } ?>
                 <tr>
-                  <td style="font-size: 16px">Jumlah Modul</td>
+                  <td style="font-size: 16px">Jumlah Materi</td>
                   <td><?php echo $jumlah_materi ?></td>
                 </tr>
                 <tr>
@@ -77,8 +78,8 @@
                     <td><?php echo $no ?></td>
                     <td><?php echo $s->judul ?></td>
                     <td align="right">
-                      <a href="<?php echo base_url().'trainer/detailmateri/'.$s->slug ?>"><button class="btn btn-primary btn-flat">Lihat</button></a>
-                      <a href="<?php echo base_url().'trainer/hapusmateri/'.$s->slug.'/'.$this->uri->segment(3) ?>"><button class="btn btn-danger btn-flat"><span class="fa fa-trash"></span></button></a>
+                      <a href="<?php echo base_url().'trainer/detailmateri/'.$s->slug ?>"><button class="btn btn-primary btn-flat btn-xs">Lihat</button></a>
+                      <a href="<?php echo base_url().'trainer/hapusmateri/'.$s->slug.'/'.$this->uri->segment(3) ?>"><button class="btn btn-danger btn-flat btn-xs"><span class="fa fa-trash"></span></button></a>
                     </td>
                   </tr>
                   <?php $no++; } ?>
@@ -112,7 +113,7 @@
                         <td><?php echo $num ?></td>
                         <td><?php echo $dp->nama ?></td>
                         <td></td>
-                        <td align="right"><a href="<?php echo base_url('trainer/detailpeserta/'.$dp->code)?>"><button class="btn btn-success">Detail</button></a></td>
+                        <td align="right"><a href="<?php echo base_url('trainer/detailpeserta/'.$dp->code)?>"><button class="btn btn-success btn-flat">Detail</button></a></td>
                       </tr>
                       <?php $num++; } ?>
                     </tbody>
@@ -131,14 +132,14 @@
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Edit Modul</h4>
+                    <h4 class="modal-title">Edit Course</h4>
                   </div>
                   <form action="<?php echo base_url('trainer/updatemodul') ?>" method="post">
                     <?php foreach ($modul as $m) { ?>
                       <div class="modal-body">
                         <div class="box-body">
                           <div class="form-group">
-                            <label for="exampleInputEmail1">Nama Modul</label>
+                            <label for="exampleInputEmail1">Nama Course</label>
                             <input type="hidden" name="id" value="<?php echo $m->id_modul ?>">
                             <input type="text" class="form-control" id="exampleInputEmail1" name="nama" value="<?php echo $m->nama ?>">
                           </div>
@@ -174,45 +175,30 @@
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span></button>
-                          <h4 class="modal-title">Tambah Madul</h4>
+                          <h4 class="modal-title">Tambah Modul</h4>
                         </div>
                         <form role="form" action="<?php echo base_url().'trainer/tambahmateri/'.$this->uri->segment(3) ?>" method="post">
                           <div class="modal-body">
                             <div class="box-body">
                               <div class="form-group">
-                                <label for="exampleInputEmail1">Judul</label>
+                                <label>Judul Modul / Materi</label>
                                 <?php foreach ($modul as $m) { ?>
                                   <input type="hidden" name="id" value="<?php echo $m->id_modul ?>">
                                   <?php } ?>
-                                  <input type="text" class="form-control" id="exampleInputEmail1"  name="judul">
+                                  <input type="text" class="form-control" name="judul">
                                 </div>
                                 <div class="form-group">
-                                  <label for="exampleInputDescription1">Indikator</label>
-                                  <textarea class="form-control" name="description" rows="5"></textarea>
+                                  <label>Indikator</label>
+                                  <textarea class="form-control" name="indikator" rows="5"></textarea>
                                 </div>
                                 <div class="form-group">
-                                  <label for="exampleInputDescription1">Tujuan Pembelajaran</label>
-                                  <textarea class="form-control" name="description" rows="5"></textarea>
+                                  <label>Tujuan Pembelajaran</label>
+                                  <textarea class="form-control" name="tujuan" rows="5"></textarea>
                                 </div>
                                 <div class="form-group">
-                                  <label for="exampleInputDescription1">Evaluasi</label>
-                                  <textarea class="form-control" name="description" rows="5"></textarea>
+                                  <label>Evaluasi</label>
+                                  <textarea class="form-control" name="evaluasi" rows="5"></textarea>
                                 </div>
-                               <!--  <div class="form-group">
-                                  <label for="exampleInputDescription1">Tipe Konten</label>
-                                  <select class="form-control" name="tipe" id="mySelect" onchange="pilihFile()">
-                                    <option value="video">Video</option>
-                                    <option value="pdf">PDF</option>
-                                  </select>
-                                </div>
-                                <div class="form-group" id="inputlink">
-                                  <label for="exampleInputEmail1">Konten Modul (Link)</label>
-                                  <input type="text" class="form-control" id="exampleInputEmail1" name="konten" placeholder="Contoh : https://www.youtube.com/embed/Aq1DuuSYHhw">
-                                </div>
-                                <div class="form-group" id="inputfile">
-                                  <label for="exampleInputEmail1">Konten Modul (File)</label>
-                                  <input type="file" class="form-control" id="exampleInputEmail1" name="konten">
-                                </div> -->
                               </div>
                               <!-- /.box-body -->
                             </div>

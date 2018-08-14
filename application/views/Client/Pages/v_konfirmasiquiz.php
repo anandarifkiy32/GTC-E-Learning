@@ -30,13 +30,12 @@
 										</tr>
 									</table>
 								</div>
-								<a href="<?php echo base_url('homepage/startquiz/'.$this->uri->segment(3).'/'.$q->slug)?>"><button class="main-button icon-button" style="float: right;">Start Quiz</button></a>
+								<a href="<?php echo base_url('homepage/startquiz/'.$this->uri->segment(3).'/'.$q->code)?>"><button class="main-button icon-button" style="float: right;">Start Quiz</button></a>
 								<?php } }else{ ?>
 									<form>
 										<center><h4>Maaf quiz belum tersedia</h4></center>
 									</form>
 									<?php } ?>
-
 								</div>
 							</div>
 						</div>

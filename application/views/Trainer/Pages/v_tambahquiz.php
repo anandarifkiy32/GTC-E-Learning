@@ -38,73 +38,89 @@
                         </select>
                       </div>
                       <div class="form-group">
-                        <label>Modul</label>
+                        <label>Course</label>
                         <input type="text" class="form-control" value="<?php echo $namamodul ?>" disabled="">
                       </div>
                       <div class="form-group">
-                        <label>Materi</label>
+                        <label>Modul / Materi</label>
 
                         <input type="text" class="form-control" value="<?php echo $m->judul ?>" disabled="">
                         <input type="hidden" name="id_materi" value="<?php echo $m->id_materi ?>">
-                        <?php } ?>
+                      <?php } ?>
+                    </div>
+                    <div class="form-group">
+                      <label>Trainer</label>
+                      <?php foreach ($profile as $p) { ?>
+                        <input type="text" class="form-control" value="<?php echo $p->nama ?>" disabled="">
+                        <input type="hidden" name="id_trainer" value="<?php echo $p->id_trainer ?>">
+                      <?php } ?>
+                    </div>
+                    <div class="form-group">
+                      <label>Waktu Pengerjaan</label>
+                      <input type="number" name="waktu" class="form-control" placeholder="Ex: 60 (menit)" required="">
+                    </div>
+                    <div class="form-group">
+                      <label>Tipe Soal</label>
+                      <select type="text" class="form-control" name="tipesoal" required="">
+                        <option value="">Pilih Tipe Soal</option>
+                        <option value="multiple">Multiple Choice</option>
+                        <option value="essay">Essay</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Jumlah Soal</label>
+                      <input type="number" name="jumlah_soal" class="form-control" required="">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="float: right; border-radius: 0px;">Next</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <!-- /.tab-pane -->
+            <div class="tab-pane" id="tab_2">
+              <div class="panel panel-default" style="border-radius: 0px;">
+                <div class="box-body">
+                  <?php foreach ($materi as $m) { ?>
+                    <form role="form" action="<?php echo base_url().'trainer/tambahsoal/'.$m->slug?>" method="post">
+                      <div class="form-group">
+                        <input type="hidden" name="kategori" value="praktik">
                       </div>
                       <div class="form-group">
-                        <label>Trainer</label>
-                        <?php foreach ($profile as $p) { ?>
-                          <input type="text" class="form-control" value="<?php echo $p->nama ?>" disabled="">
-                          <input type="hidden" name="id_trainer" value="<?php echo $p->id_trainer ?>">
-                          <?php } ?>
-                        </div>
-                        <div class="form-group">
-                          <label>Waktu Pengerjaan</label>
-                          <input type="number" name="waktu" class="form-control" placeholder="Ex: 60 (menit)" required="">
-                        </div>
-                        <div class="form-group">
-                        <label>Tipe Soal</label>
-                        <select type="text" class="form-control" name="tipesoal" required="">
-                          <option value="">Pilih Tipe Soal</option>
-                          <option value="multiple">Multiple Choice</option>
-                          <option value="essay">Essay</option>
-                        </select>
+                        <label>Course</label>
+                        <input type="text" class="form-control" value="<?php echo $namamodul ?>" disabled="">
                       </div>
-                        <div class="form-group">
-                          <label>Jumlah Soal</label>
-                          <input type="number" name="jumlah_soal" class="form-control" required="">
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="float: right; border-radius: 0px;">Next</button>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-                <!-- /.tab-pane -->
-                <div class="tab-pane" id="tab_2">
-                  The European languages are members of the same family. Their separate existence is a myth.
-                  For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ
-                  in their grammar, their pronunciation and their most common words. Everyone realizes why a
-                  new common language would be desirable: one could refuse to pay expensive translators. To
-                  achieve this, it would be necessary to have uniform grammar, pronunciation and more common
-                  words. If several languages coalesce, the grammar of the resulting language is more simple
-                  and regular than that of the individual languages.
-                </div>
-                <!-- /.tab-pane -->
-                <div class="tab-pane" id="tab_3">
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                  when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                  It has survived not only five centuries, but also the leap into electronic typesetting,
-                  remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-                  sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
-                  like Aldus PageMaker including versions of Lorem Ipsum.
-                </div>
-                <!-- /.tab-pane -->
-              </div>
-              <!-- /.tab-content -->
-            </div>
-            <!-- nav-tabs-custom -->
+                      <div class="form-group">
+                        <label>Modul / Materi</label>
 
+                        <input type="text" class="form-control" value="<?php echo $m->judul ?>" disabled="">
+                        <input type="hidden" name="id_materi" value="<?php echo $m->id_materi ?>">
+                      <?php } ?>
+                    </div>
+                    <div class="form-group">
+                      <label>Trainer</label>
+                      <?php foreach ($profile as $p) { ?>
+                        <input type="text" class="form-control" value="<?php echo $p->nama ?>" disabled="">
+                        <input type="hidden" name="id_trainer" value="<?php echo $p->id_trainer ?>">
+                      <?php } ?>
+                    </div>
+                    <input type="hidden" name="tipesoal" value="file">
+                    <div class="form-group">
+                      <label>Jumlah Soal</label>
+                      <input type="number" name="jumlah_soal" class="form-control" required="">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="float: right; border-radius: 0px;">Next</button>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
+          <!-- /.tab-content -->
         </div>
-      </section>
-      <!-- /.content -->
+        <!-- nav-tabs-custom -->
+
+      </div>
     </div>
+  </section>
+  <!-- /.content -->
+</div>
 <!-- /.content-wrapper -->

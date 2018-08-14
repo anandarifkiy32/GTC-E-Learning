@@ -5,360 +5,308 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Detail Materi
+      Detail Quiz
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
       <li class="active">Dashboard</li>
       <li class="active">Modul</li>
-      <li class="active">Detail Materi</li>
+      <li class="active">Detail Quiz</li>
     </ol>
   </section>
 
-  <!-- Main content -->
   <section class="content">
-    <!-- Small boxes (Stat box) -->
     <div class="row">
       <div class="col-md-12">
-        <?php foreach ($materi as $m) { ?>
-          <div class="box" style="border-top:none;">
-            <div class="box-header" style="color">
-              <h3 class="box-title" style="font-size: 24px;float: left;"><?php echo $m->judul ?></h3>
-   
-              <?php if ($m->pdf != '') { 
-                echo '';} else{ ?>
-                  <button class="btn btn-primary btn-flat" style="float: right; margin-left: 10px;" data-toggle="modal" data-target="#modal-default2"><span class="fa fa-plus"></span> Pdf</button>
-
-                <?php }
-                if ($m->konten != '') { 
-                  echo '';} else{ ?>
-                    <button class="btn btn-primary btn-flat" style="float: right; margin-left: 10px;" data-toggle="modal" data-target="#modal-default3"><span class="fa fa-plus"></span> Video</button>
-
-                  <?php }
-                  ?>
-                  <button class="btn btn-success btn-flat" style="float: right;" data-toggle="modal" data-target="#modal-default1">Edit Materi</button>
+        <div class="box" style="border-top:none;">
+          <div class="box-header" style="color">
+            <h4 class="box-title" style="font-size: 24px;float: left;">Detail</h4>
+            <button class="btn btn-success btn-flat" style="float: right;" data-toggle="modal" data-target="#modal-default1">Edit Detail</button>
+          </div>
+          <div class="box-body" style="padding:25px;padding-top: 15px">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div style="font-size: 16px">
+                      <b>Course</b>
+                    </div>
+                    <p>
+                      <?php echo $modul ?>
+                    </p>
+                  </div>
                 </div>
-                <!-- /.box-header -->
-                <div class="box-body" style="padding:25px;padding-top: 15px">
-                  <div class="row">
-                    <div class="col-md-7">
-                      <div class="row">
-                        <div style="font-size: 16px">
-                          <b>Indikator</b>
-                        </div>
-                        <p>
-                          <?php echo $m->indikator ?>
-                        </p>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div style="font-size: 16px">
+                      <b>Modul</b>
+                    </div>
+                    <p>
+                      <?php echo $materi ?>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-12"><?php foreach ($detail as $d) { ?>
+                    <div style="font-size: 16px">
+                      <b>Kategori</b>
+                    </div>
+                    <p>
+                      <?php if($d->kategori == 'post'){ echo 'Post-Test';}elseif($d->kategori == 'pre'){echo 'Pre-Test';}else{echo 'Praktik';}  ?>
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div style="font-size: 16px">
+                      <b>Waktu Pengerjaan</b>
+                    </div>
+                    <p>
+                      <?php echo $d->waktu ?> menit
+                    </p>
+                  </div>
+                </div>  
+              <?php } ?>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box" style="border-top:none;">
+        <div class="box-header" style="color">
+          <h4 class="box-title" style="font-size: 24px;float: left;">Daftar Soal</h4>
+          <button class="btn btn-default btn-flat" style="float: right;" data-toggle="modal" data-target="#modal-default4"><span class="fa fa-plus"></span> Soal</button>
+        </div>
+        <div class="box-body" style="padding:25px;padding-top: 15px">
+          <form>
+            <?php $num = 1; foreach ($quiz as $q) {                        
+              if($q->tipesoal == 'essay'){ ?>
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <div class="form-group">
+                      <label>No. <?php echo $num;  ?></label>
+                      <a href="<?php echo base_url('trainer/hapussoal/'.$this->uri->segment(3).'/'.$this->uri->segment(4).'/'.$q->id_soal) ?>">
+                        <button type="button" class="btn btn-danger btn-flat" title="Hapus" style="float: right; margin-bottom: 3px; margin-left: 3px"><span class="fa fa-trash"></span></button></a>
+                        <button type="button" class="btn btn-primary btn-flat" title="Edit" style="float: right; margin-bottom: 3px;" data-toggle="modal" data-target="#modal-default<?php echo $q->id_soal ?>"><span class="fa fa-edit"></span></button>
+                        <input type="text" disabled="" class="form-control" value="<?php echo $q->pertanyaan; ?>">
+                        <!-- <input type="text" disabled="" class="form-control" value="Jawaban:  <?php echo $q->benar; ?>"> -->
                       </div>
-                      <div class="row">
-                        <div style="font-size: 16px">
-                          <b>Tujuan Pembelajaran</b>
+                    </div>
+                  </div>
+                <?php }else{?>
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <div class="form-group">
+                        <label>No. <?php echo $num ?></label>
+                        <a href="<?php echo base_url('trainer/hapussoal/'.$this->uri->segment(3).'/'.$this->uri->segment(4).'/'.$q->id_soal) ?>">
+                          <button type="button" class="btn btn-danger btn-flat" title="Hapus" style="float: right; margin-bottom: 3px; margin-left: 3px"><span class="fa fa-trash"></span></button></a>
+                          <button type="button" class="btn btn-primary btn-flat" title="Edit" style="float: right; margin-bottom: 3px;" data-toggle="modal" data-target="#modal-default3<?php echo $q->id_soal ?>"><span class="fa fa-edit"></span></button>
+                          <input type="text" class="form-control" disabled="" value="<?php echo $q->pertanyaan ?>">
+                          <div class="input-group" style="margin: 5px 0px 5px 10px">
+                            <span class="input-group-addon" style="background-color: grey;color: white;font-weight: bold">A</span>
+                            <input type="text" class="form-control" disabled="" value="<?php echo $q->a ?>" >
+                          </div>
+                          <div class="input-group" style="margin: 5px 0px 5px 10px">
+                            <span class="input-group-addon" style="background-color: grey;color: white;font-weight: bold">B</span>
+                            <input type="text" class="form-control" disabled="" value="<?php echo $q->b ?>" >
+                          </div>
+                          <div class="input-group" style="margin: 5px 0px 5px 10px">
+                            <span class="input-group-addon" style="background-color: grey;color: white;font-weight: bold">C</span>
+                            <input type="text" class="form-control" disabled="" value="<?php echo $q->c ?>" >
+                          </div>
+                          <div class="form-group" style="margin: 5px 0px 5px 10px">
+                            <input type="text" class="form-control" disabled="" value="Jawaban benar : <?php echo $q->benar ?>" >
+                          </div>
                         </div>
-                        <p>
-                          <?php echo $m->tujuan ?>
-                        </p>
                       </div>
-                      <div class="row">
-                        <div style="font-size: 16px">
-                          <b>Evaluasi</b>
+                    </div>
+                  <?php } $num++;}?>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="modal-default1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">x</span></button>
+                  <h4 class="modal-title">Edit Quiz</h4>
+                </div>
+                <?php foreach($detail as $d){?>
+                  <form role="form" action="<?php echo base_url().'trainer/updatequiz/'.$this->uri->segment(3).'/'.$d->code ?>" method="post">
+                    <div class="modal-body">
+                      <div class="box-body">
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Course</label>
+                          <input type="text" class="form-control" disabled="" value="<?php echo $modul ?>">
                         </div>
-                        <p>
-                          <?php echo $m->evaluasi ?>
-                        </p>
+                        <div class="form-group">
+                          <label>Materi</label>
+                          <input type="text" class="form-control" disabled="" value="<?php echo $materi ?>">
+                        </div>
+                        <div class="form-group">
+                          <label>Kategori</label>
+                          <input type="text" class="form-control" disabled="" value="<?php if($d->kategori == 'post'){ echo 'Post-Test';}elseif($d->kategori == 'pre'){echo 'Pre-Test';}else{echo 'Praktik';}  ?>">
+                        </div>
+                        <div class="form-group">
+                          <label>Waktu</label>
+                          <input type="text" class="form-control" name="waktu" value="<?php echo $d->waktu ?>">
+                        </div>
                       </div>
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
                   <?php } ?>
-
-                  <div class="col-md-5">
-                    <div class="box" style="border-top:none;">
-                      <div class="box-header" style="color">
-                        <p><b>Konten Modul / Materi</b></p>
-                      </div>
-                      <!-- /.box-header -->
-                      <div class="box-body">
-                        <div class="table table-responsive">
-                          <table class="table table-condensed">
-                            <?php foreach ($materi as $m) { 
-                              if ($m->pdf != '') {?>
-                                <tr>
-                                  <td><a href="#" data-toggle="modal" data-target="#modal-default6"><?php echo $m->pdf ?></a></td>
-                                  <td>
-                                    <button class="btn btn-primary btn-flat btn-xs" data-toggle="modal" data-target="#modal-default4">Edit</button>
-                                    <a href="<?php echo base_url().'trainer/hapuspdf/'.$m->slug?>"><button class="btn btn-danger btn-flat btn-xs"><span class="fa fa-trash"></span></button></a>
-                                  </td>
-                                </tr>
-                              <?php }else{
-                                echo "";
-                              }
-                              if($m->konten != ''){?>
-
-                                <tr>
-                                  <td><a href="#" data-toggle="modal" data-target="#modal-default7"><?php echo $m->konten ?></a></td>
-                                  <td>
-                                    <button class="btn btn-primary btn-flat btn-xs" data-toggle="modal" data-target="#modal-default5">Edit</button>
-                                    <a href="<?php echo base_url().'trainer/hapuskonten/'.$m->slug ?>"><button class="btn btn-danger btn-flat btn-xs"><span class="fa fa-trash"></span></button></a>
-                                  </td>
-                                </tr>
-                              <?php }else{
-                                echo "";
-                              } } ?>
-                            </table>
-                          </div>
-                        </div>
-                        <!-- /.box-body -->
-                      </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <?php foreach ($quiz as $q){ ?>
+            <div class="modal fade" id="modal-default<?php echo $q->id_soal ?>">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">x</span></button>
+                      <h4 class="modal-title">Edit Soal</h4>
                     </div>
+                    <form role="form" action="<?php echo base_url().'trainer/updatesoal/'.$this->uri->segment(3).'/'.$this->uri->segment(4) ?>" method="post">
+                      <div class="modal-body">
+                        <div class="box-body">
+                          <div class="form-group">
+                            <input type="text" class="form-control" name="pertanyaan" value="<?php echo $q->pertanyaan ?>">
+                          </div>
+                          <input type="hidden" name="id_soal" value="<?php echo $q->id_soal ?>">
+                          <input type="hidden" name="A" value="">
+                          <input type="hidden" name="B" value="">
+                          <input type="hidden" name="C" value="">
+                          <input type="hidden" name="jawaban" value="">
+                          <!-- <input type="text" class="form-control" placeholder="Jawaban" name="benar<?php echo $no ?>" > -->
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                      </div>
+                    </form>
                   </div>
-                  <!-- /.box-body -->
                 </div>
-                <?php foreach ($materi as $m) { ?>
-                </div>
-                
-                <div class="modal fade" id="modal-default1">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">×</span></button>
-                          <h4 class="modal-title">Edit Modul</h4>
-                        </div>
-                        <form role="form" action="<?php echo base_url().'trainer/updatemateri' ?>" method="post">
-                          <div class="modal-body">
-
-                            <div class="box-body">
-                              <div class="form-group">
-                                <label for="exampleInputEmail1">Judul Modul</label>
-                                <input type="hidden" name="id" value="<?php echo $m->id_materi ?>">
-                                <input type="text" class="form-control" id="exampleInputEmail1"  name="judul" value="<?php echo $m->judul ?>">
+              </div>
+            <?php } ?>
+            <?php foreach ($quiz as $q){ ?>
+            <div class="modal fade" id="modal-default3<?php echo $q->id_soal ?>">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">x</span></button>
+                      <h4 class="modal-title">Edit Soal</h4>
+                    </div>
+                    <form role="form" action="<?php echo base_url().'trainer/updatesoal/'.$this->uri->segment(3).'/'.$this->uri->segment(4) ?>" method="post">
+                      <div class="modal-body">
+                        <div class="box-body">
+                          <div class="form-group">
+                            <input type="hidden" name="id_soal" value="<?php echo $q->id_soal ?>">
+                              <input type="text" class="form-control" name="pertanyaan" value="<?php echo $q->pertanyaan ?>">
+                              <div class="input-group" style="margin: 5px 0px 5px 10px">
+                                <span class="input-group-addon" style="background-color: grey;color: white;font-weight: bold">A</span>
+                                <input type="text" class="form-control" name="A" value="<?php echo $q->a ?>">
                               </div>
-                              <div class="form-group">
-                                <label>Indikator</label>
-                                <textarea class="form-control" name="indikator" rows="5"><?php echo $m->indikator ?></textarea>
+                              <div class="input-group" style="margin: 5px 0px 5px 10px">
+                                <span class="input-group-addon" style="background-color: grey;color: white;font-weight: bold">B</span>
+                                <input type="text" class="form-control" name="B" value="<?php echo $q->b ?>">
                               </div>
-                              <div class="form-group">
-                                <label>Tujuan Pembelajaran</label>
-                                <textarea class="form-control" name="tujuan" rows="5"><?php echo $m->tujuan ?></textarea>
+                              <div class="input-group" style="margin: 5px 0px 5px 10px">
+                                <span class="input-group-addon" style="background-color: grey;color: white;font-weight: bold">C</span>
+                                <input type="text" class="form-control" name="C" value="<?php echo $q->c ?>">
                               </div>
-                              <div class="form-group">
-                                <label>Evaluasi</label>
-                                <textarea class="form-control" name="evaluasi" rows="5"><?php echo $m->evaluasi ?></textarea>
+                              <div class="form-group" style="margin: 5px 0px 5px 10px">
+                                <select class="form-control" name="jawaban" required="">
+                                  <option value="<?php echo $q->benar ?>"><?php echo $q->benar ?></option>
+                                  <option value="A">A</option>
+                                  <option value="B">B</option>
+                                  <option value="C">C</option>
+                                </select>
                               </div>
                             </div>
-
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                          </div>
-                        </form>
+                        </div>
                       </div>
-
-                      <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                      </div>
+                    </form>
                   </div>
-                  <div class="modal fade" id="modal-default2">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span></button>
-                            <h4 class="modal-title">Tambah Pdf</h4>
-                          </div>
-                          <form role="form" action="<?php echo base_url().'trainer/tambahpdf' ?>" method="post"  enctype="multipart/form-data">
-                            <div class="modal-body">
-                              <div class="box-body">
-                                <div class="form-group">
-                                  <input type="hidden" name="id" value="<?php echo $m->id_materi ?>">
-                                  <input type="hidden" name="judul" value="<?php echo $m->judul ?>">
-                                  <input type="file" class="form-control" name="pdf">
-                                </div>
-                              </div>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                              <button type="submit" class="btn btn-primary">Save</button>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
+                </div>
+              </div>
+            <?php } ?>
+            <div class="modal fade" id="modal-default4">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">x</span></button>
+                      <h4 class="modal-title">Tambah Soal</h4>
                     </div>
-                    <div class="modal fade" id="modal-default3">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">×</span></button>
-                              <h4 class="modal-title">Tambah Video</h4>
+                    <form role="form" action="<?php echo base_url().'trainer/updatesoal2/'.$this->uri->segment(3).'/'.$this->uri->segment(4) ?>" method="post">
+                      <div class="modal-body">
+                        <?php if($tipesoal == 'essay'){ ?>
+                          <div class="box-body">
+                            <div class="form-group">
+                              <input type="text" class="form-control" name="pertanyaan" placeholder="Tulis Soal Di Sini" required="">
                             </div>
-                            <form role="form" action="<?php echo base_url().'trainer/tambahkonten' ?>" method="post">
-                              <div class="modal-body">
-                                <div class="box-body">
-                                  <div class="form-group">
-                                    <input type="hidden" name="id" value="<?php echo $m->id_materi ?>">
-                                    <input type="hidden" name="judul" value="<?php echo $m->judul ?>">
-                                    <input type="text" class="form-control" name="konten" placeholder="Masukkan link embed youtube">
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save</button>
-                              </div>
-                            </form>
+                            <input type="hidden" name="A" value="">
+                            <input type="hidden" name="B" value="">
+                            <input type="hidden" name="C" value="">
+                            <input type="hidden" name="jawaban" value="">
+                            <!-- <input type="text" class="form-control" placeholder="Jawaban" name="benar<?php echo $no ?>" > -->
                           </div>
-                        </div>
+                        <?php } else{?>
+                          <div class="box-body">
+                            <div class="form-group">
+                              <input type="text" class="form-control" name="pertanyaan" placeholder="Tulis Soal Di Sini" required="">
+                              <div class="input-group" style="margin: 5px 0px 5px 10px">
+                                <span class="input-group-addon" style="background-color: grey;color: white;font-weight: bold">A</span>
+                                <input type="text" class="form-control" name="A" placeholder="Tulis Jawaban Disini" required="">
+                              </div>
+                              <div class="input-group" style="margin: 5px 0px 5px 10px">
+                                <span class="input-group-addon" style="background-color: grey;color: white;font-weight: bold">B</span>
+                                <input type="text" class="form-control" name="B" placeholder="Tulis Jawaban Disini" required="">
+                              </div>
+                              <div class="input-group" style="margin: 5px 0px 5px 10px">
+                                <span class="input-group-addon" style="background-color: grey;color: white;font-weight: bold">C</span>
+                                <input type="text" class="form-control" name="C" placeholder="Tulis Jawaban Disini" required="">
+                              </div>
+                              <div class="form-group" style="margin: 5px 0px 5px 10px">
+                                <select class="form-control" name="jawaban" required="">
+                                  <option value="">Pilih Jawaban Benar</option>
+                                  <option value="A">A</option>
+                                  <option value="B">B</option>
+                                  <option value="C">C</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        <?php } ?>
                       </div>
-                      <div class="modal fade" id="modal-default4">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span></button>
-                                <h4 class="modal-title">Update Pdf</h4>
-                              </div>
-                              <form role="form" action="<?php echo base_url().'trainer/updatepdf' ?>" method="post" enctype="multipart/form-data">
-                                <div class="modal-body">
-                                  <div class="box-body">
-                                    <div class="form-group">
-                                      <input type="hidden" name="id" value="<?php echo $m->id_materi ?>">
-                                      <input type="hidden" name="judul" value="<?php echo $m->judul ?>">
-                                      <input type="file" class="form-control" name="pdf">
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                                  <button type="submit" class="btn btn-primary">Save Changes</button>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="modal fade" id="modal-default5">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">×</span></button>
-                                  <h4 class="modal-title">Update Video</h4>
-                                </div>
-                                <form role="form" action="<?php echo base_url().'trainer/tambahkonten' ?>" method="post">
-                                  <div class="modal-body">
-                                    <div class="box-body">
-                                      <div class="form-group">
-                                        <input type="hidden" name="id" value="<?php echo $m->id_materi ?>">
-                                        <input type="hidden" name="judul" value="<?php echo $m->judul ?>">
-                                        <input type="text" class="form-control" name="konten" value="<?php echo $m->konten ?>">
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                                  </div>
-                                </form>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="modal fade" id="modal-default6">
-                            <div class="modal-dialog modal-lg">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span></button>
-                                    <h4 class="modal-title">Materi Pdf</h4>
-                                  </div>
-                                  <div class="modal-body">
-                                    <div class="box-body">
-                                      <div class="embed-responsive embed-responsive-16by9" style="width: 100%;height: 100%">
-                                        <div class="embed-responsive-item">
-                                          <iframe src="<?php echo base_url('assets/modul_pdf/'.$m->pdf)?>?#toolbar=0"></iframe>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          <div class="modal fade" id="modal-default7">
-                            <div class="modal-dialog modal-lg">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span></button>
-                                    <h4 class="modal-title">Materi Video</h4>
-                                  </div>
-                                  <div class="modal-body">
-                                    <div class="box-body">
-                                      <div class="embed-responsive embed-responsive-16by9" style="width: 100%;height: 100%">
-                                        <div class="embed-responsive-item">
-                                          <iframe src="<?php echo $m->konten ?>?autoplay=0&showinfo=0&rel=0" frameborder="0" gesture="media" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          <?php } ?>
-                        </div>
-                        <!-- /.content -->
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                       </div>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="box" style="border-top:none">
-                            <div class="box-header">
-                              <h3 class="box-title">Daftar Quiz&nbsp</h3>
-                               <a href="<?php echo base_url('trainer/tambahquiz/'.$m->slug) ?>"><button class="btn btn-primary btn-flat" style="float: right; margin-left: 10px;"><span class="fa fa-plus"></span> Quiz</button></a>
-                              <!-- <?php if ($cekquiz < 1) { ?>
-
-                              <?php } else{ ?>
-                                <a href="<?php echo base_url('trainer/hapusquiz/'.$m->slug) ?>"><button class="btn btn-danger btn-flat" style="float: right; margin-left: 3px;">Delete Quiz</button></a>
-                                <a href="<?php echo base_url('trainer/editquiz/'.$m->slug) ?>"><button class="btn btn-primary btn-flat" style="float: right; margin-left: 3px;">Edit Detail Quiz</button></a>
-                                <a href="<?php echo base_url('trainer/tambahsoal2/'.$m->slug) ?>"><button class="btn btn-default btn-flat" style="float: right; margin-left: 3px;">Tambah Soal</button></a>
-                              <?php }
-                              ?> -->
-                            </div>
-                            <!-- /.box-header -->
-                            <div class="box-body">
-
-                              <table id="example1" class="table table-bordered table-hover">
-                                <thead>
-                                  <tr>
-                                    <th>#</th>
-                                    <th>Waktu (menit)</th>
-                                    <th>Kategori</th>
-                                    <th></th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <?php $num = 1 ;foreach ($quiz as $q) { ?>
-
-                                    <tr>
-                                      <td><?php echo $num ?></td>
-                                      <td><?php echo $q->waktu ?></td>
-                                      <td><?php if($q->kategori == 'post'){ echo 'Post-Test';}elseif($q->kategori == 'pre'){echo 'Pre-Test';}else{echo 'Praktik';}  ?></td>
-                                      <td>
-                                        <a href="<?php echo base_url('trainer/editsoal/'.$this->uri->segment(3).'/'.$q->id_test) ?>"><button type="button" class="btn btn-primary btn-xs btn-flat">Edit</button></a>
-                                        <a href="<?php echo base_url('trainer/hapussoal/'.$this->uri->segment(3).'/'.$q->id_test) ?>"><button type="button" class="btn btn-danger btn-xs btn-flat">Hapus</button></a>
-                                      </td>
-                                    </tr>
-                                    <?php $num++; } ?>
-                                  </tbody>
-
-                                </table>
-                              </div>
-                              <!-- /.box-body -->
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </section>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
 <!-- /.content-wrapper -->

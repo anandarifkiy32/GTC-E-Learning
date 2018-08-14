@@ -10,7 +10,7 @@ class Result_model extends CI_Model{
 	} 
 
 	function select_quiz($where){
-		$this->db->select('*');
+		$this->db->select('*,result.code as coderesult');
 		$this->db->from('result, materi, test');
 		$this->db->where($where);
 		$this->db->where('result.id_test = test.id_test');

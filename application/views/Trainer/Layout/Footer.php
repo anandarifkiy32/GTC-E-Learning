@@ -1,8 +1,8 @@
  <footer class="main-footer">
- 	<div class="pull-right hidden-xs">
- 		<b>Version</b> 1.0
- 	</div>
- 	<strong>Copyright &copy; 2018 <a href="<?php echo base_url('trainer');?>">GTC EduSite</a>.</strong> All rights
+ 	<!-- <div class="pull-right hidden-xs">
+ 		<b>Version</b> 2.4.0
+ 	</div> -->
+ 	<strong>Copyright &copy; 2018 <a href="<?php echo base_url('trainer');?>">GTC E-Learning</a>.</strong> All rights
  	reserved.
  </footer>
 
@@ -79,27 +79,7 @@
       'lengthChange':false,
       'ordering'    : false
     })
-    $('#example1').DataTable({
-      "lengthMenu": [[5], [5]],
-      'lengthChange':false,
-      'ordering'    : false,
-      'searching'	: false
-    })
   })
-</script>
-<script>
-function pilihFile() {
-    var x = document.getElementById("mySelect").selectedIndex;
-    var inputlink = document.getElementById("inputlink");
-    var inputfile = document.getElementById("inputfile");
-    if(x == '0'){
-    	inputlink.style.display = 'block';
-    	inputfile.style.display = 'none';
-    }else{
-    	inputlink.style.display = 'none';
-    	inputfile.style.display = 'block';
-    }
-}
 </script>
 </body>
 </html>

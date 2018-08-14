@@ -13,7 +13,7 @@ class Homepage extends CI_Controller {
 		if($this->uri->segment(2) != 'startquiz'){
 			if($this->uri->segment(2) != 'submit'){
 				if($this->session->userdata('quizend') != NULL){
-					redirect(base_url('homepage/startquiz/'.$this->session->userdata('quizslug')));
+					redirect(base_url('homepage/startquiz/'.$this->session->userdata('kategori').'/'.$this->session->userdata('quizslug')));
 				}
 			}
 		}
@@ -283,6 +283,7 @@ class Homepage extends CI_Controller {
 	}
 
 	function startcourse($slug){
+		echo $this->session->userdata('err');
 		if($this->session->userdata('status') == 'login'){
 			$where = array(
 				'unique_code'	=> $this->session->userdata('unique_code'));
@@ -654,7 +655,6 @@ class Homepage extends CI_Controller {
 		}
 
 		$result = $this->Result_model->select_where($where)->result();
-		echo json_encode($result);
 		$data = array(
 			'profile' => $profile,
 			'banner' => "Quiz",
@@ -674,14 +674,14 @@ class Homepage extends CI_Controller {
 			);
 			$profile = $this->Peserta_model->select_where($where)->result();
 			$where = array(
-				'slug' => $slug);
-			$id_materi = $this->Materi_model->select_where($where)->row('id_materi'); 
+				'code' => $slug);
+			$id_materi = $this->Test_model->select_where($where)->row('id_materi'); 
 			$namamodul = $this->Materi_model->select_modul($id_materi)->row('namamodul');
 			$where = array(
-				'id_materi' => $id_materi,
+				'code' => $slug,
 				'kategori'	=> $kategori);
 			$soal = $this->Quiz_model->select_where($where)->row('id_test');
-			$quiz= $this->Quiz_model->cekquiz($id_materi,$kategori);
+			$quiz= $this->Quiz_model->cekquiz($slug,$kategori);
 
 			$data = array(
 				'profile' => $profile,
@@ -701,14 +701,17 @@ class Homepage extends CI_Controller {
 		);
 		$profile = $this->Peserta_model->select_where($where)->result();
 		$id_peserta = $this->Peserta_model->select_where($where)->row('id_peserta');
-		$where = array('slug' => $slug);
-		$id_materi = $this->Materi_model->select_where($where)->row('id_materi');
-		$where = array('id_materi' => $id_materi, 'kategori' => $this->uri->segment(3));
+		$where = array('code' => $slug, 'kategori' => $kategori);
 		$id_test = $this->Test_model->select_where($where)->row('id_test'); //id_test
 		$where = array(
 			'id_test' => $id_test);
 		$tipesoal = $this->Test_model->select_where($where)->row('tipesoal');
 		$soal = $this->Soal_model->select_where($where)->result();
+
+		//set session
+		$data = array('id_test' => $id_test, 'tipesoal' => $tipesoal);
+		$this->session->set_userdata($data);
+
 
 		$where = array(
 			'id_test' 		=> $id_test,
@@ -722,11 +725,14 @@ class Homepage extends CI_Controller {
 
 		//start session
 		if($this->session->userdata('quizend') == ''){
-			$newdata = array(
-				'quizslug'  => $slug,
-				'quizend' => date('M j, Y H:i:s',strtotime('+'.$waktu.' minutes'))
-			);
-			$this->session->set_userdata($newdata);
+			if($tipesoal != 'file'){
+				$newdata = array(
+					'quizslug'  => $slug,
+					'quizend' => date('M j, Y H:i:s',strtotime('+'.$waktu.' minutes')),
+					'kategori'=> $kategori
+				);
+				$this->session->set_userdata($newdata);
+			}
 		}
 
 
@@ -747,13 +753,12 @@ class Homepage extends CI_Controller {
 			'unique_code' => $this->session->userdata('unique_code')
 		);
 		$profile = $this->Peserta_model->select_where($where)->result();
-		$id_peserta = $this->Peserta_model->select_where($where)->row('id_peserta'); //id_peserta
-		$slug = $this->input->post('slug');
-		$where = array('slug' => $slug);
-		$id_materi = $this->Materi_model->select_where($where)->row('id_materi');
-		$where = array('id_materi' => $id_materi);
+			$id_peserta = $this->Peserta_model->select_where($where)->row('id_peserta'); //id_peserta
 
-		$id_test = $this->input->post('id_test'); //id_test
+		$id_test = $this->session->userdata('id_test'); //id_test
+		$where = array('id_test' => $id_test);
+			$codetest = $this->Test_model->select_where($where)->row('code');
+			$tipesoal = $this->session->userdata('tipesoal');
 
 		$length = 15;
 		$characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -780,29 +785,68 @@ class Homepage extends CI_Controller {
 		$soal = $this->Soal_model->select_where($where)->result(); 
 		$count = 0;
 		$jmlnilai = 0;
-		foreach ($soal as $s) {
-			$nilai = 0;
-			if($s->benar == $this->input->post('jawaban'.$s->id_soal)){
-				$nilai = 1;
-				$jmlnilai = $jmlnilai + 1;
-			}
-			$data = array(
-				'id_result' => $id_result,
-				'id_soal' 	=> $s->id_soal,
-				'jawaban'   => $this->input->post('jawaban'.$s->id_soal),
-				'nilai'		=> $nilai
-			);
-			$this->Jawaban_model->input($data);
-			$count++;
-		}
-		$nilaiakhir = $jmlnilai / $count * 100;
-		$data = array('nilai' => $nilaiakhir,'status' => 'Sudah dikerjakan');
-		$where = array(
-			'id_test' 	=> $id_test,
-			'id_peserta'=> $id_peserta
 
-		);
-		$this->Result_model->update($where,$data);
+
+		foreach ($soal as $s) {
+			if($tipesoal == 'essay' || $tipesoal == 'multiple'){
+				$nilai = 0;
+				if($s->benar == $this->input->post('jawaban'.$s->id_soal)){
+					$nilai = 1;
+					$jmlnilai = $jmlnilai + 1;
+				}
+				$data = array(
+					'id_result' => $id_result,
+					'id_soal' 	=> $s->id_soal,
+					'jawaban'   => $this->input->post('jawaban'.$s->id_soal),
+					'nilai'		=> $nilai
+				);
+				$this->Jawaban_model->input($data);
+				$count++;
+			}else{
+				$nilai = 0;
+
+				$config['upload_path']	= './assets/modul_pdf/';
+				$config['max_size'] = '204800';
+				$config['allowed_types'] = 'pdf';
+				$config['file_name'] = $codetest.'_'.$s->id_soal.'_'.$id_peserta;
+				$this->load->library('upload',$config);
+				$this->upload->initialize($config);
+				if(! $this->upload->do_upload('jawaban')){
+					$this->session->unset_userdata('err');
+					$this->session->set_userdata('err' , $s->id_soal.$this->upload->display_errors('<p>', '</p>'));
+				}else{
+					$pdf = $this->upload->data();
+					$data = array(
+						'id_result' => $id_result,
+						'id_soal' 	=> $s->id_soal,
+						'jawaban'   => $pdf['file_name'],
+						'nilai'		=> $nilai
+					);
+					$this->Jawaban_model->input($data);
+				}
+				$count++;
+			}
+		}
+		
+		if($tipesoal == 'essay' || $tipesoal == 'file'){
+			$data = array('nilai' => NULL,'status' => 'Sudah di kerjakan');
+			$where = array(
+				'id_test' 	=> $id_test,
+				'id_peserta'=> $id_peserta
+
+			);
+			$this->Result_model->update($where,$data);
+		}else{
+			$nilaiakhir = $jmlnilai / $count * 100;
+			$nilaiakhir = number_format($nilaiakhir,2);
+			$data = array('nilai' => $nilaiakhir,'status' => 'Sudah di kerjakan');
+			$where = array(
+				'id_test' 	=> $id_test,
+				'id_peserta'=> $id_peserta
+
+			);
+			$this->Result_model->update($where,$data);
+		}
 		$this->session->set_flashdata('quiz','berhasil');
 		redirect(base_url('homepage/startcourse/'.$this->session->userdata('course')));
 	}
@@ -828,6 +872,11 @@ class Homepage extends CI_Controller {
 			'content' => 'client/pages/v_reviewquiz'
 		);
 		$this->load->view('client/layout/wrapper',$data);
+	}
+
+	function cek(){
+		$sum = 1.2334234234;
+		echo number_format($sum,2);
 	}
 }
 

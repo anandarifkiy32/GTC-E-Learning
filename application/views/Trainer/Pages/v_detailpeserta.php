@@ -5,11 +5,12 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Dashboard
+      Detail Peserta
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
       <li class="active">Dashboard</li>
+      <li class="active">Detail Peserta</li>
     </ol>
   </section>
 
@@ -151,7 +152,7 @@
                   <td><center><?php if($s->nilai == NULL){echo 'Belum Di review';}else{echo $s->nilai;} ?><center></td>
                   <td><?php echo $s->status ?></td>
                   <td align="right">
-                    <a href="<?php echo base_url().'trainer/review/'.$this->uri->segment(3).'/'.$s->code ?>"><button class="btn btn-primary btn-flat">Review</button></a>
+                    <a href="<?php echo base_url().'trainer/review/'.$this->uri->segment(3).'/'.$s->coderesult ?>"><button class="btn btn-primary btn-flat">Review</button></a>
                   </td>
                 </tr>
                 <?php $no++; } ?>

@@ -24,7 +24,7 @@
           <div class="box" style="border-top:none;">
             <div class="box-header" style="color">
               <h3 class="box-title" style="font-size: 24px;float: left;"><?php echo $m->judul ?></h3>
-   
+
               <?php if ($m->pdf != '') { 
                 echo '';} else{ ?>
                   <button class="btn btn-primary btn-flat" style="float: right; margin-left: 10px;" data-toggle="modal" data-target="#modal-default2"><span class="fa fa-plus"></span> Pdf</button>
@@ -43,28 +43,34 @@
                   <div class="row">
                     <div class="col-md-7">
                       <div class="row">
-                        <div style="font-size: 16px">
-                          <b>Indikator</b>
+                        <div class="col-md-12">
+                          <div style="font-size: 16px">
+                            <b>Indikator</b>
+                          </div>
+                          <p>
+                            <?php echo $m->indikator ?>
+                          </p>
                         </div>
-                        <p>
-                          <?php echo $m->indikator ?>
-                        </p>
                       </div>
                       <div class="row">
-                        <div style="font-size: 16px">
-                          <b>Tujuan Pembelajaran</b>
+                        <div class="col-md-12">
+                          <div style="font-size: 16px">
+                            <b>Tujuan Pembelajaran</b>
+                          </div>
+                          <p>
+                            <?php echo $m->tujuan ?>
+                          </p>
                         </div>
-                        <p>
-                          <?php echo $m->tujuan ?>
-                        </p>
                       </div>
                       <div class="row">
-                        <div style="font-size: 16px">
-                          <b>Evaluasi</b>
+                        <div class="col-md-12">
+                          <div style="font-size: 16px">
+                            <b>Evaluasi</b>
+                          </div>
+                          <p>
+                            <?php echo $m->evaluasi ?>
+                          </p>
                         </div>
-                        <p>
-                          <?php echo $m->evaluasi ?>
-                        </p>
                       </div>
                     </div>
                   <?php } ?>
@@ -284,39 +290,39 @@
                                 </div>
                               </div>
                             </div>
-                          <div class="modal fade" id="modal-default7">
-                            <div class="modal-dialog modal-lg">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span></button>
-                                    <h4 class="modal-title">Materi Video</h4>
-                                  </div>
-                                  <div class="modal-body">
-                                    <div class="box-body">
-                                      <div class="embed-responsive embed-responsive-16by9" style="width: 100%;height: 100%">
-                                        <div class="embed-responsive-item">
-                                          <iframe src="<?php echo $m->konten ?>?autoplay=0&showinfo=0&rel=0" frameborder="0" gesture="media" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            <div class="modal fade" id="modal-default7">
+                              <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">×</span></button>
+                                      <h4 class="modal-title">Materi Video</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <div class="box-body">
+                                        <div class="embed-responsive embed-responsive-16by9" style="width: 100%;height: 100%">
+                                          <div class="embed-responsive-item">
+                                            <iframe src="<?php echo $m->konten ?>?autoplay=0&showinfo=0&rel=0" frameborder="0" gesture="media" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                          </div>
                                         </div>
                                       </div>
                                     </div>
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                            </div>
-                          <?php } ?>
+                            <?php } ?>
+                          </div>
+                          <!-- /.content -->
                         </div>
-                        <!-- /.content -->
-                      </div>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="box" style="border-top:none">
-                            <div class="box-header">
-                              <h3 class="box-title">Daftar Quiz&nbsp</h3>
-                               <a href="<?php echo base_url('trainer/tambahquiz/'.$m->slug) ?>"><button class="btn btn-primary btn-flat" style="float: right; margin-left: 10px;"><span class="fa fa-plus"></span> Quiz</button></a>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="box" style="border-top:none">
+                              <div class="box-header">
+                                <h3 class="box-title">Daftar Quiz&nbsp</h3>
+                                <a href="<?php echo base_url('trainer/tambahquiz/'.$m->slug) ?>"><button class="btn btn-primary btn-flat" style="float: right; margin-left: 10px;"><span class="fa fa-plus"></span> Quiz</button></a>
                               <!-- <?php if ($cekquiz < 1) { ?>
 
                               <?php } else{ ?>
@@ -346,8 +352,8 @@
                                       <td><?php echo $q->waktu ?></td>
                                       <td><?php if($q->kategori == 'post'){ echo 'Post-Test';}elseif($q->kategori == 'pre'){echo 'Pre-Test';}else{echo 'Praktik';}  ?></td>
                                       <td>
-                                        <a href="<?php echo base_url('trainer/detailquiz/'.$this->uri->segment(3).'/'.$q->id_test) ?>"><button type="button" class="btn btn-primary btn-xs btn-flat">Edit</button></a>
-                                        <a href="<?php echo base_url('trainer/hapussoal/'.$this->uri->segment(3).'/'.$q->id_test) ?>"><button type="button" class="btn btn-danger btn-xs btn-flat">Hapus</button></a>
+                                        <a href="<?php echo base_url('trainer/detailquiz/'.$this->uri->segment(3).'/'.$q->code) ?>"><button type="button" class="btn btn-primary btn-xs btn-flat">Lihat</button></a>
+                                        <a href="<?php echo base_url('trainer/hapusquiz/'.$this->uri->segment(3).'/'.$q->code) ?>"><button type="button" class="btn btn-danger btn-xs btn-flat">Hapus</button></a>
                                       </td>
                                     </tr>
                                     <?php $num++; } ?>
