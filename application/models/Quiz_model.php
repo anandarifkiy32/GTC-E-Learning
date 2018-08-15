@@ -40,7 +40,7 @@ class Quiz_model extends CI_Model{
 	}
 
 	function pertanyaan($where){
-		$this->db->select('soal.pertanyaan as pertanyaan, soal.a as a, soal.b as b, soal.c as c, soal.benar as benar, test.waktu as waktu, test.kategori as kategori, test.tipesoal as tipesoal, soal.id_soal as id_soal');
+		$this->db->select('soal.pertanyaan as pertanyaan, soal.a as a, soal.b as b, soal.c as c, soal.benar as benar, test.waktu as waktu, test.kategori as kategori, test.tipesoal as tipesoal, soal.id_soal as id_soal, soal.bobot_a as bobot_a, soal.bobot_b as bobot_b, soal.bobot_c as bobot_c');
 		$this->db->from('soal, test');
 		$this->db->where('test.id_test',$where);
 		$this->db->where('test.id_test = soal.id_test');

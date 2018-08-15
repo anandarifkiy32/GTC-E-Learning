@@ -433,7 +433,7 @@ class Trainer extends CI_Controller {
 			$where = array(
 				'code'	=> $unique_kode);
 			$id_test = $this->Test_model->select_where($where)->row('id_test');
-			if($this->input->post('tipesoal') == 'essay'|| 'file'){
+			if($this->input->post('tipesoal') == 'essay'|| $this->input->post('tipesoal') == 'file'){
 				for ($no=1; $no <= $jumlah_soal; $no++){
 					$soal = array(
 						'id_test'	=> $id_test,
@@ -447,9 +447,13 @@ class Trainer extends CI_Controller {
 						'id_test'		=> $id_test,
 						'pertanyaan' 	=> $this->input->post('pertanyaan'.$no),
 						'a' 			=> $this->input->post('A'.$no),
-						'b' 	=> $this->input->post('B'.$no),
-						'c' 	=> $this->input->post('C'.$no),
-						'benar'	 => $this->input->post('jawaban'.$no));
+						'b' 			=> $this->input->post('B'.$no),
+						'c' 			=> $this->input->post('C'.$no),
+						'bobot_a'		=> $this->input->post('bobot_a'.$no),
+						'bobot_b'		=> $this->input->post('bobot_b'.$no),
+						'bobot_c'		=> $this->input->post('bobot_c'.$no)
+						//'benar'	 => $this->input->post('jawaban'.$no)
+					);
 					$this->Soal_model->input($soal);
 				}
 			}
@@ -514,7 +518,11 @@ class Trainer extends CI_Controller {
 				'a' 			=> $this->input->post('A'),
 				'b' 	=> $this->input->post('B'),
 				'c' 	=> $this->input->post('C'),
-				'benar'	 => $this->input->post('jawaban'));
+				'bobot_a' 	=> $this->input->post('bobot_a'),
+				'bobot_b' 	=> $this->input->post('bobot_b'),
+				'bobot_c' 	=> $this->input->post('bobot_c')
+				//'benar'	 => $this->input->post('jawaban')
+			);
 			$where = array(
 				'id_soal'		=> $this->input->post('id_soal'));
 			$this->Soal_model->update($where,$data);
@@ -541,14 +549,21 @@ class Trainer extends CI_Controller {
 
 	function updatesoal2(){
 		if ($this->session->userdata('status') == 'logintrainer') {
-			$id_test =  $this->uri->segment(4);
+			$code_test =  $this->uri->segment(4);
+			$where = array(
+				'code' => $code_test);
+			$id_test = $this->Test_model->select_where($where)->row('id_test');
 			$soal = array(
 				'id_test'		=> $id_test,
 				'pertanyaan' 	=> $this->input->post('pertanyaan'),
 				'a' 			=> $this->input->post('A'),
-				'b' 	=> $this->input->post('B'),
-				'c' 	=> $this->input->post('C'),
-				'benar'	 => $this->input->post('jawaban'));
+				'b' 			=> $this->input->post('B'),
+				'c' 			=> $this->input->post('C'),
+				'bobot_a' 			=> $this->input->post('bobot_a'),
+				'bobot_b' 			=> $this->input->post('bobot_b'),
+				'bobot_c' 			=> $this->input->post('bobot_c'),
+				//'benar'	 => $this->input->post('jawaban')
+			);
 			$this->Soal_model->input($soal);
 			redirect(base_url('trainer/detailquiz/'.$this->uri->segment(3).'/'.$this->uri->segment(4)));
 		}else{

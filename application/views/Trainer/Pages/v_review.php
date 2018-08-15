@@ -24,8 +24,8 @@
 					</div>
 					<!-- /.box-header -->
 					<!-- form start -->
-					<?php if ($kategori == 'pre' || $kategori == 'post') {
-						if($tipesoal == 'essay') { ?>
+	
+						<?php if($tipesoal == 'essay') { ?>
 							<form role="form" action="<?php echo base_url('trainer/submitreview/'.$this->uri->segment(3).'/'.$this->uri->segment(4)) ?>" method="POST">
 								<div class="box-body">
 									<?php $no = 1 ;foreach ($jawaban as $j) { ?>
@@ -43,7 +43,7 @@
 									</div>
 
 								</form>
-							<?php } else{  ?>
+							<?php } elseif($tipesoal == 'multiple'){  ?>
 								<form>
 									<div class="box-body">
 										<?php $no = 1 ;foreach ($jawaban as $j) { ?>
@@ -69,8 +69,7 @@
 											</div>
 										</div>
 									</form>
-								<?php } 
-							}elseif($kategori == 'praktik'){?>
+								<?php } elseif($tipesoal == 'file'){?>
 								<form role="form" action="<?php echo base_url('trainer/submitreview/'.$this->uri->segment(3).'/'.$this->uri->segment(4)) ?>" method="POST">
 									<div class="box-body">
 										<?php $no = 1 ;foreach ($jawaban as $j) { ?>

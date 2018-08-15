@@ -83,7 +83,12 @@
                   <?php foreach ($materi as $m) { ?>
                     <form role="form" action="<?php echo base_url().'trainer/tambahsoal/'.$m->slug?>" method="post">
                       <div class="form-group">
-                        <input type="hidden" name="kategori" value="praktik">
+                        <label>Kategori</label>
+                        <select type="text" class="form-control" name="kategori" required="">
+                          <option value="">Pilih Kategori Test</option>
+                          <option value="pre">Pre-Test</option>
+                          <option value="post">Post-Test</option>
+                        </select>
                       </div>
                       <div class="form-group">
                         <label>Course</label>

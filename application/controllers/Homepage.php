@@ -789,10 +789,23 @@ class Homepage extends CI_Controller {
 		foreach ($soal as $s) {
 			if($tipesoal == 'essay' || $tipesoal == 'multiple'){
 				$nilai = 0;
-				if($s->benar == $this->input->post('jawaban'.$s->id_soal)){
-					$nilai = 1;
-					$jmlnilai = $jmlnilai + 1;
+
+				// if($s->benar == $this->input->post('jawaban'.$s->id_soal)){
+				// 	$nilai = 1;
+				// 	$jmlnilai = $jmlnilai + 1;
+				// }
+
+				if($this->input->post('jawaban'.$s->id_soal) == 'A'){
+					$nilai = $s->bobot_a;
+					$jmlnilai = $jmlnilai + $s->bobot_a;
+				}elseif($this->input->post('jawaban'.$s->id_soal) == 'B'){
+					$nilai = $s->bobot_b;
+					$jmlnilai = $jmlnilai + $s->bobot_b;
+				}else{
+					$nilai = $s->bobot_c;
+					$jmlnilai = $jmlnilai + $s->bobot_c;
 				}
+
 				$data = array(
 					'id_result' => $id_result,
 					'id_soal' 	=> $s->id_soal,
@@ -837,7 +850,7 @@ class Homepage extends CI_Controller {
 			);
 			$this->Result_model->update($where,$data);
 		}else{
-			$nilaiakhir = $jmlnilai / $count * 100;
+			$nilaiakhir = $jmlnilai / $count;
 			$nilaiakhir = number_format($nilaiakhir,2);
 			$data = array('nilai' => $nilaiakhir,'status' => 'Sudah di kerjakan');
 			$where = array(

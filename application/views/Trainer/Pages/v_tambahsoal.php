@@ -1,4 +1,4 @@
-<!-- Left side column. contains the logo and sidebar -->
+Left side column. contains the logo and sidebar -->
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -38,26 +38,55 @@
                     <div class="form-group">
                       <label>Soal No. <?php echo $no ?></label>
                       <input type="text" class="form-control" name="pertanyaan<?php echo $no ?>" placeholder="Tulis Soal Di Sini" required="">
-                      <div class="input-group" style="margin: 5px 0px 5px 10px">
-                        <span class="input-group-addon" style="background-color: grey;color: white;font-weight: bold">A</span>
-                        <input type="text" class="form-control" name="A<?php echo $no ?>" placeholder="Tulis Jawaban Disini" required="">
+                      <div class="row">
+                        <div class="col-md-10">
+                          <div class="input-group" style="margin: 5px 0px 5px 10px">
+                            <span class="input-group-addon" style="background-color: grey;color: white;font-weight: bold">A</span>
+                            <input type="text" class="form-control" name="A<?php echo $no ?>" placeholder="Tulis Jawaban Disini" required="">
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <div class="input-group" style="margin: 5px 0px 5px 0px">
+                            <input type="text" class="form-control" name="bobot_a<?php echo $no ?>" placeholder="Nilai Jawaban" required="">
+                          </div>
+                        </div>
                       </div>
-                      <div class="input-group" style="margin: 5px 0px 5px 10px">
-                        <span class="input-group-addon" style="background-color: grey;color: white;font-weight: bold">B</span>
-                        <input type="text" class="form-control" name="B<?php echo $no ?>" placeholder="Tulis Jawaban Disini" required="">
+
+                      <div class="row">
+                        <div class="col-md-10">
+                          <div class="input-group" style="margin: 5px 0px 5px 10px">
+                            <span class="input-group-addon" style="background-color: grey;color: white;font-weight: bold">B</span>
+                            <input type="text" class="form-control" name="B<?php echo $no ?>" placeholder="Tulis Jawaban Disini" required="">
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <div class="input-group" style="margin: 5px 0px 5px 0px">
+                            <input type="text" class="form-control" name="bobot_b<?php echo $no ?>" placeholder="Nilai Jawaban" required="">
+                          </div>
+                        </div>
                       </div>
-                      <div class="input-group" style="margin: 5px 0px 5px 10px">
-                        <span class="input-group-addon" style="background-color: grey;color: white;font-weight: bold">C</span>
-                        <input type="text" class="form-control" name="C<?php echo $no ?>" placeholder="Tulis Jawaban Disini" required="">
+
+                      <div class="row">
+                        <div class="col-md-10">
+                          <div class="input-group" style="margin: 5px 0px 5px 10px">
+                            <span class="input-group-addon" style="background-color: grey;color: white;font-weight: bold">C</span>
+                            <input type="text" class="form-control" name="C<?php echo $no ?>" placeholder="Tulis Jawaban Disini" required="">
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <div class="input-group" style="margin: 5px 0px 5px 0px">
+                            <input type="text" class="form-control" name="bobot_c<?php echo $no ?>" placeholder="Nilai Jawaban" required="">
+                          </div>
+                        </div>
                       </div>
-                      <div class="form-group" style="margin: 5px 0px 5px 10px">
+                      <!-- <div class="form-group" style="margin: 5px 0px 5px 10px">
                         <select class="form-control" name="jawaban<?php echo $no ?>" required="">
                           <option value="">Pilih Jawaban Benar</option>
                           <option value="A">A</option>
                           <option value="B">B</option>
                           <option value="C">C</option>
                         </select>
-                      </div>
+                      </div> -->
                     </div>
 
                     <?php } } ?>
@@ -76,4 +105,4 @@
         </section>
         <!-- /.content -->
       </div>
-<!-- /.content-wrapper -->
+<!-- /.content-wrapper
