@@ -679,6 +679,7 @@ class Trainer extends CI_Controller {
 		$where = array(
 			'id_test' => $id_test);
 		$tipesoal = $this->Test_model->select_where($where)->row('tipesoal');
+		$kategori = $this->Test_model->select_where($where)->row('kategori');
 		$a = $this->Soal_model->select_where($where)->row('a');
 		$b = $this->Soal_model->select_where($where)->row('b');
 		$c = $this->Soal_model->select_where($where)->row('c');
@@ -691,6 +692,7 @@ class Trainer extends CI_Controller {
 			'a' => $a,
 			'b' => $b,
 			'c' => $c,
+			'kategori' => $kategori,
 			'content' => 'trainer/pages/v_review'
 		);
 

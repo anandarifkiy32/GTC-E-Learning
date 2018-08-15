@@ -17,7 +17,7 @@
   <!-- Font Awesome Icon -->
   <link rel="stylesheet" href="<?php echo base_url()?>assets/gtc_client/css/font-awesome.min.css">
   <link href="<?php echo base_url()?>assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-
+<link rel="stylesheet" href="https://cdn.plyr.io/3.4.3/plyr.css">
   <!-- Custom stlylesheet -->
   <link type="text/css" rel="stylesheet" href="<?php echo base_url()?>assets/gtc_client/css/style.css"/>
 

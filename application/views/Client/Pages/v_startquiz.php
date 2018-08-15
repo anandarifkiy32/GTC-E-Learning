@@ -40,7 +40,7 @@
 							<?php $no++; }}else{$no = 1 ;foreach ($soal as $q) {  ?>
 								<div class="form-group">
 									<label><?php echo $no.". ".$q->pertanyaan ?></label>
-									<input class="form-control" type="file" name="jawaban" required="">
+									<input class="form-control" type="file" name="jawaban<?php echo $q->id_soal ?>" required="" accept=".mp4,.wmv">
 								</div>
 								<?php $no++;} } ?>	
 								<button type="submit" class="main-button icon-button" value="submit">Submit</button>

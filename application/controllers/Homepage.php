@@ -283,7 +283,6 @@ class Homepage extends CI_Controller {
 	}
 
 	function startcourse($slug){
-		echo $this->session->userdata('err');
 		if($this->session->userdata('status') == 'login'){
 			$where = array(
 				'unique_code'	=> $this->session->userdata('unique_code'));
@@ -805,13 +804,14 @@ class Homepage extends CI_Controller {
 			}else{
 				$nilai = 0;
 
-				$config['upload_path']	= './assets/modul_pdf/';
+				$config['upload_path']	= './assets/video/';
 				$config['max_size'] = '204800';
-				$config['allowed_types'] = 'pdf';
+				$config['overwrite'] = TRUE;
+				$config['allowed_types'] = 'mp4|wmv';
 				$config['file_name'] = $codetest.'_'.$s->id_soal.'_'.$id_peserta;
 				$this->load->library('upload',$config);
 				$this->upload->initialize($config);
-				if(! $this->upload->do_upload('jawaban')){
+				if(! $this->upload->do_upload('jawaban'.$s->id_soal)){
 					$this->session->unset_userdata('err');
 					$this->session->set_userdata('err' , $s->id_soal.$this->upload->display_errors('<p>', '</p>'));
 				}else{

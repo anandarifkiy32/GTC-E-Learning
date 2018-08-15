@@ -141,6 +141,7 @@
               <tr>
                 <th style="width: 15px">#</th>
                 <th><center>Judul</center></th>
+                <th><center>Kategori</center></th>
                 <th><center>Skor</center></th>
                 <th><center>Status</center></th>
                 <th><center></center></th>
@@ -149,6 +150,7 @@
                 <tr>
                   <td><?php echo $no ?></td>
                   <td><?php echo $s->judul ?></td>
+                  <td><?php if($s->kategori == 'post'){ echo 'Post-Test';}elseif($s->kategori == 'pre'){echo 'Pre-Test';}else{echo 'Praktik';}  ?></td>
                   <td><center><?php if($s->nilai == NULL){echo 'Belum Di review';}else{echo $s->nilai;} ?><center></td>
                   <td><?php echo $s->status ?></td>
                   <td align="right">
