@@ -15,7 +15,6 @@
 				</div>
 			</div>
 			<!-- footer logo -->
-
 			<!-- footer nav -->
 			<div class="col-md-6">
 				<ul class="footer-nav">
@@ -40,14 +39,10 @@
 				</ul>
 			</div>
 			<!-- /footer nav -->
-
 		</div>
 		<!-- /row -->
-
 		<!-- row -->
 		<div id="bottom-footer" class="row">
-
-
 			<!-- copyright -->
 			<div class="col-md-12">
 				<center>
@@ -57,13 +52,10 @@
 				</center>
 			</div>
 			<!-- /copyright -->
-
 		</div>
 		<!-- row -->
-
 	</div>
 	<!-- /container -->
-
 </footer>
 <!-- /Footer -->
 
@@ -81,6 +73,9 @@
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/locales/bootstrap-datetimepicker.id.js" charset="UTF-8"></script>
 <script src="https://cdn.plyr.io/3.4.3/plyr.polyfilled.js"></script>
 <script type="text/javascript">
+	$(document).ready(function() {
+  $('.rotate').css('height', $('.rotate').width());
+});
 	$('.form_datetime').datetimepicker({
         //language:  'fr',
         weekStart: 1,
@@ -183,6 +178,7 @@ modal.onclick = function() {
 }
 </script>
 <script>
+	const player = new Plyr.setup('#player');
 	function openCity(evt, cityName) {
 		var i, tabcontent, tablinks;
 		tabcontent = document.getElementsByClassName("tabcontent");
@@ -197,10 +193,5 @@ modal.onclick = function() {
 		evt.currentTarget.className += " active";
 	}
 </script>
-
-<script>
-	const player = new Plyr.setup('#player');
-</script>
-
 </body>
 </html>

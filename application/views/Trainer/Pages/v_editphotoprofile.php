@@ -1,44 +1,48 @@
-<div id="blog" class="section">
 
-  <!-- container -->
-  <div class="container">
+<!-- Left side column. contains the logo and sidebar -->
 
-    <!-- row -->
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Dashboard
+      <small>Profile</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="active">Profile</li>
+      <li class="active">Edit Profile</li>
+    </ol>
+  </section>
+  <!-- Main content -->
+  <section class="content">
     <div class="row">
-
-      <!-- main blog -->
-      <div id="main" class="col-md-12">
-
-        <!-- blog post -->
-        <div class="blog-post">
-          <?php if($status == 'failed'){ ?>
-          <div class="alert alert-danger alert-dismissible">
-            <h4><i class="icon fa fa-check"></i> Gagal !</h4>
-            File tidak cocok atau tidak memenuhi syarat.
+      <!-- left column -->
+      <div class="col-md-6">
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Edit Profile</h3>
           </div>
-          <?php } ?>
-          <?php foreach ($profile as $p) { ?>
-            <form method="post" enctype="multipart/form-data" action="<?php echo base_url('homepage/uploadphoto/');?>">
-              <div class="form-group">
-                <label> Image</label>
-                <input class="form-control" type="file" name="berkas" value="<?php echo $p->img; ?>" required>
-                <input class="form-control" type="hidden" name="code" value="<?php echo $p->id_peserta; ?>">
-              </div>
-              <button class="btn btn-primary" type="submit" style="float: right;">Submit</button>
-            </form>
-            <a href="<?php echo base_url('homepage/showprofile'); ?>"><button class="btn btn-default">Cancel</button></a>
-            <?php } ?>
-            
+          <!-- /.box-header -->
+          <!-- form start -->
+          <div class="box-body">
+            <?php foreach ($profile as $p) { ?>
+              <p>Upload Foto Profile</p>
+              <form class="form" action="<?php echo base_url()?>trainer/uploadphoto" method="post" enctype="multipart/form-data">
+                <input type="hidden" class="form-control" name="kode" required="" value="<?php echo $p->id_trainer; ?>">
+                <input type="file" class="form-control" name="berkas" required="">
+                <Button type="submit" class="btn btn-primary border-radius custom-button" style="margin-top: 10px" value="Upload">Upload</Button>
+              </form>
+              <?php } ?>
+            </div>
           </div>
-          <!-- /blog post -->
-          
+          <!--/.col (right) -->
         </div>
-        <!-- /main blog -->
-
-      </div>
-      <!-- row -->
+        <!-- /.row -->
+      </section>
+      <!-- /.content -->
 
     </div>
-    <!-- container -->
-
-  </div>
+    <!-- /.content-wrapper -->

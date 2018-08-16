@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>GTC E-Learning</title>
+  <title>GTC EduSite | Admin</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -79,26 +79,30 @@
         <ul class="nav navbar-nav">
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="<?php echo base_url()?>assets/adm/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs"><?php echo $this->session->userdata("nama");?></span>
+              <img src="<?php echo base_url()?>assets/gtc_client/img/avatar.png" class="user-image" alt="User Image">
+              <span class="hidden-xs">
+                  <?php foreach ($profile as $p) {
+                    echo $p->nama;
+                  } ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="<?php echo base_url()?>assets/adm/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
+                <img src="<?php echo base_url()?>assets/gtc_client/img/avatar.png" class="img-circle" alt="User Image">
                 <p>
-                  <?php echo $this->session->userdata("nama");?>
+                  <?php foreach ($profile as $p) {
+                    echo $p->nama;
+                  } ?>
                 </p>
               </li>
               <!-- Menu Body -->
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="<?php echo base_url('Admin/profile');?>" class="btn btn-default btn-flat">Profile</a>
+                  <a href="<?php echo base_url('admin/profile');?>" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="<?php echo base_url('Admin/logout');?>" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="<?php echo base_url('admin/logout');?>" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>

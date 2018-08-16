@@ -17,7 +17,7 @@
   <!-- Font Awesome Icon -->
   <link rel="stylesheet" href="<?php echo base_url()?>assets/gtc_client/css/font-awesome.min.css">
   <link href="<?php echo base_url()?>assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-<link rel="stylesheet" href="https://cdn.plyr.io/3.4.3/plyr.css">
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.4.3/plyr.css">
   <!-- Custom stlylesheet -->
   <link type="text/css" rel="stylesheet" href="<?php echo base_url()?>assets/gtc_client/css/style.css"/>
 
@@ -29,22 +29,43 @@
     <![endif]-->
 
     <style type="text/css">
-    .table{
+    .table2{
       width: 100%;
       max-width: 100%;
       margin-bottom: 20px;
     }
-    .table > thead > tr > th,
-    .table > tbody > tr > th,
-    .table > tfoot > tr > th,
-    .table > thead > tr > td,
-    .table > tbody > tr > td,
-    .table > tfoot > tr > td{
+    .table2 > thead > tr > th,
+    .table2 > tbody > tr > th,
+    .table2 > tfoot > tr > th,
+    .table2 > thead > tr > td,
+    .table2 > tbody > tr > td,
+    .table2 > tfoot > tr > td{
       line-height: 1.5;
       vertical-align: top;
       border-color: white;
     }
 
+    td {
+  border-collapse: collapse;
+  border: 1px black solid;
+}
+tr:nth-of-type(5) td:nth-of-type(1) {
+  visibility: hidden;
+}
+    .rotate {
+      /* FF3.5+ */
+      -moz-transform: rotate(-90.0deg);
+      /* Opera 10.5 */
+      -o-transform: rotate(-90.0deg);
+      /* Saf3.1+, Chrome */
+      -webkit-transform: rotate(-90.0deg);
+      /* IE6,IE7 */
+      filter: progid: DXImageTransform.Microsoft.BasicImage(rotation=0.083);
+      /* IE8 */
+      -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0.083)";
+      /* Standard */
+      transform: rotate(-90.0deg);
+    }
     #myImg {
       border-radius: 50%;
       object-fit: cover;
@@ -173,7 +194,7 @@
           <li><a href="<?php echo base_url('homepage/coursecatalog/') ?>">Courses</a></li>
 
           <li><a href="<?php echo base_url('homepage/contact/')?>">Contact</a></li>
-          <li class="dropdown"><a href="<?php if(!$profile){echo base_url();}else{echo "";} ?>" <?php if($profile){ ?> class="dropdown-toggle" data-toggle="dropdown" <?php } ?>>              
+          <li class="dropdown"><a href="<?php if(!$profile){echo base_url();}else{echo "";} ?>" <?php if($profile){ ?> class="dropdown-toggle" data-toggle="dropdown" <?php } ?>><span class="fa fa-user"></span>               
             <?php 
             if($profile){
               foreach ($profile as $p) {

@@ -121,6 +121,7 @@
                               ?>
 
                             </h1>
+                            <a href="<?php echo base_url('homepage/detailtest/'.$this->uri->segment(3)) ?>">Detail</a>
                           </div>
                           <!-- /category widget -->
                           <!-- category widget -->

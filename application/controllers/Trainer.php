@@ -5,7 +5,7 @@ class Trainer extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
-		$this->load->model(array('Trainer_model','Modul_model','Materi_model','Category_model','Training_model','Quiz_model','Result_model','Test_model','Soal_model','Jawaban_model'));
+		$this->load->model(array('Trainer_model','Modul_model','Materi_model','Category_model','Training_model','Quiz_model','Result_model','Test_model','Soal_model','Jawaban_model','Company_model'));
 		$this->load->helper(array('form', 'url'));
 	}
 
@@ -84,6 +84,18 @@ class Trainer extends CI_Controller {
 		}else{
 			$this->load->view('trainer/pages/v_login');
 		}
+	}
+
+	function editphoto($kode){
+		$where = array(
+			'unique_code' => $this->session->userdata('unique_code')
+		);
+		$content = array(
+			'title' => 'Profile',
+			'status'	=> '0',
+			'content' => 'trainer/pages/v_editphotoprofile',
+			'profile' => $this->Trainer_model->select_where($where)->result());
+		$this->load->view('trainer/layout/wrapper',$content);
 	}
 
 	function logout(){
@@ -796,30 +808,151 @@ class Trainer extends CI_Controller {
 	}
 
 	function tambahcourse(){
-		$slug = url_title($this->input->post('nama'), 'dash', true);
-		$config['upload_path']	= './assets/modul/';
-		$config['allowed_types'] = 'jpg|jpeg|png';
-		$config['max_size'] = '2048';
-		$config['max_width'] = '4048';
-		$config['max_height'] = '4048';
-		$config['file_name'] = $slug;
-		$this->load->library('upload',$config);
-		if(! $this->upload->do_upload('berkas')){
+		$where = array(
+			'email' => $this->input->post('emailcmp'));
+		$company = $this->Company_model->select_where($where)->num_rows();
+		if($company == 1){
+			$id_company = $this->Company_model->select_where($where)->row('id_company');
+			$slug = url_title($this->input->post('nama'), 'dash', true);
+			$config['upload_path']	= './assets/modul/';
+			$config['allowed_types'] = 'jpg|jpeg|png';
+			$config['max_size'] = '2048';
+			$config['max_width'] = '4048';
+			$config['max_height'] = '4048';
+			$config['file_name'] = $slug;
+			$this->load->library('upload',$config);
+			if(! $this->upload->do_upload('berkas')){
+				echo "error";
+			}else{
+				$gbr = $this->upload->data();
+				$format = str_replace('image', '',$gbr['file_type']);
+				$data = array(
+					'id_trainer' 	=> $this->session->userdata('trainer'),
+					'id_company'	=> $id_company,
+					'nama'			=> $this->input->post('nama'),
+					'deskripsi'		=> $this->input->post('description'),
+					'category'		=> $this->input->post('category'),
+					'slug'			=> $slug,
+					'img' => $gbr['file_name']
+				);
+				$this->Modul_model->input($data);
+			}
+			$email = $this->input->post('emailcmp');
+			$config['protocol'] = 'smtp';
+			$config['smtp_host'] = 'ssl://smtp.googlemail.com';
+			$config['smtp_port'] = 465;
+			$config['mailtype'] = 'html';
+			$config['smtp_user'] = 'ananda.rifkiy33@gmail.com';
+			$config['smtp_pass'] = 'helloworld:)';
 
-			echo "error";
-		}else{
-			$gbr = $this->upload->data();
-			$format = str_replace('image', '',$gbr['file_type']);
-			$data = array(
-				'id_trainer' 	=> $this->session->userdata('trainer'),
-				'nama'			=> $this->input->post('nama'),
-				'deskripsi'		=> $this->input->post('description'),
-				'category'		=> $this->input->post('category'),
-				'slug'			=> $slug,
-				'img' => $gbr['file_name']
-			);
-			$this->Modul_model->input($data);
+            // Load email library and passing configured values to email library 
+			$this->load->library('email', $config);
+			$this->email->set_newline("\r\n");
+
+            // Sender email address
+			$this->email->from('ananda.rifkiy33@gmail.com', 'Ananda Rifkiy Hasan');
+            // Receiver email address
+			$this->email->to($email);
+            // Subject of email
+			$this->email->subject('Training Invitation');
+            // Message in email
+			$message = '<html>
+			<link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
+			<body style="font-family:"Montserrat", sans-serif;">
+			<center>
+			<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
+			<h3>GTC EduSite</h3>
+			<p>Anda diundang dalam training'.$this->input->post('nama').' </p>
+			<a href=http://localhost/gtclearning/company/detailcourse/'.$slug.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Login</button></a>
+			</div>
+			</center>
+			</body>
+			</html>';
+			$this->email->message($message);
+			$this->email->send();
 			redirect(base_url('trainer'));
+		} else{
+			$length = 8;
+			$characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+			$charactersLength = strlen($characters);
+			$pass = '';
+
+			for ($i = 0; $i < $length; $i++) {
+				$pass .= $characters[rand(0, $charactersLength - 1)];
+			}
+
+
+			$data = array(
+				'email'	=> $this->input->post('emailcmp'),
+				'pass'	=> md5($pass),
+				'nama'	=> $this->input->post('namacmp'));
+			$this->Company_model->input($data);
+
+			$id_company = $this->Company_model->select_where($where)->row('id_company');
+			$email = $this->Company_model->select_where($where)->row('email');
+			$config['protocol'] = 'smtp';
+			$config['smtp_host'] = 'ssl://smtp.googlemail.com';
+			$config['smtp_port'] = 465;
+			$config['mailtype'] = 'html';
+			$config['smtp_user'] = 'ananda.rifkiy33@gmail.com';
+			$config['smtp_pass'] = 'helloworld:)';
+
+            // Load email library and passing configured values to email library 
+			$this->load->library('email', $config);
+			$this->email->set_newline("\r\n");
+
+            // Sender email address
+			$this->email->from('ananda.rifkiy33@gmail.com', 'Ananda Rifkiy Hasan');
+            // Receiver email address
+			$this->email->to($email);
+            // Subject of email
+			$this->email->subject('Training Invitation');
+            // Message in email
+			$message = '<html>
+			<link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
+			<body style="font-family:"Montserrat", sans-serif;">
+			<center>
+			<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
+			<h3>GTC EduSite</h3>
+			<p>Anda telah diundang dalam training Global Top Career sebagai perusahaan rekanan, sekarang anda memiliki hak akses untuk login di link berikut</p>
+			<a href=http://localhost/gtclearning/company><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Login</button></a>
+			<p>Akun anda </p>
+			<p>Email : '.$email.'</p>
+			<p>Password : '.$pass.'</p>
+			</div>
+			</center>
+			</body>
+			</html>';
+			$this->email->message($message);
+			$this->email->send();
+
+			$slug = url_title($this->input->post('nama'), 'dash', true);
+			$config['upload_path']	= './assets/modul/';
+			$config['allowed_types'] = 'jpg|jpeg|png';
+			$config['max_size'] = '2048';
+			$config['max_width'] = '4048';
+			$config['max_height'] = '4048';
+			$config['file_name'] = $slug;
+			$this->load->library('upload',$config);
+			if(! $this->upload->do_upload('berkas')){
+
+				echo "error";
+			}else{
+				$gbr = $this->upload->data();
+				$format = str_replace('image', '',$gbr['file_type']);
+				$data = array(
+					'id_trainer' 	=> $this->session->userdata('trainer'),
+					'id_company'	=> $this->Company_model->select_where($where)->row('id_company'),
+					'nama'			=> $this->input->post('nama'),
+					'deskripsi'		=> $this->input->post('description'),
+					'category'		=> $this->input->post('category'),
+					'slug'			=> $slug,
+					'img' => $gbr['file_name']
+				);
+				$this->Modul_model->input($data);
+				redirect(base_url('trainer'));
+			}
+
 		}
 	}
 
@@ -833,6 +966,38 @@ class Trainer extends CI_Controller {
 			'content' 	=> 'trainer/pages/v_editprofile',
 			'profile' 	=> $this->Trainer_model->select_where($where)->result());
 		$this->load->view('trainer/Layout/Wrapper',$content);
+	}
+
+	function uploadphoto(){ 
+		$nama = $this->input->post('kode'); 
+		$where = array( 'id_trainer' => $nama );
+		$cekfoto = $this->Trainer_model->select_where($where)->result(); 
+
+		$config['upload_path']	= './assets/profile_photos/trainer';
+		$config['allowed_types'] = 'jpg|jpeg|png';
+		$config['overwrite'] = TRUE;
+		$config['max_size'] = '2048';
+		$config['max_width'] = '4048';
+		$config['max_height'] = '4048';
+		$config['file_name'] = $nama;
+		$this->load->library('upload',$config);
+		if(! $this->upload->do_upload('berkas')){
+			// $where = array('id_trainer' => $nama);
+			// $data = array(
+			// 	'img' => '');
+			// $this->Peserta_model->insert_img($where,$data);
+			// redirect(base_url('homepage/editphoto/failed'));
+			echo $this->upload->display_errors();
+		}else{
+			$gbr = $this->upload->data();
+			$format = str_replace('image', '',$gbr['file_type']);
+			$where = array('id_trainer' => $nama);
+			$data = array(
+				'img' => $gbr['file_name']);
+			$this->Trainer_model->update($where,$data);
+			redirect(base_url('trainer/profile'));
+		}
+
 	}
 
 	function updateprofile($id_peserta){

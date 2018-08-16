@@ -6,8 +6,10 @@
 			Profil Peserta
 		</h1>
 		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active">Peserta</li>
+			<li><a href="<?php echo base_url('admin/dashboard');?>"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li>User</li>
+			<li><a href="<?php echo base_url('admin/peserta') ?>">Peserta</a></li>
+			<li class="active">View</li>
 		</ol>
 	</section>
 
@@ -23,10 +25,10 @@
 								<div class="row">
 									<?php foreach ($peserta as $p) { ?>
 										<div class="row">
-										<a href="<?php echo base_url('Admin/Delete_Peserta/'.$p->unique_code) ?>"><button type="button" class="btn btn-danger" style="float: left;"></i> <span>Delete</span></button></a>
+										<a href="<?php echo base_url('admin/delete_peserta/'.$p->unique_code) ?>"><button type="button" class="btn btn-danger" style="float: left;"></i> <span>Delete</span></button></a>
 										</div>
 										<div class="row">
-										<center><a href="<?php echo base_url('assets/gtc_client/img/'.$p->img)?>"><img src="<?php echo base_url('assets/gtc_client/img/'.$p->img)?>" class="img-circle" width="100" height="100" style="margin-top: 10px;"></a>
+										<center><a href="<?php echo base_url('assets/profile_photos/'.$p->img)?>"><img src="<?php echo base_url('assets/profile_photos/'.$p->img)?>" class="img-circle" width="100" height="100" style="margin-top: 10px;"></a>
 										</center>
 									</div>
 									</div>
@@ -74,7 +76,7 @@
 											</tr>
 											<tr>
 												<th>Tanggal Lahir</th>
-												<td><?php echo $p->ttl; ?></td>
+												<td><?php echo date('d-M-Y', strtotime($p->ttl)); ?></td>
 											</tr>
 											<tr>
 												<th>Alamat</th>

@@ -41,7 +41,7 @@
 							<div class="col-md-6">
 								<br>
 								<div class="table table-responsive" style="border: 0px;">
-									<table class="table" rules="none">
+									<table class="table table2" rules="none">
 										<tr>
 											<th>Tempat Lahir</th>
 											<td><?php echo $p->tempatlahir; ?></td>
@@ -68,7 +68,7 @@
 							<div class="col-md-6">
 								<br>
 								<div class="table table-responsive">
-									<table class="table" rules="none">
+									<table class="table table2" rules="none">
 										<tr>
 											<th width="125px">Kantor</th>
 											<td><?php echo $p->kantor; ?></td>

@@ -6,8 +6,8 @@
 			Modul
 		</h1>
 		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active">Modul</li>
+			<li><a href="<?php echo base_url('admin/dashboard');?>"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li class="active"><a href="<?php echo base_url('admin/modul') ?>">Modul</a></li>
 		</ol>
 	</section>
 
@@ -43,8 +43,8 @@
 										<td><?php echo $m->category; ?></td>
 										<td><?php echo $m->namatrainer; ?></td>
 										<td>
-											<a href="<?php echo base_url('Admin/Show_Modul/'.$m->slug) ?>"><button type="button" class="btn btn-success"></i> <span>View</span></button></a>
-											<a href="<?php echo base_url('Admin/Delete_Modul/'.$m->slug) ?>"><button type="button" class="btn btn-danger"></i> <span>Delete</span></button></a>
+											<a href="<?php echo base_url('admin/show_modul/'.$m->slug) ?>"><button type="button" class="btn btn-success"></i> <span>View</span></button></a>
+											<a href="<?php echo base_url('admin/delete_modul/'.$m->slug) ?>"><button type="button" class="btn btn-danger"></i> <span>Delete</span></button></a>
 										</td>
 									</tr>
 								<?php $num++; } ?>

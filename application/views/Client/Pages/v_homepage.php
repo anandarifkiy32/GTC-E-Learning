@@ -57,7 +57,7 @@
 					<li><a href="<?php echo base_url('homepage/coursecatalog/') ?>">Courses</a></li>
 
 					<li><a href="<?php echo base_url('homepage/contact') ?>">Contact</a></li>
-					<li><a href="">Login</a></li>
+					<li><a href=""><span class="fa fa-user"></span> Login</a></li>
 				</ul>
 			</nav>
 			<!-- /Navigation -->

@@ -7,7 +7,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li class="<?php if($title == 'Dashboard'){echo 'active';}?>">
-          <a href="<?php echo base_url('Admin/Dashboard');?>">
+          <a href="<?php echo base_url('admin');?>">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
@@ -20,17 +20,17 @@
             </span>
           </a>
           <ul class="treeview-menu" style="color: #d2d6de;">
-            <li class="<?php if($subtitle == 'Peserta'){echo 'active';}?>"><a href="<?php echo base_url('Admin/Peserta');?>"><i class="fa fa-circle-"></i> Peserta</a></li>
-            <li class="<?php if($subtitle == 'Trainer'){echo 'active';}?>"><a href="<?php echo base_url('Admin/Trainer');?>"><i class="fa fa-circle-"></i> Trainer</a></li>
-            <li class="<?php if($subtitle == 'Company'){echo 'active';}?>"><a href="<?php echo base_url('Admin/Company');?>"><i class="fa fa-circle-"></i> Company</a></li>
+            <li class="<?php if($subtitle == 'Peserta'){echo 'active';}?>"><a href="<?php echo base_url('admin/peserta');?>"><i class="fa fa-circle-"></i> Peserta</a></li>
+            <li class="<?php if($subtitle == 'Trainer'){echo 'active';}?>"><a href="<?php echo base_url('admin/trainer');?>"><i class="fa fa-circle-"></i> Trainer</a></li>
+            <li class="<?php if($subtitle == 'Company'){echo 'active';}?>"><a href="<?php echo base_url('admin/company');?>"><i class="fa fa-circle-"></i> Company</a></li>
           </ul>
         </li>
         <li class="<?php if($title == 'Modul'){echo 'active';}?>">
-          <a href="<?php echo base_url('Admin/Modul');?>"><i class="fa fa-book"></i><span>Modul</span></a>
+          <a href="<?php echo base_url('admin/modul');?>"><i class="fa fa-book"></i><span>Modul</span></a>
         </li>
         <li class="<?php if($title == 'Profile'){echo 'active';}?>">
-          <a href="<?php echo base_url('Admin/Profile');?>">
-            <i class="fa fa-user"></i> <span>Profile</span>
+          <a href="<?php echo base_url('admin/logout');?>">
+            <i class="fa fa-sign-out"></i> <span>Logout</span>
           </a>
         </li>
       </ul>

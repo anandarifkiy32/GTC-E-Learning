@@ -233,6 +233,30 @@ class Homepage extends CI_Controller {
 		$this->load->view('client/pages/v_login',$data);
 	}
 
+	function detailtest($slug){
+		$where = array('unique_code' => $this->session->userdata('unique_code'));
+		$profile = $this->Peserta_model->select_where($where)->result();
+		$id_peserta = $this->Peserta_model->select_where($where)->row('id_peserta');
+
+		$where = array('slug' => $slug);
+		$course = $this->Modul_model->select_where($where);
+		$id_modul = $course->row('id_modul');
+
+		$where = array('id_modul' => $id_modul);
+		$materi = $this->Materi_model->select_where($where);
+
+		$data = array(
+			'profile' 		=> $profile,
+			'id_peserta'	=> $id_peserta,
+			'banner'		=> 'Resume : '.$course->row('nama'),
+			'namacourse'	=> $course->row('nama'),
+			'materi'		=> $materi->result(),		
+			'content'    	=> 'client/pages/v_detailtest');
+		$this->load->view('client/layout/wrapper',$data);
+
+	}
+
+
 	function detailcourse($slug){
 
 		$where = array(
@@ -756,8 +780,8 @@ class Homepage extends CI_Controller {
 
 		$id_test = $this->session->userdata('id_test'); //id_test
 		$where = array('id_test' => $id_test);
-			$codetest = $this->Test_model->select_where($where)->row('code');
-			$tipesoal = $this->session->userdata('tipesoal');
+		$codetest = $this->Test_model->select_where($where)->row('code');
+		$tipesoal = $this->session->userdata('tipesoal');
 
 		$length = 15;
 		$characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';

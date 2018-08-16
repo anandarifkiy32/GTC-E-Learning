@@ -37,7 +37,7 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
+                    <span aria-hidden="true">×</span></button>
                     <h4 class="modal-title">Tambah Course</h4>
                   </div>
                   <form action="<?php echo base_url('trainer/tambahcourse') ?>" method="post" enctype="multipart/form-data">
@@ -45,17 +45,18 @@
                       <div class="modal-body">
                         <div class="box-body">
                           <div class="form-group">
-                            <label for="exampleInputEmail1">Nama Modul</label>
+                            <label>Nama Modul</label>
                             <input type="hidden" name="id" value="">
-                            <input type="text" class="form-control" id="exampleInputEmail1" name="nama" value="">
+                            <input type="text" class="form-control" name="nama" required="">
                           </div>
                           <div class="form-group">
-                            <label for="exampleInputPassword1">Deskripsi</label>
-                            <textarea class="form-control" id="exampleInputPassword1" rows="5" name="description"></textarea>
+                            <label>Deskripsi</label>
+                            <textarea class="form-control" required="" rows="5" name="description"></textarea>
                           </div>
                           <div class="form-group">
                             <label>Kategori</label>
-                            <select class="form-control" name="category">
+                            <select class="form-control" required="" name="category">
+                                <option value="">Pilih Kategori</option>
                               <?php foreach ($category as $ctg) { ?>
                                 <option value="<?php echo $ctg->category ?>" ><?php echo $ctg->category ?></option>
                                <?php } ?>
@@ -63,7 +64,12 @@
                             </div>
                             <div class="form-group">
                               <label>Image</label>
-                              <input type="file" name="berkas" class="form-control">
+                              <input type="file" name="berkas" required="" class="form-control">
+                            </div>
+                            <div class="form-group">
+                            <label>Perusahaan</label>
+                            <input type="text" name="namacmp" class="form-control" required="" placeholder="Masukkan Nama Perusahaan">
+                            <input type="email" name="emailcmp" class="form-control" required="" placeholder="Masukkan email perusahaan">
                             </div>
                           </div>
                           <!-- /.box-body -->

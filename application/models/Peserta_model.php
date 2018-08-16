@@ -5,6 +5,10 @@ class Peserta_model extends CI_Model{
 		return $this->db->get_where('peserta', $where);
 	}
 
+	function select(){
+		return $this->db->get('peserta');
+	}
+
 	function input($data){
 		$this->db->insert('peserta',$data);
 	} 

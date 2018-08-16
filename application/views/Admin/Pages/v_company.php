@@ -6,8 +6,9 @@
 			Company
 		</h1>
 		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active">Company</li>
+			<li><a href="<?php echo base_url('admin/dashboard');?>"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li>User</li>
+			<li class="active"><a href="<?php echo base_url('admin/company') ?>">Company</a></li>
 		</ol>
 	</section>
 
@@ -45,7 +46,7 @@
 										<td><?php echo $c->telp; ?></td>
 										<td><?php echo $c->email; ?></td>
 										<td>
-											<a href="<?php echo base_url('Admin/Delete_Company/'.$c->unique_code) ?>"><button type="button" class="btn btn-danger"></i> <span>Delete</span></button></a>
+											<a href="<?php echo base_url('admin/delete_company/'.$c->email) ?>"><button type="button" class="btn btn-danger"></i> <span>Delete</span></button></a>
 										</td>
 									</tr>
 								<?php $num++; } ?>

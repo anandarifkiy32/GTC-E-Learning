@@ -6,8 +6,8 @@
 			Trainer
 		</h1>
 		<ol class="breadcrumb">
-			<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-			<li class="active">Trainer</li>
+			<li><a href="<?php echo base_url('admin/dashboard');?>"><i class="fa fa-dashboard"></i> Home</a></li>
+			<li class="active"><a href="<?php echo base_url('admin/trainer') ?>">Trainer</a></li>
 		</ol>
 	</section>
 
@@ -47,8 +47,8 @@
 										<td><?php echo $t->telp; ?></td>
 										<td><?php echo $t->email; ?></td>
 										<td>
-											<a href="<?php echo base_url('Admin/Show_Trainer/'.$t->unique_code) ?>"><button type="button" class="btn btn-success"></i> <span>View</span></button></a>
-											<a href="<?php echo base_url('Admin/Delete_Trainer/'.$t->unique_code) ?>"><button type="button" class="btn btn-danger"></i> <span>Delete</span></button></a>
+											<a href="<?php echo base_url('admin/show_trainer/'.$t->unique_code) ?>"><button type="button" class="btn btn-success"></i> <span>View</span></button></a>
+											<a href="<?php echo base_url('admin/delete_trainer/'.$t->unique_code) ?>"><button type="button" class="btn btn-danger"></i> <span>Delete</span></button></a>
 										</td>
 									</tr>
 								<?php $num++; } ?>
