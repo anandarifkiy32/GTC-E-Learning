@@ -51,6 +51,8 @@ class Company extends CI_Controller {
 			);
 			$this->session->set_userdata($data_session);
 			redirect(base_url('company'));
+		}else{
+			redirect(base_url('company'));
 		}
 	}
 
@@ -76,7 +78,7 @@ class Company extends CI_Controller {
 			$this->load->view('company/Layout/Wrapper',$content);
 		}
 		else{
-			$this->load->view('trainer/pages/v_login');
+			$this->load->view('company/pages/v_login');
 
 		}
 	}
@@ -164,7 +166,166 @@ class Company extends CI_Controller {
 		}
 	}
 
+	function detailquiz(){
+		if ($this->session->userdata('status') == 'logincompany'){
+			$id_trainer = array(
+				'id_company' => $this->session->userdata('id_company')
+			);
+			$slug = array(
+				'slug'	=> $this->uri->segment(3));
+			$id_materi = $this->Materi_model->select_where($slug)->row('id_materi');
+			$where = array(
+				'id_materi'	=> $id_materi);
+			$materi = $this->Materi_model->select_where($where)->row('judul');
+			$modul = $this->Materi_model->select_modul($id_materi)->row('namamodul');
+			$where = array(
+				'code'	=> $this->uri->segment(4));
+			$id_test =  $this->Test_model->select_where($where)->row('id_test');
+			$quiz = $this->Quiz_model->pertanyaan($id_test)->result();
+			$content = array(
+				'title' 		=> 'Dashboard',
+				'profile'		=> $this->Company_model->select_where($id_trainer)->result(),
+				'modul'			=> $modul,
+				'materi'		=> $materi,
+				'quiz'			=> $quiz,
+				'detail'		=> $this->Test_model->select_where($where)->result(),
+				'tipesoal'		=> $this->Test_model->select_where($where)->row('tipesoal'),
+				'jumlah_soal' 	=> $this->Quiz_model->pertanyaan($id_test)->num_rows(),
+				'content'		=> 'company/Pages/v_detailquiz');
+			$this->load->view('company/Layout/Wrapper',$content);
+		}
+	}
 
+	function review(){
+		if ($this->session->userdata('status') == 'logincompany'){
+			$where = array('code' => $this->uri->segment(4));
+			$id_result = $this->Result_model->select_where($where)->row('id_result');
+			$id_test = $this->Result_model->select_where($where)->row('id_test');
+			$where = array(
+				'id_test' 	=> $id_test);
+			$tipesoal = $this->Test_model->select_where($where)->row('tipesoal');
+			$kategori = $this->Test_model->select_where($where)->row('kategori');
+			$a = $this->Soal_model->select_where($where)->row('a');
+			$b = $this->Soal_model->select_where($where)->row('b');
+			$c = $this->Soal_model->select_where($where)->row('c');
+			$where = 'result.id_result = '.$id_result.' and result.id_result = jawaban.id_result and jawaban.id_soal = soal.id_soal';
+			$jawaban = $this->Result_model->join_jawaban_soal($where)->result();
+			$data = array(
+				'title' 	=> 'Review',
+				'jawaban' 	=> $jawaban,
+				'tipesoal'	=> $tipesoal,
+				'kategori'	=> $kategori,
+				'a'			=> $a,
+				'b'			=> $b,
+				'c'			=> $c,
+				'content' => 'company/pages/v_review'
+			);
+
+			$this->load->view('company/layout/wrapper',$data);
+		}else{
+			$this->load->view('company/pages/v_login');
+		}
+	}
+
+	function submitreview(){
+		$where = array('code' => $this->uri->segment(4));
+		$id_result = $this->Result_model->select_where($where)->row('id_result');
+		$where = array('id_result' => $id_result);
+		$jawaban = $this->Jawaban_model->select_where($where)->result();
+
+		$skor = 0;
+		$pembagi = 0;
+		foreach ($jawaban as $j) {
+			$data = array('nilaicompany' => $this->input->post($j->id_jawaban));
+			$where = array('id_jawaban' => $j->id_jawaban);
+			$this->Jawaban_model->update($where,$data);
+			$skor = $skor + $this->input->post($j->id_jawaban);
+			$pembagi++;
+		}
+		$nilai = $skor / $pembagi;
+		$data = array('nilaicompany' => $nilai);
+		$where = array('code' => $this->uri->segment(4));
+		$this->Result_model->update($where,$data);
+
+		redirect(base_url('company/detailpeserta/'.$this->uri->segment(3)));
+
+	}
+
+	function daftartrainer(){
+		if ($this->session->userdata('status') == 'logincompany'){
+			$id_company = array(
+				'id_company'	=> $this->session->userdata('id_company'));
+			$where = array(
+				'id_trainer'	=> $this->Modul_model->select_where($id_company)->row('id_trainer'));
+
+			$content = array(
+				'title' => 'Daftar Trainer',
+				'trainer' => $this->Trainer_model->select_where($where)->result(),
+				'content' => 'company/pages/v_daftartrainer');
+			$this->load->view('company/Layout/Wrapper',$content);
+		}else{
+			$this->load->view('company/pages/v_login');
+		}
+	}
+
+	function detailtrainer($unique_code){
+		if ($this->session->userdata('status') == 'logincompany') {
+			$where = array(
+				'unique_code' 	=> $unique_code);
+			$id_trainer = array(
+				'id_trainer' => $this->Trainer_model->select_where($where)->row('id_trainer'));
+			$id_company = array(
+				'id_trainer' => $this->Trainer_model->select_where($where)->row('id_trainer'),
+				'id_company'	=> $this->session->userdata('id_company'));
+
+			$content = array(
+				'title' => 'Daftar Trainer',
+				'trainer' => $this->Trainer_model->select_where($where)->result(),
+				'course'  => $this->Modul_model->select_where($id_company)->result(),
+				'content' => 'company/pages/v_detailtrainer');
+			$this->load->view('company/Layout/Wrapper',$content);
+		}else{
+			$this->load->view('company/pages/v_login');
+		}
+	}
+
+	function profile(){
+		if ($this->session->userdata('status') == 'logincompany'){
+			$id_company = array(
+				'id_company'	=> $this->session->userdata('id_company'));
+			$content = array(
+				'title'		=> 'Profile',
+				'profile'	=> $this->Company_model->select_where($id_company)->result(),
+				'content'	=> 'company/pages/v_profile');
+			$this->load->view('company/layout/wrapper',$content);
+		}else{
+			$this->load->view('company/pages/v_login');
+		}
+	}
+
+	function updateprofile(){
+		if ($this->session->userdata('status') == 'logincompany') {
+			$id_company = array(
+				'id_company'	=> $this->session->userdata('id_company'));
+			$data = array(
+				'nama'	=> $this->input->post('nama'),
+				'alamat'=> $this->input->post('alamat'),
+				'telp'  => $this->input->post('telp'));
+			$this->Company_model->update($id_company,$data);
+			redirect(base_url('company/profile'));
+		}
+	}
+
+	function updatepassword(){
+		if ($this->session->userdata('status') == 'logincompany') {
+			$id_company = array(
+				'id_company'	=> $this->session->userdata('id_company'));
+			$data = array(
+				'pass'	=> md5($this->input->post('pass')));
+			$this->Company_model->update($id_company,$data);
+			redirect(base_url('company/profile'));
+		}
+	}
 
 	function logout(){
 		$this->session->sess_destroy();

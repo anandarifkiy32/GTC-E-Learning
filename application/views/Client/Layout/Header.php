@@ -42,12 +42,12 @@
     .table2 > tfoot > tr > td{
       line-height: 1.5;
       vertical-align: top;
-      border-color: white;
+      border-color: white; 
     }
 
     td {
   border-collapse: collapse;
-  border: 1px black solid;
+  border: none;
 }
 tr:nth-of-type(5) td:nth-of-type(1) {
   visibility: hidden;

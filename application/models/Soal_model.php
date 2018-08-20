@@ -18,4 +18,8 @@ function update($where,$data){
 function select_where($where){
     return $this->db->get_where('soal', $where);
 }
+function select_soal($where){
+	$this->db->order_by('title','RANDOM');
+    return $this->db->get_where('soal', $where);
+}
 }

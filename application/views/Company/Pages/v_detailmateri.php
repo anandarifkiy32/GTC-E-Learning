@@ -23,7 +23,7 @@
             <div class="box-header" style="color">
               <h3 class="box-title" style="font-size: 24px;float: left;"><?php echo $m->judul ?></h3>
 
-              <?php if ($m->pdf != '') { 
+              <!-- <?php if ($m->pdf != '') { 
                 echo '';} else{ ?>
                   <button class="btn btn-primary btn-flat" style="float: right; margin-left: 10px;" data-toggle="modal" data-target="#modal-default2"><span class="fa fa-plus"></span> Pdf</button>
 
@@ -33,7 +33,7 @@
                     <button class="btn btn-primary btn-flat" style="float: right; margin-left: 10px;" data-toggle="modal" data-target="#modal-default3"><span class="fa fa-plus"></span> Video</button>
 
                   <?php }
-                  ?>
+                  ?> -->
                   <!-- <button class="btn btn-success btn-flat" style="float: right;" data-toggle="modal" data-target="#modal-default1">Edit Materi</button> -->
                 </div>
                 <!-- /.box-header -->
@@ -347,8 +347,8 @@
                                       <td><?php echo $q->waktu ?></td>
                                       <td><?php if($q->kategori == 'post'){ echo 'Post-Test';}elseif($q->kategori == 'pre'){echo 'Pre-Test';}else{echo 'Praktik';}  ?></td>
                                       <td>
-                                        <a href="<?php echo base_url('trainer/detailquiz/'.$this->uri->segment(3).'/'.$q->id_test) ?>"><button type="button" class="btn btn-primary btn-xs btn-flat">Lihat</button></a>
-                                        <a href="<?php echo base_url('trainer/hapusquiz/'.$this->uri->segment(3).'/'.$q->id_test) ?>"><button type="button" class="btn btn-danger btn-xs btn-flat">Hapus</button></a>
+                                        <a href="<?php echo base_url('company/detailquiz/'.$this->uri->segment(3).'/'.$q->code) ?>"><button type="button" class="btn btn-primary btn-xs btn-flat">Lihat</button></a>
+                                        <!-- <a href="<?php echo base_url('trainer/hapusquiz/'.$this->uri->segment(3).'/'.$q->code) ?>"><button type="button" class="btn btn-danger btn-xs btn-flat">Hapus</button></a> -->
                                       </td>
                                     </tr>
                                     <?php $num++; } ?>

@@ -250,7 +250,7 @@ class Homepage extends CI_Controller {
 			'id_peserta'	=> $id_peserta,
 			'banner'		=> 'Resume : '.$course->row('nama'),
 			'namacourse'	=> $course->row('nama'),
-			'materi'		=> $materi->result(),		
+			'materi'		=> $materi,		
 			'content'    	=> 'client/pages/v_detailtest');
 		$this->load->view('client/layout/wrapper',$data);
 
@@ -718,7 +718,6 @@ class Homepage extends CI_Controller {
 	}
 
 	function startquiz($kategori,$slug){
-
 		$where = array(
 			'unique_code' => $this->session->userdata('unique_code')
 		);
@@ -729,12 +728,11 @@ class Homepage extends CI_Controller {
 		$where = array(
 			'id_test' => $id_test);
 		$tipesoal = $this->Test_model->select_where($where)->row('tipesoal');
-		$soal = $this->Soal_model->select_where($where)->result();
+		$soal = $this->Soal_model->select_soal($where)->result();
 
 		//set session
 		$data = array('id_test' => $id_test, 'tipesoal' => $tipesoal);
 		$this->session->set_userdata($data);
-
 
 		$where = array(
 			'id_test' 		=> $id_test,
@@ -757,7 +755,6 @@ class Homepage extends CI_Controller {
 				$this->session->set_userdata($newdata);
 			}
 		}
-
 
 		$data = array(
 			'profile' => $profile,
@@ -808,7 +805,6 @@ class Homepage extends CI_Controller {
 		$soal = $this->Soal_model->select_where($where)->result(); 
 		$count = 0;
 		$jmlnilai = 0;
-
 
 		foreach ($soal as $s) {
 			if($tipesoal == 'essay' || $tipesoal == 'multiple'){
@@ -912,8 +908,8 @@ class Homepage extends CI_Controller {
 	}
 
 	function cek(){
-		$sum = 1.2334234234;
-		echo number_format($sum,2);
+		$this->load->library('calendar');
+echo $this->calendar->generate();
 	}
 }
 

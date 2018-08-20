@@ -122,7 +122,8 @@
 									<input class="form-control" type="password" name="pass">
 								</div>
 
-								<button class="main-button icon-button">Submit</button>
+								<button class="main-button icon-button">Login</button>
+								<p style="margin:8px 0px 8px 0px">Belum punya akun? <a href="<?php echo base_url('homepage/showregister') ?>">Klik disini</a></p>
 							</form>
 						</div>
 						<!-- /blog post -->

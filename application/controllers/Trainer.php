@@ -680,6 +680,10 @@ class Trainer extends CI_Controller {
 	}
 
 	function detailpeserta($code){
+		$where = array(
+				'id_trainer' => $this->session->userdata('trainer')
+			);
+		$profile = $this->Trainer_model->select_where($where)->result();
 		$where= array(
 			'training.id_modul = modul.id_modul and training.code = ' => $code);
 		$id_trainer = $this->Training_model->join_modul($where)->row('id_trainer');
@@ -692,6 +696,7 @@ class Trainer extends CI_Controller {
 		$quiz = $this->Result_model->select_quiz($where)->result();
 		$content = array(
 			'title' => 'Dashboard',
+			'profile' => $profile,
 			'detailpeserta' => $detailpeserta,
 			'id_trainer' => $id_trainer,
 			'quiz' => $quiz,
@@ -700,6 +705,10 @@ class Trainer extends CI_Controller {
 	}
 
 	function review(){
+		$where = array(
+				'id_trainer' => $this->session->userdata('trainer')
+			);
+		$profile = $this->Trainer_model->select_where($where)->result();
 		$where = array('code' => $this->uri->segment(4));
 		$id_result = $this->Result_model->select_where($where)->row('id_result');
 		$id_test = $this->Result_model->select_where($where)->row('id_test');
@@ -714,6 +723,7 @@ class Trainer extends CI_Controller {
 		$jawaban = $this->Result_model->join_jawaban_soal($where)->result();
 		$data = array(
 			'title' => 'Review',
+			'profile'	=> $profile,
 			'jawaban' => $jawaban,
 			'tipesoal'=> $tipesoal,
 			'a' => $a,
@@ -774,9 +784,7 @@ class Trainer extends CI_Controller {
 			'category' 		=> $this->input->post('category'),
 			'slug'			=> $slug
 		);
-
 		$this->Category_model->input($data);
-
 		redirect(base_url('trainer/coursecategory'));
 	}
 
@@ -786,14 +794,10 @@ class Trainer extends CI_Controller {
 			'category' => $this->input->post('category'),
 			'slug'			=> $slug
 		);
-
 		$where = array(
 			'id_category'		=> $this->input->post('id_category')
 		);
-		
-
 		$this->Category_model->update($where,$data);
-
 		redirect(base_url('trainer/coursecategory'));
 	}
 
@@ -801,9 +805,7 @@ class Trainer extends CI_Controller {
 		$where = array(
 			'slug' => $slug
 		);
-
 		$this->Category_model->delete($where);
-
 		redirect(base_url('trainer/coursecategory'));
 	}
 
@@ -1019,7 +1021,4 @@ class Trainer extends CI_Controller {
 		redirect(base_url('trainer/profile'));
 
 	}
-
-
-
 }

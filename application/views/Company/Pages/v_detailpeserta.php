@@ -19,7 +19,7 @@
     <!-- Small boxes (Stat box) -->
     <?php if($id_company == $this->session->userdata('id_company')){ ?>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
        <div class="box box-widget widget-user">
         <!-- Add the bg color to the header using any of the bg-* classes -->
         <?php foreach ($detailpeserta as $dp) { ?>
@@ -130,7 +130,7 @@
           <?php } ?>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-12">
         <div class="box" style="border-top:none;">
           <div class="box-header">
             <h3 class="box-title">Quiz</h3>
@@ -142,7 +142,9 @@
                 <th style="width: 15px">#</th>
                 <th><center>Judul</center></th>
                 <th><center>Kategori</center></th>
-                <th><center>Skor</center></th>
+                <th><center>Trainer</center></th>
+                <th><center>Company</center></th>
+                <th><center>Total Skor</center></th>
                 <th><center>Status</center></th>
                 <th><center></center></th>
               </tr>
@@ -151,10 +153,16 @@
                   <td><?php echo $no ?></td>
                   <td><?php echo $s->judul ?></td>
                   <td><?php if($s->kategori == 'post'){ echo 'Post-Test';}elseif($s->kategori == 'pre'){echo 'Pre-Test';}else{echo 'Praktik';}  ?></td>
+                  <?php if ($s->tipesoal == 'essay' || $s->tipesoal == 'file'){ ?>
                   <td><center><?php if($s->nilai == NULL){echo 'Belum Di review';}else{echo $s->nilai;} ?><center></td>
-                  <td><?php echo $s->status ?></td>
+                  <td><center><?php if($s->nilaicompany == NULL){echo 'Belum Di review';}else{echo $s->nilaicompany;} ?><center></td>
+                  <td><center><?php if($s->nilaicompany != NULL && $s->nilai != NULL ){ $total = ($s->nilai + $s->nilaicompany)/2; echo $total;}elseif($s->nilaicompany == NULL && $s->nilai != NULL ){ echo $s->nilai;}elseif($s->nilaicompany != NULL && $s->nilai == NULL){ echo $nilaicompany;}else{ echo "Belum di review";} ?><center></td>
+                  <?php }else{ ?>
+                  <td><center>-<center></td>
+                  <td><center>-<center></td>
+                  <td><center><?php echo $s->nilai; } ?></td>
                   <td align="right">
-                    <a href="<?php echo base_url().'trainer/review/'.$this->uri->segment(3).'/'.$s->coderesult ?>"><button class="btn btn-primary btn-flat">Review</button></a>
+                    <a href="<?php echo base_url().'company/review/'.$this->uri->segment(3).'/'.$s->coderesult ?>"><button class="btn btn-primary btn-flat">Review</button></a>
                   </td>
                 </tr>
                 <?php $no++; } ?>
