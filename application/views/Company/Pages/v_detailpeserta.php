@@ -156,7 +156,7 @@
                   <?php if ($s->tipesoal == 'essay' || $s->tipesoal == 'file'){ ?>
                   <td><center><?php if($s->nilai == NULL){echo 'Belum Di review';}else{echo $s->nilai;} ?><center></td>
                   <td><center><?php if($s->nilaicompany == NULL){echo 'Belum Di review';}else{echo $s->nilaicompany;} ?><center></td>
-                  <td><center><?php if($s->nilaicompany != NULL && $s->nilai != NULL ){ $total = ($s->nilai + $s->nilaicompany)/2; echo $total;}elseif($s->nilaicompany == NULL && $s->nilai != NULL ){ echo $s->nilai;}elseif($s->nilaicompany != NULL && $s->nilai == NULL){ echo $nilaicompany;}else{ echo "Belum di review";} ?><center></td>
+                  <td><center><?php if($s->nilaicompany != NULL && $s->nilai != NULL ){ $total = ($s->nilai + $s->nilaicompany)/2; echo $total;}elseif($s->nilaicompany == NULL && $s->nilai != NULL ){ echo $s->nilai;}elseif($s->nilaicompany != NULL && $s->nilai == NULL){ echo $s->nilaicompany;}else{ echo "Belum di review";} ?><center></td>
                   <?php }else{ ?>
                   <td><center>-<center></td>
                   <td><center>-<center></td>

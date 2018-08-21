@@ -1,4 +1,5 @@
 <div id="blog" class="section">
+
   <!-- container -->
   <div class="container">
     <!-- row -->
@@ -99,21 +100,31 @@
                             <h3>Your Score</h3>
                             <i class="fa fa-user"></i>&nbsp;&nbsp;<?php foreach ($profile as $p) {echo $p->nama; } ?>
                             <h1 style="color:green;">
-                             <?php
-                             $skor = 0; 
-                             $pembagi = 0;
-                             if($nilai){
-                              foreach ($nilai as $n) {
-                                $skor = $skor + $n->nilai;
-                                if($n->nilai != NULL){
-                                  $pembagi++;
+                             <?php $nilaiakhir = 0;$jml=0;
+                             foreach ($materi->result() as $m) { 
+                              $where = 'id_materi = '.$m->id_materi.' and tipesoal = "multiple" or tipesoal = "essay" and id_materi = '.$m->id_materi.' or tipesoal = "file" and id_materi = '.$m->id_materi;
+                              $test = $this->Test_model->select_where($where);
+                              $count = 0;
+                              $nilai = 0;
+                              foreach ($test->result() as $t) {
+                                $where = array('id_test' => $t->id_test, 'id_peserta' => $id_peserta);
+                                $result = $this->Result_model->select_where($where)->row('nilai');
+                                if($result != NULL){
+                                  $nilai = $nilai + $result;
+                                  $count++;
                                 }
-                              } 
-                              $nilai = $skor/$pembagi;
-                              echo number_format($nilai,2);
-                            }else{
-                              echo '0';
+                              }
+                              if($count == 0){
+                                $nilaiakhir = $nilaiakhir + $nilai; 
+                              }else{
+                                $nilai = $nilai / $count; 
+                                $nilaiakhir = $nilaiakhir + $nilai; 
+                              }
+                              if($count != 0){ 
+                                $jml++;  
+                              }
                             }
+                            echo number_format($nilaiakhir/$jml,2);
                             ?>
                           </h1>
                           <a href="<?php echo base_url('homepage/detailtest/'.$this->uri->segment(3)) ?>">Detail</a>
@@ -135,4 +146,30 @@
                         <!-- row -->
                       </div>
                       <!-- container -->
+                      <div class="btn-chat" id="btn-chat" onclick="funcChat()">Punya Pertanyaan?</div>
+                      <div id="chat-box">
+                        <div class="chat-header">Header<span style="" class="close-chat fa fa-close" onclick="funcChat()"></span></div>
+                        <div class="chat-content">
+                          <div class="my-chat">
+                            <b style="font-size: 14px">Ananda Rifkiy Hasan</b>
+                            <p style="font-size: 12px">halo kenapa yaa?</p>
+                            <p style="font-size: 10px">12 Juli 2018 18.00</p>
+                          </div>
+                          <div class="other-chat">
+                            <b style="font-size: 14px">Ananda Rifkiy Hasan</b>
+                            <p style="font-size: 12px">halo kenapa yaa?</p>
+                            <p style="font-size: 10px">12 Juli 2018 18.00</p>
+                          </div>
+                        </div>
+                        <div class="chat-input">
+                        <div class="row">
+                          <div class="col-md-10">
+                          <input style="outline: none;border: none;" type="text" name="" placeholder="Tulis pesan....">
+                          </div>
+                          <div class="col-md-2">
+                            <button class="btn btn-send"><span class="fa fa-paper-plane"></span></button>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>

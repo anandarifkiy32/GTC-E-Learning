@@ -74,8 +74,8 @@
 <script src="https://cdn.plyr.io/3.4.3/plyr.polyfilled.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-  $('.rotate').css('height', $('.rotate').width());
-});
+		$('.rotate').css('height', $('.rotate').width());
+	});
 	$('.form_datetime').datetimepicker({
         //language:  'fr',
         weekStart: 1,
@@ -127,6 +127,19 @@
  			}
  		</script>
  		<script>
+ 			function funcChat() {
+ 				var x = document.getElementById("chat-box");
+ 				var y = document.getElementById("btn-chat");
+ 				if (x.style.display === "none") {
+ 					x.style.display = "block";
+ 					y.style.display = "none";
+ 				} else {
+ 					x.style.display = "none";
+ 					y.style.display = "block";
+ 				}
+ 			}
+
+
 		// Set the date we're counting down to
 		var countDownDate = new Date('<?php echo $this->session->userdata('quizend') ?>').getTime();
 

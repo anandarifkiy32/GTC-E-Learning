@@ -44,7 +44,7 @@
 										</center>
 									<td style="border-top: none">
 										<center>
-											<?php $nilaiakhir = 0;
+											<?php $nilaiakhir = 0;$jml=0;
 											foreach ($materi->result() as $m) { 
 										$where = 'id_materi = '.$m->id_materi.' and tipesoal = "multiple" or tipesoal = "essay" and id_materi = '.$m->id_materi.' or tipesoal = "file" and id_materi = '.$m->id_materi;
 										$test = $this->Test_model->select_where($where);
@@ -63,10 +63,13 @@
 										  }else{
 										  	$nilai = $nilai / $count; 
 										  	$nilaiakhir = $nilaiakhir + $nilai;	
-										  } 
-										    
+										  }
+										  if($count != 0){ 
+										  $jml++;
+											}
 										}
-										echo number_format($nilaiakhir,2);
+
+										echo number_format($nilaiakhir/$jml,2);
 										?>
 										</center>
 									</td>
@@ -81,7 +84,14 @@
 									<tr>
 										<?php
 										$where = 'id_materi = '.$m->id_materi.' and tipesoal = "multiple" or tipesoal = "essay" and id_materi = '.$m->id_materi.' or tipesoal = "file" and id_materi = '.$m->id_materi;
+
+										$whereteori = 'id_materi = '.$m->id_materi.' and tipesoal = "multiple" or tipesoal = "essay" and id_materi = '.$m->id_materi;
+
+										$wherepraktik = 'id_materi = '.$m->id_materi.' and tipesoal = "file"';
+
 										$test = $this->Test_model->select_where($where); 
+										$teori = $this->Test_model->select_where($whereteori); 
+										$praktik = $this->Test_model->select_where($wherepraktik); 
 										?>
 										<th colspan="4">Modul : <?php echo $m->judul ?></th>
 										<th>
@@ -115,7 +125,7 @@
 									<tr>
 										<th style="background-color: #e8e8e8"><center><div>Teori</div></center></th>
 										<td>
-											<?php foreach($test->result() as $t){
+											<?php foreach($teori->result() as $t){
 												if($t->kategori == 'pre'){	
 													echo '<p>Pretes</p>';
 												}else{
@@ -124,7 +134,7 @@
 											} ?>
 										</td>
 										<td>
-											<?php foreach ($test->result() as $t) {
+											<?php foreach ($teori->result() as $t) {
 												$where = array('id_test' => $t->id_test,'id_peserta' => $id_peserta);
 												$result = $this->Result_model->select_where($where);
 												if($result->num_rows() == 1){
@@ -142,7 +152,7 @@
 											} ?>
 										</td>
 										<td>
-											<?php foreach ($test->result() as $t) {
+											<?php foreach ($teori->result() as $t) {
 												$where = array('id_test' => $t->id_test,'id_peserta' => $id_peserta);
 												$result = $this->Result_model->select_where($where);
 												if($result->num_rows() == 1){
@@ -169,13 +179,8 @@
 									<tr>
 										<th style="background-color: #e8e8e8"><center><div>Praktik</div></center></th>
 
-										<?php
-										$where = 'id_materi = '.$m->id_materi.' and tipesoal = "file"';
-										$test = $this->Test_model->select_where($where); 
-										?>
-
 										<td>
-											<?php foreach($test->result() as $t){
+											<?php foreach($praktik->result() as $t){
 												if($t->kategori == 'pre'){	
 													echo '<p>Pretes</p>';
 												}else{
@@ -184,7 +189,7 @@
 											} ?>
 										</td>
 										<td>
-											<?php foreach ($test->result() as $t) {
+											<?php foreach ($praktik->result() as $t) {
 												$where = array('id_test' => $t->id_test,'id_peserta' => $id_peserta);
 												$result = $this->Result_model->select_where($where);
 												if($result->num_rows() == 1){
@@ -202,7 +207,7 @@
 											} ?>
 										</td>
 										<td>
-											<?php foreach ($test->result() as $t) {
+											<?php foreach ($praktik->result() as $t) {
 												$where = array('id_test' => $t->id_test,'id_peserta' => $id_peserta);
 												$result = $this->Result_model->select_where($where);
 												if($result->num_rows() == 1){

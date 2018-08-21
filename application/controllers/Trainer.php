@@ -32,7 +32,8 @@ class Trainer extends CI_Controller {
 		$password = $this->input->post('pass');
 		$where = array(
 			'email' => $email,
-			'pass' => md5($password)
+			'pass' => md5($password),
+			'status' => '1'
 		);
 		$cek = $this->Trainer_model->select_where($where)->num_rows();
 
@@ -52,7 +53,91 @@ class Trainer extends CI_Controller {
 			);
 			$this->session->set_userdata($data_session);
 			redirect(base_url('trainer'));
+		}else{
+			$this->session->set_flashdata('error','Email atau password salah');
+			redirect('trainer');
 		}
+	}
+
+	function register(){
+		$this->load->view('trainer/pages/v_register');
+	}
+
+	function register_2(){
+		$email 			= $this->input->post('email');
+		$password 		= md5($this->input->post('pass'));
+		$namalengkap	= $this->input->post('nama');
+
+		$length = 150;
+		$characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+		$charactersLength = strlen($characters);
+		$unique_kode = '';
+
+		for ($i = 0; $i < $length; $i++) {
+			$unique_kode .= $characters[rand(0, $charactersLength - 1)];
+		}
+
+		$config['protocol'] = 'smtp';
+		$config['smtp_host'] = 'ssl://smtp.googlemail.com';
+		$config['smtp_port'] = 465;
+		$config['mailtype'] = 'html';
+		$config['smtp_user'] = 'ananda.rifkiy33@gmail.com';
+		$config['smtp_pass'] = 'helloworld:)';
+
+            // Load email library and passing configured values to email library 
+		$this->load->library('email', $config);
+		$this->email->set_newline("\r\n");
+
+            // Sender email address
+		$this->email->from('ananda.rifkiy33@gmail.com', 'Ananda Rifkiy Hasan');
+            // Receiver email address
+		$this->email->to($email);
+            // Subject of email
+		$this->email->subject('Verification GTC EduSite');
+            // Message in email
+		$message = '<html>
+		<link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
+		<body style="font-family:"Montserrat", sans-serif;">
+		<center>
+		<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
+		<h3>GTC EduSite</h3>
+		<p>Terimakasih sudah mendaftar. Silahkan verifikasi akun anda dengan klik button di bawah ini.</p>
+		<a href=http://localhost/gtclearning/trainer/verification/'.$unique_kode.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Verifikasi Email</button></a>
+		</div>
+		</center>
+		</body>
+		</html>';
+		$this->email->message($message);
+
+		if ($this->email->send()) {
+			$data = array(
+				'email' 		=> $email,
+				'pass'			=> $password,
+				'nama'  		=> $namalengkap,
+				'unique_code'	=> $unique_kode,
+				'status'		=> '0',
+				'img'			=> ''
+			);
+			$this->Trainer_model->input($data);
+			redirect(base_url('trainer/success'));
+		} else {
+			$data['alert'] ='Gagal';
+		}
+		
+	}
+
+	function success(){
+		$this->load->view('trainer/pages/v_success');
+	}
+
+	function verification($code){
+		$where  = array(
+			'unique_code'	=> $code);
+		$data 	= array(
+			'status' 		=> '1');
+		$this->Trainer_model->update($where,$data);
+		$data['pesan'] = 'true';
+		$this->load->view('trainer/pages/v_login',$data);
 	}
 
 	function coursecatalog(){
