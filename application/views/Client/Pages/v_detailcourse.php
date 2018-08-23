@@ -14,6 +14,21 @@
 
 						<img src="<?php echo base_url('assets/modul/'.$m->img)?>" alt="" style="object-fit:cover;width: 100%; height: auto;max-height: 500px;"><br><br>
 						<?php echo $m->deskripsi ?>
+						<button class="accordion">Section 1</button>
+						<div class="panel2">
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+						</div>
+
+						<button class="accordion">Section 2</button>
+						<div class="panel2">
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+						</div>
+
+						<button class="accordion">Section 3</button>
+						<div class="panel2">
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+						</div>
+
 						<br><br>
 						<?php if($cekjoin == 0){ ?>
 							<div class="checkbox">

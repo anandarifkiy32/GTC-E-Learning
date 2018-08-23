@@ -6,7 +6,7 @@ class Homepage extends CI_Controller {
 	function __construct(){
 		date_default_timezone_set('ASIA/JAKARTA');
 		parent::__construct();
-		$this->load->model(array('Peserta_model','Modul_model','Training_model','Materi_model','Quiz_model','Jawaban_model','Result_model','Test_model','Soal_model','Trainer_model'));	
+		$this->load->model(array('Peserta_model','Modul_model','Training_model','Materi_model','Quiz_model','Jawaban_model','Result_model','Test_model','Soal_model','Trainer_model','Model_chat'));	
 		$this->load->helper(array('form','url','file'));
 		$this->load->library(array('pagination'));
 
@@ -947,5 +947,114 @@ class Homepage extends CI_Controller {
 		$this->load->library('calendar');
 		echo $this->calendar->generate();
 	}
+
+	function getChat(){
+		
+		$id_user	= $this->input->post("id_user",true); //tujuan
+		$id			= $this->session->userdata('id'); //dari
+		$id_max		= $this->input->post('id_max'); //dari
+
+		$where	= "slug_modul = '$id_user' AND id_chat > '$id_max'";
+		$chat	= $this->Model_chat->getAll($where);
+		$data['id_max']		= $id_max;
+		$data['id_user']	= $id_user;
+		$data['chat'] 		= $chat;
+		$this->load->view("vwChatBox",$data);
+	}
+	
+	function getChatAll(){
+		
+		$id_user	= $this->input->post("id_user",true); //tujuan
+		$id			= $this->session->userdata('id'); //dari
+		$id_max		= $this->input->post('id_max'); //dari
+
+		$where	= "slug_modul = '$id_user'";
+		$chat	= $this->Model_chat->getAll($where);
+		
+		$where2	= "slug_modul = '$id_user' AND id_chat > '$id_max'";
+		$get_id = $this->Model_chat->getLastId($where2);
+		
+		$data['id_max']		= $get_id['id_chat'];
+		$data['id_user']	= $id_user;
+		$data['chat'] 		= $chat;
+		$this->load->view("vwChatBox",$data);
+	}
+	
+	function getLastId(){
+		$id_user	= $this->input->post("id_user",true); //tujuan
+		$id			= $this->session->userdata('id'); //dari
+		$id_max		= $this->input->post('id_max'); //dari
+		
+		$where	= "slug_modul = '$id_user' AND id_chat > '$id_max'";
+		$get_id = $this->Model_chat->getLastId($where);
+		
+		echo json_encode(array("id" => $get_id['id_chat'] != '' ?  $get_id['id_chat'] : $id_max ));
+	}
+	
+	// function sendMessage(){
+	// 	$where = array(
+	// 		'unique_code' => $this->session->userdata('unique_code')
+	// 	);
+	// 	$profile = $this->Peserta_model->select_where($where)->row('id_peserta');
+
+	// 	$id_user	= $this->input->post("id_user",true); //tujuan/user_2
+	// 	$pesan		= addslashes($this->input->post("pesan",true));
+		
+	// 	$data	= array(
+	// 		'id_pengirim' => $profile,
+	// 		'slug_modul' => $id_user,
+	// 		'pesan' => $pesan,
+	// 	);
+		
+	// 	$query	=	$this->Model_chat->getInsert($data);
+		
+	// 	if($query){
+	// 		$rs = 1;
+	// 	}else{
+	// 		$rs	= 2;
+	// 	}
+		
+	// 	echo json_encode(array("result"=>$rs));
+		
+	// }
+
+	public function getChats()
+    {
+        // header('Content-Type: application/json');
+        // if ($this->input->is_ajax_request()) {
+            // Find friend
+            $friend = $this->input->post('chatWith');
+
+            // Get Chats
+            $chats = $this->db
+                ->select('chat.*, peserta.nama as namachat')
+                ->from('chat , peserta')
+                ->where('chat.id_pengirim = peserta.id_peserta')
+                ->where('chat.slug_modul',$friend)
+                ->order_by('chat.waktu', 'desc')
+                ->limit(100)
+                ->get()
+                ->result();
+
+            $result = array(
+                'chat' => $chats
+            );
+            echo json_encode($result);
+        //}
+    }
+
+    public function sendMessage()
+    {
+    	$where = array(
+				'unique_code'	=> $this->session->userdata('unique_code'));
+			$profile = $this->Peserta_model->select_where($where)->result();
+			$id_peserta = $this->Peserta_model->select_where($where)->row('id_peserta');
+
+        $this->db->insert('chat', array(
+            'pesan' => htmlentities($this->input->post('message', true)),
+            'slug_modul' => $this->input->post('chatWith'),
+            'id_pengirim' => $id_peserta
+        ));
+    }
 }
 

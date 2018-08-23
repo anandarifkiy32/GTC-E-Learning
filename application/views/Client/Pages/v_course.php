@@ -143,33 +143,53 @@
                           </div>
                           <!-- /aside blog -->
                         </div>
-                        <!-- row -->
+                        <a href="javascript:;" data-friend="<?= $this->uri->segment(3) ?>">tes</a>
                       </div>
                       <!-- container -->
-                      <div class="btn-chat" id="btn-chat" onclick="funcChat()">Punya Pertanyaan?</div>
+
+                      <div class="btn-chat" id="btn-chat" onclick="funcChat()"><a href="javascript:;" data-friend="<?= $this->uri->segment(3) ?>">Punya Pertanyaan ?</a></div>
                       <div id="chat-box">
                         <div class="chat-header">Header<span style="" class="close-chat fa fa-close" onclick="funcChat()"></span></div>
-                        <div class="chat-content">
-                          <div class="my-chat">
-                            <b style="font-size: 14px">Ananda Rifkiy Hasan</b>
-                            <p style="font-size: 12px">halo kenapa yaa?</p>
-                            <p style="font-size: 10px">12 Juli 2018 18.00</p>
-                          </div>
-                          <div class="other-chat">
-                            <b style="font-size: 14px">Ananda Rifkiy Hasan</b>
-                            <p style="font-size: 12px">halo kenapa yaa?</p>
-                            <p style="font-size: 10px">12 Juli 2018 18.00</p>
-                          </div>
-                        </div>
-                        <div class="chat-input">
-                        <div class="row">
-                          <div class="col-md-10">
-                          <input style="outline: none;border: none;" type="text" name="" placeholder="Tulis pesan....">
-                          </div>
-                          <div class="col-md-2">
-                            <button class="btn btn-send"><span class="fa fa-paper-plane"></span></button>
-                          </div>
+                        <div id="wgt-container-template" style="display: none">
+                          <div class="msg-wgt-container">
+                            <div class="msg-wgt-header">
+                              <a href="javascript:;" class="online"></a>
+                              <a href="javascript:;" class="name"></a>
+                              <a href="javascript:;" class="close">x</a>
+                            </div>
+                            <div class="msg-wgt-message-container">
+                              <table width="100%" class="msg-wgt-message-list">
+                              </table>
+                            </div>
+                            <div class="msg-wgt-message-form">
+                              <textarea name="message" placeholder="Type your message. Press Shift + Enter for newline"></textarea>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
+
+
+
+
+          <!--               <div class="panel panel-info">
+                          <div class="panel-body" style="height:400px;overflow-y:auto" id="box">
+                            <div id="chat-box">
+                              <div class='panel-body'><h2 style='text-align:center;color:grey'>Click User on Chatt List to Start Chatt</h2></div> -->
+            <!--br/>
+            <div id="loading" style="display:none"><center><i class="fa fa-spinner fa-spin"></i> Loading...</center></div>
+          </br !-->
+          <!--    </div> -->
+          <!--       </div> -->
+<!--       <div class="panel-footer" style="">
+        <div class="row">
+          <div class="col-md-12">
+            <input type="hidden" id="id_user" value="<?php echo $this->uri->segment(3); ?>" />
+            <textarea class="form-control " id="pesan" style="margin-right:10px;"></textarea>
+            <button id="send" type="button" class="btn btn-primary pull-right" style="margin-top:10px;"  onClick="sendMessage()" ><i class="fa fa-send"></i> Send Message</button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+  </div>
+</div>
+

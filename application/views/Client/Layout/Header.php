@@ -22,6 +22,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
 
   <link type="text/css" rel="stylesheet" href="<?php echo base_url()?>assets/gtc_client/css/style.css"/>
+  <script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery.min.js"></script>
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -178,7 +179,7 @@
       right: 50px;
       border-radius: 5px 5px 0px 0px;
       color: white;
-      z-index:+10;
+      z-index:+5;
       display: none;
       height: 500px; 
     }
