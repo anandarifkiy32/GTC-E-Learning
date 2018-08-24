@@ -19,8 +19,16 @@
   <link href="<?php echo base_url()?>assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
   <link rel="stylesheet" href="https://cdn.plyr.io/3.4.3/plyr.css">
   <!-- Custom stlylesheet -->
+<<<<<<< HEAD
   <link type="text/css" rel="stylesheet" href="<?php echo base_url()?>assets/gtc_client/css/style.css"/>
   <script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery.min.js"></script>
+=======
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+
+  <link type="text/css" rel="stylesheet" href="<?php echo base_url()?>assets/gtc_client/css/style.css"/>
+  <script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery.min.js"></script>
+
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -46,12 +54,21 @@
     }
 
     td {
+<<<<<<< HEAD
   border-collapse: collapse;
   border: none;
 }
 tr:nth-of-type(5) td:nth-of-type(1) {
   visibility: hidden;
 }
+=======
+      border-collapse: collapse;
+      border: none;
+    }
+    tr:nth-of-type(5) td:nth-of-type(1) {
+      visibility: hidden;
+    }
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
     .rotate {
       /* FF3.5+ */
       -moz-transform: rotate(-90.0deg);
@@ -152,6 +169,96 @@ tr:nth-of-type(5) td:nth-of-type(1) {
       animation-duration: 0.6s;
     }
 
+<<<<<<< HEAD
+=======
+    .btn-chat{
+      width: 200px;
+      text-align: center;
+      padding: 5px 10px 5px 10px;
+      background-color: #FF6700;
+      position: fixed;
+      bottom: 0;
+      right: 50px;
+      border-radius: 5px 5px 0px 0px;
+      color: white;
+      z-index:+10;
+      cursor: pointer;
+    }
+
+    #chat-box{
+      width: 300px;
+      text-align: center;
+      padding: 0px 1px 5px 1px;
+      background-color: #FF6700;
+      position: fixed;
+      bottom: 0;
+      right: 50px;
+      border-radius: 5px 5px 0px 0px;
+      color: white;
+      z-index:+5;
+      display: none;
+      height: 500px; 
+    }
+
+    .chat-content{
+      background-color: #dcdcdc;
+      height: 420px;
+      color: grey;
+      overflow: auto;
+    }
+
+    .chat-header{
+      padding: 10px;
+      text-align: left;
+    }
+
+    .close-chat{
+      cursor: pointer;
+      position: absolute;
+      right: 16px;
+    }
+
+    .chat-input{
+      background-color: white;
+      color: grey;
+      box-shadow: 0px -1px 20px 0px #d8d8d8;
+    }
+
+    .btn-send{
+      height: 40px;
+      background-color: transparent;
+      position: absolute;
+      right: 15px;
+    }
+
+    .my-chat{
+      font-family: 'Roboto Mono', monospace;
+      color: black;
+      font-weight: lighter;
+      text-align: right;
+      background-color: white;
+      padding-top: 5px;
+      padding-left: 10px;
+      padding-right: 10px;
+      margin: 5px 10px 5px 10px;
+      border-radius: 15px 15px 0px 15px;
+    }
+
+    .other-chat{
+      font-family: 'Roboto Mono', monospace;
+      color: black;
+      font-weight: lighter;
+      text-align: left;
+      background-color: white;
+      padding-top: 5px;
+      padding-left: 10px;
+      padding-right: 10px;
+      margin: 5px 10px 5px 10px;
+      border-radius: 15px 15px 15px 0px;
+    }
+
+
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
     @keyframes zoom {
       from {transform:scale(0)} 
       to {transform:scale(1)}

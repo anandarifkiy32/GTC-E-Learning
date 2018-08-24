@@ -81,6 +81,7 @@
     })
   })
 </script>
+<<<<<<< HEAD
 <script>
   $(function () {
     $('#example3').DataTable({
@@ -90,5 +91,7 @@
     })
   })
 </script>
+=======
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 </body>
 </html>

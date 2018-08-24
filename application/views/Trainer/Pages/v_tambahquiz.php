@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 <div class="content-wrapper">
+=======
+<!-- Left side column. contains the logo and sidebar -->
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
   <section class="content-header">
     <h1>
       Tambah Quiz
@@ -8,7 +16,14 @@
       <li class="active">Tambah Quiz</li>
     </ol>
   </section>
+<<<<<<< HEAD
   <section class="content">
+=======
+
+  <!-- Main content -->
+  <section class="content">
+    <!-- Small boxes (Stat box) -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
     <div class="row">
       <div class="col-md-12">
         <div class="nav-tabs-custom">
@@ -36,6 +51,10 @@
                       </div>
                       <div class="form-group">
                         <label>Modul / Materi</label>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                         <input type="text" class="form-control" value="<?php echo $m->judul ?>" disabled="">
                         <input type="hidden" name="id_materi" value="<?php echo $m->id_materi ?>">
                       <?php } ?>
@@ -68,6 +87,10 @@
                 </div>
               </div>
             </div>
+<<<<<<< HEAD
+=======
+            <!-- /.tab-pane -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
             <div class="tab-pane" id="tab_2">
               <div class="panel panel-default" style="border-radius: 0px;">
                 <div class="box-body">
@@ -110,8 +133,21 @@
               </div>
             </div>
           </div>
+<<<<<<< HEAD
         </div>
       </div>
     </div>
   </section>
 </div>
+=======
+          <!-- /.tab-content -->
+        </div>
+        <!-- nav-tabs-custom -->
+
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3

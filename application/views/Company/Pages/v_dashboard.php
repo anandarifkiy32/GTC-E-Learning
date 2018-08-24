@@ -3,6 +3,10 @@
     <h1>
       Dashboard
     </h1>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
   </section>
   <section class="content">
     <div class="row">
@@ -24,5 +28,12 @@
         <?php } ?>
       </div>
     </div>
+<<<<<<< HEAD
   </section>
 </div>
+=======
+    
+  </section>
+</div>
+<!-- /.content-wrapper
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3

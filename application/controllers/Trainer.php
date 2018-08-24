@@ -5,7 +5,11 @@ class Trainer extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
+<<<<<<< HEAD
 		$this->load->model(array('Trainer_model','Modul_model','Materi_model','Category_model','Training_model','Quiz_model','Result_model','Test_model','Soal_model','Jawaban_model','Company_model','Sertifikasi_model','Psertifikasi_model','Peserta_model'));
+=======
+		$this->load->model(array('Trainer_model','Modul_model','Materi_model','Category_model','Training_model','Quiz_model','Result_model','Test_model','Soal_model','Jawaban_model','Company_model'));
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 		$this->load->helper(array('form', 'url'));
 	}
 
@@ -20,7 +24,10 @@ class Trainer extends CI_Controller {
 				'profile' => $this->Trainer_model->select_where($where)->result(),
 				'course'=> $this->Modul_model->select_where($where)->result(),
 				'category' => $category = $this->Category_model->select()->result(),
+<<<<<<< HEAD
 				'company' => $this->Company_model->select()->result(),
+=======
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 				'content' => 'Trainer/Pages/v_dashboard');
 			$this->load->view('Trainer/Layout/Wrapper',$content);
 		}else{
@@ -55,7 +62,11 @@ class Trainer extends CI_Controller {
 			$this->session->set_userdata($data_session);
 			redirect(base_url('trainer'));
 		}else{
+<<<<<<< HEAD
 			$this->session->set_flashdata('error', 'Email atau password salah');
+=======
+			$this->session->set_flashdata('error','Email atau password salah');
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 			redirect('trainer');
 		}
 	}
@@ -103,7 +114,11 @@ class Trainer extends CI_Controller {
 		<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
 		<h3>GTC EduSite</h3>
 		<p>Terimakasih sudah mendaftar. Silahkan verifikasi akun anda dengan klik button di bawah ini.</p>
+<<<<<<< HEAD
 		<a href=http://localhost:81/gtclearning/trainer/verification/'.$unique_kode.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Verifikasi Email</button></a>
+=======
+		<a href=http://localhost/gtclearning/trainer/verification/'.$unique_kode.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Verifikasi Email</button></a>
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 		</div>
 		</center>
 		</body>
@@ -147,7 +162,11 @@ class Trainer extends CI_Controller {
 				'id_trainer' => $this->session->userdata('trainer')
 			);
 			$content = array(
+<<<<<<< HEAD
 				'title' 	=> 'Course Category',
+=======
+				'title' 	=> 'Course Catalog',
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 				'profile'	=> $this->Trainer_model->select_where($where)->result(),
 				'content'	=> 'Trainer/Pages/v_coursecatalog'
 			);
@@ -172,6 +191,21 @@ class Trainer extends CI_Controller {
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	function editphoto($kode){
+		$where = array(
+			'unique_code' => $this->session->userdata('unique_code')
+		);
+		$content = array(
+			'title' => 'Profile',
+			'status'	=> '0',
+			'content' => 'trainer/pages/v_editphotoprofile',
+			'profile' => $this->Trainer_model->select_where($where)->result());
+		$this->load->view('trainer/layout/wrapper',$content);
+	}
+
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 	function logout(){
 		$this->session->sess_destroy();
 		redirect(base_url('trainer'));
@@ -188,16 +222,25 @@ class Trainer extends CI_Controller {
 			$modul = $this->Modul_model->select_where($where)->result();
 			$where = array(
 				'id_modul'	=> $id_modul);
+<<<<<<< HEAD
 			$id_company = array(
 				'id_company' => $this->Modul_model->select_where($where)->row('id_company'));
 			$id_sertifikasi = array(
 				'id_sertifikasi' => $this->Sertifikasi_model->select_where($where)->row('id_sertifikasi'));
 			$id_peserta = array(
 				'id_peserta' => $this->Psertifikasi_model->select_where($id_sertifikasi)->row('id_peserta'));
+=======
+			$sub_materi 	= $this->Materi_model->select_where($where)->result();
+			$jumlah_materi 	= $this->Materi_model->select_where($where)->num_rows();
+			$jumlah_peserta	= $this->Training_model->select_peserta($id_modul)->num_rows();
+			$data_peserta	= $this->Training_model->select_peserta($id_modul)->result();
+			$category = $this->Category_model->select()->result();
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 			$data=array(
 				'title' 		=> 'Dashboard',
 				'profile'		=> $this->Trainer_model->select_where($id_trainer)->result(),
 				'modul'			=> $modul,
+<<<<<<< HEAD
 				'submateri'		=> $this->Materi_model->select_where($where)->result(),
 				'jumlah_materi'	=> $this->Materi_model->select_where($where)->num_rows(),
 				'jumlah_peserta'=> $this->Training_model->select_peserta($id_modul)->num_rows(),
@@ -207,6 +250,13 @@ class Trainer extends CI_Controller {
 				'sertifikasi'	=> $this->Sertifikasi_model->select_where($where)->result(),
 				'cek'			=> $this->Sertifikasi_model->select_where($where)->num_rows(),
 				'psertifikasi'	=> $this->Peserta_model->select_where($id_peserta)->result(),
+=======
+				'submateri'		=> $sub_materi,
+				'jumlah_materi'	=> $jumlah_materi,
+				'jumlah_peserta'=> $jumlah_peserta,
+				'data_peserta'	=> $data_peserta,
+				'category'		=> $category,
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 				'content' 		=> 'trainer/pages/v_detailcourse');
 			$this->load->view('trainer/layout/wrapper',$data);
 		}else{
@@ -223,8 +273,11 @@ class Trainer extends CI_Controller {
 				'slug' => $slug);
 			$materi = $this->Materi_model->select_where($where)->result();
 			$id_materi = $this->Materi_model->select_where($where)->row('id_materi');
+<<<<<<< HEAD
 			$id_modul = array(
 				'id_modul' => $this->Materi_model->select_where($where)->row('id_modul'));
+=======
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 			$quiz= $this->Quiz_model->quizkategori($id_materi)->result();
 			// $cekquiz = $this->Quiz_model->pertanyaan($id_test)->num_rows();
 			$data=array(
@@ -232,7 +285,10 @@ class Trainer extends CI_Controller {
 				'profile'		=> $this->Trainer_model->select_where($id_trainer)->result(),
 				'materi'		=> $materi,
 				'quiz'			=> $quiz,
+<<<<<<< HEAD
 				'slugmodul'		=> $this->Modul_model->select_where($id_modul)->row('slug'),
+=======
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 				// 'cekquiz'		=> $cekquiz,
 				'content' 		=> 'trainer/pages/v_detailmateri');
 			$this->load->view('trainer/layout/wrapper',$data);
@@ -305,6 +361,11 @@ class Trainer extends CI_Controller {
 		
 	}
 
+<<<<<<< HEAD
+=======
+	
+
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 	function hapuspdf(){
 
 		$slug = $this->uri->segment(3);
@@ -326,6 +387,7 @@ class Trainer extends CI_Controller {
 		redirect(base_url('trainer/detailmateri/'.$slug));
 	}
 
+<<<<<<< HEAD
 	function tambahppt(){
 
 		$slug = url_title($this->input->post('judul'), 'dash', true);
@@ -390,6 +452,8 @@ class Trainer extends CI_Controller {
 		redirect(base_url('trainer/detailmateri/'.$slug));
 	}
 
+=======
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 	function tambahkonten(){
 
 		$slug = url_title($this->input->post('judul'), 'dash', true);
@@ -429,9 +493,12 @@ class Trainer extends CI_Controller {
 		$data = array(
 			'nama' => $this->input->post('nama'),
 			'deskripsi'	=> $this->input->post('description'),
+<<<<<<< HEAD
 			'tugas'		=> $this->input->post('tugas'),
 			'syarat'		=> $this->input->post('syarat'),
 			'karir'		=> $this->input->post('karir'),
+=======
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 			'category'		=> $this->input->post('category'),
 			'slug'			=> $slug
 		);
@@ -463,6 +530,7 @@ class Trainer extends CI_Controller {
 		redirect(base_url('trainer/detailcourse/'.$this->uri->segment(3)));
 	}
 
+<<<<<<< HEAD
 	function tambahsertifikasi(){
 		$data = array(
 			'id_modul'		=> $this->input->post('id'),
@@ -506,6 +574,8 @@ class Trainer extends CI_Controller {
 		redirect(base_url('trainer/detailcourse/'.$this->uri->segment(3)));
 	}
 
+=======
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 	function hapusmateri($slug){
 		$where = array(
 			'slug' => $slug
@@ -691,6 +761,7 @@ class Trainer extends CI_Controller {
 		}
 	}
 
+<<<<<<< HEAD
 	// function editsoal(){
 	// 	if($this->session->userdata('status') == 'logintrainer'){
 	// 		$where = array(
@@ -712,6 +783,29 @@ class Trainer extends CI_Controller {
 	// 		$this->load->view('trainer/pages/v_login');
 	// 	}
 	// }
+=======
+	function editsoal(){
+		if($this->session->userdata('status') == 'logintrainer'){
+			$where = array(
+				'id_soal' => $this->uri->segment(4)
+			);
+			$soal = $this->Soal_model->select_where($where)->result();
+			$where = array(
+				'id_trainer' => $this->session->userdata('trainer'));
+			$content = array(
+				'title'			=> 'Dashboard',
+				'profile'		=> $this->Trainer_model->select_where($where)->result(),
+				'soal' 			=> $soal,
+				'content'		=> 'trainer/pages/v_editsoal'
+			);
+			$this->load->view('trainer/layout/wrapper',$content);
+			
+		}
+		else{
+			$this->load->view('trainer/pages/v_login');
+		}
+	}
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 
 	function updatesoal(){
 		if ($this->session->userdata('status') == 'logintrainer') {
@@ -808,7 +902,11 @@ class Trainer extends CI_Controller {
 	function updatequiz(){
 		if ($this->session->userdata('status') == 'logintrainer') {
 			$where = array(
+<<<<<<< HEAD
 				'id_test'	=> $this->uri->segment(4));
+=======
+				'code'	=> $this->uri->segment(4));
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 			$id_test =  $this->Test_model->select_where($where)->row('id_test');
 			$data = array(
 				'waktu'		=> $this->input->post('waktu'));
@@ -825,7 +923,11 @@ class Trainer extends CI_Controller {
 				'slug'	=> $this->uri->segment(3));
 			$id_materi = $this->Materi_model->select_where($slug)->row('id_materi');
 			$where = array(
+<<<<<<< HEAD
 				'id_materi'	=> $id_materi);
+=======
+				'code'	=> $this->uri->segment(4));
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 			$id_test =  $this->Test_model->select_where($where)->row('id_test');
 			$where = array(
 				'id_test'	=> $id_test);
@@ -870,6 +972,7 @@ class Trainer extends CI_Controller {
 	}
 
 	function detailpeserta($code){
+<<<<<<< HEAD
 		if ($this->session->userdata('status') == 'logintrainer'){
 			$id_trainer = array(
 				'id_trainer' => $this->session->userdata('trainer')
@@ -957,6 +1060,62 @@ class Trainer extends CI_Controller {
 		}else{
 			$this->load->view('trainer/pages/v_login');
 		}
+=======
+		$where = array(
+				'id_trainer' => $this->session->userdata('trainer')
+			);
+		$profile = $this->Trainer_model->select_where($where)->result();
+		$where= array(
+			'training.id_modul = modul.id_modul and training.code = ' => $code);
+		$id_trainer = $this->Training_model->join_modul($where)->row('id_trainer');
+		$detailpeserta = $this->Training_model->detail_peserta($code)->result();
+		$id_peserta = $this->Training_model->detail_peserta($code)->row('id_peserta');
+		$id_modul = $this->Training_model->detail_peserta($code)->row('id_modul');
+		$where = array(
+			'materi.id_modul' => $id_modul,
+			'result.id_peserta' => $id_peserta);
+		$quiz = $this->Result_model->select_quiz($where)->result();
+		$content = array(
+			'title' => 'Dashboard',
+			'profile' => $profile,
+			'detailpeserta' => $detailpeserta,
+			'id_trainer' => $id_trainer,
+			'quiz' => $quiz,
+			'content' => 'Trainer/Pages/v_detailpeserta');
+		$this->load->view('Trainer/Layout/Wrapper',$content);
+	}
+
+	function review(){
+		$where = array(
+				'id_trainer' => $this->session->userdata('trainer')
+			);
+		$profile = $this->Trainer_model->select_where($where)->result();
+		$where = array('code' => $this->uri->segment(4));
+		$id_result = $this->Result_model->select_where($where)->row('id_result');
+		$id_test = $this->Result_model->select_where($where)->row('id_test');
+		$where = array(
+			'id_test' => $id_test);
+		$tipesoal = $this->Test_model->select_where($where)->row('tipesoal');
+		$kategori = $this->Test_model->select_where($where)->row('kategori');
+		$a = $this->Soal_model->select_where($where)->row('a');
+		$b = $this->Soal_model->select_where($where)->row('b');
+		$c = $this->Soal_model->select_where($where)->row('c');
+		$where = 'result.id_result = '.$id_result.' and result.id_result = jawaban.id_result and jawaban.id_soal = soal.id_soal';
+		$jawaban = $this->Result_model->join_jawaban_soal($where)->result();
+		$data = array(
+			'title' => 'Review',
+			'profile'	=> $profile,
+			'jawaban' => $jawaban,
+			'tipesoal'=> $tipesoal,
+			'a' => $a,
+			'b' => $b,
+			'c' => $c,
+			'kategori' => $kategori,
+			'content' => 'trainer/pages/v_review'
+		);
+
+		$this->load->view('trainer/layout/wrapper',$data);
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 	}
 
 	function submitreview(){
@@ -975,6 +1134,10 @@ class Trainer extends CI_Controller {
 			$pembagi++;
 		}
 		$nilai = $skor / $pembagi;
+<<<<<<< HEAD
+=======
+		$nilai = number_format($nilai,2);
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 		$data = array('nilai' => $nilai);
 		$where = array('code' => $this->uri->segment(4));
 		$this->Result_model->update($where,$data);
@@ -1002,6 +1165,7 @@ class Trainer extends CI_Controller {
 
 	function tambahcategory(){
 		$slug = url_title($this->input->post('category'), 'dash', true);
+<<<<<<< HEAD
 		$config['upload_path']	= './assets/modul/category/';
 		$config['allowed_types'] = 'jpg|jpeg|png';
 		$config['max_size'] = '2048';
@@ -1023,11 +1187,19 @@ class Trainer extends CI_Controller {
 			);
 			$this->Category_model->input($data);
 		}
+=======
+		$data = array(
+			'category' 		=> $this->input->post('category'),
+			'slug'			=> $slug
+		);
+		$this->Category_model->input($data);
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 		redirect(base_url('trainer/coursecategory'));
 	}
 
 	function updatecategory(){
 		$slug = url_title($this->input->post('category'), 'dash', true);
+<<<<<<< HEAD
 		$config['upload_path']	= './assets/modul/category/';
 		$config['allowed_types'] = 'jpg|jpeg|png';
 		$config['max_size'] = '2048';
@@ -1053,6 +1225,16 @@ class Trainer extends CI_Controller {
 
 			$this->Category_model->update($where,$data);
 		}
+=======
+		$data = array(
+			'category' => $this->input->post('category'),
+			'slug'			=> $slug
+		);
+		$where = array(
+			'id_category'		=> $this->input->post('id_category')
+		);
+		$this->Category_model->update($where,$data);
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 		redirect(base_url('trainer/coursecategory'));
 	}
 
@@ -1060,9 +1242,13 @@ class Trainer extends CI_Controller {
 		$where = array(
 			'slug' => $slug
 		);
+<<<<<<< HEAD
 
 		$this->Category_model->delete($where);
 
+=======
+		$this->Category_model->delete($where);
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 		redirect(base_url('trainer/coursecategory'));
 	}
 
@@ -1081,7 +1267,10 @@ class Trainer extends CI_Controller {
 			$config['file_name'] = $slug;
 			$this->load->library('upload',$config);
 			if(! $this->upload->do_upload('berkas')){
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 				echo "error";
 			}else{
 				$gbr = $this->upload->data();
@@ -1091,9 +1280,12 @@ class Trainer extends CI_Controller {
 					'id_company'	=> $id_company,
 					'nama'			=> $this->input->post('nama'),
 					'deskripsi'		=> $this->input->post('description'),
+<<<<<<< HEAD
 					'tugas'		=> $this->input->post('tugas'),
 					'syarat'		=> $this->input->post('syarat'),
 					'karir'		=> $this->input->post('karir'),
+=======
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 					'category'		=> $this->input->post('category'),
 					'slug'			=> $slug,
 					'img' => $gbr['file_name']
@@ -1126,7 +1318,11 @@ class Trainer extends CI_Controller {
 			<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
 			<h3>GTC EduSite</h3>
 			<p>Anda diundang dalam training'.$this->input->post('nama').' </p>
+<<<<<<< HEAD
 			<a href=http://localhost:81/gtclearning/company/detailcourse/'.$slug.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Login</button></a>
+=======
+			<a href=http://localhost/gtclearning/company/detailcourse/'.$slug.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Login</button></a>
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 			</div>
 			</center>
 			</body>
@@ -1178,7 +1374,11 @@ class Trainer extends CI_Controller {
 			<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
 			<h3>GTC EduSite</h3>
 			<p>Anda telah diundang dalam training Global Top Career sebagai perusahaan rekanan, sekarang anda memiliki hak akses untuk login di link berikut</p>
+<<<<<<< HEAD
 			<a href=http://localhost:81/gtclearning/company><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Login</button></a>
+=======
+			<a href=http://localhost/gtclearning/company><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Login</button></a>
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 			<p>Akun anda </p>
 			<p>Email : '.$email.'</p>
 			<p>Password : '.$pass.'</p>
@@ -1208,9 +1408,12 @@ class Trainer extends CI_Controller {
 					'id_company'	=> $this->Company_model->select_where($where)->row('id_company'),
 					'nama'			=> $this->input->post('nama'),
 					'deskripsi'		=> $this->input->post('description'),
+<<<<<<< HEAD
 					'tugas'		=> $this->input->post('tugas'),
 					'syarat'		=> $this->input->post('syarat'),
 					'karir'		=> $this->input->post('karir'),
+=======
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 					'category'		=> $this->input->post('category'),
 					'slug'			=> $slug,
 					'img' => $gbr['file_name']
@@ -1222,6 +1425,7 @@ class Trainer extends CI_Controller {
 		}
 	}
 
+<<<<<<< HEAD
 	function editphoto($kode){
 		$where = array(
 			'unique_code' => $this->session->userdata('unique_code')
@@ -1232,6 +1436,18 @@ class Trainer extends CI_Controller {
 			'content' => 'trainer/pages/v_editphotoprofile',
 			'profile' => $this->Trainer_model->select_where($where)->result());
 		$this->load->view('trainer/layout/wrapper',$content);
+=======
+	function editprofile($kode){
+		$where = array(
+			'unique_code' => $this->session->userdata('unique_code')
+		);
+
+		$content = array(
+			'title' 	=> 'Profile',
+			'content' 	=> 'trainer/pages/v_editprofile',
+			'profile' 	=> $this->Trainer_model->select_where($where)->result());
+		$this->load->view('trainer/Layout/Wrapper',$content);
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 	}
 
 	function uploadphoto(){ 
@@ -1266,6 +1482,7 @@ class Trainer extends CI_Controller {
 
 	}
 
+<<<<<<< HEAD
 	function editprofile($kode){
 		$where = array(
 			'unique_code' => $this->session->userdata('unique_code')
@@ -1278,6 +1495,8 @@ class Trainer extends CI_Controller {
 		$this->load->view('trainer/Layout/Wrapper',$content);
 	}
 
+=======
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 	function updateprofile($id_peserta){
 		$id = $id_peserta;
 

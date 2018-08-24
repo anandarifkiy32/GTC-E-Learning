@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 <div class="content-wrapper">
+=======
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 	<section class="content-header">
 		<h1>
 			Profil Peserta
@@ -10,7 +16,14 @@
 			<li class="active">View</li>
 		</ol>
 	</section>
+<<<<<<< HEAD
 	<section class="content">
+=======
+
+	<!-- Main content -->
+	<section class="content">
+		<!-- Small boxes (Stat box) -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 		<div class="row">
 			<div class="col-md-12">
 				<div class="panel panel-default" style="border-radius: 0px;">
@@ -23,7 +36,11 @@
 										<a href="<?php echo base_url('admin/delete_peserta/'.$p->unique_code) ?>"><button type="button" class="btn btn-danger" style="float: left;"></i> <span>Delete</span></button></a>
 										</div>
 										<div class="row">
+<<<<<<< HEAD
 										<center><a href="<?php echo base_url('assets/gtc_client/img/'.$p->img)?>"><img src="<?php echo base_url('assets/gtc_client/img/'.$p->img)?>" class="img-circle" width="100" height="100" style="margin-top: 10px;"></a>
+=======
+										<center><a href="<?php echo base_url('assets/profile_photos/'.$p->img)?>"><img src="<?php echo base_url('assets/profile_photos/'.$p->img)?>" class="img-circle" width="100" height="100" style="margin-top: 10px;"></a>
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 										</center>
 									</div>
 									</div>
@@ -41,6 +58,10 @@
 											<th><center>Course</center></th>
 											<th><center>Status</center></th>
 										</tr>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 										<?php foreach ($course as $c) {?>
 											<tr>
 												<td><?php echo $c->namamodul; ?></td>
@@ -116,5 +137,13 @@
 				</div>
 			</div>
 		<?php } ?>
+<<<<<<< HEAD
 	</section>
 </div>
+=======
+		
+	</section>
+	<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3

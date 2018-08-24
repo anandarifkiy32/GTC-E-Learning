@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 <div class="content-wrapper">
+=======
+<!-- Left side column. contains the logo and sidebar -->
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
   <section class="content-header">
     <h1>
       Modul
@@ -9,7 +17,14 @@
       <li class="active"><a href="#">Sub Materi</a></li>
     </ol>
   </section>
+<<<<<<< HEAD
   <section class="content">
+=======
+
+  <!-- Main content -->
+  <section class="content">
+    <!-- Small boxes (Stat box) -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
     <div class="row">
       <div class="col-md-12">
         <?php foreach ($materi as $m) { ?>
@@ -18,6 +33,10 @@
               <h3 class="box-title" style="font-size: 24px;margin-top: 10px;margin-left: 14px"><?php echo $m->judul ?></h3>
               <button class="btn btn-success btn-flat" style="position: absolute;right: 25px;top: 20px" data-toggle="modal" data-target="#modal-default">EDIT</button>
             </div>
+<<<<<<< HEAD
+=======
+            <!-- /.box-header -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
             <div class="box-body" style="padding:25px;padding-top: 15px">
               <div class="row">
                 <div class="col-md-6">
@@ -29,6 +48,7 @@
                 </div>
                 <div class="col-md-6">
                   <div style="font-size: 18px">
+<<<<<<< HEAD
                     Indikator Materi
                   </div>
                   <p>
@@ -37,6 +57,18 @@
                 </div>
               </div>
             </div>
+=======
+                    Deskripsi
+                  </div>
+                  <p>
+                    <?php echo $m->description ?>
+                  </p>
+                </div>
+              </div>
+              <!-- /.box-body -->
+            </div>
+            
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
           </div>
           <div class="modal fade" id="modal-default">
             <div class="modal-dialog">
@@ -48,6 +80,10 @@
                   </div>
                   <form role="form" action="<?php echo base_url().'admin/updatemateri' ?>" method="post">
                     <div class="modal-body">
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                       <div class="box-body">
                         <div class="form-group">
                           <label for="exampleInputEmail1">Judul</label>
@@ -55,14 +91,24 @@
                           <input type="text" class="form-control" id="exampleInputEmail1"  name="judul" value="<?php echo $m->judul ?>">
                         </div>
                         <div class="form-group">
+<<<<<<< HEAD
                           <label for="exampleInputDescription1">Indikator</label>
                           <textarea class="form-control" name="description" rows="5"><?php echo $m->indikator ?></textarea>
+=======
+                          <label for="exampleInputDescription1">Deskripsi</label>
+                          <textarea class="form-control" name="description" rows="5"><?php echo $m->description ?></textarea>
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                         </div>
                         <div class="form-group">
                           <label for="exampleInputEmail1">Konten</label>
                           <input type="text" class="form-control" id="exampleInputEmail1" name="konten" value="<?php echo $m->konten ?>">
                         </div>
                       </div>
+<<<<<<< HEAD
+=======
+                      <!-- /.box-body -->
+
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
@@ -70,9 +116,22 @@
                     </div>
                   </form>
                 </div>
+<<<<<<< HEAD
               </div>
+=======
+
+                <!-- /.modal-content -->
+              </div>
+              <!-- /.modal-dialog -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
             </div>
           <?php } ?>
         </div>
       </section>
+<<<<<<< HEAD
     </div>
+=======
+      <!-- /.content -->
+    </div>
+<!-- /.content-wrapper -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3

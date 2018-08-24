@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 <div class="content-wrapper">
+=======
+<!-- Left side column. contains the logo and sidebar -->
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
   <section class="content-header">
     <h1>
       Detail Course
@@ -9,10 +17,21 @@
       <li class="active">Detail Course</li>
     </ol>
   </section>
+<<<<<<< HEAD
   <section class="content">
     <div class="row">
       <div class="col-md-7">
         <div class="box box-widget widget-user-2">
+=======
+
+  <!-- Main content -->
+  <section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+      <div class="col-md-7">
+        <div class="box box-widget widget-user-2">
+          <!-- Add the bg color to the header using any of the bg-* classes -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
           <div class="widget-user-header bg-blue">
             <div class="row">
               <div class="col-md-2">
@@ -59,6 +78,10 @@
             <div class="box-header" style="color">
               <h3 class="box-title">Modul</h3>
             </div>
+<<<<<<< HEAD
+=======
+            <!-- /.box-header -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
             <div class="box-body">
               <table class="table table-condensed">
                 <tr>
@@ -76,6 +99,10 @@
                   <?php $no++; } ?>
                 </table>
               </div>
+<<<<<<< HEAD
+=======
+              <!-- /.box-body -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
             </div>
           </div>
         </div>
@@ -85,6 +112,10 @@
               <div class="box-header">
                 <h3 class="box-title">Data Peserta</h3>
               </div>
+<<<<<<< HEAD
+=======
+              <!-- /.box-header -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
               <div class="box-body">
                 <table id="example2" class="table table-bordered table-hover">
                   <thead>
@@ -97,6 +128,10 @@
                   </thead>
                   <tbody>
                     <?php $num = 1 ;foreach ($data_peserta as $dp) { ?>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                       <tr>
                         <td><?php echo $num ?></td>
                         <td><?php echo $dp->nama ?></td>
@@ -105,10 +140,23 @@
                       </tr>
                       <?php $num++; } ?>
                     </tbody>
+<<<<<<< HEAD
                   </table>
                 </div>
+=======
+
+                  </table>
+                </div>
+                <!-- /.box-body -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
               </div>
             </div>
           </div>
         </section>
+<<<<<<< HEAD
       </div>
+=======
+        <!-- /.content -->
+      </div>
+<!-- /.content-wrapper -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3

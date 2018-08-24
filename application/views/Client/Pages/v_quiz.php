@@ -6,6 +6,15 @@
 			<!-- main blog -->
 			
 			<div id="main" class="col-md-12">
+<<<<<<< HEAD
+=======
+			<?php if($test == NULL){?>
+				<div class="alert alert-warning alert-dismissible">
+					<h4><i class="icon fa fa-info-circle"></i> Ups !</h4>
+					Sepertinya belum ada quiz untuk modul ini.
+				</div>
+			<?php }else{ ?>
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<table  class="table table-hover">
@@ -34,7 +43,10 @@
 												echo 'Belum Mengerjakan';
 											}
 											?>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 										</td>
 										<td>
 											<?php 
@@ -64,6 +76,10 @@
 
 							</div>
 						</div>
+<<<<<<< HEAD
+=======
+						<?php } ?>
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 					</div>
 					<!-- /main blog -->
 				</div>

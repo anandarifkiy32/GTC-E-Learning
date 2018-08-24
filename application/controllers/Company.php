@@ -52,8 +52,13 @@ class Company extends CI_Controller {
 			$this->session->set_userdata($data_session);
 			redirect(base_url('company'));
 		}else{
+<<<<<<< HEAD
 			$this->session->set_flashdata('error', 'Email atau password salah');
 			redirect('company');
+=======
+			$this->session->set_flashdata('error','Email atau password salah');
+			redirect(base_url('company'));
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 		}
 	}
 

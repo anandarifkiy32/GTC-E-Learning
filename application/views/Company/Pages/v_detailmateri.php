@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 <div class="content-wrapper">
+=======
+
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
   <section class="content-header">
     <h1>
       Detail Materi
@@ -10,24 +16,47 @@
       <li class="active">Detail Materi</li>
     </ol>
   </section>
+<<<<<<< HEAD
   <section class="content">
+=======
+
+  <!-- Main content -->
+  <section class="content">
+    <!-- Small boxes (Stat box) -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
     <div class="row">
       <div class="col-md-12">
         <?php foreach ($materi as $m) { ?>
           <div class="box" style="border-top:none;">
             <div class="box-header" style="color">
               <h3 class="box-title" style="font-size: 24px;float: left;"><?php echo $m->judul ?></h3>
+<<<<<<< HEAD
               <!-- <?php if ($m->pdf != '') { 
                 echo '';} else{ ?>
                   <button class="btn btn-primary btn-flat" style="float: right; margin-left: 10px;" data-toggle="modal" data-target="#modal-default2"><span class="fa fa-plus"></span> Pdf</button>
+=======
+
+              <!-- <?php if ($m->pdf != '') { 
+                echo '';} else{ ?>
+                  <button class="btn btn-primary btn-flat" style="float: right; margin-left: 10px;" data-toggle="modal" data-target="#modal-default2"><span class="fa fa-plus"></span> Pdf</button>
+
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                 <?php }
                 if ($m->konten != '') { 
                   echo '';} else{ ?>
                     <button class="btn btn-primary btn-flat" style="float: right; margin-left: 10px;" data-toggle="modal" data-target="#modal-default3"><span class="fa fa-plus"></span> Video</button>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                   <?php }
                   ?> -->
                   <!-- <button class="btn btn-success btn-flat" style="float: right;" data-toggle="modal" data-target="#modal-default1">Edit Materi</button> -->
                 </div>
+<<<<<<< HEAD
+=======
+                <!-- /.box-header -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                 <div class="box-body" style="padding:25px;padding-top: 15px">
                   <div class="row">
                     <div class="col-md-7">
@@ -63,11 +92,19 @@
                       </div>
                     </div>
                   <?php } ?>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                   <div class="col-md-5">
                     <div class="box" style="border-top:none;">
                       <div class="box-header" style="color">
                         <p><b>Konten Modul / Materi</b></p>
                       </div>
+<<<<<<< HEAD
+=======
+                      <!-- /.box-header -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                       <div class="box-body">
                         <div class="table table-responsive">
                           <table class="table table-condensed">
@@ -98,12 +135,24 @@
                             </table>
                           </div>
                         </div>
+<<<<<<< HEAD
                       </div>
                     </div>
                   </div>
                 </div>
                 <?php foreach ($materi as $m) { ?>
                 </div>
+=======
+                        <!-- /.box-body -->
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /.box-body -->
+                </div>
+                <?php foreach ($materi as $m) { ?>
+                </div>
+                
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                 <!-- <div class="modal fade" id="modal-default1">
                   <div class="modal-dialog">
                     <div class="modal-content">
@@ -114,6 +163,10 @@
                         </div>
                         <form role="form" action="<?php echo base_url().'trainer/updatemateri' ?>" method="post">
                           <div class="modal-body">
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                             <div class="box-body">
                               <div class="form-group">
                                 <label for="exampleInputEmail1">Judul Modul</label>
@@ -133,6 +186,10 @@
                                 <textarea class="form-control" name="evaluasi" rows="5"><?php echo $m->evaluasi ?></textarea>
                               </div>
                             </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
@@ -294,13 +351,23 @@
                               </div>
                             <?php } ?>
                           </div>
+<<<<<<< HEAD
+=======
+                          <!-- /.content -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                         </div>
                         <div class="row">
                           <div class="col-md-12">
                             <div class="box" style="border-top:none">
                               <div class="box-header">
                                 <h3 class="box-title">Daftar Quiz&nbsp</h3>
+<<<<<<< HEAD
                                 <!-- <a href="<?php echo base_url('trainer/tambahquiz/'.$m->slug) ?>"><button class="btn btn-primary btn-flat" style="float: right; margin-left: 10px;"><span class="fa fa-plus"></span> Quiz</button></a>  <?php if ($cekquiz < 1) { ?>
+=======
+                                <!-- <a href="<?php echo base_url('trainer/tambahquiz/'.$m->slug) ?>"><button class="btn btn-primary btn-flat" style="float: right; margin-left: 10px;"><span class="fa fa-plus"></span> Quiz</button></a> -->
+                              <!-- <?php if ($cekquiz < 1) { ?>
+
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                               <?php } else{ ?>
                                 <a href="<?php echo base_url('trainer/hapusquiz/'.$m->slug) ?>"><button class="btn btn-danger btn-flat" style="float: right; margin-left: 3px;">Delete Quiz</button></a>
                                 <a href="<?php echo base_url('trainer/editquiz/'.$m->slug) ?>"><button class="btn btn-primary btn-flat" style="float: right; margin-left: 3px;">Edit Detail Quiz</button></a>
@@ -308,7 +375,13 @@
                               <?php }
                               ?> -->
                             </div>
+<<<<<<< HEAD
                             <div class="box-body">
+=======
+                            <!-- /.box-header -->
+                            <div class="box-body">
+
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                               <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                   <tr>
@@ -320,6 +393,10 @@
                                 </thead>
                                 <tbody>
                                   <?php $num = 1 ;foreach ($quiz as $q) { ?>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                                     <tr>
                                       <td><?php echo $num ?></td>
                                       <td><?php echo $q->waktu ?></td>
@@ -331,10 +408,22 @@
                                     </tr>
                                     <?php $num++; } ?>
                                   </tbody>
+<<<<<<< HEAD
                                 </table>
                               </div>
+=======
+
+                                </table>
+                              </div>
+                              <!-- /.box-body -->
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                             </div>
                           </div>
                         </div>
                       </div>
+<<<<<<< HEAD
                     </section>
+=======
+                    </section>
+<!-- /.content-wrapper
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3

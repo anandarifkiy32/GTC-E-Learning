@@ -10,7 +10,11 @@ class Result_model extends CI_Model{
 	} 
 
 	function select_quiz($where){
+<<<<<<< HEAD
 		$this->db->select('*,result.code as coderesult, test.kategori as kategori');
+=======
+		$this->db->select('*,result.code as coderesult');
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 		$this->db->from('result, materi, test');
 		$this->db->where($where);
 		$this->db->where('result.id_test = test.id_test');
@@ -42,4 +46,8 @@ class Result_model extends CI_Model{
 		$this->db->where($where);
 		$this->db->delete('result');
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 }

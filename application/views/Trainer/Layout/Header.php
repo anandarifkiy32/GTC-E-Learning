@@ -43,7 +43,11 @@ folder instead of downloading all of them to reduce the load. -->
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
+<<<<<<< HEAD
 
+=======
+<?php foreach ($profile as $p) { ?>
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 <header class="main-header">
 <!-- Logo -->
 <a href="index2.html" class="logo">
@@ -63,13 +67,22 @@ folder instead of downloading all of them to reduce the load. -->
 <ul class="nav navbar-nav">
 <li class="dropdown user user-menu">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+<<<<<<< HEAD
 <img src="<?php echo base_url()?>assets/adm/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
 <span class="hidden-xs"><?php echo $this->session->userdata("nama");?></span>
+=======
+<img src="<?php echo base_url()?>assets/profile_photos/trainer/<?php echo $p->img ?>" class="user-image" alt="User Image">
+<span class="hidden-xs"><?php echo $p->nama;?></span>
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 </a>
 <ul class="dropdown-menu">
 <!-- User image -->
 <li class="user-header">
+<<<<<<< HEAD
 <img src="<?php echo base_url()?>assets/adm/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+=======
+<img src="<?php echo base_url()?>assets/profile_photos/trainer/<?php echo $p->img ?>" class="img-circle" alt="User Image">
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 
         <p>
           <?php echo $this->session->userdata("nama");?>
@@ -91,4 +104,9 @@ folder instead of downloading all of them to reduce the load. -->
 </ul>
 </div>
 </nav>
+<<<<<<< HEAD
 </header>
+=======
+</header>
+<?php } ?>
+>>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
