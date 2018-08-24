@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Campus an Education Category Flat Bootstrap Responsive Website Template | Home :: w3layouts</title>
+	<title>GTC E-Learning</title>
 	<!-- for-mobile-apps -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -54,14 +54,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<span class="icon-bar"></span>                        
 					</button>
 
-					<a class="navbar-brand" href="index.html"><h1 style="margin-top: 0px;">Campus</h1></a>
+					<a class="navbar-brand" href="<?php echo base_url('') ;?>"><h1 style="margin-top: 0px;">GTC E-Learning</h1></a>
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav link-effect">
-						<li class="active"><a href="index.html">Home</a></li>
+						<li class="active"><a href="<?php echo base_url('') ;?>">Home</a></li>
 						<li><a href="#about" class="scroll">About</a></li>
-						<li><a href="#services" class="scroll">Services</a></li>
-						<li><a href="#gallery" class="scroll">gallery</a></li>
+						<li><a href="#services" class="scroll">Training Program</a></li>
+						<li><a href="#gallery" class="scroll">Clients</a></li>
 						<li><a href="#contact" class="scroll">Contact</a></li>
 						<li><a href="" style="outline: none;" data-toggle="modal" data-target="#myModal">Sign in / Sign up</a></li>
 						<div class="modal fade" id="myModal" role="dialog">
@@ -111,6 +111,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 														<option value="L">Laki-laki</option>
 														<option value="P">Perempuan</option>
 													</select>
+												</div>
+												<div class="form-group">
+													<label for="dtp_input2">Tempat Lahir :</label>
+													<input type="text" class="form-control" id="tempatlahir" name="tempatlahir">
 												</div>
 												<div class="form-group">
 													<label for="dtp_input2">Tanggal Lahir :</label>
@@ -181,13 +185,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</div>
 			<div class="w3ls-about-grids">
 				<div class="col-md-6 w3l-about-img">
-					<img src="<?php echo base_url()?>assets/web/images/about1.jpg" alt="image">
+					<img src="<?php echo base_url()?>assets/web/images/about2.jpg" alt="image">
 				</div>
 				<div class="col-md-6 w3l-about-left">
-					<i class="fa fa-globe" aria-hidden="true"></i>
-					<h2>Welcome</h2>
-					<h5>Integer mollis porttitor nibh</h5>
-					<p>Donec bibendum ligula sit amet auctor vulputate. Maecenas elementum, magna nec interdum venenatis, nibh enim gravida sem, id consectetur justo erat non tortor. Nam ultricies eget erat quis dapibus. Aenean eu scelerisque lacus, et fringilla odio.<span>Sed vestibulum sapien ornare ex sodales, eu feugiat ipsum tempor. Vivamus ante orci, congue sit amet aliquam non, sagittis eget justo. Curabitur mollis hendrerit nunc, id luctus sem vestibulum id.</span></p>
+					<p>Di tengah perubahan lingkungan yang cepat bahkan cenderung chaotic dewasa ini, tetap ada hal-hal yang berlangsung relatif konstan, yaitu keterampilan dasar yang melibatkan interaksi hubungan manusia yang efektif. Keterampilan manajemen merupakan keterampilan dalam mengelola kehidupan diri sendiri dan berinteraksi dengan orang lain. Keterampilan ini bisa dikatakan sebagai keterampilan yang timeless. Keterampilan ini bersifat perilaku dan sangat dapat dikembangkan. Untuk mengembangkannya, setidaknya dibutuhkan 3 (tiga) hal yaitu petunjuk perilaku (behavioral guidelines), aplikasi perilaku tersebut dalam konteks riil, serta adanya peluang untuk mempraktekkannya. Keterampilan manajemen terdiri dari keterampilan yang berkaitan dengan pengelolaan diri sendiri, interaksi dengan orang lain, serta bekerja dalam kelompok.</span></p>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -196,35 +197,33 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!-- //about -->
 	<!-- Our services -->
 	<div class="services" id="services">
-		<h3 class="wthree_head">Our Services</h3>
+		<h3 class="wthree_head">Training Program</h3>
 		<div class="container">
 			<div class="stylegrid2">
 				<div class="col-md-6 stylegridtext">
-					<h3>HIGH PROFILE STAFF</h3>
+					<h3>Leadership Training Series</h3>
 					<span></span>
-					<p>Lorem ipsum dolor sit amet, error sit voluptatem , eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus iste natus error sit voluptatem , eaque ipsa quae</p>
-					<p>Lorem ipsum dolor sit amet, Sed ut perspiciatis unde omnis iste natus error sit voluptatem </p>
+					<p>Di tengah perubahan lingkungan yang cepat bahkan cenderung chaotic dewasa ini, tetap ada hal-hal yang berlangsung relatif konstan, yaitu keterampilan dasar yang melibatkan interaksi hubungan manusia yang efektif.  </p>
 					<div class="readmore">
-						<a href="#" data-toggle="modal" data-target="#myModal">Read more</a>
+						<a href="<?php echo base_url('homepage/leadership') ;?>">Read more</a>
 					</div>
 				</div>
 				<div class="col-md-6 stylegridimg">
-					<img src="<?php echo base_url()?>assets/web/images/s2.jpg" alt="">
+					<img src="<?php echo base_url()?>assets/web/images/leadership.jpg" alt="">
 				</div>
 				<div class="clearfix"></div>
 			</div>
 
 			<div class="stylegrid3">
 				<div class="col-md-6 stylegridimg">
-					<img src="<?php echo base_url()?>assets/web/images/s1.jpg" alt="">
+					<img src="<?php echo base_url()?>assets/web/images/management.jpg" alt="">
 				</div>
 				<div class="col-md-6 stylegridtext">
-					<h3>Students FREEDOM</h3>
+					<h3>Management Skills Training Series</h3>
 					<span></span>
-					<p>Lorem ipsum dolor sit amet, error sit voluptatem , eaque ipsa quae ab illo inventore Sed ut perspiciatis unde omnis iste natus iste natus error sit voluptatem , eaque ipsa quae</p>
-					<p>Lorem ipsum dolor sit amet, Sed ut perspiciatis unde omnis iste natus error sit voluptatem </p>
+					<p>Di tengah perubahan lingkungan yang cepat bahkan cenderung chaotic dewasa ini, tetap ada hal-hal yang berlangsung relatif konstan, yaitu keterampilan dasar yang melibatkan interaksi hubungan manusia yang efektif. </p>
 					<div class="readmore">
-						<a href="#" data-toggle="modal" data-target="#myModal">Read more</a>
+						<a href="#">Read more</a>
 					</div>
 				</div>
 				<div class="clearfix"></div>
@@ -235,7 +234,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<div class="portfolio-agileinfo" id="gallery">
 		<div class="container">
 			<div class="wthree_head_section_gallery">
-				<h3 class="w3l_header w3_agileits_header">Our Gallery</h3>
+				<h3 class="w3l_header w3_agileits_header">Our Clients</h3>
 			</div>
 		</div>
 		<div class="agile_wthree_inner_grids">
@@ -361,48 +360,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 	<!-- contact -->
 
-	<div class="contact" id="contact">
-		<div class="container">
-			<h3>Contact</h3>
-			<div class="col-md-6 w3-left-contact">
-				<div class="agile-sub-left">
-					<p>Extended Stay Restaurant<br>
-						<span>87th St,Kansas City</span>
-					Lenexa 241.</p>
-
-					<ul>
-						<li>+0(23) 954 566 7788</li>
-						<li>+0(23) 375 366 9945</li>
-					</ul>
-
-
-				</div>
-				<div class="agile-sub">
-					<h4>Get Free Updates</h4>
-					<div class="w3ls-form">
-						<form action="#" method="post">
-							<input type="email" placeholder="Email Id" name="Subscribe" required="">
-							<button class="btn1">Subscribe here</button>
-						</form>
-					</div>
-
-
-				</div>
-			</div>
-			<div class="col-md-6 w3-right-contact">
-				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d100949.24429313939!2d-122.44206553967531!3d37.75102885910819!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80859a6d00690021%3A0x4a501367f076adff!2sSan+Francisco%2C+CA%2C+USA!5e0!3m2!1sen!2sin!4v1472190196783"
-				style="border:0" allowfullscreen></iframe>
-
-			</div>
-			<div class="clearfix"></div>
-
-		</div>
-	</div>
-
-	<!-- contact -->
-
-	<!-- contact -->
-	<div class="contact1" id="mail">
+	
+	<div class="contact1" id="contact">
 		<div class="container">
 			<div class="map-pos">
 				<div class="col-md-4 address-row">
@@ -411,7 +370,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</div>
 					<div class="col-xs-10 address-right">
 						<h5>Visit Us</h5>
-						<p>Bmr St, Canada, New York, USA</p>
+						<p>Jalan Cidodol Raya No. 40, Kebayoran Lama, Jakarta Selatan</p>
 					</div>
 					<div class="clearfix"> </div>
 				</div>
@@ -431,55 +390,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</div>
 					<div class="col-xs-10 address-right">
 						<h5>Call Us</h5>
-						<p>+040 354 658 252</p>
+						<p>+62 727 93636</p>
 					</div>
 					<div class="clearfix"> </div>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
-			<form action="#" method="post">
-				<div class="col-sm-6 contact-left">
-					<input type="text" name="Name" placeholder="Your Name" required="">
-					<input type="email" name="Email" placeholder="Email" required="">
-					<input type="text" name="Mobile Number" placeholder="Mobile Number" required="">
-				</div>
-				<div class="col-sm-6 contact-right">
-					<textarea name="Message" placeholder="Message" required=""></textarea>
-					<input type="submit" value="Submit">
-				</div>
-				<div class="clearfix"></div>
-			</form>
 		</div>
 	</div>
-	<!-- //contact -->
 	<div class="copyright">
 		<div class="container">
-			<p>© 2018 campus. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
+			<p>Copyright &copy; 2018 <a href="<?php echo base_url('');?>">GTC E-Learning</a>.</strong> All rights
+    reserved. </p>
 		</div>
 	</div>
 
-	<!-- bootstrap-modal-pop-up -->
-	<div class="modal video-modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					Campus
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
-				</div>
-				<div class="modal-body">
-					<img src="<?php echo base_url()?>assets/web/images/s1.jpg" alt=" " class="img-responsive" />
-					<p>Ut enim ad minima veniam, quis nostrum 
-						exercitationem ullam corporis suscipit laboriosam, 
-						nisi ut aliquid ex ea commodi consequatur? Quis autem 
-						vel eum iure reprehenderit qui in ea voluptate velit 
-						esse quam nihil molestiae consequatur, vel illum qui 
-						dolorem eum fugiat quo voluptas nulla pariatur.
-						<i>" Quis autem vel eum iure reprehenderit qui in ea voluptate velit 
-						esse quam nihil molestiae consequatur.</i></p>
-					</div>
-				</div>
-			</div>
-		</div>
 
 		<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
