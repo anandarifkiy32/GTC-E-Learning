@@ -25,13 +25,8 @@
             <li class="<?php if($subtitle == 'Company'){echo 'active';}?>"><a href="<?php echo base_url('admin/company');?>"><i class="fa fa-circle-"></i> Company</a></li>
           </ul>
         </li>
-<<<<<<< HEAD
         <li class="<?php if($title == 'Course'){echo 'active';}?>">
           <a href="<?php echo base_url('admin/course');?>"><i class="fa fa-book"></i><span>Course</span></a>
-=======
-        <li class="<?php if($title == 'Modul'){echo 'active';}?>">
-          <a href="<?php echo base_url('admin/modul');?>"><i class="fa fa-book"></i><span>Modul</span></a>
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
         </li>
         <li class="<?php if($title == 'Profile'){echo 'active';}?>">
           <a href="<?php echo base_url('admin/logout');?>">

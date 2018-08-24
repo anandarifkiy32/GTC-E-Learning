@@ -19,10 +19,6 @@ class Jawaban_model extends CI_Model{
 		$this->db->delete('jawaban');
 	}
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 	function join_soal($where){
 		$this->db->select('*');
 		$this->db->from('jawaban,soal');

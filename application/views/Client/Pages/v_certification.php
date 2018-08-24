@@ -7,6 +7,13 @@
             Kami akan segera menghubungi anda!
           </div> 
       <?php } ?>
+      <?php if($this->session->flashdata('sertifikasi2')){?>
+          <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-check"></i>Anda sudah mengambil sertifikasi ini!</h4>
+            Kami akan segera menghubungi anda!
+          </div> 
+      <?php } ?>
 		<div class="row">
 			<div id="main" class="col-md-12">
 				<div class="panel panel-default">
@@ -47,11 +54,10 @@
 						</div>
 					</div>
 				</div>
-				<?php if ($this->session->userdata('status') == 'login') { ?>
+				<?php 
+						if($psertifikasi->num_rows() == 0){ ?>
 					<a href="<?php echo base_url('homepage/daftarsertifikasi/'.$this->uri->segment(3))?>"><button class="main-button icon-button" style="float: right;">Take Certification</button></a>
-					<?php } else{ ?>
-						<a href="<?php echo base_url('homepage/login/'.$this->uri->segment(3))?>"><button class="main-button icon-button" style="float: right;">Take Certification</button></a>
-					<?php } ?> 
+					<?php } ?>
 				</div>
 			</div>
 		</div>

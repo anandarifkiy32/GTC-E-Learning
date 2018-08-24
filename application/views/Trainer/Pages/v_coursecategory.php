@@ -23,10 +23,7 @@
                   <tr>
                     <th>#</th>
                     <th>Nama</th>
-<<<<<<< HEAD
                     <th>Image</th>
-=======
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                     <th></th>
                   </tr>
                 </thead>
@@ -36,10 +33,7 @@
                     <tr>
                       <td><?php echo $num ?></td>
                       <td><?php echo $c->category ?></td>
-<<<<<<< HEAD
                       <td><a href="<?php echo base_url('assets/modul/category/'.$c->img) ?>"><?php echo $c->img; ?></a></td>
-=======
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                       <td>
                         <button class="btn btn-primary btn-xs btn-flat" data-toggle="modal" data-target="#<?php echo $c->id_category ?>">Edit</button>
                         <a href="<?php echo base_url('trainer/hapuscategory/'.$c->slug) ?>"><button type="button" class="btn btn-danger btn-xs btn-flat">Hapus</button></a>
@@ -58,7 +52,6 @@
                 <h3 class="box-title">Tambah Course Category</h3>
               </div>
               <div class="box-body">
-<<<<<<< HEAD
                 <form method="post" enctype="multipart/form-data" action="<?php echo base_url('trainer/tambahcategory') ?>">
                   <div class="form-group">
                     <label>Nama Category</label>
@@ -67,12 +60,6 @@
                   <div class="form-group">
                     <label>Image</label>
                     <input type="file" name="img" class="form-control" required="">
-=======
-                <form method="post" action="<?php echo base_url('trainer/tambahcategory') ?>">
-                  <div class="form-group">
-                    <label>Nama Category</label>
-                    <input type="text" name="category" class="form-control">
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                   </div>
                   <button type="submit" class="btn btn-primary btn-flat" style="float: right;">Tambah</button>
                 </form>
@@ -90,11 +77,7 @@
                     <span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Edit Category</h4>
                   </div>
-<<<<<<< HEAD
                   <form action="<?php echo base_url('trainer/updatecategory') ?>" enctype="multipart/form-data" method="post">
-=======
-                  <form action="<?php echo base_url('trainer/updatecategory') ?>" method="post">
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                     
                       <div class="modal-body">
                         <div class="box-body">
@@ -103,13 +86,10 @@
                             <input type="hidden" name="id_category" value="<?php echo $c->id_category ?>">
                             <input type="text" class="form-control" name="category" value="<?php echo $c->category ?>">
                           </div>
-<<<<<<< HEAD
                           <div class="form-group">
                             <label>Image</label>
                             <input type="file" name="img" class="form-control" value="<?php echo $c->img ?>">
                           </div>
-=======
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                           </div>
                           <!-- /.box-body -->
                         </div>

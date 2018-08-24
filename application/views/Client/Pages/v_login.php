@@ -122,11 +122,7 @@
 									<input class="form-control" type="password" name="pass">
 								</div>
 
-<<<<<<< HEAD
 								<button class="main-button icon-button">Submit</button>
-=======
-								<button class="main-button icon-button">Login</button>
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 								<p style="margin:8px 0px 8px 0px">Belum punya akun? <a href="<?php echo base_url('homepage/showregister') ?>">Klik disini</a></p>
 							</form>
 						</div>

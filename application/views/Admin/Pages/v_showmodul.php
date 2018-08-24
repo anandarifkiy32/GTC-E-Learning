@@ -1,12 +1,4 @@
-<<<<<<< HEAD
 <div class="content-wrapper">
-=======
-<!-- Left side column. contains the logo and sidebar -->
-
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-  <!-- Content Header (Page header) -->
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
   <section class="content-header">
     <h1>
       Modul
@@ -16,20 +8,10 @@
       <li class="active"><a href="<?php echo base_url('admin/modul') ?>">Modul</a></li>
     </ol>
   </section>
-<<<<<<< HEAD
   <section class="content">
     <div class="row">
       <div class="col-md-7">
         <div class="box box-widget widget-user-2">
-=======
-  <!-- Main content -->
-  <section class="content">
-    <!-- Small boxes (Stat box) -->
-    <div class="row">
-      <div class="col-md-7">
-        <div class="box box-widget widget-user-2">
-          <!-- Add the bg color to the header using any of the bg-* classes -->
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
           <div class="widget-user-header bg-blue">
             <div class="row">
               <div class="col-md-2">
@@ -43,11 +25,7 @@
                   <h5 class="widget-user-desc" style="margin-left: 0px;"><?php echo $m->category ?></h5>
                 </div>
                 <div class="col-md-2">
-<<<<<<< HEAD
                   <button class="btn btn-success btn-flat" style="position: absolute;right: 10px;top: 0px;" data-toggle="modal" data-target="#modal-default1">Edit</button>
-=======
-                  <button class="btn btn-success" style="position: absolute;right: 10px;top: 0px;" data-toggle="modal" data-target="#modal-default1">Edit</button>
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                 </div>  
               </div>
             </div>
@@ -63,14 +41,8 @@
                 <td><?php echo $jumlah_materi ?></td>
               </tr>
               <tr>
-<<<<<<< HEAD
                <td style="font-size: 16px">Jumlah Peserta</td>
                <td><?php echo $jumlah_peserta; ?></td>
-=======
-                 <td style="font-size: 16px">Jumlah Peserta</td>
-
-                 <td><?php echo $jumlah_peserta; ?></td>
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
              </tr>
            </table>
          </div>
@@ -82,10 +54,6 @@
           <h3 class="box-title">Materi</h3>
           <button class="btn btn-success btn-flat" style="position: absolute;right: 10px;" data-toggle="modal" data-target="#modal-default2">+</button>
         </div>
-<<<<<<< HEAD
-=======
-        <!-- /.box-header -->
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
         <div class="box-body">
           <table class="table table-condensed">
             <tr>
@@ -104,18 +72,9 @@
               <?php $no++; } ?>
             </table>
           </div>
-<<<<<<< HEAD
         </div>
       </div>
     </div>
-=======
-          <!-- /.box-body -->
-        </div>
-      </div>
-    </div>
-
-
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
     <div class="modal fade" id="modal-default1">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -146,10 +105,6 @@
                       </select>
                     </div>
                   </div>
-<<<<<<< HEAD
-=======
-                  <!-- /.box-body -->
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                 </div>
               <?php } ?>
               <div class="modal-footer">
@@ -158,13 +113,7 @@
               </div>
             </form>
           </div>
-<<<<<<< HEAD
         </div>
-=======
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
       </div>
       <div class="modal fade" id="modal-default2">
         <div class="modal-dialog">
@@ -193,10 +142,6 @@
                       <input type="text" class="form-control" id="exampleInputEmail1" name="konten">
                     </div>
                   </div>
-<<<<<<< HEAD
-=======
-                  <!-- /.box-body -->
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
@@ -204,18 +149,7 @@
                 </div>
               </form>            
             </div>
-<<<<<<< HEAD
           </div>
         </div>
       </section>
     </div>
-=======
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-      </section>
-      <!-- /.content -->
-    </div>
-<!-- /.content-wrapper -->
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3

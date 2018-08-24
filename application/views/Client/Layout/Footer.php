@@ -63,7 +63,6 @@
 <div id='preloader'><div class='preloader'></div></div>
 <!-- /preloader -->
 <!-- jQuery Plugins -->
-<<<<<<< HEAD
 <script src="<?php echo base_url()?>assets/pdfjs/build/pdf.js"></script>
 <script src="<?php echo base_url()?>assets/pdfjs/build/pdf.worker.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/jquery.min.js"></script>
@@ -71,41 +70,13 @@
 <script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/main.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-=======
-
-<script type="text/x-template" id="msg-template" style="display: none">
-    <tbody>
-        <tr class="msg-wgt-message-list-header">
-            <td rowspan="2"><img src="<?= base_url('assets/avatar.png') ?>"></td>
-            <td class="name"></td>
-            <td class="time"></td>
-        </tr>
-        <tr class="msg-wgt-message-list-body">
-            <td colspan="2"></td>
-        </tr>
-        <tr class="msg-wgt-message-list-separator"><td colspan="3"></td></tr>
-    </tbody>
-</script>
-
-<script src="<?php echo base_url()?>assets/pdfjs/build/pdf.js"></script>
-<script src="<?php echo base_url()?>assets/pdfjs/build/pdf.worker.js"></script>
-
-<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/main.js"></script>
-<script type="text/javascript" src="<?php echo base_url()?>assets/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-  <script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery.min.js"></script>
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/locales/bootstrap-datetimepicker.id.js" charset="UTF-8"></script>
 <script src="https://cdn.plyr.io/3.4.3/plyr.polyfilled.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-<<<<<<< HEAD
   $('.rotate').css('height', $('.rotate').width());
 });
-=======
-		$('.rotate').css('height', $('.rotate').width());
-	});
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 	$('.form_datetime').datetimepicker({
         //language:  'fr',
         weekStart: 1,
@@ -157,22 +128,6 @@
  			}
  		</script>
  		<script>
-<<<<<<< HEAD
-=======
- 			function funcChat() {
- 				var x = document.getElementById("chat-box");
- 				var y = document.getElementById("btn-chat");
- 				if (x.style.display === "none") {
- 					x.style.display = "block";
- 					y.style.display = "none";
- 				} else {
- 					x.style.display = "none";
- 					y.style.display = "block";
- 				}
- 			}
-
-
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 		// Set the date we're counting down to
 		var countDownDate = new Date('<?php echo $this->session->userdata('quizend') ?>').getTime();
 
@@ -239,11 +194,22 @@ modal.onclick = function() {
 		evt.currentTarget.className += " active";
 	}
 </script>
-<<<<<<< HEAD
-=======
 
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 <script>
+	function ValidateSize(file) {
+        var FileSize = file.files[0].size / 1024 / 1024;
+        var fileformat = file.value.split('.')[1]; // in MB
+         // in MB
+        if (FileSize > 180) {
+        		alert('Ukuran melebihi 180 MB');	
+        		$(file).val('');
+        }
+        if (fileformat.toUpperCase() != 'MP4'){
+        		alert('Format file tidak didukung');	
+        		$(file).val('');
+        } 
+
+    }
 var acc = document.getElementsByClassName("accordion");
 var i;
 
@@ -259,119 +225,19 @@ for (i = 0; i < acc.length; i++) {
   });
 }
 </script>
-<<<<<<< HEAD
-=======
-<script>
-$(document).ready(function(){
-	//getChat(0);
-	$("#user").click(function(){
-		$("#id_max").val('0');
-	});
-	
-	setInterval(function(){ 
-		if($("#id_user").val() > 0){
-			getLastId($("#id_user").val(),$("#id_max").val()); 
-			getChat($("#id_user").val(),$("#id_max").val()); 
-		}else{
-			
-		}
-	},1000);
-});
-
-function getChatAll(id_user,id_max){
-	
-	$.ajax({
-		url		: "<?php echo site_url('homepage/getChatAll') ?>",
-		type	: 'POST',
-		dataType: 'html',
-		data 	: {id_user:id_user,id_max:id_max},
-		beforeSend	: function(){
-			$("#loading").show();
-		},
-		success	: function(result){
-			$("#loading").hide();
-			$("#chat-box").html(result);
-			$(".panel-footer").show();
-			
-			autoScroll();
-			document.getElementById('pesan').focus();
-		}
-	});
-}
-
-function getChat(id_user,id_max){
-	
-	$.ajax({
-		url		: "<?php echo site_url('homepage/getChat') ?>",
-		type	: 'POST',
-		dataType: 'html',
-		data 	: {id_user:id_user,id_max:id_max},
-		beforeSend	: function(){
-			$("#loading").show();
-		},
-		success	: function(result){
-			$("#loading").hide();
-			if(id_user != $("#id_user").val() ){
-				$("#chat-box").html(result);
-			}else{
-				$("#chat-box").append(result);
-			}
-			$(".panel-footer").show();
-			document.getElementById('pesan').focus();
-		}
-	});
-}
-
-function getLastId(id_user,id_max){
-	$.ajax({
-		url		: "<?php echo site_url('homepage/getLastId') ?>",
-		type	: 'POST',
-		dataType: 'json',
-		data 	: {id_user:id_user,id_max:id_max},
-		beforeSend	: function(){
-			
-		},
-		success	: function(result){
-			$("#id_max").val(result.id);
-		}
-	});
-}
-
-function sendMessage(){
-	var pesan 	= $("#pesan").val();
-	var id_user = $("#id_user").val();
-	
-	if(pesan == ''){
-		document.getElementById('pesan').focus();
-	}else{
-		$.ajax({
-			url		: "<?php echo site_url('homepage/sendMessage') ?>",
-			type	: 'POST',
-			dataType: 'json',
-			data 	: {id_user:id_user,pesan:pesan},
-			beforeSend	: function(){
-			},
-			success	: function(result){
-				getChat($("#id_user").val(),$("#id_max").val());
-				getLastId($("#id_user").val(),$("#id_max").val()); 
-				$("#pesan").val('');
-				autoScroll();
-			}
-		});
-	}
-}
-
-function autoScroll(){
-	var elem = document.getElementById('box');
-	elem.scrollTop = elem.scrollHeight;
-}
-
-function aktifkan(i){
-	$("li").removeClass("active");
-	$("#aktif-"+i).addClass("active");
-}
+<script type="text/x-template" id="msg-template" style="display: none">
+    <tbody>
+        <tr class="msg-wgt-message-list-header">
+            <td rowspan="2"><img src="<?php echo base_url('assets/profile_photos/default.jpg') ?>"></td>
+            <td class="name"></td>
+            <td class="time"></td>
+        </tr>
+        <tr class="msg-wgt-message-list-body">
+            <td colspan="2"></td>
+        </tr>
+        <tr class="msg-wgt-message-list-separator"><td colspan="3"></td></tr>
+    </tbody>
 </script>
-
 <script type="text/javascript">
 jQuery(document).ready(function($) {
     var chatPosition = [
@@ -412,15 +278,6 @@ jQuery(document).ready(function($) {
         }
     });
 
-    // Minimize Maximize
-    $(document).on('click', '.msg-wgt-header > a.name', function() {
-        var parent = $(this).parent().parent();
-        if (parent.hasClass('minimize')) {
-            parent.removeClass('minimize')
-        } else {
-            parent.addClass('minimize');
-        }
-    });
 
     // Close
     $(document).on('click', '.msg-wgt-header > a.close', function() {
@@ -450,7 +307,7 @@ jQuery(document).ready(function($) {
                 var oldscrollHeight = $container[0].scrollHeight;
                 var oldLength = 0;
                 $.post('<?= site_url('homepage/getChats') ?>', {chatWith: $data.chatWith}, function(data, textStatus, xhr) {
-                    $that.find('a.name').text('Tes');
+                    $that.find('a.name').text(data.name);
                     // from last
                     var chatLength = data.chats.length;
                     var newIndex = data.chats.length;
@@ -461,7 +318,7 @@ jQuery(document).ready(function($) {
                         var tpl = $('#msg-template').html();
                         var tplBody = $('<div/>').append(tpl);
                         var id = (val.id_chat +'_'+ val.id_pengirim +'_'+ val.slug_modul).toString();
-                        
+                 
 
                         if ($that.find('#'+ id).length == 0) {
                             tplBody.find('tbody').attr('id', id); // set class
@@ -504,6 +361,5 @@ jQuery(document).ready(function($) {
 });
 </script>
 
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 </body>
 </html>

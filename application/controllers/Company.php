@@ -5,7 +5,7 @@ class Company extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
-		$this->load->model(array('Company_model','Trainer_model','Modul_model','Materi_model','Category_model','Training_model','Quiz_model','Result_model','Test_model','Soal_model','Jawaban_model','Peserta_Model'));
+		$this->load->model(array('Company_model','Trainer_model','Modul_model','Materi_model','Category_model','Training_model','Quiz_model','Result_model','Test_model','Soal_model','Jawaban_model','Peserta_model','Sertifikasi_model','Psertifikasi_model'));
 		$this->load->helper(array('form', 'url'));
 	}
 
@@ -52,13 +52,8 @@ class Company extends CI_Controller {
 			$this->session->set_userdata($data_session);
 			redirect(base_url('company'));
 		}else{
-<<<<<<< HEAD
 			$this->session->set_flashdata('error', 'Email atau password salah');
 			redirect('company');
-=======
-			$this->session->set_flashdata('error','Email atau password salah');
-			redirect(base_url('company'));
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 		}
 	}
 
@@ -100,28 +95,30 @@ class Company extends CI_Controller {
 			$modul = $this->Modul_model->select_where($where)->result();
 			$where = array(
 				'id_modul'	=> $id_modul);
-			$id_trainer = $this->Modul_model->select_where($where)->row('id_trainer');
-			$where2 = array(
-				'id_trainer' => $id_trainer);
 			$id_company = array(
 				'id_company' => $this->Modul_model->select_where($where)->row('id_company'));
+			$id_sertifikasi = array(
+				'id_sertifikasi' => $this->Sertifikasi_model->select_where($where)->row('id_sertifikasi'));
+			$id_peserta = array(
+				'id_peserta' => $this->Psertifikasi_model->select_where($id_sertifikasi)->row('id_peserta'));
 			$data=array(
 				'title' 		=> 'Dashboard',
 				'profile'		=> $this->Company_model->select_where($id_company)->result(),
 				'modul'			=> $modul,
-				'namatrainer'	=> $this->Trainer_model->select_where($where2)->row('nama'),
 				'submateri'		=> $this->Materi_model->select_where($where)->result(),
 				'jumlah_materi'	=> $this->Materi_model->select_where($where)->num_rows(),
 				'jumlah_peserta'=> $this->Training_model->select_peserta($id_modul)->num_rows(),
 				'data_peserta'	=> $this->Training_model->select_peserta($id_modul)->result(),
 				'company'		=> $this->Company_model->select_where($id_company)->result(),
 				'category'		=> $this->Category_model->select()->result(),
+				'sertifikasi'	=> $this->Sertifikasi_model->select_where($where)->result(),
+				'cek'			=> $this->Sertifikasi_model->select_where($where)->num_rows(),
+				'psertifikasi'	=> $this->Peserta_model->select_where($id_peserta)->result(),
 				'content' 		=> 'company/pages/v_detailcourse');
 			$this->load->view('company/layout/wrapper',$data);
 		}else{
 			$this->load->view('company/pages/v_login');
 		}
-
 	}
 
 	function detailmateri($slug){
@@ -133,6 +130,8 @@ class Company extends CI_Controller {
 				'slug' => $slug);
 			$materi = $this->Materi_model->select_where($where)->result();
 			$id_materi = $this->Materi_model->select_where($where)->row('id_materi');
+			$id_modul = array(
+				'id_modul' => $this->Materi_model->select_where($where)->row('id_modul'));
 			$quiz= $this->Quiz_model->quizkategori($id_materi)->result();
 			// $cekquiz = $this->Quiz_model->pertanyaan($id_test)->num_rows();
 			$data=array(
@@ -140,6 +139,7 @@ class Company extends CI_Controller {
 				'profile'		=> $this->Company_model->select_where($id_company)->result(),
 				'materi'		=> $materi,
 				'quiz'			=> $quiz,
+				'slugmodul'		=> $this->Modul_model->select_where($id_modul)->row('slug'),
 				// 'cekquiz'		=> $cekquiz,
 				'content' 		=> 'company/pages/v_detailmateri');
 			$this->load->view('company/layout/wrapper',$data);
@@ -149,24 +149,62 @@ class Company extends CI_Controller {
 	}
 
 	function detailpeserta($code){
-		if($this->session->userdata('status') == 'logincompany'){
-		$where= array(
-			'training.id_modul = modul.id_modul and training.code = ' => $code);
-		$id_company = $this->Training_model->join_modul($where)->row('id_company');
-		$detailpeserta = $this->Training_model->detail_peserta($code)->result();
-		$id_peserta = $this->Training_model->detail_peserta($code)->row('id_peserta');
-		$id_modul = $this->Training_model->detail_peserta($code)->row('id_modul');
-		$where = array(
-			'materi.id_modul' => $id_modul,
-			'result.id_peserta' => $id_peserta);
-		$quiz = $this->Result_model->select_quiz($where)->result();
-		$content = array(
-			'title' => 'Dashboard',
-			'detailpeserta' => $detailpeserta,
-			'id_company' => $id_company,
-			'quiz' => $quiz,
-			'content' => 'company/Pages/v_detailpeserta');
-		$this->load->view('company/Layout/Wrapper',$content);
+		if ($this->session->userdata('status') == 'logincompany'){
+			$id_company = array(
+				'id_company' => $this->session->userdata('id_company')
+			);
+			$profile = $this->Company_model->select_where($id_company)->result();
+			$where= array(
+				'training.id_modul = modul.id_modul and training.code = ' => $code);
+			$id_company = $this->Training_model->join_modul($where)->row('id_company');
+			$detailpeserta = $this->Training_model->detail_peserta($code)->result();
+			$id_peserta = $this->Training_model->detail_peserta($code)->row('id_peserta');
+			$id_modul = $this->Training_model->detail_peserta($code)->row('id_modul');
+			$where = array(
+				'materi.id_modul' => $id_modul,
+				'result.id_peserta' => $id_peserta);
+			$quiz = $this->Result_model->select_quiz($where)->result();
+			$where = array(
+				'id_modul' => $this->Training_model->detail_peserta($code)->row('id_modul'));
+			$content = array(
+				'title' => 'Dashboard',
+				'profile'		=> $profile,
+				'detailpeserta' => $detailpeserta,
+				'id_company' => $id_company,
+				'quiz' => $quiz,
+				'slugmodul' => $this->Modul_model->select_where($where)->row('slug'),
+				'content' => 'company/Pages/v_detailpeserta');
+			$this->load->view('company/Layout/Wrapper',$content);
+		}else{
+			$this->load->view('company/pages/v_login');
+		}
+	}
+
+	function detailpsertifikasi($unique_code){
+		if ($this->session->userdata('status') == 'logincompany'){
+			$id_company = array(
+				'id_company' => $this->session->userdata('id_company')
+			);
+			$profile = $this->Company_model->select_where($id_company)->result();
+			// $where= array(
+			// 	'training.id_modul = modul.id_modul and training.code = ' => $code);
+			// $id_company = $this->Training_model->join_modul($where)->row('id_company');
+			$code = array('unique_code' => $unique_code);
+			$detailpeserta = $this->Peserta_model->select_where($code)->result();
+			// $id_peserta = $this->Peserta_model->select_where($code)->row('id_peserta');
+			// $id_modul = $this->Training_model->detail_peserta($code)->row('id_modul');
+			// $where = array(
+			// 	'materi.id_modul' => $id_modul,
+			// 	'result.id_peserta' => $id_peserta);
+			// $quiz = $this->Result_model->select_quiz($where)->result();
+			$content = array(
+				'title' => 'Dashboard',
+				'profile'		=> $profile,
+				'detailpeserta' => $detailpeserta,
+				// 'id_company' => $id_company,
+				// 'quiz' => $quiz,
+				'content' => 'company/Pages/v_psertifikasi');
+			$this->load->view('company/Layout/Wrapper',$content);
 		}else{
 			$this->load->view('company/pages/v_login');
 		}
@@ -249,7 +287,7 @@ class Company extends CI_Controller {
 			$pembagi++;
 		}
 		$nilai = $skor / $pembagi;
-		$data = array('nilaicompany' => $nilai);
+		$data = array('nilaicompany' => number_format($nilai,2));
 		$where = array('code' => $this->uri->segment(4));
 		$this->Result_model->update($where,$data);
 

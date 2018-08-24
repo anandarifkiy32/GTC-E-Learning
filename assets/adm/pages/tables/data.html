@@ -1631,14 +1631,10 @@
 <!-- page script -->
 <script>
   $(function () {
-    $('#example1').DataTable({
-      "lengthMenu": [[5], [5]],
-      'lengthChange':false
-    })
+    $('#example1').DataTable()
     $('#example2').DataTable({
       'paging'      : true,
-      'lengthChange': true,
-      'length'      : [[5]],
+      'lengthChange': false,
       'searching'   : false,
       'ordering'    : true,
       'info'        : true,

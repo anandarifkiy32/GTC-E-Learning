@@ -8,10 +8,6 @@
       <li class="active">Daftar Trainer</li>
     </ol>
   </section>
-<<<<<<< HEAD
-=======
-
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
   <section class="content">
     <div class="row">
       <div class="col-xs-12">
@@ -34,10 +30,6 @@
                 </thead>
                 <tbody>
                   <?php $num = 1 ;foreach ($trainer as $t) { ?>
-<<<<<<< HEAD
-=======
-
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                     <tr>
                       <td><?php echo $num ?></td>
                       <td><?php echo $t->nama; ?></td>
@@ -50,10 +42,6 @@
                     </tr> 
                     <?php $num++; } ?>
                   </tbody>
-<<<<<<< HEAD
-=======
-
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
                 </table>
               </div>
             </div>

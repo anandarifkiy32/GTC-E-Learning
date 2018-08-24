@@ -1,10 +1,4 @@
-<<<<<<< HEAD
 <div class="content-wrapper">
-=======
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-	<!-- Content Header (Page header) -->
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 	<section class="content-header">
 		<h1>
 			Detail Trainer
@@ -15,14 +9,7 @@
 			<li class="active">Detail Trainer</li>
 		</ol>
 	</section>
-<<<<<<< HEAD
 	<section class="content">
-=======
-
-	<!-- Main content -->
-	<section class="content">
-		<!-- Small boxes (Stat box) -->
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 		<div class="row">
 			<div class="col-md-12">
 				<div class="box" style="border-radius: 0px;">
@@ -128,10 +115,6 @@
 										</tr> 
 										<?php $num++; } ?>
 									</tbody>
-<<<<<<< HEAD
-=======
-
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 								</table>
 							</div>
 						</div>
@@ -139,10 +122,4 @@
 				</div>
 			</div>
 		</section>
-<<<<<<< HEAD
 	</div>
-=======
-		<!-- /.content -->
-	</div>
-	<!-- /.content-wrapper -->
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3

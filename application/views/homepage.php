@@ -26,31 +26,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 	<link href="<?php echo base_url()?>assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 
-<!-- 	<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.620/styles/kendo.common-material.min.css" />
+	<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.620/styles/kendo.common-material.min.css" />
 	<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.620/styles/kendo.material.min.css" />
-	<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.620/styles/kendo.material.mobile.min.css" /> -->
+	<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.2.620/styles/kendo.material.mobile.min.css" />
 
 	<script src="https://kendo.cdn.telerik.com/2018.2.620/js/jquery.min.js"></script>
-	<!-- 	<script src="https://kendo.cdn.telerik.com/2018.2.620/js/kendo.all.min.js"></script> -->
+	<script src="https://kendo.cdn.telerik.com/2018.2.620/js/kendo.all.min.js"></script>
 	<!-- //font-awesome icons -->
 	<link href="//fonts.googleapis.com/css?family=Alegreya+Sans+SC:100,100i,300,300i,400,400i,500,500i,700,700i,800,800i,900,900i" rel="stylesheet">
 	<link href="//fonts.googleapis.com/css?family=Roboto+Mono:100,100i,300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-	<style>
-	.example-modal .modal {
-		position: relative;
-		top: auto;
-		bottom: auto;
-		right: auto;
-		left: auto;
-		display: block;
-		z-index: 1;
-	}
-
-	.example-modal .modal {
-		background: transparent !important;
-	}
-</style>
 </head>
 
 <body>
@@ -79,29 +63,32 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<li><a href="#services" class="scroll">Training Program</a></li>
 						<li><a href="#gallery" class="scroll">Clients</a></li>
 						<li><a href="#contact" class="scroll">Contact</a></li>
-						<li><a href="" style="outline: none;" data-toggle="modal" data-target="#modal-default">Sign in / Sign up</a></li>
-
-					</ul>
-				</div>
-				<div class="modal fade" id="modal-default">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-body">									
-								<div class="tab">
-									<button class="tablinks active" onclick="openCity(event, 'Login')">Sign in</button>
-									<button class="tablinks" onclick="openCity(event, 'Register')">Sign up</button>		
-								</div>
-								<div id="Login" class="tabcontent" style="display: block;">
-									<form action="<?php echo base_url('homepage/login') ;?>" method="post">
-										<div class="form-group">
-											<label for="text">Email :</label>
-											<input type="text" class="form-control" id="email" name="username" required="">
+						<li><a href="" style="outline: none;" data-toggle="modal" data-target="#myModal">Sign in / Sign up</a></li>
+						<div class="modal fade" id="myModal" role="dialog">
+							<div class="modal-dialog">
+								<!-- Modal content-->
+								<div class="modal-content">
+									<div class="modal-body">									
+										<div class="tab">
+											<button class="tablinks active" onclick="openCity(event, 'Login')">Sign in</button>
+											<button class="tablinks" onclick="openCity(event, 'Register')">Sign up</button>		
 										</div>
-										<div class="form-group">
-											<label for="text">Password :</label>
-											<input type="password" class="form-control" id="pwd" name="password" required="">
+										<div id="Login" class="tabcontent" style="display: block;">
+											<form action="<?php echo base_url('homepage/login') ;?>" method="post">
+												<div class="form-group">
+													<label for="text">Email :</label>
+													<input type="text" class="form-control" id="email" name="username" required="">
+												</div>
+												<div class="form-group">
+													<label for="text">Password :</label>
+													<input type="password" class="form-control" id="pwd" name="password" required="">
+												</div>
+												<div class="checkbox">
+													<label><input type="checkbox"> Remember me</label>
+												</div>
+												<button type="submit" class="btn btn-success">Sign in</button>
+											</form>
 										</div>
-<<<<<<< HEAD
 
 										<div id="Register" class="tabcontent">
 											<form action="<?php echo base_url().'homepage/register'?>" method="POST">
@@ -147,64 +134,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 												</div>
 												<button type="submit" class="btn btn-success">Sign up</button>
 											</form>
-=======
-										<div class="checkbox">
-											<label><input type="checkbox"> Remember me</label>
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 										</div>
-										<button type="submit" class="btn btn-success">Sign in</button>
-									</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									</div>
 								</div>
 
-								<div id="Register" class="tabcontent">
-									<form action="<?php echo base_url().'homepage/register'?>" method="POST">
-										<div class="form-group">
-											<label for="text">Email :</label>
-											<input type="email" class="form-control" id="email" name="email" required="">
-										</div>
-										<div class="form-group">
-											<label for="text">Password :</label>
-											<input type="password" class="form-control" id="email" name="password" >
-										</div>
-										<div class="form-group">
-											<label for="text">Nama Lengkap :</label>
-											<input type="text" class="form-control" id="email" name="namalengkap">
-										</div>
-										<div class="form-group">
-											<label for="text">Jenis Kelamin :</label><br>
-											<select class="form-control" id="sel1" name="gender">
-												<option>---</option>
-												<option value="L">Laki-laki</option>
-												<option value="P">Perempuan</option>
-											</select>
-										</div>
-										<div class="form-group">
-											<label for="dtp_input2">Tanggal Lahir :</label>
-
-											<input class="form-control form_date date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd" size="16" type="text" value="" readonly>
-
-											<input type="hidden" id="dtp_input2" value="" name="tgl"/>
-										</div>
-										<div class="form-group">
-											<label for="comment">Alamat :</label>
-											<textarea class="form-control" rows="5" id="comment" name="alamat"></textarea>
-										</div>
-
-										<div class="form-group">
-											<label for="comment">No. Telepon :</label>
-											<input type="text" class="form-control" name="telepon">
-										</div>
-										<button type="submit" class="btn btn-success">Sign up</button>
-									</form>
-								</div>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 							</div>
 						</div>
-						<!-- /.modal-content -->
-					</div>
-					<!-- /.modal-dialog -->
+					</ul>
 				</div>
 			</div>
 		</nav>
@@ -383,7 +322,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<div class="col-md-3 wthree_team_grid">
 					<div class="hovereffect">
 						<img src="<?php echo base_url()?>assets/web/images/tm1.jpg" alt=" " class="img-responsive" />
-
+						
 					</div>
 					<h4>Max Payne</h4>
 					<p>manager</p>
@@ -391,7 +330,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<div class="col-md-3 wthree_team_grid">
 					<div class="hovereffect">
 						<img src="<?php echo base_url()?>assets/web/images/tm2.jpg" alt=" " class="img-responsive" />
-
+						
 					</div>
 					<h4> vessi vel</h4>
 					<p>trainer</p>
@@ -399,7 +338,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<div class="col-md-3 wthree_team_grid">
 					<div class="hovereffect">
 						<img src="<?php echo base_url()?>assets/web/images/tm3.jpg" alt=" " class="img-responsive" />
-
+						
 					</div>
 					<h4>Mark Jest</h4>
 					<p>director</p>
@@ -407,7 +346,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<div class="col-md-3 wthree_team_grid">
 					<div class="hovereffect">
 						<img src="<?php echo base_url()?>assets/web/images/tm44.jpg" alt=" " class="img-responsive" />
-
+						
 					</div>
 					<h4>John smith</h4>
 					<p>sports member</p>
@@ -481,7 +420,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         startView: 2,
         forceParse: 0,
         showMeridian: 1
-    	});
+    });
 			$('.form_date').datetimepicker({
 				language:  'id',
 				weekStart: 1,
@@ -520,6 +459,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				evt.currentTarget.className += " active";
 			}
 		</script>
-		<!-- //here ends scrolling icon -->
-	</body>
-	</html>
+		<script>
+			$(document).ready(function () {
+                    // create DateTimePicker from input HTML element
+                    $("#datepicker").kendoDatePicker({
+                    	value: new Date(),
+                    	dateInput: true
+                    });
+                });
+            </script>
+            <!-- //here ends scrolling icon -->
+        </body>
+        </html>

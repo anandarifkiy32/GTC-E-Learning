@@ -1,8 +1,4 @@
 <div class="content-wrapper">
-<<<<<<< HEAD
-=======
-
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
   <?php foreach ($trainer as $t) {  
     ?>
     <section class="content">
@@ -57,10 +53,6 @@
         <div class="col-md-3 col-sm-6 col-xs-12">
           <a href="<?php echo base_url('company/detailcourse/'.$c->slug) ?>">
             <div class="box box-widget widget-user">
-<<<<<<< HEAD
-=======
-              <!-- Add the bg color to the header using any of the bg-* classes -->
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
               <div class="widget-user-header bg-black" style="background: url('/gtclearning/assets/modul/<?php echo $c->img ?>'); background-size: cover">
                 <h3 class="widget-user-username">
                   <?php echo $c->nama;?>
@@ -80,10 +72,6 @@
               <h4 class="modal-title">Tambah Course</h4>
             </div>
             <form action="<?php echo base_url('company/tambahcourse') ?>" method="post">
-<<<<<<< HEAD
-=======
-
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
               <div class="modal-body">
                 <div class="box-body">
                   <div class="form-group">
@@ -108,31 +96,14 @@
                     <input type="file" name="berkas" class="form-control">
                   </div>
                 </div>
-<<<<<<< HEAD
               </div>
-=======
-                <!-- /.box-body -->
-              </div>
-
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Simpan</button>
               </div>
             </form>
           </div>
-<<<<<<< HEAD
         </div>
       </div>
     </section>
   </div>
-=======
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-    </section>
-    <!-- /.content -->
-  </div>
-<!-- /.content-wrapper -->
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3

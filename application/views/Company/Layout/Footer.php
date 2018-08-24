@@ -81,5 +81,14 @@
     })
   })
 </script>
+<script>
+  $(function () {
+    $('#example3').DataTable({
+      "lengthMenu": [[5], [5]],
+      'lengthChange':false,
+      'ordering'    : false
+    })
+  })
+</script>
 </body>
 </html>

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 <?php 
-=======
-<?php
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 class Quiz_model extends CI_Model{
 
 	function select_where($where){
@@ -10,38 +6,13 @@ class Quiz_model extends CI_Model{
 	} 
 
 	function soal($where){
-<<<<<<< HEAD
 		$this->db->select('soal.pertanyaan as soal, trainer.nama as namatrainer, COUNT(soal.pertanyaan) as totalsoal, materi.judul as namamateri, materi.slug as slug, test.waktu as waktu, soal.tipe as tipe');
-=======
-		$this->db->select('soal.pertanyaan as soal, trainer.nama as namatrainer, COUNT(soal.pertanyaan) as totalsoal, materi.judul as namamateri, materi.slug as slug, test.waktu as waktu');
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 		$this->db->from('test, soal, trainer, materi');
 		$this->db->where('test.id_test',$where);
 		$this->db->where('test.id_test = soal.id_test AND trainer.id_trainer = test.id_trainer AND test.id_materi = materi.id_materi');
 		return $this->db->get();
 	}
 
-<<<<<<< HEAD
-=======
-	function cekquiz($code,$kategori){
-		$this->db->select('DISTINCT(modul.nama),materi.judul, test.waktu, count(soal.id_soal) as jml_soal, materi.slug as slug, test.code as code');
-		$this->db->from('test,materi,modul,soal');
-		$this->db->where('test.code',$code);
-		$this->db->where('test.kategori',$kategori);
-		$this->db->where('test.id_materi = materi.id_materi and modul.id_modul = materi.id_modul and soal.id_test = test.id_test');
-		return $this->db->get();
-	}
-
-	function getsoal($slug){
-		$this->db->select('soal.id_soal, soal.pertanyaan');
-		$this->db->from('test,materi,soal');
-		$this->db->where('materi.slug',$slug);
-		$this->db->where('test.id_materi = materi.id_materi');
-		$this->db->where('test.id_test = soal.id_test');
-		return $this->db->get();
-	}
-
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
 	function quizkategori($where){
 		$this->db->select('test.kategori as kategori, test.waktu as waktu, test.id_test as id_test, materi.id_materi, test.tipesoal as tipesoal, test.code as code');
 		$this->db->from('materi, test');
@@ -58,7 +29,6 @@ class Quiz_model extends CI_Model{
 		return $this->db->get();
 	}
 
-<<<<<<< HEAD
 	function cekquiz($code,$kategori){
 		$this->db->select('DISTINCT(modul.nama),materi.judul, test.waktu, count(soal.id_soal) as jml_soal, materi.slug as slug,test.code as code');
 		$this->db->from('test,materi,modul,soal');
@@ -78,8 +48,3 @@ class Quiz_model extends CI_Model{
 	}
 }
 
-=======
-
-
-}
->>>>>>> 7757c236da80c647f64a8b4fc19d07e5ae803fe3
