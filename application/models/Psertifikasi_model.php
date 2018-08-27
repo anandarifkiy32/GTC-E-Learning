@@ -22,4 +22,12 @@ class Psertifikasi_model extends CI_Model
 		$this->db->where($where);
 		$this->db->delete('psertifikasi');
 	}
+
+	function select_peserta($where){
+		$this->db->select('*');
+		$this->db->from('psertifikasi, peserta');
+		$this->db->where('psertifikasi.id_peserta',$where);
+		$this->db->where('psertifikasi.id_peserta = peserta.id_peserta');
+		return $this->db->get();
+	}
 }

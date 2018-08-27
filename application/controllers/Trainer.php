@@ -44,12 +44,14 @@ class Trainer extends CI_Controller {
 				$nama    = $s->nama;
 				$id_trainer = $s->id_trainer;
 				$unique_code = $s->unique_code;
+				$img	= $s->img;
 			}
 
 			$data_session = array(
 				'nama'    => $nama,
 				'trainer' => $id_trainer,
 				'unique_code'=> $unique_code,
+				'img'		=> $img,
 				'status'  => 'logintrainer'
 			);
 			$this->session->set_userdata($data_session);
@@ -103,7 +105,7 @@ class Trainer extends CI_Controller {
 		<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
 		<h3>GTC EduSite</h3>
 		<p>Terimakasih sudah mendaftar. Silahkan verifikasi akun anda dengan klik button di bawah ini.</p>
-		<a href=http://localhost:81/gtclearning/trainer/verification/'.$unique_kode.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Verifikasi Email</button></a>
+		<a href=http://localhost/gtclearning/trainer/verification/'.$unique_kode.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Verifikasi Email</button></a>
 		</div>
 		</center>
 		</body>
@@ -822,9 +824,9 @@ class Trainer extends CI_Controller {
 	function hapusquiz($code){
 		if ($this->session->userdata('status') == 'logintrainer'){
 			$code = array(
-				'code' => $this->uri->segment(4));
+				'code'	=> $this->uri->segment(4));
 			$where = array(
-				'id_test' => $this->Test_model->select_where($code)->row('id_test'));
+				'id_test'	=> $this->Test_model->select_where($code)->row('id_test'));
 			$id_soal = array('id_soal' => $this->Soal_model->select_where($where)->row('id_soal'));
 
 			$this->Jawaban_model->delete($id_soal);
@@ -884,12 +886,15 @@ class Trainer extends CI_Controller {
 				'materi.id_modul' => $id_modul,
 				'result.id_peserta' => $id_peserta);
 			$quiz = $this->Result_model->select_quiz($where)->result();
+			$where = array(
+				'id_modul' => $this->Training_model->detail_peserta($code)->row('id_modul'));
 			$content = array(
 				'title' => 'Dashboard',
 				'profile'		=> $profile,
 				'detailpeserta' => $detailpeserta,
 				'id_trainer' => $id_trainer,
 				'quiz' => $quiz,
+				'slugmodul' => $this->Modul_model->select_where($where)->row('slug'),
 				'content' => 'Trainer/Pages/v_detailpeserta');
 			$this->load->view('Trainer/Layout/Wrapper',$content);
 		}else{
@@ -929,6 +934,10 @@ class Trainer extends CI_Controller {
 
 	function review(){
 		if ($this->session->userdata('status') == 'logintrainer'){
+			$id_trainer = array(
+				'id_trainer' => $this->session->userdata('trainer')
+			);
+			$profile = $this->Trainer_model->select_where($id_trainer)->result();
 			$where = array('code' => $this->uri->segment(4));
 			$id_result = $this->Result_model->select_where($where)->row('id_result');
 			$id_test = $this->Result_model->select_where($where)->row('id_test');
@@ -943,6 +952,7 @@ class Trainer extends CI_Controller {
 			$jawaban = $this->Result_model->join_jawaban_soal($where)->result();
 			$data = array(
 				'title' 	=> 'Review',
+				'profile'	=> $profile,
 				'jawaban' 	=> $jawaban,
 				'tipesoal'	=> $tipesoal,
 				'kategori'	=> $kategori,
@@ -1033,7 +1043,7 @@ class Trainer extends CI_Controller {
 		$config['max_width'] = '4048';
 		$config['max_height'] = '4048';
 		$config['file_name'] = $slug;
-		$config['replace'] = TRUE;
+		$config['overwrite'] = TRUE;
 		$this->load->library('upload',$config);
 		if(! $this->upload->do_upload('img')){
 
@@ -1125,7 +1135,7 @@ class Trainer extends CI_Controller {
 			<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
 			<h3>GTC EduSite</h3>
 			<p>Anda diundang dalam training'.$this->input->post('nama').' </p>
-			<a href=http://localhost:81/gtclearning/company/detailcourse/'.$slug.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Login</button></a>
+			<a href=http://localhost/gtclearning/company/detailcourse/'.$slug.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Login</button></a>
 			</div>
 			</center>
 			</body>
@@ -1177,7 +1187,7 @@ class Trainer extends CI_Controller {
 			<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
 			<h3>GTC EduSite</h3>
 			<p>Anda telah diundang dalam training Global Top Career sebagai perusahaan rekanan, sekarang anda memiliki hak akses untuk login di link berikut</p>
-			<a href=http://localhost:81/gtclearning/company><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Login</button></a>
+			<a href=http://localhost/gtclearning/company><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Login</button></a>
 			<p>Akun anda </p>
 			<p>Email : '.$email.'</p>
 			<p>Password : '.$pass.'</p>
@@ -1323,4 +1333,43 @@ class Trainer extends CI_Controller {
 			redirect(base_url('trainer/detailcourse/'.$slug));
 		}
 	}
+
+	public function getChats(){
+        header('Content-Type: application/json');
+        if ($this->input->is_ajax_request()) {
+            // Find friend
+            $friend = $this->input->post('chatWith');
+
+            // Get Chats
+            $chats = $this->db
+                ->select('*')
+                ->from('chat')
+                ->where('chat.slug_modul',$friend)
+                ->order_by('chat.waktu', 'desc')
+                ->limit(100)
+                ->get()
+                ->result();
+
+            $result = array(
+            	'name'	=> 'Chat',
+                'chats' => $chats
+
+            );
+            echo json_encode($result);
+       }
+    }
+
+    public function sendMessage()
+    {
+    	$where = array(
+				'unique_code'	=> $this->session->userdata('unique_code'));
+			$profile = $this->Peserta_model->select_where($where)->result();
+			$nama = $this->Trainer_model->select_where($where)->row('nama');
+
+        $this->db->insert('chat', array(
+            'pesan' => htmlentities($this->input->post('message', true)),
+            'slug_modul' => $this->input->post('chatWith'),
+            'pengirim' => $nama.' (Trainer)'
+        ));
+    }
 }

@@ -80,7 +80,7 @@
                             <?php foreach ($materi as $m) { 
                               if ($m->ppt != '') {?>
                                 <tr>
-                                  <td><a href="#" data-toggle="modal" data-target="#modal-default9"><?php echo $m->ppt ?></a></td>
+                                  <td>Materi Presentasi<a href="#" data-toggle="modal" data-target="#modal-default9"><?php echo $m->ppt ?></a></td>
                                   <td>
                                     <button class="btn btn-primary btn-flat btn-xs" data-toggle="modal" data-target="#modal-default10">Edit</button>
                                     <a href="<?php echo base_url().'trainer/hapusppt/'.$m->slug?>"><button class="btn btn-danger btn-flat btn-xs"><span class="fa fa-trash"></span></button></a>
@@ -91,7 +91,7 @@
                               }
                               if ($m->pdf != '') {?>
                                 <tr>
-                                  <td><a href="#" data-toggle="modal" data-target="#modal-default6"><?php echo $m->pdf ?></a></td>
+                                  <td>Hand Out : <a href="#" data-toggle="modal" data-target="#modal-default6"><?php echo $m->pdf ?></a></td>
                                   <td>
                                     <button class="btn btn-primary btn-flat btn-xs" data-toggle="modal" data-target="#modal-default4">Edit</button>
                                     <a href="<?php echo base_url().'trainer/hapuspdf/'.$m->slug?>"><button class="btn btn-danger btn-flat btn-xs"><span class="fa fa-trash"></span></button></a>
@@ -102,7 +102,7 @@
                               }
                               if($m->konten != ''){?>
                                 <tr>
-                                  <td><a href="#" data-toggle="modal" data-target="#modal-default7"><?php echo $m->konten ?></a></td>
+                                  <td>Materi Video : <a href="#" data-toggle="modal" data-target="#modal-default7"><?php echo $m->konten ?></a></td>
                                   <td>
                                     <button class="btn btn-primary btn-flat btn-xs" data-toggle="modal" data-target="#modal-default5">Edit</button>
                                     <a href="<?php echo base_url().'trainer/hapuskonten/'.$m->slug ?>"><button class="btn btn-danger btn-flat btn-xs"><span class="fa fa-trash"></span></button></a>
@@ -236,7 +236,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="modal fade" id="modal-default4">
+                      <div class="modal fade" id="modal-default10">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">

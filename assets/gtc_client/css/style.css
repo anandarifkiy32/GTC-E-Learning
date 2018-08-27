@@ -1268,9 +1268,9 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 	.msg-wgt-header {
 		width: 100%;
 		height: 30px;
-		line-height: 2.5em;
+		line-height: 2.0em;
 		text-align: center;
-		background: #6f85b5
+		background: #ff7c1c;
 	}
 
 	.msg-wgt-header a {
@@ -1297,11 +1297,13 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 	.msg-wgt-message-container {
 		width: 100%;
 		height: 230px;
-		overflow-y: scroll;
+		overflow-y: auto;
+		overflow-x: hidden;
 	}
 
 	.msg-wgt-message-list {
 		width: 100%;
+		max-width: 230px
 	}
 
 	tr.msg-wgt-message-list-header {
@@ -1324,7 +1326,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 
 	tr.msg-wgt-message-list-body td {
 		font-size: 13px;
-		color: #777;
+		color: black;
 	}
 
 	tr.msg-wgt-message-list-separator td {

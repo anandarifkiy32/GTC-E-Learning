@@ -1,6 +1,7 @@
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>
+    <a href="<?php echo base_url('trainer/detailcourse/'.$slugmodul) ?>"><button type="button" class="btn btn-flat btn-success"><span class="fa fa-arrow-left"></span> Back</button></a>
+    <h1 style="padding-top: 5px;">
       Detail Peserta
     </h1>
     <ol class="breadcrumb">

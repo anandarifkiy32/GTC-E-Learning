@@ -19,4 +19,9 @@ class Soal_model extends CI_Model
 		return $this->db->get_where('soal', $where);
 	}
 
+	function select_soal($where){
+		$this->db->order_by('title','RANDOM');
+		return $this->db->get_where('soal', $where);
+	}
+
 }

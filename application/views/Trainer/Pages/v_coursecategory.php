@@ -1,6 +1,7 @@
 <div class="content-wrapper">
   <section class="content-header">
-    <h1>
+    <a href="<?php echo base_url('trainer') ?>"><button type="button" class="btn btn-success btn-flat"><span class="fa fa-arrow-left"></span> Back</button></a>
+    <h1 style="padding-top: 5px">
       Course Category
     </h1>
     <ol class="breadcrumb">

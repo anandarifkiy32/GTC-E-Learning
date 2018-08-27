@@ -1,6 +1,7 @@
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
+		<a href="<?php echo base_url('company/detailpeserta/'.$this->uri->segment(3)) ?>"><button type="button" class="btn btn-success btn-flat"><span class="fa fa-arrow-left"> Back</span></button></a>
+		<h1 style="padding-top: 5px">
 			Review
 		</h1>
 		<ol class="breadcrumb">
@@ -34,7 +35,7 @@
 										</div>
 									</div>
 								</form>
-							<?php } elseif('tipesoal' == 'multiple'){  ?>
+							<?php } elseif($tipesoal == 'multiple'){  ?>
 								<form>
 									<div class="box-body">
 										<?php $no = 1 ;foreach ($jawaban as $j) { ?>

@@ -93,7 +93,7 @@
 										$teori = $this->Test_model->select_where($whereteori); 
 										$praktik = $this->Test_model->select_where($wherepraktik); 
 										?>
-										<th colspan="4">Modul : <?php echo $m->judul ?></th>
+										<th colspan="3">Modul : <?php echo $m->judul ?></th>
 										<th>
 											<?php $nilai = 0; $count = 0;
 											foreach ($test->result() as $t) {
@@ -120,7 +120,7 @@
 										<th style="background-color: #e8e8e8">Kategori</th>
 										<th style="background-color: #e8e8e8">Nilai</th>
 										<th style="background-color: #e8e8e8">Status</th>
-										<th style="background-color: #e8e8e8">Kemajuan</th>
+										<!-- <th style="background-color: #e8e8e8">Kemajuan</th> -->
 									</tr>
 									<tr>
 										<th style="background-color: #e8e8e8"><center><div>Teori</div></center></th>
@@ -171,9 +171,9 @@
 
 											} ?>
 										</td>
-										<td>
+										<!-- <td>
 											<p>Maju</p>
-										</td>
+										</td> -->
 
 									</tr>
 									<tr>
@@ -226,9 +226,9 @@
 
 											} ?>
 										</td>
-										<td>
-											<!-- <p>Maju</p> -->
-										</td>
+										<!-- <td>
+											<p>Maju</p>
+										</td> -->
 									</tr>
 								</tbody>
 								<?php } ?>

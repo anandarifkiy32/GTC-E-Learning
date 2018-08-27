@@ -57,8 +57,27 @@
 						<li><a href="<?php echo base_url('homepage/coursecatalog/') ?>">Courses</a></li>
 
 						<li><a href="<?php echo base_url('homepage/contact/')?>">Contact</a></li>
-						<li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Login         
-							</a>
+						<?php 
+						$where = array(
+							'unique_code' => $this->session->userdata('unique_code')
+						);
+
+						$profile = $this->Peserta_model->select_where($where)->result(); ?>
+						<li class="dropdown"><a href="<?php if(!$profile){echo base_url();}else{echo "";} ?>" <?php if($profile){ ?> class="dropdown-toggle" data-toggle="dropdown" <?php } ?>><span class="fa fa-user"></span>               
+							<?php 
+							if($profile){
+								foreach ($profile as $p) {
+									echo $p->nama ;
+								}
+							}else{
+								echo 'Login';
+							}
+							?></a>
+							<ul class="dropdown-menu">
+								<li><a href="<?php echo base_url('homepage/mycourses') ?>">My Courses</a></li>
+								<li><a href="<?php echo base_url('homepage/showprofile') ?>">Profile</a></li>
+								<li><a href="<?php echo base_url('homepage/logout')?>">Logout</a></li>
+							</ul>
 						</li>
 					</ul>
 
@@ -105,10 +124,10 @@
 						<!-- blog post -->
 						<div class="blog-post">
 							<?php if(isset($pesan)){ ?>
-							<div class="alert alert-success alert-dismissible">
-								<h4><i class="icon fa fa-check"></i> Berhasil !</h4>
-								Email anda telah terverifikasi
-							</div>
+								<div class="alert alert-success alert-dismissible">
+									<h4><i class="icon fa fa-check"></i> Berhasil !</h4>
+									Email anda telah terverifikasi
+								</div>
 							<?php } ?>
 							<form method="post" action="<?php echo base_url('homepage/login2') ;?>">
 								<div class="form-group">
@@ -134,53 +153,62 @@
 		</div>
 		<footer id="footer" class="section">
 
-    <!-- container -->
-    <div class="container">
+	<!-- container -->
+	<div class="container">
 
-        <!-- row -->
-        <div class="row">
+		<!-- row -->
+		<div class="row">
 
-            <!-- footer logo -->
-            <div class="col-md-6">
-                <div class="footer-logo">
-                    <a class="logo" href="index.html">
-                        <img src="<?php echo base_url()?>assets/gtc_client/img/logo.png" alt="logo">
-                    </a>
-                </div>
-            </div>
-            <!-- footer logo -->
-
-            <!-- footer nav -->
-            <div class="col-md-6">
-                <ul class="footer-nav">
-                    <li><a href="<?php echo base_url('')?>">Home</a></li>
-                    <li><a href="<?php echo base_url('homepage/coursecatalog')?>">Courses</a></li>
-                    <li><a href="<?php echo base_url('homepage/contact')?>">Contact</a></li>
-                    <li><a href="<?php echo base_url('')?>">Login</a></li>
-                </ul>
-            </div>
-            <!-- /footer nav -->
-
-        </div>
-        <!-- /row -->
-
-        <!-- row -->
-        <div id="bottom-footer" class="row">
-
-            <!-- copyright -->
-            <div class="col-md-12 text-center">
-                <div class="footer-copyright">
-                    <span>&copy; Copyright 2018. | GTC EduSite</span>
-                </div>
-            </div>
-            <!-- /copyright -->
-
-        </div>
-        <!-- row -->
-
-    </div>
-    <!-- /container -->
-
+			<!-- footer logo -->
+			<div class="col-md-6">
+				<div class="footer-logo">
+					<a class="logo" href="<?php echo base_url() ?>">
+						<img src="<?php echo base_url()?>assets/gtc_client/img/logo.png" alt="logo">
+					</a>
+				</div>
+			</div>
+			<!-- footer logo -->
+			<!-- footer nav -->
+			<div class="col-md-6">
+				<ul class="footer-nav">
+					<li><a href="<?php echo base_url('') ?>">Home</a></li>
+					<li><a href="<?php echo base_url('homepage/coursecatalog') ?>">Courses</a></li>
+					<li><a href="<?php echo base_url('homepage/contact') ?>">Contact</a></li>
+					<li class="dropdown"><a href="<?php if(!$profile){echo base_url();}else{echo "";} ?>" <?php if($profile){ ?> class="dropdown-toggle" data-toggle="dropdown" <?php } ?>>              
+						<?php 
+						if($profile){
+							foreach ($profile as $p) {
+								echo $p->nama ;
+							}
+						}else{
+							echo 'Login';
+						}
+						?></a>
+						<ul class="dropdown-menu">
+							<li><a href="<?php echo base_url('homepage/showprofile') ?>">Profile</a></li>
+							<li><a href="<?php echo base_url('homepage/logout')?>">Logout</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<!-- /footer nav -->
+		</div>
+		<!-- /row -->
+		<!-- row -->
+		<div id="bottom-footer" class="row">
+			<!-- copyright -->
+			<div class="col-md-12">
+				<center>
+					<div class="footer-copyright">
+						<span>© Copyright 2018. | <a href="<?php echo base_url('') ?>"> Global Top Career EduSite </a></span>
+					</div>
+				</center>
+			</div>
+			<!-- /copyright -->
+		</div>
+		<!-- row -->
+	</div>
+	<!-- /container -->
 </footer>
 		<!-- /Footer -->
 

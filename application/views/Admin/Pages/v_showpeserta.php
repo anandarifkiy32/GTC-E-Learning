@@ -23,7 +23,7 @@
 										<a href="<?php echo base_url('admin/delete_peserta/'.$p->unique_code) ?>"><button type="button" class="btn btn-danger" style="float: left;"></i> <span>Delete</span></button></a>
 										</div>
 										<div class="row">
-										<center><a href="<?php echo base_url('assets/gtc_client/img/'.$p->img)?>"><img src="<?php echo base_url('assets/gtc_client/img/'.$p->img)?>" class="img-circle" width="100" height="100" style="margin-top: 10px;"></a>
+										<center><a href="<?php echo base_url('assets/img/'.$p->img)?>"><img src="<?php echo base_url('assets/gtc_client/img/'.$p->img)?>" class="img-circle" width="100" height="100" style="margin-top: 10px;"></a>
 										</center>
 									</div>
 									</div>
@@ -39,11 +39,12 @@
 									<table class="table" rules="none">
 										<tr>
 											<th><center>Course</center></th>
-											<th><center>Status</center></th>
+											<th><center>Certification</center></th>
 										</tr>
 										<?php foreach ($course as $c) {?>
 											<tr>
-												<td><?php echo $c->namamodul; ?></td>
+												<td><a href="<?php echo base_url('admin/show_modul/'.$c->slug) ?>"><?php echo "-"; echo $c->namamodul; ?></a></td>
+												<td><a href="<?php echo base_url('admin/show_modul/'.$slugmodul) ?>"><?php echo "-"; echo $sertifikasi; ?></a></td>
 											</tr>
 										<?php } ?>
 									</table>

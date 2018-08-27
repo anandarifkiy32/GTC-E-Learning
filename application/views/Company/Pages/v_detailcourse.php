@@ -115,8 +115,8 @@
                 <td><?php echo $s->judul ?></td>
                 <td align="right">
                   <a href="<?php echo base_url().'company/detailmateri/'.$s->slug ?>"><button class="btn btn-primary btn-flat btn-xs">Lihat</button></a>
-                 <!--  <a href="<?php echo base_url().'company/hapusmateri/'.$s->slug.'/'.$this->uri->segment(3) ?>"><button class="btn btn-danger btn-flat btn-xs"><span class="fa fa-trash"></span></button></a> -->
-                </td>
+                  <!-- <a href="<?php echo base_url().'company/hapusmateri/'.$s->slug.'/'.$this->uri->segment(3) ?>"><button class="btn btn-danger btn-flat btn-xs"><span class="fa fa-trash"></span></button></a> -->
+                </td> 
               </tbody>
               <?php $no++; } ?>
             </table>

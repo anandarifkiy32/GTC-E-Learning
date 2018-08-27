@@ -6,9 +6,10 @@
 				</div>
 			</div>
 			<div id="courses-wrapper">
-				<?php foreach ($course as $c) { ?>
+				
 					<div class="row">
 						<!-- single course -->
+						<?php foreach ($course as $c) { ?>
 						<div class="col-md-3 col-sm-6 col-xs-6">
 							<div class="course">
 								<a href="<?php echo base_url('homepage/detailcourse/'.$c->slug) ?>" class="course-img">

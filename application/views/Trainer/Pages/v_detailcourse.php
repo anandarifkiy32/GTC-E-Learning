@@ -19,7 +19,7 @@
               <div class="col-md-2">
                 <div class="widget-user-image">
                   <center><?php foreach ($modul as $m) { ?>
-                    <img class="img-circle" src="<?php echo base_url().'assets/modul/'.$m->img ?>" alt="User Avatar" style="height: 60px;width: 60px;object-fit: cover;" data-toggle="modal" data-target="#modal-updatefoto"></center>
+                    <img class="img-circle" data-toggle="modal" data-target="#modal-updatefoto" src="<?php echo base_url().'assets/modul/'.$m->img ?>" alt="User Avatar" style="height: 60px;width: 60px;object-fit: cover;"></center>
                   </div>
                 </div>
                 <div class="col-md-7" style="padding-left: 0px">
@@ -173,7 +173,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-6">
         <div class="box" style="border-top:none">
           <div class="box-header">
             <h3 class="box-title">Data Peserta Training</h3>
@@ -183,8 +183,7 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Nama</th>
-                  <th>Status</th>
+                  <th>Nama</th>                  
                   <th></th>
                 </tr>
               </thead>
@@ -193,7 +192,6 @@
                   <tr>
                     <td><?php echo $num ?></td>
                     <td><?php echo $dp->nama ?></td>
-                    <td></td>
                     <td align="right"><a href="<?php echo base_url('trainer/detailpeserta/'.$dp->code)?>"><button class="btn btn-success btn-flat">Detail</button></a></td>
                   </tr>
                   <?php $num++; } ?>
@@ -202,9 +200,7 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
           <div class="box" style="border-top:none">
             <div class="box-header">
               <h3 class="box-title">Data Peserta Sertifikasi</h3>
@@ -215,7 +211,6 @@
                   <tr>
                     <th>#</th>
                     <th>Nama</th>
-                    <th>Status</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -224,7 +219,6 @@
                     <tr>
                       <td><?php echo $num ?></td>
                       <td><?php echo $ps->nama ?></td>
-                      <td></td>
                       <td align="right"><a href="<?php echo base_url('trainer/detailpsertifikasi/'.$ps->unique_code)?>"><button class="btn btn-success btn-flat">Detail</button></a></td>
                     </tr>
                     <?php $num++; } ?>
@@ -234,6 +228,34 @@
             </div>
           </div>
         </div>
+                    <div class="modal fade" id="modal-updatefoto">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Tambah Modul</h4>
+                  </div>
+                  <form role="form" action="<?php echo base_url().'trainer/update_picturecourse' ?>" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                      <div class="box-body">
+                          <?php foreach ($modul as $m) { ?>
+                            <input type="hidden" name="slug" value="<?php echo $m->slug ?>">
+                          <?php } ?>
+                        <div class="form-group">
+                          <label>Indikator</label>
+                            <input type="file" class="form-control" name="gambar">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </form>            
+                </div>
+              </div>
+            </div>
         <div class="modal fade" id="modal-default1">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -315,34 +337,6 @@
                         <div class="form-group">
                           <label>Evaluasi</label>
                           <textarea class="form-control" name="evaluasi" rows="5"></textarea>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                  </form>            
-                </div>
-              </div>
-            </div>
-            <div class="modal fade" id="modal-updatefoto">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Tambah Modul</h4>
-                  </div>
-                  <form role="form" action="<?php echo base_url().'trainer/update_picturecourse' ?>" method="post" enctype="multipart/form-data">
-                    <div class="modal-body">
-                      <div class="box-body">
-                          <?php foreach ($modul as $m) { ?>
-                            <input type="hidden" name="slug" value="<?php echo $m->slug ?>">
-                          <?php } ?>
-                        <div class="form-group">
-                          <label>Indikator</label>
-                            <input type="file" class="form-control" name="gambar">
                         </div>
                       </div>
                     </div>
@@ -441,5 +435,25 @@
                     </div>
                   </div>
                 </div>
+                 <div class="btn-chat" id="btn-chat" onclick="funcChat()"><a class="btn-chat" style="color: white" href="javascript:;" data-friend="<?= $this->uri->segment(3) ?>">Chat ?</a></div>
+
+                 <div id="chat-box">
+                        <div id="wgt-container-template" style="display: none">
+                          <div class="msg-wgt-container">
+                            <div class="msg-wgt-header">
+                              <a href="javascript:;" class="online"></a>
+                              <a href="javascript:;" class="name"></a>
+                              <a href="javascript:;" class="close">x</a>
+                            </div>
+                            <div class="msg-wgt-message-container">
+                              <table width="245px" class="msg-wgt-message-list">
+                              </table>
+                            </div>
+                            <div class="msg-wgt-message-form">
+                              <textarea style="font-size: 12px;width: 245px" name="message" placeholder="Type your message. Press Shift + Enter for newline"></textarea>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
               </section>
             </div>

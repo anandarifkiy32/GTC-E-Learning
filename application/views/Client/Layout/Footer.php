@@ -47,7 +47,7 @@
 			<div class="col-md-12">
 				<center>
 					<div class="footer-copyright">
-						<span>&copy; Copyright 2018. | <a href="<?php echo base_url('') ?>"> Global Top Career EduSite </a></span>
+						<span>© Copyright 2018. | <a href="<?php echo base_url('') ?>"> Global Top Career EduSite </a></span>
 					</div>
 				</center>
 			</div>
@@ -66,7 +66,6 @@
 <script src="<?php echo base_url()?>assets/pdfjs/build/pdf.js"></script>
 <script src="<?php echo base_url()?>assets/pdfjs/build/pdf.worker.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/jquery.min.js"></script>
-<sc<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/main.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
@@ -226,16 +225,17 @@ for (i = 0; i < acc.length; i++) {
 }
 </script>
 <script type="text/x-template" id="msg-template" style="display: none">
-    <tbody>
-        <tr class="msg-wgt-message-list-header">
-            <td rowspan="2"><img src="<?php echo base_url('assets/profile_photos/default.jpg') ?>"></td>
-            <td class="name"></td>
-            <td class="time"></td>
+    <tbody width="230px">
+        <tr class="msg-wgt-message-list-header" width="230px">
+            <td class="name" style="padding:0px 4px 0px 4px;font-size:12px"></td>
         </tr>
-        <tr class="msg-wgt-message-list-body">
-            <td colspan="2"></td>
+        <tr class="msg-wgt-message-list-body" width="230px">
+            <td style="padding:0px 4px 0px 8px"><p style="width:230px;margin:0px;font-size:12px;"></p></td>
         </tr>
-        <tr class="msg-wgt-message-list-separator"><td colspan="3"></td></tr>
+        <tr>
+        	<td class="time" style="font-size:9px;padding:4px 4px 0px 4px;color:black"></td>
+        </tr>
+        <tr class="msg-wgt-message-list-separator" width="230px"><td colspan="3"></td></tr>
     </tbody>
 </script>
 <script type="text/javascript">
@@ -317,14 +317,14 @@ jQuery(document).ready(function($) {
 
                         var tpl = $('#msg-template').html();
                         var tplBody = $('<div/>').append(tpl);
-                        var id = (val.id_chat +'_'+ val.id_pengirim +'_'+ val.slug_modul).toString();
+                        var id = (val.id_chat +'_'+ val.slug_modul).toString();
                  
 
                         if ($that.find('#'+ id).length == 0) {
                             tplBody.find('tbody').attr('id', id); // set class
-                            tplBody.find('td.name').text(val.namachat); // set name
+                            tplBody.find('td.name').text(val.pengirim); // set name
                             tplBody.find('td.time').text(val.waktu); // set time
-                            tplBody.find('.msg-wgt-message-list-body > td').html(nl2br(val.pesan)); // set message
+                            tplBody.find('.msg-wgt-message-list-body > td > p').html(nl2br(val.pesan)); // set message
                             $that.find('.msg-wgt-message-list').append(tplBody.html()); // append message
 
                             //Auto-scroll
@@ -335,13 +335,15 @@ jQuery(document).ready(function($) {
                         }
                     });
                 });
-            }, 1000));
+            }, 5000));
 
             $that.find('textarea').on('keydown', function(e) {
                 var $textArea = $(this);
                 if (e.keyCode === 13 && e.shiftKey === false) {
+                    if($textArea.val().trim() != ""){
                     $.post('<?= site_url('homepage/sendMessage') ?>', {message: $textArea.val(), chatWith: $data.chatWith}, function(data, textStatus, xhr) {
                     });
+                    }
                     $textArea.val(''); // clear input
 
                     e.preventDefault(); // stop 

@@ -49,6 +49,8 @@
 <script>
   $(function () {
     $('#example1').DataTable()
+    $('#example3').DataTable()
+    $('#example4').DataTable()
     $('#example2').DataTable({
       'paging'      : true,
       'lengthChange': false,

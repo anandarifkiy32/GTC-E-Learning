@@ -106,7 +106,7 @@
                           <!-- category widget -->
                            <div class="widget category-widget">
                             <h3>Your Score</h3>
-                            <i class="fa fa-user"></i>&nbsp;&nbsp;<?php foreach ($profile as $p) {echo $p->nama; } ?>
+                            <i class="fa fa-user"></i>  <?php foreach ($profile as $p) {echo $p->nama; } ?>
                             <h1 style="color:green;">
                              <?php $nilaiakhir = 0;$jml=0;
                              foreach ($materi->result() as $m) { 
@@ -167,11 +167,11 @@
                               <a href="javascript:;" class="close">x</a>
                             </div>
                             <div class="msg-wgt-message-container">
-                              <table width="100%" class="msg-wgt-message-list">
+                              <table width="245px" class="msg-wgt-message-list">
                               </table>
                             </div>
                             <div class="msg-wgt-message-form">
-                              <textarea name="message" placeholder="Type your message. Press Shift + Enter for newline"></textarea>
+                              <textarea style="font-size: 10px;padding: 5px" name="message" placeholder="Type your message. Press Shift + Enter for newline"></textarea>
                             </div>
                           </div>
                         </div>

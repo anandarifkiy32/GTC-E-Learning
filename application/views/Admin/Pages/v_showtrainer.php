@@ -18,7 +18,7 @@
 							<div class="row">
 								<?php foreach ($trainer as $t) { ?>
 									<div class="row">
-										<center><img src="<?php echo base_url('assets/gtc_client/profile_photos/trainer/'.$t->img)?>" class="img-circle" width="100" height="100" style="margin-top: 10px;">
+										<center><img src="<?php echo base_url('assets/profile_photos/trainer/'.$t->img)?>" class="img-circle" width="100" height="100" style="margin-top: 10px;">
 										</center>
 									</div>
 									<div class="row">
@@ -104,7 +104,7 @@
 										?>
 										<tr>
 											<td><?php echo $num ?></td>
-											<td><?php echo $c->nama; ?></td>
+											<td><a href="<?php echo base_url('admin/show_modul/'.$c->slug) ?>"><?php echo $c->nama; ?></a></td>
 											<td><?php echo $c->category; ?></td>
 											<td><?php echo $jmlmodul; ?></td>
 											<td><?php echo $jmlpeserta; ?></td>							

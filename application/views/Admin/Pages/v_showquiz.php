@@ -1,6 +1,6 @@
 <div class="content-wrapper">
   <section class="content-header">
-    <a href="<?php echo base_url('company/detailmateri/'.$this->uri->segment(3)) ?>"><button type="button" class="btn btn-flat btn-success"><span class="fa fa-arrow-left"></span> Back</button></a>
+    <a href="<?php echo base_url('admin/show_materi/'.$this->uri->segment(3)) ?>"><button type="button" class="btn btn-flat btn-success"><span class="fa fa-arrow-left"></span> Back</button></a>
     <h1 style="padding-top: 5px;">
       Detail Quiz
     </h1>
@@ -86,10 +86,10 @@
                   <div class="panel-body">
                     <div class="form-group">
                       <label>No. <?php echo $num;  ?></label>
-                      <a href="<?php echo base_url('trainer/hapussoal/'.$this->uri->segment(3).'/'.$this->uri->segment(4).'/'.$q->id_soal) ?>"></a>
-                          <!-- <button type="button" class="btn btn-danger btn-flat" title="Hapus" style="float: right; margin-bottom: 3px; margin-left: 3px"><span class="fa fa-trash"></span></button></a>
-                            <button type="button" class="btn btn-primary btn-flat" title="Edit" style="float: right; margin-bottom: 3px;" data-toggle="modal" data-target="#modal-default<?php echo $q->id_soal ?>"><span class="fa fa-edit"></span></button> -->
-                            <input type="text" disabled="" class="form-control" value="<?php echo $q->pertanyaan; ?>">
+                      <a href="<?php echo base_url('admin/hapussoal/'.$this->uri->segment(3).'/'.$this->uri->segment(4).'/'.$q->id_soal) ?>">
+                          <button type="button" class="btn btn-danger btn-flat" title="Hapus" style="float: right; margin-bottom: 3px; margin-left: 3px"><span class="fa fa-trash"></span></button></a>
+                            <!-- <button type="button" class="btn btn-primary btn-flat" title="Edit" style="float: right; margin-bottom: 3px;" data-toggle="modal" data-target="#modal-default<?php echo $q->id_soal ?>"><span class="fa fa-edit"></span></button> 
+                            <input type="text" disabled="" class="form-control" value="<?php echo $q->pertanyaan; ?>"> -->
                             <!-- <input type="text" disabled="" class="form-control" value="Jawaban:  <?php echo $q->benar; ?>"> -->
                           </div>
                         </div>
@@ -99,9 +99,9 @@
                         <div class="panel-body">
                           <div class="form-group">
                             <label>No. <?php echo $num ?></label>
-                            <a href="<?php echo base_url('trainer/hapussoal/'.$this->uri->segment(3).'/'.$this->uri->segment(4).'/'.$q->id_soal) ?>"></a>
-                              <!-- <button type="button" class="btn btn-danger btn-flat" title="Hapus" style="float: right; margin-bottom: 3px; margin-left: 3px"><span class="fa fa-trash"></span></button></a>
-                                <button type="button" class="btn btn-primary btn-flat" title="Edit" style="float: right; margin-bottom: 3px;" data-toggle="modal" data-target="#modal-default3<?php echo $q->id_soal ?>"><span class="fa fa-edit"></span></button> -->
+                            <a href="<?php echo base_url('admin/hapussoal/'.$this->uri->segment(3).'/'.$this->uri->segment(4).'/'.$q->id_soal) ?>">
+                              <button type="button" class="btn btn-danger btn-flat" title="Hapus" style="float: right; margin-bottom: 3px; margin-left: 3px"><span class="fa fa-trash"></span></button></a>
+                               <!--  <button type="button" class="btn btn-primary btn-flat" title="Edit" style="float: right; margin-bottom: 3px;" data-toggle="modal" data-target="#modal-default3<?php echo $q->id_soal ?>"><span class="fa fa-edit"></span></button> -->
                                 <input type="text" class="form-control" disabled="" value="<?php echo $q->pertanyaan ?>">
                                 <div class="row">
                                   <div class="col-md-10">
@@ -175,7 +175,7 @@
                     <h4 class="modal-title">Edit Quiz</h4>
                   </div>
                   <?php foreach($detail as $d){?>
-                    <form role="form" action="<?php echo base_url().'trainer/updatequiz/'.$this->uri->segment(3).'/'.$d->code ?>" method="post">
+                    <form role="form" action="<?php echo base_url().'admin/updatequiz/'.$this->uri->segment(3).'/'.$d->code ?>" method="post">
                       <div class="modal-body">
                         <div class="box-body">
                           <div class="form-group">
@@ -214,7 +214,7 @@
                           <span aria-hidden="true">x</span></button>
                           <h4 class="modal-title">Edit Soal</h4>
                         </div>
-                        <form role="form" action="<?php echo base_url().'trainer/updatesoal/'.$this->uri->segment(3).'/'.$this->uri->segment(4) ?>" method="post">
+                        <form role="form" action="<?php echo base_url().'admin/updatesoal/'.$this->uri->segment(3).'/'.$this->uri->segment(4) ?>" method="post">
                           <div class="modal-body">
                             <div class="box-body">
                               <div class="form-group">
@@ -246,7 +246,7 @@
                             <span aria-hidden="true">x</span></button>
                             <h4 class="modal-title">Edit Soal</h4>
                           </div>
-                          <form role="form" action="<?php echo base_url().'trainer/updatesoal/'.$this->uri->segment(3).'/'.$this->uri->segment(4) ?>" method="post">
+                          <form role="form" action="<?php echo base_url().'admin/updatesoal/'.$this->uri->segment(3).'/'.$this->uri->segment(4) ?>" method="post">
                             <div class="modal-body">
                               <div class="box-body">
                                 <div class="form-group">
@@ -331,7 +331,7 @@
                               <span aria-hidden="true">x</span></button>
                               <h4 class="modal-title">Tambah Soal</h4>
                             </div>
-                            <form role="form" action="<?php echo base_url().'trainer/updatesoal2/'.$this->uri->segment(3).'/'.$this->uri->segment(4) ?>" method="post">
+                            <form role="form" action="<?php echo base_url().'admin/updatesoal2/'.$this->uri->segment(3).'/'.$this->uri->segment(4) ?>" method="post">
                               <div class="modal-body">
                                 <?php if($tipesoal == 'essay'){ ?>
                                   <div class="box-body">

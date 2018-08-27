@@ -1,6 +1,8 @@
 <div class="content-wrapper">
 	<section class="content-header">
-		<h1>
+		<a href="<?php echo base_url('trainer/detailpeserta/'.$this->uri->segment(3)) ?>"><button type="button" class="btn btn-success btn-flat"><span class="fa fa-arrow-left"></span> Back</button></a>
+		<h1 style="padding-top: 5px">
+
 			Review
 		</h1>
 		<ol class="breadcrumb">
@@ -43,16 +45,20 @@
 													<input type="text" class="form-control" readonly="" value="Jawban : a. <?php echo $a ?>">
 												<?php } elseif($j->jawaban == 'B'){ ?>
 													<input type="text" class="form-control" readonly="" value="Jawaban : b. <?php echo $b ?>">
-												<?php }else{ ?>
+												<?php }elseif($j->jawaban == 'C'){ ?>
 													<input type="text" class="form-control" readonly="" value="Jawaban : c. <?php echo $c ?>">
+												<?php }else{ ?>
+													<input type="text" class="form-control" readonly="" value="Jawaban : Tidak Menjawab">
 												<?php } ?>
 
 												<?php if($j->jawaban == 'A'){ ?>
 													<input type="text" class="form-control" readonly="" value="Nilai : <?php echo $j->bobot_a ?>">
 												<?php } elseif($j->jawaban == 'B'){ ?>
 													<input type="text" class="form-control" readonly="" value="Nilai : <?php echo $j->bobot_b ?>">
-												<?php }else{ ?>
+												<?php }elseif($j->jawaban == 'C'){ ?>
 													<input type="text" class="form-control" readonly="" value="Nilai : <?php echo $j->bobot_c ?>">
+												<?php }else{ ?>
+													<input type="text" class="form-control" readonly="" value="Nilai : 0">
 												<?php } ?>
 											</div>
 											<?php $no++; } ?>

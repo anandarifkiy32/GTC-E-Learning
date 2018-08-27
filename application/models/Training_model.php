@@ -6,7 +6,7 @@ class Training_model extends CI_Model{
 	} 
 
 	function select_course($where){
-		$this->db->select('modul.nama as namamodul');
+		$this->db->select('modul.nama as namamodul, modul.slug as slug');
 		$this->db->from('training, peserta, modul');
 		$this->db->where('peserta.id_peserta',$where);
 		$this->db->where('training.id_modul = modul.id_modul AND training.id_peserta = peserta.id_peserta');
@@ -65,4 +65,10 @@ class Training_model extends CI_Model{
 		$this->db->delete('training');
 	}
 
+	function select_peserta2(){
+		$this->db->select('*');
+		$this->db->from('training, peserta');
+		$this->db->where('training.id_peserta = peserta.id_peserta');
+		return $this->db->get();
+	}
 }

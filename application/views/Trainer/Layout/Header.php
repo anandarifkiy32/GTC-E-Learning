@@ -21,6 +21,7 @@ folder instead of downloading all of them to reduce the load. -->
 <link rel="stylesheet" href="<?php echo base_url()?>assets/adm/bower_components/morris.js/morris.css">
 <!-- jvectormap -->
 <link rel="stylesheet" href="<?php echo base_url()?>assets/adm/bower_components/jvectormap/jquery-jvectormap.css">
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery.min.js"></script>
 <!-- Date Picker -->
 <link rel="stylesheet" href="<?php echo base_url()?>assets/adm/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
 <!-- Daterange picker -->
@@ -29,7 +30,128 @@ folder instead of downloading all of them to reduce the load. -->
 <link rel="stylesheet" href="<?php echo base_url()?>assets/adm/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 <!-- DataTables -->
 <link rel="stylesheet" href="<?php echo base_url()?>assets/adm/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+<link href="<?php echo base_url()?>assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<style type="text/css">
+  .msg-wgt-container {
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+    width: 250px;
+    height: 300px;
+    border: 1px solid #888888;
+    background: #ffffff;
+    z-order: 10000;
+    z-index: +10;
+  }
 
+  .minimize.msg-wgt-container {
+    height: 29px;
+  }
+
+  .msg-wgt-header {
+    width: 100%;
+    height: 30px;
+    line-height: 2.0em;
+    text-align: center;
+    background: #337ab7;
+  }
+
+  .msg-wgt-header a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+
+  .msg-wgt-header a.online {
+    width: 10px;
+    height: 10px;
+    background: #66d266;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    border-radius: 10px;
+  }
+
+  .msg-wgt-header a.close {
+    position: absolute;
+    right: 10px;
+    opacity: .7
+  }
+
+  .msg-wgt-message-container {
+    width: 100%;
+    height: 230px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .msg-wgt-message-list {
+    width: 100%;
+    max-width: 230px
+  }
+    tr.msg-wgt-message-list-header {
+    color: #999;
+    font-size: 9px;
+    vertical-align: top;
+  }
+
+  tr.msg-wgt-message-list-header img {
+    width: 42px;
+  }
+
+  tr.msg-wgt-message-list-header .name {
+    text-align: left;
+  }
+
+  tr.msg-wgt-message-list-header .time {
+    text-align: right;
+  }
+
+  tr.msg-wgt-message-list-body td {
+    font-size: 13px;
+    color: black;
+  }
+
+  tr.msg-wgt-message-list-separator td {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .msg-wgt-message-form {
+    width: 100%;
+    height: 40px;
+    border-top: 1px solid #ddd;
+  }
+
+  .msg-wgt-message-form textarea {
+    width: 98%;
+    border: 0;
+    height: 40px;
+  }
+  .msg-wgt-message-container::-webkit-scrollbar {
+      width: 5px;
+    }
+    .msg-wgt-message-container::-webkit-scrollbar-track {
+      background: #f1f1f1; 
+    }
+
+    /* Handle */
+    .msg-wgt-message-container::-webkit-scrollbar-thumb {
+      background: #888; 
+    }
+
+    /* Handle on hover */
+    .msg-wgt-message-container::-webkit-scrollbar-thumb:hover {
+      background: #555; 
+    }
+    
+    @media only screen and (max-width: 990px) {
+    h3.widget-user-username {
+      text-align: center;
+    }
+    h5.widget-user-desc{
+      text-align: center; 
+    }
+}
+</style>
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

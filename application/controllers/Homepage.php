@@ -94,12 +94,22 @@ class Homepage extends CI_Controller {
 		$where = array(
 			'unique_code' => $this->session->userdata('unique_code')
 		);
+
+		$profile = $this->Peserta_model->select_where($where)->result();
 		if($this->session->userdata('status') == 'login'){
-			$data['profile'] = $this->Peserta_model->select_where($where)->result();
-			$this->load->view('client/pages/v_contact',$data);
+			$data = array(
+				'profile'	=> $profile,
+				'banner'	=> 'Get In Touch',
+				'content'	=> 'client/pages/v_contact'
+			);
+			$this->load->view('client/layout/wrapper',$data);
 		}else{
-			$data['profile'] = FALSE;
-			$this->load->view('client/pages/v_contact',$data);
+			$data = array(
+				'profile'	=> $profile,
+				'banner'	=> 'Get In Touch',
+				'content'	=> 'client/pages/v_contact'
+			);
+			$this->load->view('client/layout/wrapper',$data);
 		}
 		
 	}
@@ -247,7 +257,26 @@ class Homepage extends CI_Controller {
 	}
 
 	function success(){
-		$this->load->view('client/pages/v_verifikasi');
+		$where = array(
+			'unique_code' => $this->session->userdata('unique_code')
+		);
+
+		$profile = $this->Peserta_model->select_where($where)->result();
+		if($this->session->userdata('status') == 'login'){
+			$data = array(
+				'profile'	=> $profile,
+				'banner'	=> 'Verifikasi',
+				'content'	=> 'client/pages/v_verifikasi'
+			);
+			$this->load->view('client/layout/wrapper',$data);
+		}else{
+			$data = array(
+				'profile'	=> $profile,
+				'banner'	=> 'Verifikasi',
+				'content'	=> 'client/pages/v_verifikasi'
+			);
+			$this->load->view('client/layout/wrapper',$data);
+		}
 	}
 
 	function verification($code){
@@ -330,7 +359,25 @@ class Homepage extends CI_Controller {
 	}
 
 	function showregister(){
-		$this->load->view('client/pages/v_register');
+		$where = array(
+			'unique_code' => $this->session->userdata('unique_code')
+		);
+		$profile = $this->Peserta_model->select_where($where)->result();
+		if($this->session->userdata('status') == 'login'){
+			$data = array(
+				'profile'	=> $profile,
+				'banner'	=> 'Register Now',
+				'content'	=> 'client/pages/v_register'
+			);
+			$this->load->view('client/layout/wrapper',$data);
+		}else{
+			$data = array(
+				'profile'	=> $profile,
+				'banner'	=> 'Register Now',
+				'content'	=> 'client/pages/v_register'
+			);
+			$this->load->view('client/layout/wrapper',$data);
+		}
 	}
 
 	function startcourse($slug){
@@ -652,7 +699,7 @@ class Homepage extends CI_Controller {
 			<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
 			<h3>GTC EduSite</h3>
 			<p><b>'.$namapeserta.'</b>. telah bergabung di course <b>'.$namamodul.'</b></p>
-			<a href=http://localhost:81/gtclearning/trainer/detailpeserta/'.$unique_kode.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">View</button></a>
+			<a href=http://localhost/gtclearning/trainer/detailpeserta/'.$unique_kode.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">View</button></a>
 			</div>
 			</center>
 			</body>
@@ -754,7 +801,7 @@ class Homepage extends CI_Controller {
 				<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
 				<h3>GTC EduSite</h3>
 				<p>'.$namapeserta.' telah mendaftar sertifikasi untuk kategori '.$course.'</p>
-				<a href=http://localhost:81/gtclearning/trainer/detailpsertifikasi/'.$unique_code.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">View</button></a>
+				<a href=http://localhost/gtclearning/trainer/detailpsertifikasi/'.$unique_code.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">View</button></a>
 				</div>
 				</center>
 				</body>
@@ -847,7 +894,7 @@ class Homepage extends CI_Controller {
 		$where = array(
 			'id_test' => $id_test);
 		$tipesoal = $this->Test_model->select_where($where)->row('tipesoal');
-		$soal = $this->Soal_model->select_where($where)->result();
+		$soal = $this->Soal_model->select_soal($where)->result();
 
 		//set session
 		$data = array('id_test' => $id_test, 'tipesoal' => $tipesoal);
@@ -956,9 +1003,12 @@ class Homepage extends CI_Controller {
 				}elseif($this->input->post('jawaban'.$s->id_soal) == 'B'){
 					$nilai = $s->bobot_b;
 					$jmlnilai = $jmlnilai + $s->bobot_b;
-				}else{
+				}elseif($this->input->post('jawaban'.$s->id_soal) == 'C'){
 					$nilai = $s->bobot_c;
 					$jmlnilai = $jmlnilai + $s->bobot_c;
+				}else{
+					$nilai = 0;
+					$jmlnilai = $jmlnilai + $nilai;
 				}
 
 				$data = array(
@@ -975,7 +1025,7 @@ class Homepage extends CI_Controller {
 				$config['upload_path']	= './assets/video/';
 				$config['max_size'] = '204800';
 				$config['overwrite'] = TRUE;
-				$config['allowed_types'] = 'mp4';
+				$config['allowed_types'] = 'mp4|wmv';
 				$config['file_name'] = $codetest.'_'.$s->id_soal.'_'.$id_peserta;
 				$this->load->library('upload',$config);
 				$this->upload->initialize($config);
@@ -1041,7 +1091,7 @@ class Homepage extends CI_Controller {
 		<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
 		<h3>GTC EduSite</h3>
 		<p>'.$namapeserta.' telah menyelesaikan quiz, dan menunggu review anda !.</p>
-		<a href=http://localhost:81/gtclearning/trainer/detailpeserta/'.$codetraining.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Review</button></a>
+		<a href=http://localhost/gtclearning/trainer/detailpeserta/'.$codetraining.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Review</button></a>
 		</div>
 		</center>
 		</body>
@@ -1081,8 +1131,7 @@ class Homepage extends CI_Controller {
 		echo number_format($sum,2);
 	}
 
-		public function getChats()
-    {
+	public function getChats(){
         header('Content-Type: application/json');
         if ($this->input->is_ajax_request()) {
             // Find friend
@@ -1090,9 +1139,8 @@ class Homepage extends CI_Controller {
 
             // Get Chats
             $chats = $this->db
-                ->select('chat.*, peserta.nama as namachat')
-                ->from('chat , peserta')
-                ->where('chat.id_pengirim = peserta.id_peserta')
+                ->select('*')
+                ->from('chat')
                 ->where('chat.slug_modul',$friend)
                 ->order_by('chat.waktu', 'desc')
                 ->limit(100)
@@ -1113,12 +1161,12 @@ class Homepage extends CI_Controller {
     	$where = array(
 				'unique_code'	=> $this->session->userdata('unique_code'));
 			$profile = $this->Peserta_model->select_where($where)->result();
-			$id_peserta = $this->Peserta_model->select_where($where)->row('id_peserta');
+			$nama = $this->Peserta_model->select_where($where)->row('nama');
 
         $this->db->insert('chat', array(
             'pesan' => htmlentities($this->input->post('message', true)),
             'slug_modul' => $this->input->post('chatWith'),
-            'id_pengirim' => $id_peserta
+            'pengirim' => $nama
         ));
     }
 }
