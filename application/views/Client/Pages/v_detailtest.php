@@ -127,9 +127,9 @@
 										<td>
 											<?php foreach($teori->result() as $t){
 												if($t->kategori == 'pre'){	
-													echo '<p>Pretes</p>';
+													echo '<p>Pre-Test</p>';
 												}else{
-													echo '<p>Postes</p>';
+													echo '<p>Post-Test</p>';
 												}
 											} ?>
 										</td>
@@ -159,7 +159,7 @@
 													foreach ($result->result() as $r) {
 														if($r->nilai == NULL){
 															echo '<p>Sedang di review</p>';
-														}elseif($r->nilai > 70){
+														}elseif($r->nilai >= 70){
 															echo '<p>Lulus</p>';
 														}elseif($r->nilai < 70){
 															echo '<p>Tidak Lulus</p>';
@@ -182,9 +182,9 @@
 										<td>
 											<?php foreach($praktik->result() as $t){
 												if($t->kategori == 'pre'){	
-													echo '<p>Pretes</p>';
+													echo '<p>Pre-Test</p>';
 												}else{
-													echo '<p>Postes</p>';
+													echo '<p>Post-Test</p>';
 												}
 											} ?>
 										</td>
@@ -214,7 +214,7 @@
 													foreach ($result->result() as $r) {
 														if($r->nilai == NULL){
 															echo '<p>Sedang di review</p>';
-														}elseif($r->nilai > 70){
+														}elseif($r->nilai >= 70){
 															echo '<p>Lulus</p>';
 														}elseif($r->nilai < 70){
 															echo '<p>Tidak Lulus</p>';

@@ -5,4 +5,13 @@ class Admin_model extends CI_Model{
 		return $this->db->get_where('admin', $where);
 	}
 
+	function select(){
+		return $this->db->get('admin');
+	}
+
+	function update($where,$data){
+		$this->db->where($where);
+		$this->db->update('admin',$data);
+	}
+
 }

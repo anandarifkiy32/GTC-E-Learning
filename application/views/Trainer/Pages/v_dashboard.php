@@ -35,7 +35,7 @@
               <div class="modal-body">
                 <div class="box-body">
                   <div class="form-group">
-                    <label>Nama Modul</label>
+                    <label>Nama Course</label>
                     <input type="hidden" name="id" value="">
                     <input type="text" class="form-control" name="nama" required="">
                   </div>
@@ -69,10 +69,10 @@
                     <input type="file" name="berkas" required="" class="form-control">
                   </div>
                   <div class="form-group">
-                    <label>Perusahaan</label>
-                    <input type="text" name="namacmp" class="form-control" required="" placeholder="Masukkan Nama Perusahaan">
-                    <input type="email" name="emailcmp" class="form-control" required="" placeholder="Masukkan email perusahaan">
+                    <label>Biaya</label>
+                    <input type="number" name="biaya" required="" class="form-control">
                   </div>
+
                 </div>
               </div>
               <div class="modal-footer">

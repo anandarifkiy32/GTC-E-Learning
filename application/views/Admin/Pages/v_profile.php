@@ -17,7 +17,9 @@
 					<div class="panel panel-default" style="border-radius: 0px;">
 						<div class="panel-body">
 							<div class="row">
-								<a href="<?php echo base_url('admin/editphoto/'.$p->id_admin) ?>"><button type="button" class="btn btn-primary btn-flat" style="float: right; margin-right: 15px;"><i class="fa fa-pencil-square-o"></i> <span>Update Profil</span></button></a>
+								<div style="float:right;">
+								<button type="button" class="btn btn-primary btn-flat" data-toggle="modal" data-target="#modal-default2" style=" margin-right: 15px;">Edit Password</button>
+							</div>
 							</div>
 							<div class="row">
 								<center><a href="<?php echo base_url('assets/gtc_client/img/'.$p->img)?>"><img src="<?php echo base_url('assets/gtc_client/img/'.$p->img)?>" class="img-circle" width="100" height="100" style="margin-top: 10px;"></a>
@@ -33,6 +35,33 @@
 					</div>
 				</div>
 			</div>
+			<div class="modal fade" id="modal-default2">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Edit Password</h4>
+                  </div>
+                  <form action="<?php echo base_url('Admin/updatepassword') ?>" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                      <div class="box-body">
+                        <div class="form-group">
+                          <label>Password baru</label>
+                          <input type="password" class="form-control" name="pass">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+
 		<?php } ?>
 	</section>
 </div>

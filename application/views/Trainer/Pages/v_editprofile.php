@@ -52,6 +52,10 @@
                   <label for="Nomor Telepon">Nomor Telepon</label>
                   <input type="text" class="form-control" id="Nomor Telepon" name="telepon" value="<?php echo $p->telp ?>" required="">
                 </div>
+                <div class="form-group">
+                  <label for="Alamat">Pengalaman</label>
+                  <textarea class="form-control" id="Alamat" name="pengalaman" rows="4" required=""><?php echo $p->pengalaman ?></textarea>
+                </div>
                 <div class="box-footer">
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>

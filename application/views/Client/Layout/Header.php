@@ -163,6 +163,15 @@
         width: 100%;
       }
     }
+
+    @media only screen and (max-width: 500px) {
+      .bottom{
+        display: none;
+      }
+      .main-button{
+        margin-bottom: 10px;
+      }
+    }
     
     .msg-wgt-message-container::-webkit-scrollbar {
       width: 5px;
@@ -211,6 +220,16 @@
           <li><a href="<?php echo base_url('homepage/coursecatalog/') ?>">Courses</a></li>
 
           <li><a href="<?php echo base_url('homepage/contact/')?>">Contact</a></li>
+
+          <?php if(!$profile) { ?>
+          <li class="dropdown"><a href="" class="dropdown-toggle" data-toggle="dropdown">Login</a>
+            <ul class="dropdown-menu">
+              <li><a href="<?php echo base_url('homepage/showlogin') ?>" style="color: black">Login as Participant</a></li>
+              <li><a href="<?php echo base_url('trainer') ?>" style="color: black">Login as Trainer</a></li>
+              <li><a href="<?php echo base_url('company')?>" style="color: black">Login as company</a></li>
+            </ul>
+          </li>
+          <?php }else{ ?>
           <li class="dropdown"><a href="<?php if(!$profile){echo base_url();}else{echo "";} ?>" <?php if($profile){ ?> class="dropdown-toggle" data-toggle="dropdown" <?php } ?>><span class="fa fa-user"></span>               
             <?php 
             if($profile){
@@ -227,9 +246,10 @@
               <li><a href="<?php echo base_url('homepage/logout')?>">Logout</a></li>
             </ul>
           </li>
-        </ul>
+          <?php } ?>
+          </ul>
 
-      </nav>
+        </nav>
 
-    </div>
-  </header>
+      </div>
+    </header>

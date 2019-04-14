@@ -11,6 +11,16 @@
     </ol>
   </section>
   <section class="content">
+    <?php foreach ($modul as $m) {
+      if($m->status == 0){ ?> 
+        <div class="alert alert-warning alert-dismissible">
+        <h4><i class="icon fa fa-warning"></i> Alert!</h4>
+        Course ini masih menunggu persetujuan admin.
+      </div>
+
+        <?php }
+    } ?>
+    
     <div class="row">
       <div class="col-md-7">
         <div class="box box-solid">
@@ -92,6 +102,21 @@
                     </div>
                   </div>
                 </div>
+                <div class="panel box" style="border:0px;">
+                  <div class="box-header">
+                    <h4 class="box-title" style="font-size: 14px;">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+                        Biaya
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseFive" class="panel-collapse collapse">
+                    <div class="box-body">
+                      <?php echo "Rp " . number_format($m->biaya,2,',','.'); ?>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
             <?php }?>
@@ -296,6 +321,10 @@
                               <option value="<?php echo $ctg->slug ?>" <?php if($ctg->slug == $m->category){echo "selected";} ?>><?php echo $ctg->category ?></option>
                             <?php } ?>
                           </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Biaya</label>
+                          <input type="number" name="biaya" class="form-control" value="<?php echo $m->biaya  ?>" required="">
                         </div>
                       </div>
                     </div>

@@ -21,21 +21,32 @@
 					<li><a href="<?php echo base_url('') ?>">Home</a></li>
 					<li><a href="<?php echo base_url('homepage/coursecatalog') ?>">Courses</a></li>
 					<li><a href="<?php echo base_url('homepage/contact') ?>">Contact</a></li>
-					<li class="dropdown"><a href="<?php if(!$profile){echo base_url();}else{echo "";} ?>" <?php if($profile){ ?> class="dropdown-toggle" data-toggle="dropdown" <?php } ?>>              
-						<?php 
-						if($profile){
-							foreach ($profile as $p) {
-								echo $p->nama ;
-							}
-						}else{
-							echo 'Login';
-						}
-						?></a>
-						<ul class="dropdown-menu">
-							<li><a href="<?php echo base_url('homepage/showprofile') ?>">Profile</a></li>
-							<li><a href="<?php echo base_url('homepage/logout')?>">Logout</a></li>
-						</ul>
-					</li>
+					<?php if(!$profile) { ?>
+          <li class="dropdown"><a href="" class="dropdown-toggle" data-toggle="dropdown">Login</a>
+            <ul class="dropdown-menu">
+              <li><a href="<?php echo base_url('homepage/showlogin') ?>" style="color: black">Login as Participant</a></li>
+              <li><a href="<?php echo base_url('trainer') ?>" style="color: black">Login as Trainer</a></li>
+              <li><a href="<?php echo base_url('company')?>" style="color: black">Login as company</a></li>
+            </ul>
+          </li>
+          <?php }else{ ?>
+          <li class="dropdown"><a href="<?php if(!$profile){echo base_url();}else{echo "";} ?>" <?php if($profile){ ?> class="dropdown-toggle" data-toggle="dropdown" <?php } ?>><span class="fa fa-user"></span>               
+            <?php 
+            if($profile){
+              foreach ($profile as $p) {
+                echo $p->nama ;
+              }
+            }else{
+              echo 'Login';
+            }
+            ?></a>
+            <ul class="dropdown-menu">
+              <li><a href="<?php echo base_url('homepage/mycourses') ?>">My Courses</a></li>
+              <li><a href="<?php echo base_url('homepage/showprofile') ?>">Profile</a></li>
+              <li><a href="<?php echo base_url('homepage/logout')?>">Logout</a></li>
+            </ul>
+          </li>
+          <?php } ?>
 				</ul>
 			</div>
 			<!-- /footer nav -->
@@ -63,8 +74,6 @@
 <div id='preloader'><div class='preloader'></div></div>
 <!-- /preloader -->
 <!-- jQuery Plugins -->
-<script src="<?php echo base_url()?>assets/pdfjs/build/pdf.js"></script>
-<script src="<?php echo base_url()?>assets/pdfjs/build/pdf.worker.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/main.js"></script>
@@ -199,8 +208,8 @@ modal.onclick = function() {
         var FileSize = file.files[0].size / 1024 / 1024;
         var fileformat = file.value.split('.')[1]; // in MB
          // in MB
-        if (FileSize > 180) {
-        		alert('Ukuran melebihi 180 MB');	
+        if (FileSize > 5) {
+        		alert('Ukuran melebihi 5 MB');	
         		$(file).val('');
         }
         if (fileformat.toUpperCase() != 'MP4'){
@@ -335,7 +344,7 @@ jQuery(document).ready(function($) {
                         }
                     });
                 });
-            }, 5000));
+            }, 2000));
 
             $that.find('textarea').on('keydown', function(e) {
                 var $textArea = $(this);

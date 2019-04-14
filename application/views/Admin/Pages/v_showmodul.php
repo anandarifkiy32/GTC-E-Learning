@@ -1,6 +1,6 @@
 <div class="content-wrapper">
   <section class="content-header">
-    <a href="<?php echo base_url('admin') ?>"><button type="button" class="btn btn-flat btn-success"><span class="fa fa-arrow-left"></span> Back</button></a>
+    <a href="<?php echo base_url('admin/course') ?>"><button type="button" class="btn btn-flat btn-success"><span class="fa fa-arrow-left"></span> Back</button></a>
     <h1 style="padding-top: 5px;">
       Course
     </h1>
@@ -22,12 +22,20 @@
                   </div>
                 </div>
                 <div class="col-md-7" style="padding-left: 0px">
-                  <h3 class="widget-user-username" style="margin-left: 0px;"><?php echo $m->nama ?></h3>
+                  <h3 class="widget-user-username" style="margin-left: 0px;margin-top: 0"><?php echo $m->nama ?></h3>
                   <h5 class="widget-user-desc" style="margin-left: 0px;"><?php echo $m->category ?></h5>
+                  <?php 
+                  $where = array('id_company' => $m->id_company);
+                  $namacompany = $this->Company_model->select_where($where)->row('nama');
+
+                  ?>
+                  <h5 class="widget-user-desc" style="margin-left: 0px;"><?php echo $namacompany ?></h5>
                 </div>
                 <div class="col-md-3">
                   <div style="float: right;">
-                   <!--  <button class="btn btn-success btn-flat" data-toggle="modal" data-target="#modal-default1">Edit</button> -->
+                    <?php if($m->status == 0){ ?>
+                    <a href="<?php echo base_url().'admin/approve/'.$this->uri->segment(3) ?>"><button class="btn btn-success btn-flat">Approve</button></a>
+                    <?php } ?>
                     <a href="<?php echo base_url().'admin/hapusmodul/'.$this->uri->segment(3) ?>"><button class="btn btn-danger btn-flat"><span class="fa fa-trash"></span></button></a>
                   </div>
                 </div>  
@@ -88,6 +96,20 @@
                   <div id="collapseFour" class="panel-collapse collapse">
                     <div class="box-body">
                       <?php echo $m->karir; ?>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel box" style="border:0px;">
+                  <div class="box-header">
+                    <h4 class="box-title" style="font-size: 14px;">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+                        Biaya
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseFive" class="panel-collapse collapse">
+                    <div class="box-body">
+                      <?php echo "Rp " . number_format($m->biaya,2,',','.'); ?>
                     </div>
                   </div>
                 </div>
@@ -171,6 +193,63 @@
       </div>
     </div>
   </div>
+     <div class="row">
+      <div class="col-md-6">
+        <div class="box" style="border-top:none">
+          <div class="box-header">
+            <h3 class="box-title">Data Peserta Training</h3>
+          </div>
+          <div class="box-body">
+            <table id="example2" class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Nama</th>                  
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php $num = 1 ;foreach ($data_peserta as $dp) { ?>
+                  <tr>
+                    <td><?php echo $num ?></td>
+                    <td><?php echo $dp->nama ?></td>
+                    <td align="right"><a href="<?php echo base_url('admin/detailpeserta/'.$dp->code)?>"><button class="btn btn-success btn-flat">Detail</button></a></td>
+                  </tr>
+                  <?php $num++; } ?>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="box" style="border-top:none">
+            <div class="box-header">
+              <h3 class="box-title">Data Peserta Sertifikasi</h3>
+            </div>
+            <div class="box-body">
+              <table id="example3" class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Nama</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php $num = 1 ;foreach ($psertifikasi as $ps) { ?>
+                    <tr>
+                      <td><?php echo $num ?></td>
+                      <td><?php echo $ps->nama ?></td>
+                      <td align="right"><a href="<?php echo base_url('admin/detailpsertifikasi/'.$ps->unique_code.'/'.$this->uri->segment(3))?>"><button class="btn btn-success btn-flat">Detail</button></a></td>
+                    </tr>
+                    <?php $num++; } ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
   <div class="modal fade" id="modal-updatefoto">
     <div class="modal-dialog">
       <div class="modal-content">

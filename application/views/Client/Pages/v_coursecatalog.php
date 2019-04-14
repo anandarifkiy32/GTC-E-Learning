@@ -31,36 +31,34 @@
 						<?php } ?>
 						<!-- single blog -->
 						<!-- /single blog -->
-
 					</div>
 					<!-- /row -->
-
 					<!-- row -->
 					<div class="row">
-
 						<!-- pagination -->
 						<br>
 						<center>
-							<?php if (isset($links)) {
+							<?php if ($links != NULL) {
 								echo $links;
 							} ?>
 						</center>
 						<!-- pagination -->
-
 					</div>
 					<!-- /row -->
 				</div>
 				<!-- /main blog -->
-
 				<!-- aside blog -->
 				<div id="aside" class="col-md-3">
-
 					<!-- category widget -->
 					<div class="widget category-widget">
 						<h3>Categories</h3>
 						<a class="category" href="<?php echo base_url('homepage/coursecatalog/').'all/' ?>">All</a>
-						<?php foreach ($category as $ct) { ?>
-						<a class="category" href="<?php echo base_url('homepage/coursecatalog/').$ct->category.'/' ?>"><?php echo $namacategory; ?> <span><?php echo $ct->jumlah; ?></span></a>
+						<?php foreach ($namacategory as $ct) { ?>
+						<a class="category" href="<?php echo base_url('homepage/coursecatalog/').$ct->slug.'/' ?>"><?php echo $ct->category; ?> 
+						<span><?php 
+						$where = array('category' => $ct->slug);
+						echo $this->Modul_model->select_where($where)->num_rows();
+						 ?></span></a>
 						<?php } ?>
 					</div>
 					<!-- /category widget -->

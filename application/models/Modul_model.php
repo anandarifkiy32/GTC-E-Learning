@@ -9,6 +9,14 @@ class Modul_model extends CI_Model{
 
 	function select_where($where){
 		return $this->db->get_where('modul',$where);
+	}
+
+	function select_course_approval($where){
+		$this->db->select('modul.nama as namacourse, trainer.nama as namatrainer,modul.slug as slug');
+		$this->db->from('trainer,modul');
+		$this->db->where($where);
+		$this->db->where('trainer.id_trainer = modul.id_trainer');
+		return $this->db->get();
 	} 
 
 	function selectcourse($where){
@@ -28,8 +36,17 @@ class Modul_model extends CI_Model{
 		return $this->db->get();
 	}
 
-	function countrow(){
-		return $this->db->get('modul')->num_rows();
+	function countrow($where){
+		if($where == 'all'){
+			$this->db->where('status',1);
+			return $this->db->get('modul')->num_rows();
+		}else{
+			$this->db->where('status',1);
+			$this->db->where('category', $where);
+			return $this->db->get('modul')->num_rows();
+		}
+		
+		
 	}
 
 	function get_current_page_records($where,$limit, $start) 
@@ -43,6 +60,7 @@ class Modul_model extends CI_Model{
 			$this->db->where('modul.category',$where);    
 		}
 		$this->db->where('modul.id_trainer = trainer.id_trainer');
+		$this->db->where('modul.status', 1);
 		$this->db->from('trainer, modul');
 		return $this->db->get();
 	}
@@ -64,7 +82,7 @@ class Modul_model extends CI_Model{
 	}
 
 	function selectall(){
-		$this->db->select('trainer.nama as namatrainer, modul.nama as namamodul, modul.category as category, modul.slug');
+		$this->db->select('modul.id_modul as id_modul, modul.id_company as id_company, trainer.nama as namatrainer, modul.nama as namamodul, modul.category as category, modul.slug');
 		$this->db->from('trainer, modul');
 		$this->db->where('modul.id_trainer = trainer.id_trainer');
 		$this->db->order_by('id_modul','DESC');

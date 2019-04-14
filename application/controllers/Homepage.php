@@ -6,9 +6,13 @@ class Homepage extends CI_Controller {
 	function __construct(){
 		date_default_timezone_set('ASIA/JAKARTA');
 		parent::__construct();
-		$this->load->model(array('Peserta_model','Modul_model','Training_model','Materi_model','Quiz_model','Jawaban_model','Result_model','Test_model','Soal_model','Sertifikasi_model','Psertifikasi_model','Trainer_model','Category_model'));	
+		$this->load->model(array('Peserta_model','Modul_model','Training_model','Materi_model','Quiz_model','Jawaban_model','Result_model','Test_model','Soal_model','Sertifikasi_model','Psertifikasi_model','Trainer_model','Category_model','Admin_model'));	
 		$this->load->helper(array('form','url','file'));
 		$this->load->library(array('pagination'));
+
+		$this->output->set_header('Pragma: no-cache');
+		$this->output->set_header('Cache-Control: no-cache, must-revalidate');
+		$this->output->set_header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 
 		if($this->uri->segment(2) != 'startquiz'){
 			if($this->uri->segment(2) != 'submit'){
@@ -30,14 +34,14 @@ class Homepage extends CI_Controller {
 				'banner'	=> 'Welcome',
 				'course'	=> $this->Modul_model->select()->result(),
 				'category'	=> $this->Category_model->select()->result(),
-				'content'	=> 'client/pages/v_dashboard'
+				'content'	=> 'Client/Pages/v_dashboard'
 			);
-			$this->load->view('client/layout/wrapper',$data);
+			$this->load->view('Client/Layout/Wrapper',$data);
 		}else{
 			$data = array(
 				'course' => $this->Modul_model->select()->result(),
 				'category'	=> $this->Category_model->select()->result());
-			$this->load->view('client/pages/v_homepage',$data);
+			$this->load->view('Client/Pages/v_homepage',$data);
 		}
 	}
 
@@ -52,15 +56,15 @@ class Homepage extends CI_Controller {
 			$id_peserta = $p->id_peserta;
 		}
 		$slug = array('slug'=>$slug);
-		$where = array('category' => $this->Category_model->select_where($slug)->row('slug'));
+		$where = array('category' => $this->Category_model->select_where($slug)->row('slug'),'status' => 1);
 		$data = array(
 			'profile'    	=> $profile,
 			'banner'    	=> $this->Category_model->select_where($slug)->row('category'),
 			'course'       	=> $this->Modul_model->select_where($where)->result(),
 			'category'		=> $this->Category_model->select_where($slug)->row('category'),
-			'content'    	=> 'client/pages/v_category'
+			'content'    	=> 'Client/Pages/v_category'
 		);
-		$this->load->view('client/layout/wrapper',$data);
+		$this->load->view('Client/Layout/Wrapper',$data);
 	}
 
 	function mycourses()
@@ -81,12 +85,12 @@ class Homepage extends CI_Controller {
 				'profile'	=> $profile,
 				'banner'	=> 'My Courses',
 				'course'	=> $mycourses,
-				'content'	=> 'client/pages/v_mycourses'
+				'content'	=> 'Client/Pages/v_mycourses'
 			);
-			$this->load->view('client/layout/wrapper',$data);
+			$this->load->view('Client/Layout/Wrapper',$data);
 		}else{
 			$data['course'] = $this->Modul_model->select()->result();
-			$this->load->view('client/pages/v_homepage',$data);
+			$this->load->view('Client/Pages/v_homepage',$data);
 		}
 	}
 
@@ -100,16 +104,16 @@ class Homepage extends CI_Controller {
 			$data = array(
 				'profile'	=> $profile,
 				'banner'	=> 'Get In Touch',
-				'content'	=> 'client/pages/v_contact'
+				'content'	=> 'Client/Pages/v_contact'
 			);
-			$this->load->view('client/layout/wrapper',$data);
+			$this->load->view('Client/Layout/Wrapper',$data);
 		}else{
 			$data = array(
 				'profile'	=> $profile,
 				'banner'	=> 'Get In Touch',
-				'content'	=> 'client/pages/v_contact'
+				'content'	=> 'Client/Pages/v_contact'
 			);
-			$this->load->view('client/layout/wrapper',$data);
+			$this->load->view('Client/Layout/Wrapper',$data);
 		}
 		
 	}
@@ -152,6 +156,8 @@ class Homepage extends CI_Controller {
 			'pass' 		=> md5($password),
 			'status'	=> '1'
 		);
+
+
 		$cek = $this->Peserta_model->select_where($where)->num_rows();
 		
 		if($cek > 0){
@@ -174,6 +180,10 @@ class Homepage extends CI_Controller {
 			redirect(base_url('homepage/joincourse/'.$id_modul));
 		}elseif($function == 'daftarsertifikasi'){
 			redirect(base_url('homepage/certification/'.$id_modul));
+		}elseif($function == 'showlogin'){
+			redirect(base_url());
+		}else{
+			redirect(base_url());
 		}
 	}
 
@@ -193,6 +203,12 @@ class Homepage extends CI_Controller {
 		$telepon		= $this->input->post('telepon');
 		$tempatlahir	= $this->input->post('tempatlahir');
 
+		$where = array('email' => $email);
+		$cek_email = $this->Peserta_model->select_where($where)->num_rows();
+		if($cek_email == 1){
+			redirect(base_url());
+		}
+
 		$length = 150;
 		$characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 		$charactersLength = strlen($characters);
@@ -203,18 +219,18 @@ class Homepage extends CI_Controller {
 		}
 
 		$config['protocol'] = 'smtp';
-		$config['smtp_host'] = 'ssl://smtp.googlemail.com';
-		$config['smtp_port'] = 465;
+		$config['smtp_host'] = 'smtp.globaltopcareer.com';
+		$config['smtp_port'] = 587;
 		$config['mailtype'] = 'html';
-		$config['smtp_user'] = 'ananda.rifkiy33@gmail.com';
-		$config['smtp_pass'] = 'helloworld:)';
+		$config['smtp_user'] = 'edusite@globaltopcareer.com';
+		$config['smtp_pass'] = 'GlobalTop12345';
 
             // Load email library and passing configured values to email library 
 		$this->load->library('email', $config);
 		$this->email->set_newline("\r\n");
 
             // Sender email address
-		$this->email->from('ananda.rifkiy33@gmail.com', 'Ananda Rifkiy Hasan');
+		$this->email->from('edusite@globaltopcareer.com', 'GTC EduSite');
             // Receiver email address
 		$this->email->to($email);
             // Subject of email
@@ -227,7 +243,7 @@ class Homepage extends CI_Controller {
 		<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
 		<h3>GTC EduSite</h3>
 		<p>Terimakasih sudah mendaftar. Tinggal satu tahap lagi untuk mengakses akun anda.</p>
-		<a href=http://localhost/gtclearning/homepage/verification/'.$unique_kode.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Verifikasi Email</button></a>
+		<a href='.base_url().'homepage/verification/'.$unique_kode.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Verifikasi Email</button></a>
 		</div>
 		</center>
 		</body>
@@ -266,16 +282,16 @@ class Homepage extends CI_Controller {
 			$data = array(
 				'profile'	=> $profile,
 				'banner'	=> 'Verifikasi',
-				'content'	=> 'client/pages/v_verifikasi'
+				'content'	=> 'Client/Pages/v_verifikasi'
 			);
-			$this->load->view('client/layout/wrapper',$data);
+			$this->load->view('Client/Layout/Wrapper',$data);
 		}else{
 			$data = array(
 				'profile'	=> $profile,
 				'banner'	=> 'Verifikasi',
-				'content'	=> 'client/pages/v_verifikasi'
+				'content'	=> 'Client/Pages/v_verifikasi'
 			);
-			$this->load->view('client/layout/wrapper',$data);
+			$this->load->view('Client/Layout/Wrapper',$data);
 		}
 	}
 
@@ -286,7 +302,7 @@ class Homepage extends CI_Controller {
 			'status' 		=> '1');
 		$this->Peserta_model->update($where,$data);
 		$data['pesan'] = 'true';
-		$this->load->view('client/pages/v_login',$data);
+		$this->load->view('Client/Pages/v_login',$data);
 	}
 
 	function detailtest($slug){
@@ -307,8 +323,8 @@ class Homepage extends CI_Controller {
 			'banner'		=> 'Resume : '.$course->row('nama'),
 			'namacourse'	=> $course->row('nama'),
 			'materi'		=> $materi,		
-			'content'    	=> 'client/pages/v_detailtest');
-		$this->load->view('client/layout/wrapper',$data);
+			'content'    	=> 'Client/Pages/v_detailtest');
+		$this->load->view('Client/Layout/Wrapper',$data);
 
 	}
 
@@ -353,9 +369,13 @@ class Homepage extends CI_Controller {
 			'modul'       	=> $modul,
 			'cekjoin'		=> $cekjoin,
 			'related'   	=> $relatedcourse,
-			'content'    	=> 'client/pages/v_detailcourse'
+			'content'    	=> 'Client/Pages/v_detailcourse'
 		);
-		$this->load->view('client/layout/wrapper',$data);
+		$this->load->view('Client/Layout/Wrapper',$data);
+	}
+
+	function showlogin(){
+		$this->load->view('Client/Pages/v_login');
 	}
 
 	function showregister(){
@@ -367,16 +387,16 @@ class Homepage extends CI_Controller {
 			$data = array(
 				'profile'	=> $profile,
 				'banner'	=> 'Register Now',
-				'content'	=> 'client/pages/v_register'
+				'content'	=> 'Client/Pages/v_register'
 			);
-			$this->load->view('client/layout/wrapper',$data);
+			$this->load->view('Client/Layout/Wrapper',$data);
 		}else{
 			$data = array(
 				'profile'	=> $profile,
 				'banner'	=> 'Register Now',
-				'content'	=> 'client/pages/v_register'
+				'content'	=> 'Client/Pages/v_register'
 			);
-			$this->load->view('client/layout/wrapper',$data);
+			$this->load->view('Client/Layout/Wrapper',$data);
 		}
 	}
 
@@ -392,29 +412,38 @@ class Homepage extends CI_Controller {
 				'slug'	=> $slug);
 			$banner = $this->Modul_model->select_where($where)->row('nama');
 			$course = $this->Modul_model->selectcourse($slug)->result();
+			$biaya = $this->Modul_model->select_where(array('slug' => $slug))->row('biaya');
 			//nilai
 			$where = array('slug' => $slug);
 			$course2 = $this->Modul_model->select_where($where);
 			$id_modul = $course2->row('id_modul');
 			$where = array('id_modul' => $id_modul);
 			$materi = $this->Materi_model->select_where($where);
+			$where = array(
+				'id_peserta' 	=> $id_peserta,
+				'id_modul'		=> $id_modul
+			);
+			$cektraining = $this->Training_model->select_where($where);
 
 			$data = array(
-				'content'	=> 'client/pages/v_course',
+				'content'	=> 'Client/Pages/v_course',
 				'course'	=> $course,
+				'biaya'		=> $biaya,
+				'cektraining' => $cektraining,
 				'banner'	=> $banner,
 				'materi'	=> $materi,
 				'profile'	=> $profile,
 				'id_peserta'=> $id_peserta
 			);
 			$this->session->set_userdata('course',$slug);
-			$this->load->view('client/layout/wrapper',$data);
+			$this->load->view('Client/Layout/Wrapper',$data);
 		}else{
-			$this->load->view('client/pages/v_login');
+			$this->load->view('Client/Pages/v_login');
 		}
 	}
 
 	function coursecatalog(){
+		$links = NULL;
 		if($this->uri->segment(3) == ''){
 			$category = 'all';
 		}else{
@@ -428,7 +457,8 @@ class Homepage extends CI_Controller {
 			$start_index = $this->uri->segment(4) * 4 - 4;
 		}
 		$total_records = $this->Modul_model->countrow($category);
-		if ($total_records > 0) 
+
+		if ($total_records > 4) 
 		{
             // get current page records
 			$results = $this->Modul_model->get_current_page_records($category,$limit_per_page, $start_index)->result();
@@ -470,6 +500,8 @@ class Homepage extends CI_Controller {
 			$this->pagination->initialize($config);
             // build paging links
 			$links = $this->pagination->create_links();
+		}else{
+			$results = $this->Modul_model->get_current_page_records($category,$limit_per_page, $start_index)->result();
 		}
 
 
@@ -479,7 +511,7 @@ class Homepage extends CI_Controller {
 		$profile = $this->Peserta_model->select_where($where)->result();
 		$category = $this->Modul_model->selectcategory()->result();
 		$slug = array('slug' => $this->Modul_model->selectcategory()->row('category'));
-		$namacategory = $this->Category_model->select_where($slug)->row('category');
+		$namacategory = $this->Category_model->select()->result();
 		$recentpost= $this->Modul_model->recentpost($category)->result();
 		$data = array(
 			'profile'	=> $profile,
@@ -489,9 +521,9 @@ class Homepage extends CI_Controller {
 			'category'	=> $category,
 			'namacategory' => $namacategory,
 			'recentpost'=> $recentpost,
-			'content'	=> 'client/pages/v_coursecatalog'
+			'content'	=> 'Client/Pages/v_coursecatalog'
 		);
-		$this->load->view('client/layout/wrapper',$data);
+		$this->load->view('Client/Layout/Wrapper',$data);
 	}
 
 	function showprofile(){
@@ -504,10 +536,10 @@ class Homepage extends CI_Controller {
 		$data = array(
 			'profile'   => $profile,
 			'banner'    => 'Profile',
-			'content'   => 'client/pages/v_profile'
+			'content'   => 'Client/Pages/v_profile'
 		);
 
-		$this->load->view('client/layout/wrapper',$data);
+		$this->load->view('Client/Layout/Wrapper',$data);
 	}
 
 	function editprofile(){
@@ -520,7 +552,7 @@ class Homepage extends CI_Controller {
 			'banner'    => 'Edit Profile',
 			'content'     => 'Client/Pages/v_editprofile'
 		);
-		$this->load->view('client/layout/wrapper',$data);
+		$this->load->view('Client/Layout/Wrapper',$data);
 	}
 
 	function updateprofile(){
@@ -545,6 +577,7 @@ class Homepage extends CI_Controller {
 		redirect(base_url('homepage/showprofile'));
 	}
 
+
 	function editphoto(){
 		$status = '';
 		if ($this->uri->segment(3) == 'failed'){
@@ -558,7 +591,9 @@ class Homepage extends CI_Controller {
 			'banner' => 'Edit Foto',
 			'status'	=> $status,
 			'content' => 'Client/Pages/v_editphotoprofile',
-			'profile' => $this->Peserta_model->select_where($where)->result());
+			'profile' => $this->Peserta_model->select_where($where)->result()
+
+		);
 		$this->load->view('Client/Layout/Wrapper',$content);
 	}
 
@@ -572,9 +607,6 @@ class Homepage extends CI_Controller {
 		if($hasil == ""){
 			$config['upload_path']	= './assets/profile_photos/';
 			$config['allowed_types'] = 'jpg|jpeg|png';
-			$config['max_size'] = '2048';
-			$config['max_width'] = '4048';
-			$config['max_height'] = '4048';
 			$config['file_name'] = $nama;
 			$this->load->library('upload',$config);
 			if(! $this->upload->do_upload('berkas')){
@@ -672,21 +704,21 @@ class Homepage extends CI_Controller {
 				'modul.id_trainer = trainer.id_trainer and modul.slug =' => $course
 			);
 			$email = $this->Modul_model->join_trainer($where)->row('email'); //email trainer
-			echo $email.$namapeserta.$namamodul;
+			echo $esmtp.$namapeserta.$namamodul;
 
 			$config['protocol'] = 'smtp';
-			$config['smtp_host'] = 'ssl://smtp.googlemail.com';
-			$config['smtp_port'] = 465;
+			$config['smtp_host'] = 'smtp.globaltopcareer.com';
+			$config['smtp_port'] = 587;
 			$config['mailtype'] = 'html';
-			$config['smtp_user'] = 'ananda.rifkiy33@gmail.com';
-			$config['smtp_pass'] = 'helloworld:)';
+			$config['smtp_user'] = 'edusite@globaltopcareer.com';
+			$config['smtp_pass'] = 'GlobalTop12345';
 
             // Load email library and passing configured values to email library 
 			$this->load->library('email', $config);
 			$this->email->set_newline("\r\n");
 
             // Sender email address
-			$this->email->from('ananda.rifkiy33@gmail.com', 'Ananda Rifkiy Hasan');
+			$this->email->from('edusite@globaltopcareer.com', 'GTC EduSite');
             // Receiver email address
 			$this->email->to($email);
             // Subject of email
@@ -699,7 +731,7 @@ class Homepage extends CI_Controller {
 			<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
 			<h3>GTC EduSite</h3>
 			<p><b>'.$namapeserta.'</b>. telah bergabung di course <b>'.$namamodul.'</b></p>
-			<a href=http://localhost/gtclearning/trainer/detailpeserta/'.$unique_kode.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">View</button></a>
+			<a href='.base_url().'trainer/detailpeserta/'.$unique_kode.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">View</button></a>
 			</div>
 			</center>
 			</body>
@@ -710,7 +742,7 @@ class Homepage extends CI_Controller {
 				redirect('homepage/startcourse/'.$course);
 			}	
 		}else{
-			$this->load->view('client/pages/v_login');
+			$this->load->view('Client/Pages/v_login');
 		}
 	}
 
@@ -752,9 +784,9 @@ class Homepage extends CI_Controller {
 			'sertifikasi'	=> $this->Sertifikasi_model->select_where($id_modul)->result(),
 			'psertifikasi'	=> $psertifikasi,
 			'course'		=> $this->Modul_model->select_where($id_modul)->row('nama'),	
-			'content'    	=> 'client/pages/v_certification'
+			'content'    	=> 'Client/Pages/v_certification'
 		);
-		$this->load->view('client/layout/wrapper',$data);
+		$this->load->view('Client/Layout/Wrapper',$data);
 
 	}
 
@@ -775,84 +807,88 @@ class Homepage extends CI_Controller {
 				'id_sertifikasi'  => $id_sertifikasi,
 				'id_peserta'	=> $id_peserta);
 			$this->Psertifikasi_model->input($data);
-				$email = $this->Trainer_model->select_where($id_trainer)->row('email');
-				$config['protocol'] = 'smtp';
-				$config['smtp_host'] = 'ssl://smtp.googlemail.com';
-				$config['smtp_port'] = 465;
-				$config['mailtype'] = 'html';
-				$config['smtp_user'] = 'ananda.rifkiy33@gmail.com';
-				$config['smtp_pass'] = 'helloworld:)';
+			$email = $this->Admin_model->select()->row('email');
+			$config['protocol'] = 'smtp';
+			$config['smtp_host'] = 'smtp.globaltopcareer.com';
+			$config['smtp_port'] = 587;
+			$config['mailtype'] = 'html';
+			$config['smtp_user'] = 'edusite@globaltopcareer.com';
+			$config['smtp_pass'] = 'GlobalTop12345';
 
             // Load email library and passing configured values to email library 
-				$this->load->library('email', $config);
-				$this->email->set_newline("\r\n");
+			$this->load->library('email', $config);
+			$this->email->set_newline("\r\n");
 
             // Sender email address
-				$this->email->from('ananda.rifkiy33@gmail.com', 'Ananda Rifkiy Hasan');
+			$this->email->from('edusite@globaltopcareer.com', 'GTC EduSite');
             // Receiver email address
-				$this->email->to($email);
+			$this->email->to($email);
             // Subject of email
-				$this->email->subject('Baru! Pendaftar Sertifikasi '.$course);
+			$this->email->subject('Baru! Pendaftar Sertifikasi '.$course);
             // Message in email
-				$message = '<html>
-				<link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
-				<body style="font-family:"Montserrat", sans-serif;">
-				<center>
-				<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
-				<h3>GTC EduSite</h3>
-				<p>'.$namapeserta.' telah mendaftar sertifikasi untuk kategori '.$course.'</p>
-				<a href=http://localhost/gtclearning/trainer/detailpsertifikasi/'.$unique_code.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">View</button></a>
-				</div>
-				</center>
-				</body>
-				</html>';
-				$this->email->message($message);
-				if($this->email->send()){
-					$this->session->set_flashdata('sertifikasi','berhasil');
-				}
-				redirect('homepage/certification/'.$this->uri->segment(3));
+			$message = '<html>
+			<link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
+			<body style="font-family:"Montserrat", sans-serif;">
+			<center>
+			<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
+			<h3>GTC EduSite</h3>
+			<p>'.$namapeserta.' telah mendaftar sertifikasi untuk kategori '.$course.'</p>
+			<a href='.base_url().'trainer/detailpsertifikasi/'.$unique_code.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">View</button></a>
+			</div>
+			</center>
+			</body>
+			</html>';
+			$this->email->message($message);
+			if($this->email->send()){
+				$this->session->set_flashdata('sertifikasi','berhasil');
+			}
+			redirect('homepage/certification/'.$this->uri->segment(3));
 			
 		}else{
-			$this->load->view('client/pages/v_login');
+			$this->load->view('Client/Pages/v_login');
 		}
 	}
 
 	function quiz($slug){
-		$where = array(
-			'unique_code' => $this->session->userdata('unique_code')
-		);
-		$profile = $this->Peserta_model->select_where($where)->result();
-		$id_peserta = $this->Peserta_model->select_where($where)->row('id_peserta');
-		$where = array('slug' => $slug);
-		$id_materi = $this->Materi_model->select_where($where)->row('id_materi');
-		$where = array('id_materi' => $id_materi);
-		$test = $this->Test_model->select_where($where)->result();
-		$jumlahtes = $this->Test_model->select_where($where)->num_rows();
+		if($this->session->userdata('status') == 'login'){
+			$where = array(
+				'unique_code' => $this->session->userdata('unique_code')
+			);
+			$profile = $this->Peserta_model->select_where($where)->result();
+			$id_peserta = $this->Peserta_model->select_where($where)->row('id_peserta');
+			$where = array('slug' => $slug);
+			$id_materi = $this->Materi_model->select_where($where)->row('id_materi');
+			$where = array('id_materi' => $id_materi);
+			$test = $this->Test_model->select_where($where)->result();
+			$jumlahtes = $this->Test_model->select_where($where)->num_rows();
 
 
-		$where = '';
-		$kondisi = 1;
-		foreach ($test as $t) {
-			if($kondisi == 1){
-				$x = '';
-			}else{
-				$x = ' or';
+			$where = '';
+			$kondisi = 1;
+			foreach ($test as $t) {
+				if($kondisi == 1){
+					$x = '';
+				}else{
+					$x = ' or';
+				}
+				$where .= $x.' id_test = '.$t->id_test.' and id_peserta = '.$id_peserta;
+				$kondisi++;
 			}
-			$where .= $x.' id_test = '.$t->id_test.' and id_peserta = '.$id_peserta;
-			$kondisi++;
-		}
 
-		$result = $this->Result_model->select_where($where)->result();
-		$data = array(
-			'profile' => $profile,
-			'banner' => "Quiz",
-			'test' => $test,
-			'result'	=> $result,
-			'id_peserta' => $id_peserta,
-			'jmltes'	=> $jumlahtes,
-			'content' => 'client/pages/v_quiz'
-		);
-		$this->load->view('client/layout/wrapper',$data);
+			$result = $this->Result_model->select_where($where)->result();
+			$data = array(
+				'profile' => $profile,
+				'banner' => "Quiz",
+				'test' => $test,
+				'result'	=> $result,
+				'id_peserta' => $id_peserta,
+				'jmltes'	=> $jumlahtes,
+				'content' => 'Client/Pages/v_quiz'
+			);
+			$this->load->view('Client/Layout/Wrapper',$data);
+		}else{
+			$this->load->view('Client/Pages/v_login');
+		}
 	}
 
 	function quizoverview($kategori,$slug){
@@ -876,14 +912,16 @@ class Homepage extends CI_Controller {
 				'banner' => "Start Quiz",
 				'namamodul' => $namamodul,
 				'quiz' => $quiz,
-				'content' => 'client/pages/v_konfirmasiquiz'
+				'content' => 'Client/Pages/v_konfirmasiquiz'
 			);
-			$this->load->view('client/layout/wrapper',$data);		
+			$this->load->view('Client/Layout/Wrapper',$data);		
 		}
 	}
 
 	function startquiz($kategori,$slug){
-
+		if($this->session->userdata('unique_code') == FALSE){
+			redirect(base_url());
+		}
 		$where = array(
 			'unique_code' => $this->session->userdata('unique_code')
 		);
@@ -897,8 +935,7 @@ class Homepage extends CI_Controller {
 		$soal = $this->Soal_model->select_soal($where)->result();
 
 		//set session
-		$data = array('id_test' => $id_test, 'tipesoal' => $tipesoal);
-		$this->session->set_userdata($data);
+		
 
 
 		$where = array(
@@ -908,8 +945,11 @@ class Homepage extends CI_Controller {
 		if($this->Result_model->select_where($where)->num_rows() > 0){
 			redirect(base_url('homepage/startcourse/'.$this->session->userdata('course')));
 		}
+		$data = array('id_test' => $id_test, 'tipesoal' => $tipesoal);
+		$this->session->set_userdata($data);
+
 		$where = array('id_test' => $id_test);
-		$waktu = $this->Quiz_model->select_where($where)->row('waktu');
+		$waktu = $this->Quiz_model->select_where($where)->row('waktu') + 24;
 
 		//start session
 		if($this->session->userdata('quizend') == ''){
@@ -930,9 +970,9 @@ class Homepage extends CI_Controller {
 			'soal' => $soal,
 			'tipesoal'	=> $tipesoal,
 			'id_test'	=> $id_test,
-			'content' => 'client/pages/v_startquiz'
+			'content' => 'Client/Pages/v_startquiz'
 		);
-		$this->load->view('client/layout/wrapper',$data);
+		$this->load->view('Client/Layout/Wrapper',$data);
 	}
 
 	function submit(){
@@ -950,6 +990,14 @@ class Homepage extends CI_Controller {
 		$id_materi = $this->Test_model->select_where($where)->row('id_materi');
 		$tipesoal = $this->session->userdata('tipesoal');
 
+		$where = array(
+			'id_test' 		=> $id_test,
+			'id_peserta'	=> $id_peserta
+		);
+		if($this->Result_model->select_where($where)->num_rows() > 0){
+			redirect(base_url('homepage/startcourse/'.$this->session->userdata('course')));
+		}
+
 		$where = array('id_materi' => $id_materi);
 		$id_modul = $this->Materi_model->select_where($where)->row('id_modul');
 
@@ -958,6 +1006,8 @@ class Homepage extends CI_Controller {
 
 		$where = array('id_trainer' => $id_trainer);
 		$email = $this->Trainer_model->select_where($where)->row('email');
+
+		$emailadmin = $this->Admin_model->select()->row('email');
 
 		$where = array('id_peserta' => $id_peserta,'id_modul' => $id_modul);
 		$codetraining = $this->Training_model->select_where($where)->row('code');
@@ -1023,15 +1073,14 @@ class Homepage extends CI_Controller {
 				$nilai = 0;
 
 				$config['upload_path']	= './assets/video/';
-				$config['max_size'] = '204800';
+				$config['max_size'] = '60000';
 				$config['overwrite'] = TRUE;
-				$config['allowed_types'] = 'mp4|wmv';
+				$config['allowed_types'] = 'mp4';
 				$config['file_name'] = $codetest.'_'.$s->id_soal.'_'.$id_peserta;
 				$this->load->library('upload',$config);
 				$this->upload->initialize($config);
 				if(! $this->upload->do_upload('jawaban'.$s->id_soal)){
-					$this->session->unset_userdata('err');
-					$this->session->set_userdata('err' , $s->id_soal.$this->upload->display_errors('<p>', '</p>'));
+					echo $this->upload->display_errors();
 				}else{
 					$pdf = $this->upload->data();
 					$data = array(
@@ -1065,20 +1114,20 @@ class Homepage extends CI_Controller {
 			);
 			$this->Result_model->update($where,$data);
 		}
-
+		//kirim ke trainer
 		$config['protocol'] = 'smtp';
-		$config['smtp_host'] = 'ssl://smtp.googlemail.com';
-		$config['smtp_port'] = 465;
+		$config['smtp_host'] = 'smtp.globaltopcareer.com';
+		$config['smtp_port'] = 587;
 		$config['mailtype'] = 'html';
-		$config['smtp_user'] = 'ananda.rifkiy33@gmail.com';
-		$config['smtp_pass'] = 'helloworld:)';
+		$config['smtp_user'] = 'edusite@globaltopcareer.com';
+		$config['smtp_pass'] = 'GlobalTop12345';
 
             // Load email library and passing configured values to email library 
 		$this->load->library('email', $config);
 		$this->email->set_newline("\r\n");
 
             // Sender email address
-		$this->email->from('ananda.rifkiy33@gmail.com', 'Ananda Rifkiy Hasan');
+		$this->email->from('edusite@globaltopcareer.com', 'GTC EduSite');
             // Receiver email address
 		$this->email->to($email);
             // Subject of email
@@ -1090,8 +1139,8 @@ class Homepage extends CI_Controller {
 		<center>
 		<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
 		<h3>GTC EduSite</h3>
-		<p>'.$namapeserta.' telah menyelesaikan quiz, dan menunggu review anda !.</p>
-		<a href=http://localhost/gtclearning/trainer/detailpeserta/'.$codetraining.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Review</button></a>
+		<p>'.$namapeserta.' telah menyelesaikan quiz, dan menunggu review anda segera !.</p>
+		<a href='.base_url().'trainer/detailpeserta/'.$codetraining.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Review</button></a>
 		</div>
 		</center>
 		</body>
@@ -1099,7 +1148,44 @@ class Homepage extends CI_Controller {
 		$this->email->message($message);
 		$this->email->send();
 
-		$this->session->set_flashdata('quiz','berhasil');
+		//kirim ke admin
+		$config['protocol'] = 'smtp';
+		$config['smtp_host'] = 'smtp.globaltopcareer.com';
+		$config['smtp_port'] = 587;
+		$config['mailtype'] = 'html';
+		$config['smtp_user'] = 'edusite@globaltopcareer.com';
+		$config['smtp_pass'] = 'GlobalTop12345';
+
+            // Load email library and passing configured values to email library 
+		$this->load->library('email', $config);
+		$this->email->set_newline("\r\n");
+
+            // Sender email address
+		$this->email->from('edusite@globaltopcareer.com', 'GTC EduSite');
+            // Receiver email address
+		$this->email->to($emailadmin);
+            // Subject of email
+		$this->email->subject('Quiz GTC EduSite');
+            // Message in email
+		$message = '<html>
+		<link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
+		<body style="font-family:"Montserrat", sans-serif;">
+		<center>
+		<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
+		<h3>GTC EduSite</h3>
+		<p>'.$namapeserta.' telah menyelesaikan quiz, dan menunggu review trainer !.</p>
+		<a href='.base_url().'admin/detailpeserta/'.$codetraining.'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Review</button></a>
+		</div>
+		</center>
+		</body>
+		</html>';
+		$this->email->message($message);
+		$this->email->send();
+
+		if($tipesoal == 'essay' || $tipesoal == 'file'){
+			$this->session->set_flashdata('quiz','berhasil');
+		}
+		
 		redirect(base_url('homepage/startcourse/'.$this->session->userdata('course')));
 	}
 
@@ -1121,9 +1207,9 @@ class Homepage extends CI_Controller {
 			'banner' => "Start Quiz",
 			'tipesoal'	=> $tipesoal,
 			'jawaban'	=> $jawaban,
-			'content' => 'client/pages/v_reviewquiz'
+			'content' => 'Client/Pages/v_reviewquiz'
 		);
-		$this->load->view('client/layout/wrapper',$data);
+		$this->load->view('Client/Layout/Wrapper',$data);
 	}
 
 	function cek(){
@@ -1132,42 +1218,191 @@ class Homepage extends CI_Controller {
 	}
 
 	public function getChats(){
-        header('Content-Type: application/json');
-        if ($this->input->is_ajax_request()) {
+		header('Content-Type: application/json');
+		if ($this->input->is_ajax_request()) {
             // Find friend
-            $friend = $this->input->post('chatWith');
+			$friend = $this->input->post('chatWith');
 
             // Get Chats
-            $chats = $this->db
-                ->select('*')
-                ->from('chat')
-                ->where('chat.slug_modul',$friend)
-                ->order_by('chat.waktu', 'desc')
-                ->limit(100)
-                ->get()
-                ->result();
+			$chats = $this->db
+			->select('*')
+			->from('chat')
+			->where('chat.slug_modul',$friend)
+			->order_by('chat.waktu', 'desc')
+			->limit(100)
+			->get()
+			->result();
 
-            $result = array(
-            	'name'	=> 'Chat',
-                'chats' => $chats
+			$result = array(
+				'name'	=> 'Chat',
+				'chats' => $chats
 
-            );
-            echo json_encode($result);
-       }
-    }
+			);
+			echo json_encode($result);
+		}
+	}
 
-    public function sendMessage()
-    {
-    	$where = array(
-				'unique_code'	=> $this->session->userdata('unique_code'));
-			$profile = $this->Peserta_model->select_where($where)->result();
-			$nama = $this->Peserta_model->select_where($where)->row('nama');
+	public function sendMessage()
+	{
+		$where = array(
+			'unique_code'	=> $this->session->userdata('unique_code'));
+		$profile = $this->Peserta_model->select_where($where)->result();
+		$nama = $this->Peserta_model->select_where($where)->row('nama');
+		$d = strtotime('+ 24 minutes');
+		$this->db->insert('chat', array(
+			'pesan' => htmlentities($this->input->post('message', true)),
+			'slug_modul' => $this->input->post('chatWith'),
+			'pengirim' => $nama,
+			'waktu'    => date("Y-m-d H:i:s",$d)
+		));
+	}
 
-        $this->db->insert('chat', array(
-            'pesan' => htmlentities($this->input->post('message', true)),
-            'slug_modul' => $this->input->post('chatWith'),
-            'pengirim' => $nama
-        ));
-    }
+	function uploadbuktibayar(){
+		$peserta = $this->session->userdata('unique_code');
+		$where = array('unique_code' => $peserta);
+		$id_peserta = $this->Peserta_model->select_where($where)->row('id_peserta');
+		$namapeserta = $this->Peserta_model->select_where($where)->row('nama');
+		$slug = $this->input->post('course');
+		$where = array('slug' => $slug);
+		$id_modul = $this->Modul_model->select_where($where)->row('id_modul');
+		$namamodul = $this->Modul_model->select_where($where)->row('nama');
+		$where = array('id_modul' => $id_modul,'id_peserta' => $id_peserta);
+		$id_training = $this->Training_model->select_where($where)->row('id_training');
+		$emailadmin = $this->Admin_model->select()->row('email');
+
+		$config['upload_path']	= './assets/buktibayar/';
+		$config['allowed_types'] = 'jpg|jpeg|png';
+		$config['file_name'] = $id_training;
+		$this->load->library('upload',$config);
+		if(! $this->upload->do_upload('berkas')){
+
+			echo "error";
+		}else{
+			$gbr = $this->upload->data();
+			$format = str_replace('image', '',$gbr['file_type']);
+			$where = array('id_training' => $id_training);
+			$data = array(
+				'buktibayar' => $gbr['file_name']);
+			$this->Training_model->update($where,$data);
+			
+
+			$config['protocol'] = 'smtp';
+			$config['smtp_host'] = 'smtp.globaltopcareer.com';
+			$config['smtp_port'] = 587;
+			$config['mailtype'] = 'html';
+			$config['smtp_user'] = 'edusite@globaltopcareer.com';
+			$config['smtp_pass'] = 'GlobalTop12345';
+
+            // Load email library and passing configured values to email library 
+			$this->load->library('email', $config);
+			$this->email->set_newline("\r\n");
+
+            // Sender email address
+			$this->email->from('edusite@globaltopcareer.com', 'GTC EduSite');
+            // Receiver email address
+			$this->email->to($emailadmin);
+            // Subject of email
+			$this->email->subject('Payment Verification');
+            // Message in email
+			$message = '<html>
+			<link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
+			<body style="font-family:"Montserrat", sans-serif;">
+			<center>
+			<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
+			<h3>GTC EduSite</h3>
+			<p>'.$namapeserta.' telah menyelesaikan pembayaran pada course <b>'.$namamodul.' </b>, dan menunggu verifikasi anda !.</p>
+			<a href='.base_url().'admin/payment><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Lihat</button></a>
+			</div>
+			</center>
+			</body>
+			</html>';
+			$this->email->message($message);
+			$this->email->send();
+
+			redirect(base_url('homepage/startcourse/'.$slug));
+		}
+	}
+
+	function show_forgotpwd(){
+		$this->load->view('Client/Pages/v_forgotpwd');
+	}
+
+	function resetpassword(){
+		$email = $this->input->post('email');
+
+		$where = array('email' => $email);
+		$cekpeserta = $this->Peserta_model->select_where($where)->num_rows();
+		if($cekpeserta == 0){
+			$this->session->set_flashdata('error','Reset password gagal, mungkin anda belum terdaftar.');
+
+			redirect(base_url());
+		}else{
+
+			$length = 8;
+			$characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+			$charactersLength = strlen($characters);
+			$unique_kode = '';
+
+			for ($i = 0; $i < $length; $i++) {
+				$unique_kode .= $characters[rand(0, $charactersLength - 1)];
+			}
+
+			$where = array('email' => $email);
+			$data = array('pass' => md5($unique_kode));
+			$this->Peserta_model->update($where,$data);
+
+			$config['protocol'] = 'smtp';
+			$config['smtp_host'] = 'smtp.globaltopcareer.com';
+			$config['smtp_port'] = 587;
+			$config['mailtype'] = 'html';
+			$config['smtp_user'] = 'edusite@globaltopcareer.com';
+			$config['smtp_pass'] = 'GlobalTop12345';
+
+            // Load email library and passing configured values to email library 
+			$this->load->library('email', $config);
+			$this->email->set_newline("\r\n");
+
+            // Sender email address
+			$this->email->from('edusite@globaltopcareer.com', 'GTC EduSite');
+            // Receiver email address
+			$this->email->to($email);
+            // Subject of email
+			$this->email->subject('Reset Password');
+            // Message in email
+			$message = '<html>
+			<link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
+			<body style="font-family:"Montserrat", sans-serif;">
+			<center>
+			<div style="border: 1px solid black;padding: 20px;border-radius: 10px">
+			<h3>GTC EduSite</h3>
+			<p>Anda telah berhasil mereset password anda.</p>
+			<p>Email : <b>'.$email.'</b></p>
+			<p>Password : <b>'.$unique_kode.'</b></p>
+			<a href='.base_url().'><button style="border:none;padding:12px 20px 12px 20px; background-color: green;color: white">Login</button></a>
+			</div>
+			</center>
+			</body>
+			</html>';
+			$this->email->message($message);
+			$this->email->send();
+
+			$this->session->set_flashdata('succes','Reset password berhasil, kami telah mengirim pesan ke email anda');
+
+			redirect(base_url());
+		}
+	}
+
+	function updatepassword(){
+		if ($this->session->userdata('unique_code') != NULL) {
+			$where = array(
+			'unique_code' => $this->session->userdata('unique_code')
+			);
+
+			$data = array(
+				'pass'	=> md5($this->input->post('pass')));
+			$this->Peserta_model->update($where,$data);
+			redirect(base_url('homepage/showprofile'));
+		}
+	}
 }
 

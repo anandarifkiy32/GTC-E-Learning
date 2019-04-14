@@ -26,7 +26,7 @@
               <div class="row" style="padding:10px 20px 0px 30px">
                 <div class="col-sm-6 border-right">
                   <div class="description-block">
-                    <h5 class="description" align="left">Tempat, Tanggal Lahir</h5>
+                    <h5 class="description" align="left"><b>Tempat, Tanggal Lahir</b></h5>
                   </div>
                 </div>
                 <div class="col-sm-6 border-right">
@@ -38,7 +38,7 @@
               <div class="row" style="padding:0px 20px 0px 30px">
                 <div class="col-sm-6 border-right">
                   <div class="description-block">
-                    <h5 class="description" align="left">Alamat</h5>
+                    <h5 class="description" align="left"><b>Alamat</b></h5>
                   </div>
                 </div>
                 <div class="col-sm-6 border-right">
@@ -50,7 +50,7 @@
               <div class="row" style="padding:0px 20px 0px 30px">
                 <div class="col-sm-6 border-right">
                   <div class="description-block">
-                    <h5 class="description" align="left">Telepon / HP</h5>
+                    <h5 class="description" align="left"><b>Telepon / HP</b></h5>
                   </div>
                 </div>
                 <div class="col-sm-6 border-right">
@@ -62,7 +62,7 @@
               <div class="row" style="padding:0px 20px 0px 30px">
                 <div class="col-sm-6 border-right">
                   <div class="description-block">
-                    <h5 class="description" align="left">Email</h5>
+                    <h5 class="description" align="left"><b>Email</b></h5>
                   </div>
                 </div>
                 <div class="col-sm-6 border-right">
@@ -74,7 +74,7 @@
               <div class="row" style="padding:0px 20px 0px 30px">
                 <div class="col-sm-6 border-right">
                   <div class="description-block">
-                    <h5 class="description" align="left">Biografi</h5>
+                    <h5 class="description" align="left"><b>Biografi</b></h5>
                   </div>
                 </div>
                 <div class="col-sm-6 border-right">
@@ -86,7 +86,7 @@
               <div class="row" style="padding:0px 20px 0px 30px">
                 <div class="col-sm-6 border-right">
                   <div class="description-block">
-                    <h5 class="description" align="left">Kantor</h5>
+                    <h5 class="description" align="left"><b>Kantor</b></h5>
                   </div>
                 </div>
                 <div class="col-sm-6 border-right">
@@ -98,7 +98,7 @@
               <div class="row" style="padding:0px 20px 0px 30px">
                 <div class="col-sm-6 border-right">
                   <div class="description-block">
-                    <h5 class="description" align="left">Alamat Kantor</h5>
+                    <h5 class="description" align="left"><b>Alamat Kantor</b></h5>
                   </div>
                 </div>
                 <div class="col-sm-6 border-right">
@@ -110,7 +110,7 @@
               <div class="row" style="padding:0px 20px 10px 30px">
                 <div class="col-sm-6 border-right">
                   <div class="description-block">
-                    <h5 class="description" align="left">Telepon Kantor</h5>
+                    <h5 class="description" align="left"><b>Telepon Kantor</b></h5>
                   </div>
                 </div>
                 <div class="col-sm-6 border-right">

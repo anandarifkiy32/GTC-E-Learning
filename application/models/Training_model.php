@@ -13,6 +13,11 @@ class Training_model extends CI_Model{
 		return $this->db->get();
 	}
 
+	function update($where,$data){
+		$this->db->where($where);
+		$this->db->update('training',$data);
+	}
+
 	function select_peserta($where){
 		$this->db->select('*');
 		$this->db->from('training, peserta');
@@ -68,6 +73,25 @@ class Training_model extends CI_Model{
 	function select_peserta2(){
 		$this->db->select('*');
 		$this->db->from('training, peserta');
+		$this->db->where('training.id_peserta = peserta.id_peserta');
+		return $this->db->get();
+	}
+
+	function select_payment(){
+		$this->db->select('training.code as code, peserta.nama as nama, modul.nama as namamodul, training.buktibayar as buktibayar');
+		$this->db->from('training, modul, peserta');
+		$this->db->where('training.status',0);
+		$this->db->where('training.id_modul = modul.id_modul');
+		$this->db->where('training.id_peserta = peserta.id_peserta');
+		return $this->db->get();
+	}
+
+	function detail_payment($where){
+		$this->db->select('training.code as code, peserta.nama as nama, modul.nama as namamodul, training.buktibayar as buktibayar,modul.biaya as biaya');
+		$this->db->from('training, modul, peserta');
+		$this->db->where('training.status',0);
+		$this->db->where($where);
+		$this->db->where('training.id_modul = modul.id_modul');
 		$this->db->where('training.id_peserta = peserta.id_peserta');
 		return $this->db->get();
 	}

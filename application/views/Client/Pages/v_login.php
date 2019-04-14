@@ -189,6 +189,9 @@
 							<li><a href="<?php echo base_url('homepage/logout')?>">Logout</a></li>
 						</ul>
 					</li>
+					<?php if(!$profile){ ?>
+						<li><a href="<?php echo base_url('trainer/register') ?>">Register as Trainer</a></li>
+					<?php } ?>
 				</ul>
 			</div>
 			<!-- /footer nav -->

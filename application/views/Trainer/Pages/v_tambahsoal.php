@@ -40,7 +40,7 @@
                       </div>
                       <div class="col-md-2">
                         <div class="input-group" style="margin: 5px 0px 5px 0px">
-                          <input type="text" class="form-control" name="bobot_a<?php echo $no ?>" placeholder="Nilai Jawaban" required="">
+                          <input type="text" class="form-control" name="bobot_a<?php echo $no ?>" placeholder="Nilai Jawaban">
                         </div>
                       </div>
                     </div>
@@ -53,7 +53,7 @@
                       </div>
                       <div class="col-md-2">
                         <div class="input-group" style="margin: 5px 0px 5px 0px">
-                          <input type="text" class="form-control" name="bobot_b<?php echo $no ?>" placeholder="Nilai Jawaban" required="">
+                          <input type="text" class="form-control" name="bobot_b<?php echo $no ?>" placeholder="Nilai Jawaban">
                         </div>
                       </div>
                     </div>
@@ -66,7 +66,7 @@
                       </div>
                       <div class="col-md-2">
                         <div class="input-group" style="margin: 5px 0px 5px 0px">
-                          <input type="text" class="form-control" name="bobot_c<?php echo $no ?>" placeholder="Nilai Jawaban" required="">
+                          <input type="text" class="form-control" name="bobot_c<?php echo $no ?>" placeholder="Nilai Jawaban">
                         </div>
                       </div>
                     </div>

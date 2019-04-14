@@ -49,7 +49,7 @@
             <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
           </div>
         </div>
-        <a href="trainer/register" style="margin: 5px"><p>Register a new membership</p></a>
+        <!-- <a href="trainer/register" style="margin: 5px"><p>Register a new membership</p></a> -->
       </form>
     </div>
   </div>

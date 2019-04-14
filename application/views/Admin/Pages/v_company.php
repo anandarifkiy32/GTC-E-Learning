@@ -10,11 +10,22 @@
 		</ol>
 	</section>
 	<section class="content">
+		<?php if($this->session->flashdata('daftarcompany') == TRUE){ ?>
+		<div class="row"><div class="col-md-12">
+		<div class="alert alert-danger alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+			<h4><i class="icon fa fa-ban"></i> Gagal!</h4>
+			Email sudah terdaftar.
+		</div>
+		</div>
+	</div>
+		<?php } ?>
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="box">
 					<div class="box-header">
 						<h3 class="box-title">Company</h3>
+						<button class="btn btn-primary btn-flat" style="float:right;" data-toggle="modal" data-target="#modal-default1" title="Tambah Trainer"><span class="fa fa-plus"></span> Company</button>
 					</div>
 					<div class="box-body">
 						<div class="table table-responsive">
@@ -61,5 +72,34 @@
 					</div>
 				</div>
 			</div>
+			<div class="modal fade" id="modal-default1">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title">Tambah Company</h4>
+								</div>
+								<form action="<?php echo base_url('admin/registercompany') ?>" method="post">
+									<div class="modal-body">
+										<div class="box-body">
+											<div class="form-group">
+												<label for="exampleInputEmail1">Nama Company</label>
+												<input type="text" class="form-control" id="exampleInputEmail1" name="nama">
+											</div>
+											<div class="form-group">
+												<label for="exampleInputEmail1">Email Company</label>
+												<input type="text" class="form-control" id="exampleInputEmail1" name="email">
+											</div>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+										<button type="submit" class="btn btn-primary">Tambah</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
 		</section>
 	</div>

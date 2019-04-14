@@ -22,8 +22,11 @@
 
 	<style type="text/css">
 	@media only screen and (max-width: 500px) {
-		.top{
-			margin-top: 80px;
+		.bottom{
+			display: none;
+		}
+		.main-button{
+			margin-bottom: 10px;
 		}
 	}
 </style>
@@ -57,7 +60,13 @@
 					<li><a href="<?php echo base_url('homepage/coursecatalog/') ?>">Courses</a></li>
 
 					<li><a href="<?php echo base_url('homepage/contact') ?>">Contact</a></li>
-					<li><a href=""><span class="fa fa-user"></span> Login</a></li>
+					<li class="dropdown"><a href="" class="dropdown-toggle" data-toggle="dropdown">Login</a>
+						<ul class="dropdown-menu">
+							<li><a href="<?php echo base_url('homepage/showlogin') ?>" style="color: black">Login as Participant</a></li>
+							<li><a href="<?php echo base_url('trainer') ?>" style="color: black">Login as Trainer</a></li>
+							<li><a href="<?php echo base_url('company')?>" style="color: black">Login as company</a></li>
+						</ul>
+					</li>
 				</ul>
 			</nav>
 			<!-- /Navigation -->
@@ -80,11 +89,12 @@
 						<h1 class="white-text">Global Top Career Edusite Online Training Courses</h1>
 						<p class="lead white-text">Seize Your Dream With Us</p>
 						<a class="main-button icon-button" href="<?php echo base_url('homepage/showregister') ?>">REGISTER NOW</a>
+						<!-- <a class="main-button icon-button" href="<?php echo base_url('trainer/register') ?>">REGISTER AS TRAINER</a> -->
 					</div>
 					<br>
 					<?php if($this->session->userdata('status') != 'login'){ ?>
 
-						<div class="col-md-4 bottom">
+						<div class="col-md-4 bottom bagianlogin">
 							<div class="panel panel-default">
 								<div class="panel-body">
 									<?php 
@@ -96,163 +106,171 @@
 											<h4><i class="icon fa fa-ban"></i> Gagal!</h4>
 											<?php echo $err; ?>
 										</div>
-									<?php }else if($succ){ ?>
-										<div class="alert alert-success alert-dismissible">
-											<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-											<h4><i class="icon fa fa-check"></i> Success</h4>
-											<?php echo $succ; ?>
+										<?php }else if($succ){ ?>
+											<div class="alert alert-success alert-dismissible">
+												<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+												<h4><i class="icon fa fa-check"></i> Success</h4>
+												<?php echo $succ; ?>
+											</div>
+											<?php } ?>
+											<form action="<?php echo base_url('homepage/login')?>" method="post">
+												<div class="form-group">
+													<label for="email">Email address:</label>
+													<input type="email" class="form-control" name="email" id="email">
+												</div>
+												<div class="form-group">
+													<label for="pwd">Password:</label>
+													<input type="password" class="form-control" name="pass" id="pwd">
+												</div>
+												
+												<button type="submit" class="btn btn-success">Sign in</button>
+
+												<div class="checkbox">
+													<a href="homepage/show_forgotpwd">Forgot Password ?</a>
+												</div>
+											</form>
 										</div>
-									<?php } ?>
-									<form action="<?php echo base_url('homepage/login')?>" method="post">
-										<div class="form-group">
-											<label for="email">Email address:</label>
-											<input type="email" class="form-control" name="email" id="email">
-										</div>
-										<div class="form-group">
-											<label for="pwd">Password:</label>
-											<input type="password" class="form-control" name="pass" id="pwd">
-										</div>
-										<div class="checkbox">
-											<label><input type="checkbox"> Remember me</label>
-										</div>
-										<button type="submit" class="btn btn-success">Sign in</button>
-									</form>
+										<div class="panel-footer">Don't have an account? <a href="<?php echo base_url('homepage/showregister')?>">Register</a></div>
+									</div>
 								</div>
-								<div class="panel-footer">Don't have an account? <a href="<?php echo base_url('homepage/showregister')?>">Register</a></div>
+								<?php } ?>
 							</div>
 						</div>
-					<?php } ?>
-				</div>
-			</div>
-		</div>
+					</div>
 
-	</div>
-	<!-- /Home -->
-
-	<div id="courses" class="section">
-		<div class="container">
-			<div class="row">
-				<div class="section-header text-center">
-					<h2>Explore Courses</h2>
 				</div>
-			</div>
-			<div id="courses-wrapper">
-			<div class="row">
-				<?php foreach ($category as $c) { ?>
-					<!-- single course -->
-					<div class="col-md-3 col-sm-6 col-xs-6">
-						<div class="course">
-							<a href="<?php echo base_url('homepage/category/'.$c->slug) ?>" class="course-img">
-								<img src="<?php echo base_url('assets/modul/category/'.$c->img)?>" alt="">
-								<i class="course-link-icon fa fa-link"></i>
-							</a>
-							<a class="course-title" href="<?php echo base_url('homepage/category/'.$c->slug) ?>"><?php echo $c->category ?></a>
-							
+				<!-- /Home -->
+
+				<div id="courses" class="section">
+					<div class="container">
+						<div class="row">
+							<div class="section-header text-center">
+								<h2>Explore Course Areas</h2>
+							</div>
+						</div>
+						<div id="courses-wrapper">
+							<div class="row">
+								<?php foreach ($category as $c) { ?>
+									<!-- single course -->
+									<div class="col-md-3 col-sm-6 col-xs-6">
+										<div class="course">
+											<a href="<?php echo base_url('homepage/category/'.$c->slug) ?>" class="course-img">
+												<img src="<?php echo base_url('assets/modul/category/'.$c->img)?>" alt="">
+												<i class="course-link-icon fa fa-link"></i>
+											</a>
+											<a class="course-title" href="<?php echo base_url('homepage/category/'.$c->slug) ?>"><?php echo $c->category ?></a>
+
+										</div>
+									</div>
+									<?php } ?>
+								</div>
+							</div>
+							<div class="row">
+								<div class="center-btn">
+									<a class="main-button icon-button" href="<?php echo base_url('homepage/coursecatalog') ?>">More Courses</a>
+								</div>
+							</div>
 						</div>
 					</div>
-					<?php } ?>
+					<!-- /Courses -->
+
+					<!-- Contact CTA -->
+					<div id="contact-cta" class="section">
+
+						<!-- Backgound Image -->
+						<div class="bg-image bg-parallax overlay" style="background-image:url(<?php echo base_url(); ?>assets/gtc_client/img/cta2-background.jpg)"></div>
+						<!-- Backgound Image -->
+
+						<!-- container -->
+						<div class="container">
+
+							<!-- row -->
+							<div class="row">
+
+								<div class="col-md-8 col-md-offset-2 text-center">
+									<h2 class="white-text">Contact Us</h2>
+								</div>
+								<div class="col-md-4 white-text"><i class="fa fa-map-marker"></i> <span>Global Top Career - Head Office</span></div>
+								<div class="col-md-4 white-text"><i class="fa fa-phone-square"></i> <span> +62 727 93636</span></div>
+								<div class="col-md-4 white-text"><i class="fa fa-envelope"></i> <span>edusite@globaltopcareer.com</span></div>
+							</div>
+						</div>
+						<!-- /row -->
+
+					</div>
+					<!-- /container -->
+
 				</div>
-			</div>
-			<div class="row">
-				<div class="center-btn">
-					<a class="main-button icon-button" href="<?php echo base_url('homepage/coursecatalog') ?>">More Courses</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- /Courses -->
+				<!-- /Contact CTA -->
 
-	<!-- Contact CTA -->
-	<div id="contact-cta" class="section">
+				<!-- Footer -->
+				<footer id="footer" class="section">
 
-		<!-- Backgound Image -->
-		<div class="bg-image bg-parallax overlay" style="background-image:url(<?php echo base_url(); ?>assets/gtc_client/img/cta2-background.jpg)"></div>
-		<!-- Backgound Image -->
+					<!-- container -->
+					<div class="container">
 
-		<!-- container -->
-		<div class="container">
+						<!-- row -->
+						<div class="row">
 
-			<!-- row -->
-			<div class="row">
+							<!-- footer logo -->
+							<div class="col-md-6">
+								<div class="footer-logo">
+									<a class="logo" href="index.html">
+										<img src="<?php echo base_url()?>assets/gtc_client/img/logo.png" alt="logo">
+									</a>
+								</div>
+							</div>
+							<!-- footer logo -->
 
-				<div class="col-md-8 col-md-offset-2 text-center">
-					<h2 class="white-text">Contact Us</h2>
-				</div>
-				<div class="col-md-4 white-text"><i class="fa fa-map-marker"></i> <span>Permata Indo Niaga - Head Office</span></div>
-				<div class="col-md-4 white-text"><i class="fa fa-phone-square"></i> <span> +62 727 93636</span></div>
-				<div class="col-md-4 white-text"><i class="fa fa-envelope"></i> <span>globaltopcareer@gmail.com</span></div>
-			</div>
-		</div>
-		<!-- /row -->
+							<!-- footer nav -->
+							<div class="col-md-6">
+								<ul class="footer-nav">
+									<li><a href="<?php echo base_url('')?>">Home</a></li>
+									<li><a href="<?php echo base_url('homepage/coursecatalog')?>">Courses</a></li>
+									<li><a href="<?php echo base_url('homepage/contact')?>">Contact</a></li>
+									<li class="dropdown"><a href="" class="dropdown-toggle" data-toggle="dropdown">Login</a>
+						<ul class="dropdown-menu">
+							<li><a href="<?php echo base_url('homepage/showlogin') ?>" style="color: black">Login as Participant</a></li>
+							<li><a href="<?php echo base_url('trainer') ?>" style="color: black">Login as Trainer</a></li>
+							<li><a href="<?php echo base_url('company')?>" style="color: black">Login as company</a></li>
+						</ul>
+					</li>
+								</ul>
+							</div>
+							<!-- /footer nav -->
 
-	</div>
-	<!-- /container -->
+						</div>
+						<!-- /row -->
 
-</div>
-<!-- /Contact CTA -->
+						<!-- row -->
+						<div id="bottom-footer" class="row">
 
-<!-- Footer -->
-<footer id="footer" class="section">
+							<!-- copyright -->
+							<div class="col-md-12 text-center">
+								<div class="footer-copyright">
+									<span>&copy; Copyright 2018. | Global Top Career EduSite</span>
+								</div>
+							</div>
+							<!-- /copyright -->
 
-	<!-- container -->
-	<div class="container">
+						</div>
+						<!-- row -->
 
-		<!-- row -->
-		<div class="row">
+					</div>
+					<!-- /container -->
 
-			<!-- footer logo -->
-			<div class="col-md-6">
-				<div class="footer-logo">
-					<a class="logo" href="index.html">
-						<img src="<?php echo base_url()?>assets/gtc_client/img/logo.png" alt="logo">
-					</a>
-				</div>
-			</div>
-			<!-- footer logo -->
+				</footer>
+				<!-- /Footer -->
 
-			<!-- footer nav -->
-			<div class="col-md-6">
-				<ul class="footer-nav">
-					<li><a href="<?php echo base_url('')?>">Home</a></li>
-					<li><a href="<?php echo base_url('homepage/coursecatalog')?>">Courses</a></li>
-					<li><a href="<?php echo base_url('homepage/contact')?>">Contact</a></li>
-					<li><a href="<?php echo base_url('')?>">Login</a></li>
-				</ul>
-			</div>
-			<!-- /footer nav -->
-
-		</div>
-		<!-- /row -->
-
-		<!-- row -->
-		<div id="bottom-footer" class="row">
-
-			<!-- copyright -->
-			<div class="col-md-12 text-center">
-				<div class="footer-copyright">
-					<span>&copy; Copyright 2018. | Global Top Career EduSite</span>
-				</div>
-			</div>
-			<!-- /copyright -->
-
-		</div>
-		<!-- row -->
-
-	</div>
-	<!-- /container -->
-
-</footer>
-<!-- /Footer -->
-
-<!-- preloader -->
-<div id='preloader'><div class='preloader'></div></div>
-<!-- /preloader -->
+				<!-- preloader -->
+				<div id='preloader'><div class='preloader'></div></div>
+				<!-- /preloader -->
 
 
-<!-- jQuery Plugins -->
-<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/jquery.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/main.js"></script>
+				<!-- jQuery Plugins -->
+				<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/jquery.min.js"></script>
+				<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/bootstrap.min.js"></script>
+				<script type="text/javascript" src="<?php echo base_url()?>assets/gtc_client/js/main.js"></script>
 
-</body>
-</html>
+			</body>
+			</html>

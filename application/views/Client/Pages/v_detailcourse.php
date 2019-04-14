@@ -21,10 +21,14 @@
 						<div class="panel2">
 							<p><?php echo $m->karir; ?></p>
 						</div>
+						<button class="accordion"><b>Biaya</b></button>
+						<div class="panel2">
+							<p><?php echo "Rp " . number_format($m->biaya,2,',','.'); ?></p>
+						</div>
 						<br>
 						<?php if($cekjoin == 0){ ?>
 							<div class="checkbox">
-								<label><input type="checkbox" id="checkme" >Saya setuju dengan syarat dan ketentuandari GTC EduSite</label>
+								<label><input type="checkbox" id="checkme" >Saya memenuhi persyaratan untuk mengambil pelatihan ini.</label>
 							</div>
 							<a id="link" href=""><button class="main-button icon-button" disabled="disabled" id="sendNewSms">Join Course</button></a>
 						<?php }else{ ?>

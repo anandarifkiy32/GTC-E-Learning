@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="section-header text-center">
-				<h2>Explore Courses</h2>
+				<h2>Explore Course Areas</h2>
 			</div>
 		</div>
 		<div id="courses-wrapper">

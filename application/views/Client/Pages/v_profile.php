@@ -36,7 +36,11 @@
 				<div class="panel panel-default" style="border-radius: 0px;">
 					<div class="panel-body">
 						<p style="float: left;">Profil Singkat</p>
-						<a href="<?php echo base_url('homepage/editprofile/') ?>"><button type="button" class="btn btn-primary" style="float: right;"><i class="fa fa-pencil-square-o"></i> <span>Ubah Profil</span></button></a>
+						<div class="row">
+							<button type="button" class="btn btn-primary" style="float: right; margin-right: 15px;" data-toggle="modal" data-target="#modal-default2"><i class="fa fa-pencil-square-o"></i> <span>Ubah Password</span></button>
+							<a href="<?php echo base_url('homepage/editprofile/') ?>"><button type="button" class="btn btn-primary" style="float: right; margin-right: 15px;"><i class="fa fa-pencil-square-o"></i> <span>Ubah Profil</span></button></a>
+						</div>
+						
 						<div class="col-md-12">
 							<div class="col-md-6">
 								<br>
@@ -67,7 +71,7 @@
 							</div>
 							<div class="col-md-6">
 								<br>
-								<div class="table table-responsive">
+								<div class="table table-responsive" style="border: 0px">
 									<table class="table table2" rules="none">
 										<tr>
 											<th width="125px">Kantor</th>
@@ -92,6 +96,31 @@
 					</div>
 				</div>
 			</div>
+			<div class="modal fade" id="modal-default2" style="z-index: +10">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Edit Password</h4>
+                  </div>
+                  <form action="<?php echo base_url('homepage/updatepassword') ?>" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                      <div class="box-body">
+                        <div class="form-group">
+                          <label>Password baru</label>
+                          <input type="password" class="form-control" name="pass">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
 			<?php } ?>
 		</div>
 	</div>

@@ -39,7 +39,7 @@
 							<button type="submit" class="main-button icon-button" value="submit">Submit</button>
 						</form>
 						<?php if($tipesoal == "file"){
-							echo "<p style='color: red;padding-top:10px'>Ukuran maksimal : 180 MB, FormatFile : MP4</p>";
+							echo "<p style='color: red;padding-top:10px'>Ukuran maksimal : 5 MB, FormatFile : MP4</p>";
 						} ?>
 					</div>
 				</div>

@@ -15,6 +15,13 @@
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
+<script src="<?php echo base_url()?>assets/adm/bower_components/select2/dist/js/select2.full.min.js"></script>
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+  });
+</script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url()?>assets/adm/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Morris.js charts -->
@@ -46,18 +53,24 @@
 <script src="<?php echo base_url()?>assets/adm/dist/js/demo.js"></script>
 <script src="<?php echo base_url()?>assets/adm/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url()?>assets/adm/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="<?php echo base_url()?>assets/adm/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+
+<script src="<?php echo base_url()?>assets/adm/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script>
   $(function () {
-    $('#example1').DataTable()
-    $('#example3').DataTable()
-    $('#example4').DataTable()
     $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
+      "lengthMenu": [[10], [10]],
+      'lengthChange':false,
+      'ordering'    : false
+    })
+  })
+</script>
+<script>
+  $(function () {
+    $('#example3').DataTable({
+      "lengthMenu": [[10], [10]],
+      'lengthChange':false,
+      'ordering'    : false
     })
   })
 </script>

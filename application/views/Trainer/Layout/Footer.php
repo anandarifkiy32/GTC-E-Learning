@@ -201,7 +201,7 @@ jQuery(document).ready(function($) {
                         }
                     });
                 });
-            }, 5000));
+            }, 2000));
 
             $that.find('textarea').on('keydown', function(e) {
                 var $textArea = $(this);

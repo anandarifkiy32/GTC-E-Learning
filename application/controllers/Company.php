@@ -19,10 +19,10 @@ class Company extends CI_Controller {
 				'title' => 'Dashboard',
 				'img' => $this->Company_model->select_where($where)->row('img'),
 				'course'=> $this->Modul_model->select_where($where)->result(),
-				'content' => 'company/pages/v_dashboard');
-			$this->load->view('company/Layout/Wrapper',$content);
+				'content' => 'Company/Pages/v_dashboard');
+			$this->load->view('Company/Layout/Wrapper',$content);
 		}else{
-			$this->load->view('company/pages/v_login');
+			$this->load->view('Company/Pages/v_login');
 		}
 	}
 
@@ -75,11 +75,11 @@ class Company extends CI_Controller {
 				'trainer'=> $this->Trainer_model->select_where($unique_code)->result(),
 				'course'=> $course,
 				'category' => $category,
-				'content' => 'company/pages/v_trainer');
-			$this->load->view('company/Layout/Wrapper',$content);
+				'content' => 'Company/Pages/v_trainer');
+			$this->load->view('Company/Layout/Wrapper',$content);
 		}
 		else{
-			$this->load->view('company/pages/v_login');
+			$this->load->view('Company/Pages/v_login');
 
 		}
 	}
@@ -114,10 +114,10 @@ class Company extends CI_Controller {
 				'sertifikasi'	=> $this->Sertifikasi_model->select_where($where)->result(),
 				'cek'			=> $this->Sertifikasi_model->select_where($where)->num_rows(),
 				'psertifikasi'	=> $this->Peserta_model->select_where($id_peserta)->result(),
-				'content' 		=> 'company/pages/v_detailcourse');
-			$this->load->view('company/layout/wrapper',$data);
+				'content' 		=> 'Company/Pages/v_detailcourse');
+			$this->load->view('Company/Layout/Wrapper',$data);
 		}else{
-			$this->load->view('company/pages/v_login');
+			$this->load->view('Company/Pages/v_login');
 		}
 	}
 
@@ -141,10 +141,10 @@ class Company extends CI_Controller {
 				'quiz'			=> $quiz,
 				'slugmodul'		=> $this->Modul_model->select_where($id_modul)->row('slug'),
 				// 'cekquiz'		=> $cekquiz,
-				'content' 		=> 'company/pages/v_detailmateri');
-			$this->load->view('company/layout/wrapper',$data);
+				'content' 		=> 'Company/Pages/v_detailmateri');
+			$this->load->view('Company/Layout/Wrapper',$data);
 		}else{
-			$this->load->view('company/pages/v_login');
+			$this->load->view('Company/Pages/v_login');
 		}
 	}
 
@@ -173,10 +173,10 @@ class Company extends CI_Controller {
 				'id_company' => $id_company,
 				'quiz' => $quiz,
 				'slugmodul' => $this->Modul_model->select_where($where)->row('slug'),
-				'content' => 'company/Pages/v_detailpeserta');
-			$this->load->view('company/Layout/Wrapper',$content);
+				'content' => 'Company/Pages/v_detailpeserta');
+			$this->load->view('Company/Layout/Wrapper',$content);
 		}else{
-			$this->load->view('company/pages/v_login');
+			$this->load->view('Company/Pages/v_login');
 		}
 	}
 
@@ -203,10 +203,10 @@ class Company extends CI_Controller {
 				'detailpeserta' => $detailpeserta,
 				// 'id_company' => $id_company,
 				// 'quiz' => $quiz,
-				'content' => 'company/Pages/v_psertifikasi');
-			$this->load->view('company/Layout/Wrapper',$content);
+				'content' => 'Company/Pages/v_psertifikasi');
+			$this->load->view('Company/Layout/Wrapper',$content);
 		}else{
-			$this->load->view('company/pages/v_login');
+			$this->load->view('Company/Pages/v_login');
 		}
 	}
 
@@ -235,8 +235,8 @@ class Company extends CI_Controller {
 				'detail'		=> $this->Test_model->select_where($where)->result(),
 				'tipesoal'		=> $this->Test_model->select_where($where)->row('tipesoal'),
 				'jumlah_soal' 	=> $this->Quiz_model->pertanyaan($id_test)->num_rows(),
-				'content'		=> 'company/Pages/v_detailquiz');
-			$this->load->view('company/Layout/Wrapper',$content);
+				'content'		=> 'Company/Pages/v_detailquiz');
+			$this->load->view('Company/Layout/Wrapper',$content);
 		}
 	}
 
@@ -262,12 +262,12 @@ class Company extends CI_Controller {
 				'a'			=> $a,
 				'b'			=> $b,
 				'c'			=> $c,
-				'content' => 'company/pages/v_review'
+				'content' => 'Company/Pages/v_review'
 			);
 
-			$this->load->view('company/layout/wrapper',$data);
+			$this->load->view('Company/Layout/Wrapper',$data);
 		}else{
-			$this->load->view('company/pages/v_login');
+			$this->load->view('Company/Pages/v_login');
 		}
 	}
 
@@ -305,10 +305,10 @@ class Company extends CI_Controller {
 			$content = array(
 				'title' => 'Daftar Trainer',
 				'trainer' => $this->Trainer_model->select_where($where)->result(),
-				'content' => 'company/pages/v_daftartrainer');
-			$this->load->view('company/Layout/Wrapper',$content);
+				'content' => 'Company/Pages/v_daftartrainer');
+			$this->load->view('Company/Layout/Wrapper',$content);
 		}else{
-			$this->load->view('company/pages/v_login');
+			$this->load->view('Company/Pages/v_login');
 		}
 	}
 
@@ -326,10 +326,10 @@ class Company extends CI_Controller {
 				'title' => 'Daftar Trainer',
 				'trainer' => $this->Trainer_model->select_where($where)->result(),
 				'course'  => $this->Modul_model->select_where($id_company)->result(),
-				'content' => 'company/pages/v_detailtrainer');
-			$this->load->view('company/Layout/Wrapper',$content);
+				'content' => 'Company/Pages/v_detailtrainer');
+			$this->load->view('Company/Layout/Wrapper',$content);
 		}else{
-			$this->load->view('company/pages/v_login');
+			$this->load->view('Company/Pages/v_login');
 		}
 	}
 
@@ -340,10 +340,10 @@ class Company extends CI_Controller {
 			$content = array(
 				'title'		=> 'Profile',
 				'profile'	=> $this->Company_model->select_where($id_company)->result(),
-				'content'	=> 'company/pages/v_profile');
-			$this->load->view('company/layout/wrapper',$content);
+				'content'	=> 'Company/Pages/v_profile');
+			$this->load->view('Company/Layout/Wrapper',$content);
 		}else{
-			$this->load->view('company/pages/v_login');
+			$this->load->view('Company/Pages/v_login');
 		}
 	}
 

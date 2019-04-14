@@ -7,8 +7,9 @@
 			
 			<div id="main" class="col-md-12">
 				<div class="panel panel-default">
-					<div class="panel-body">
-						<table  class="table table-hover">
+					<div class="panel-body table-responsive">
+						
+						<table class="table table-hover">
 							<thead>
 								<tr>
 									<th>No</th>

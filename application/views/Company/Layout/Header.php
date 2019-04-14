@@ -39,6 +39,16 @@
 
 <!-- Google Font -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+<style type="text/css">
+  @media only screen and (max-width: 990px) {
+    h3.widget-user-username {
+      text-align: center;
+    }
+    h5.widget-user-desc{
+      text-align: center; 
+    }
+</style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">

@@ -49,7 +49,7 @@
                 <input class="form-control" type="text" name="kantor" value="<?php echo $p->kantor ?>">
               </div>
               <div class="form-group">
-                <label> Alamat</label>
+                <label> Alamat Kantor</label>
                 <textarea class="form-control" name="alamat_kantor"><?php echo $p->alamat_kantor; ?></textarea>
               </div>
               <div class="form-group">
